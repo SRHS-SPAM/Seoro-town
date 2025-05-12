@@ -6,32 +6,87 @@
   font-size: 18px;
   font-weight: bold;
   position: relative;
-  border-bottom: 1px solid #ddd; /* 연한 회색 구분선 */
+  border-bottom: 1px solid #ddd; 
   font-size: 18px;
   font-weight: bold;
+  font-family: LINESeedKR-Bd;
+  
 }
 
 .NavLeft {
+  display: flex;
+  align-items: center; 
+  gap: 10px;
   flex: 1;
-  text-align: left;
 }
 
+.RobotLogo {
+  width: 40px;
+  height: auto;
+  display: block;
+}
+
+.BrandName {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1; 
+}
+
+
 .NavCenter {
-  flex: 2;
   display: flex;
   justify-content: center;
   gap: 10vh;
 }
+
+.NavItem {
+  position: relative;
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+/* 밑줄 기본 상태 없음 */
+.NavItem::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 2px;
+  background-color: red;
+  transition: width 0.3s ease;
+}
+
+/* hover 상태 */
+.NavItem:hover {
+  color: red;
+}
+.NavItem:hover::after {
+  width: 100%;
+}
+
+/* ✅ active 상태: 클릭된 페이지일 때 유지됨 */
+.NavItem.active {
+  color: red;
+}
+.NavItem.active::after {
+  width: 100%;
+}
+
 
 .NavRight {
   flex: 1;
   display: flex;
   justify-content: flex-end;
   gap: 20px;
+
 }
 
 .Title {
-  margin-top: 80px; /* 기존보다 더 내림 */
+  margin-top: 80px; 
   text-align: center;
   font-size: 24px;
   font-weight: bold;
@@ -43,9 +98,4 @@
   height: auto;
   vertical-align: middle;
   margin-right: 10px;
-}
-
-.RobotLogo{
-  width: 8%;
-  height: auto;
 }
