@@ -1,0 +1,51 @@
+.NavBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  font-size: 18px;
+  font-weight: bold;
+  position: relative;
+  border-bottom: 1px solid #ddd; /* 연한 회색 구분선 */
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.NavLeft {
+  flex: 1;
+  text-align: left;
+}
+
+.NavCenter {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  gap: 10vh;
+}
+
+.NavRight {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.Title {
+  margin-top: 80px; /* 기존보다 더 내림 */
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+.Logo {
+  width: 100px;
+  height: auto;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.RobotLogo{
+  width: 8%;
+  height: auto;
+}
