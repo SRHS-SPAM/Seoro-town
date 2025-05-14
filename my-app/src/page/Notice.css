@@ -1,0 +1,99 @@
+    .NavBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    border-bottom: 1px solid #ddd; 
+    font-size: 18px;
+    font-weight: bold;
+    font-family: LINESeedKR-Bd;
+    
+    }
+
+    .NavLeft {
+    display: flex;
+    align-items: center; 
+    gap: 10px;
+    flex: 1;
+    }
+
+    .RobotLogo {
+    width: 40px;
+    height: auto;
+    display: block;
+    }
+
+    .BrandName {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1; 
+    }
+
+
+    .NavCenter {
+    display: flex;
+    justify-content: center;
+    gap: 10vh;
+    }
+
+    .NavItem {
+    position: relative;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    }
+
+    .NavItem::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 2px;
+    background-color: red;
+    transition: width 0.3s ease;
+    }
+
+
+    .NavItem:hover {
+    color: red;
+    }
+    .NavItem:hover::after {
+    width: 100%;
+    }
+
+    .NavItem.active {
+    color: red;
+    }
+    .NavItem.active::after {
+    width: 100%;
+    }
+
+
+    .NavRight {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+
+    }
+
+    .Title {
+    margin-top: 80px; 
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    }
+
+
+    .Logo {
+    width: 100px;
+    height: auto;
+    vertical-align: middle;
+    margin-right: 10px;
+    }
