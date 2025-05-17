@@ -1,6 +1,7 @@
 import './Boardpage.css'; // 페이지 명에 맞게 수정
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import { LoginComponent } from '../App'; // App.js에서 LoginComponent 가져오기
+import { Search } from 'lucide-react'; // Lucide 아이콘 추가
 
 function Boardpage() {
     return (
@@ -23,12 +24,32 @@ function Boardpage() {
                 <LoginComponent />
             </div>
             
-            <div className="Title"> {/* Navbar아래에 코드 작성하묜 됨ㅇㅇ */}
+            <div className="Title">{/* 대가리 */}
                 <img src="pngwing.com.png" alt="어서오고" className="ping" />
                 서로타운에 오신 여러분들 환영합니다!
+            </div>
+            
+            <div className="SearchContainer">{/* 검색창 */}
+                <div className="SearchBox">
+                    <div className="SearchPrefix">게시판</div>
+                    <div className="SearchDivider"></div>
+                    <input type="text" className="SearchInput" placeholder="검색어를 입력하세요!" />
+                    <button className="SearchButton">
+                        <Search size={22} />
+                    </button>
+                </div>
+            </div>
+
+            <div className="BoardContainer">{/* 게시판 내용 */}
+                <div className='NoticeBoard1'>{/* 오른쪽 게시판 */}
+
+                </div>
+                <div className='NoticeBoard2'> {/* 왼쪽 게시판 */}
+
+                </div>
             </div>
         </div>
     )
 }
 
-export default Boardpage; // 페이지명에 맞게 수정
+export default Boardpage;

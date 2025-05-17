@@ -18,7 +18,6 @@ function LoginComponent() {
   );
 }
 
-// LoginComponent를 다른 페이지에서도 사용할수 있게하기
 export { LoginComponent };
 
 function App() {

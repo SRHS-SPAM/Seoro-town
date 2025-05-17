@@ -16,3 +16,13 @@ code {
   font-family: "LINESeedKR-Bd";
   src: url("../public/LINESeedKR-Bd.ttf");
 }
+
+@font-face {
+  font-family: "RiaSans-Bold";
+  src: url("../public/RiaSans-Bold.ttf");
+}
+
+@font-face {
+  font-family: "RiaSans-Regular";
+  src: url("../public/RiaSans-Regular.ttf");
+}
