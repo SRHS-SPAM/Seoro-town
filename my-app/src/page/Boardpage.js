@@ -1,9 +1,11 @@
 import './Boardpage.css'; // 페이지 명에 맞게 수정
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
-import { LoginComponent } from '../App'; // App.js에서 LoginComponent 가져오기
-import { Search } from 'lucide-react'; // Lucide 아이콘 추가
+import { LoginComponent } from '../App'; 
+import { Search, PenLine, FileText, Clock, MessageSquare, ThumbsUp, AlertCircle } from 'lucide-react'; // Lucide 아이콘 추가
+
 
 function Boardpage() {
+
     return (
         <div>
             <div className="NavBar">
@@ -11,7 +13,7 @@ function Boardpage() {
                     <img src="RobotLogo.png" alt="로고" className="RobotLogo" />
                     <span className="BrandName">ROBOTOWN</span>
                 </div>
-            
+        
                 <div className="NavCenter">
                     <NavLink to="/" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>게시판</NavLink>
                     <NavLink to="/Schedule" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>시간표</NavLink>
@@ -23,12 +25,12 @@ function Boardpage() {
                 </div>
                 <LoginComponent />
             </div>
-            
+        
             <div className="Title">{/* 대가리 */}
                 <img src="pngwing.com.png" alt="어서오고" className="ping" />
                 서로타운에 오신 여러분들 환영합니다!
             </div>
-            
+
             <div className="SearchContainer">{/* 검색창 */}
                 <div className="SearchBox">
                     <div className="SearchPrefix">게시판</div>
@@ -39,15 +41,38 @@ function Boardpage() {
                     </button>
                 </div>
             </div>
-
+            
             <div className="BoardContainer">{/* 게시판 내용 */}
                 <div className='NoticeBoard1'>{/* 오른쪽 게시판 */}
-
+                    <div className="BoardTitleBox">
+                        <h3 className="BoardTitle">재학생 게시글</h3>
+                        <h5 className="ViewMore">더보기</h5>
+                    </div>
+        
+                    
+                        <div className="EmptyBoard">
+                            <AlertCircle size={32} />
+                            <p>게시판을 찾을 수 없네요</p>
+                        </div>
                 </div>
                 <div className='NoticeBoard2'> {/* 왼쪽 게시판 */}
+                    <div className="BoardTitleBox">
+                        <h3 className="BoardTitle">졸업생 게시글</h3>
+                        <h5 className="ViewMore">더보기</h5>
+                    </div>
+                    
 
+                        <div className="EmptyBoard">
+                            <AlertCircle size={32} />
+                            <p>게시판을 찾을 수 없네요</p>
+                        </div>
                 </div>
             </div>
+            
+            {/* 오른쪽 아래 둥근 글쓰기 버튼 */}
+            <button className="FloatingWriteButton">
+                <PenLine size={24} />
+            </button>
         </div>
     )
 }

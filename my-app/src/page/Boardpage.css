@@ -1,5 +1,3 @@
-
-/* Boardpage.css 수정본 */
 .NavBar {
     display: flex;
     justify-content: space-between;
@@ -54,7 +52,7 @@
     height: 2px;
     background-color: red;
     transition: width 0.3s ease;
-    box-shadow: 0 2px 4px rgba(52, 152, 219, 0.5);/*그림자 추가했지롱*/
+    box-shadow: 0 2px 4px rgba(52, 152, 219, 0.5);
 }
 .NavItem:hover {
     color: red;
@@ -74,7 +72,6 @@
     justify-content: flex-end;
     gap: 20px;
 }
-/*다른 페이지도 여기까지 복붙하면 됨됨*/
 
 .Title {
     margin-top: 15vh;
@@ -152,4 +149,90 @@
 }
 .SearchButton:hover {
     color: red;
+}
+
+.FloatingWriteButton {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.FloatingWriteButton:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+    background-color: #e60000;
+}
+
+.BoardContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 8vh auto;
+    gap: 20px;
+}
+
+.NoticeBoard1, .NoticeBoard2 {
+    flex: 1;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    background-color: white;
+}
+    
+.BoardTitleBox {
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 4px solid red;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.BoardTitle {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
+
+.ViewMore {
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    margin: 0;
+}
+
+.ViewMore:hover {
+    color: red;
+}
+
+.EmptyBoard {
+    padding: 30px 0;
+    text-align: center;
+    color: #999;
+    font-size: 15px;
+    font-style: italic;
+}
+
+.EmptyBoard svg {
+    margin-bottom: 10px;
+    opacity: 0.5;
 }
