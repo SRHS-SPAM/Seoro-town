@@ -89,10 +89,16 @@
     }
 
     .Title {
-    margin-top: 80px; 
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
+        margin-top: 15vh;
+        text-align: center;
+        font-size: 30px;
+        font-weight: 450;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        font-family: 'RiaSans-Regular' !important;
     }
 
 
@@ -102,3 +108,11 @@
     vertical-align: middle;
     margin-right: 10px;
     }
+    
+    .gps_icon {
+        max-width: 40px !important;
+        max-height: 40px !important;
+        width: 100% !important;
+        height: auto !important;
+        object-fit: contain;
+    }     
