@@ -1,8 +1,9 @@
 import './Boardpage.css'; // 페이지 명에 맞게 수정
-import { useState } from 'react'; // useState 추가
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
-import { LoginComponent } from '../App'; 
-import { Search, PenLine, FileText, Clock, MessageSquare, ThumbsUp, AlertCircle, X } from 'lucide-react'; // X 아이콘 추가
+import { useState, useContext } from 'react'; // useContext 추가
+import { NavLink, useNavigate } from 'react-router-dom';
+import { LoginComponent } from '../App.js';
+import { Search, PenLine, AlertCircle, X } from 'lucide-react';
+import { AuthContext } from '../context/AuthContext';
 
 // 팝업 모달 컴포넌트
 const WritePopup = ({ isOpen, onClose }) => {
@@ -25,7 +26,7 @@ const WritePopup = ({ isOpen, onClose }) => {
         <div className="PopupHeader">
           <h2>게시글 작성</h2>
           <button className="CloseButton" onClick={onClose}>
-            <X size={24} />
+            <X size={24} />{/* 팝업창 꺼버리기 */}
           </button>
         </div>
         
@@ -78,6 +79,22 @@ const WritePopup = ({ isOpen, onClose }) => {
 function Boardpage() {
     // 팝업 상태 관리
     const [isWritePopupOpen, setIsWritePopupOpen] = useState(false);
+    const navigate = useNavigate(); // 페이지 이동 react hook
+    
+    // AuthContext에서 로그인 상태 가져오기
+    const { isLoggedIn } = useContext(AuthContext);
+    
+    // 글쓰기 버튼
+    const handleWriteButtonClick = () => {
+        if (isLoggedIn) {
+            // 로그인 상태이면 글쓰기 팝업 열기
+            setIsWritePopupOpen(true);
+        } else {
+            // 로그인 상태가 아니면 로그인 페이지로 이동
+            alert('로그인이 필요한 서비스입니다.');
+            navigate('/Login'); // 실제 로그인 페이지 경로로 수정
+        }
+    };
 
     return (
         <div>
@@ -140,15 +157,15 @@ function Boardpage() {
                 </div>
             </div>
             
-            {/* 오른쪽 아래 둥근 글쓰기 버튼 */}
+            {/*글쓰기 버튼 */}
             <button 
                 className="FloatingWriteButton" 
-                onClick={() => setIsWritePopupOpen(true)}
+                onClick={handleWriteButtonClick} //버튼 깜빡이
             >
                 <PenLine size={24} />
             </button>
             
-            {/* 글쓰기 팝업 모달 */}
+            {/* 글쓰기 팝업창 */}
             <WritePopup 
                 isOpen={isWritePopupOpen} 
                 onClose={() => setIsWritePopupOpen(false)} 
