@@ -12,7 +12,6 @@ import Login from './page/Login';
 import Signup from './page/Signup';
 
 
-// 로그인 컴포넌트(AuthContext 사용)
 function LoginComponent() {
 
   const { isLoggedIn, logout, user } = React.useContext(AuthContext);
