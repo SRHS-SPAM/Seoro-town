@@ -12,28 +12,33 @@
     font-family: LINESeedKR-Bd;
     box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1);
 }
+
 .NavLeft {
     display: flex;
     align-items: center;
     gap: 10px;
     flex: 1;
 }
+
 .RobotLogo {
     width: 40px;
     height: auto;
     display: block;
 }
+
 .BrandName {
     font-size: 20px;
     font-weight: bold;
     line-height: 1;
     margin-top: 0.8vh;
 }
+
 .NavCenter {
     display: flex;
     justify-content: center;
     gap: 2vh;
 }
+
 .NavItem {
     position: relative;
     cursor: pointer;
@@ -42,6 +47,7 @@
     transition: color 0.2s ease;
     margin-right: 5vh;
 }
+
 .NavItem::after {
     content: '';
     position: absolute;
@@ -54,18 +60,23 @@
     transition: width 0.3s ease;
     box-shadow: 0 2px 4px rgba(52, 152, 219, 0.5);
 }
+
 .NavItem:hover {
     color: red;
 }
+
 .NavItem:hover::after {
     width: 100%;
 }
+
 .NavItem.active {
     color: red;
 }
+
 .NavItem.active::after {
     width: 100%;
 }
+
 .NavRight {
     flex: 1;
     display: flex;

@@ -1,8 +1,9 @@
 import './Boardpage.css'; // 페이지 명에 맞게 수정
-import { useState } from 'react'; // useState 추가
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
-import { LoginComponent } from '../App'; 
-import { Search, PenLine, FileText, Clock, MessageSquare, ThumbsUp, AlertCircle, X } from 'lucide-react'; // X 아이콘 추가
+import { useState, useContext } from 'react'; // useContext 추가
+import { NavLink, useNavigate } from 'react-router-dom';
+import { LoginComponent } from '../App.js';
+import { Search, PenLine, AlertCircle, X } from 'lucide-react';
+import { AuthContext } from '../context/AuthContext';
 
 // 팝업 모달 컴포넌트
 const WritePopup = ({ isOpen, onClose }) => {
@@ -140,7 +141,7 @@ function Boardpage() {
                 </div>
             </div>
             
-            {/* 오른쪽 아래 둥근 글쓰기 버튼 */}
+            {/* 글쓰기 버튼 */}
             <button 
                 className="FloatingWriteButton" 
                 onClick={() => setIsWritePopupOpen(true)}
