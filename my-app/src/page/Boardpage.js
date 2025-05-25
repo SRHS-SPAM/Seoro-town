@@ -26,7 +26,7 @@ const WritePopup = ({ isOpen, onClose }) => {
         <div className="PopupHeader">
           <h2>게시글 작성</h2>
           <button className="CloseButton" onClick={onClose}>
-            <X size={24} />{/* 팝업창 꺼버리기 */}
+            <X size={24} />
           </button>
         </div>
         
@@ -79,22 +79,6 @@ const WritePopup = ({ isOpen, onClose }) => {
 function Boardpage() {
     // 팝업 상태 관리
     const [isWritePopupOpen, setIsWritePopupOpen] = useState(false);
-    const navigate = useNavigate(); // 페이지 이동 react hook
-    
-    // AuthContext에서 로그인 상태 가져오기
-    const { isLoggedIn } = useContext(AuthContext);
-    
-    // 글쓰기 버튼
-    const handleWriteButtonClick = () => {
-        if (isLoggedIn) {
-            // 로그인 상태이면 글쓰기 팝업 열기
-            setIsWritePopupOpen(true);
-        } else {
-            // 로그인 상태가 아니면 로그인 페이지로 이동
-            alert('로그인이 필요한 서비스입니다.');
-            navigate('/Login'); // 실제 로그인 페이지 경로로 수정
-        }
-    };
 
     return (
         <div>
@@ -157,15 +141,15 @@ function Boardpage() {
                 </div>
             </div>
             
-            {/*글쓰기 버튼 */}
+            {/* 글쓰기 버튼 */}
             <button 
                 className="FloatingWriteButton" 
-                onClick={handleWriteButtonClick} //버튼 깜빡이
+                onClick={() => setIsWritePopupOpen(true)}
             >
                 <PenLine size={24} />
             </button>
             
-            {/* 글쓰기 팝업창 */}
+            {/* 글쓰기 팝업 모달 */}
             <WritePopup 
                 isOpen={isWritePopupOpen} 
                 onClose={() => setIsWritePopupOpen(false)} 
