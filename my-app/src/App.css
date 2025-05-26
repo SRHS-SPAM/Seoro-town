@@ -1,0 +1,42 @@
+button.NavItem {
+    background: none;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    margin-right: 5vh;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: LINESeedKR-Bd;
+}
+
+button.NavItem::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 2px;
+    background-color: red;
+    transition: width 0.3s ease;
+    box-shadow: 0 2px 4px rgba(52, 152, 219, 0.5);
+}
+
+button.NavItem:hover {
+    color: red;
+}
+
+button.NavItem:hover::after {
+    width: 100%;
+}
+
+button.NavItem.active {
+    color: red;
+}
+
+button.NavItem.active::after {
+    width: 100%;
+}

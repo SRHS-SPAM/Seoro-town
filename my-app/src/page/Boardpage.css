@@ -12,28 +12,33 @@
     font-family: LINESeedKR-Bd;
     box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1);
 }
+
 .NavLeft {
     display: flex;
     align-items: center;
     gap: 10px;
     flex: 1;
 }
+
 .RobotLogo {
     width: 40px;
     height: auto;
     display: block;
 }
+
 .BrandName {
     font-size: 20px;
     font-weight: bold;
     line-height: 1;
     margin-top: 0.8vh;
 }
+
 .NavCenter {
     display: flex;
     justify-content: center;
     gap: 2vh;
 }
+
 .NavItem {
     position: relative;
     cursor: pointer;
@@ -42,6 +47,7 @@
     transition: color 0.2s ease;
     margin-right: 5vh;
 }
+
 .NavItem::after {
     content: '';
     position: absolute;
@@ -54,18 +60,23 @@
     transition: width 0.3s ease;
     box-shadow: 0 2px 4px rgba(52, 152, 219, 0.5);
 }
+
 .NavItem:hover {
     color: red;
 }
+
 .NavItem:hover::after {
     width: 100%;
 }
+
 .NavItem.active {
     color: red;
 }
+
 .NavItem.active::after {
     width: 100%;
 }
+
 .NavRight {
     flex: 1;
     display: flex;
@@ -235,4 +246,183 @@
 .EmptyBoard svg {
     margin-bottom: 10px;
     opacity: 0.5;
+}
+
+
+/* 팝업창 스타일 */
+.PopupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+/* 글쓰기 팝업 */
+.WritePopup {
+    background-color: white;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    height: 80vh;
+    max-height: 700px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+/* 애니메이션: 밑에서 위로 30px */}
+
+/* 팝업창 대가리  */
+.PopupHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f8f8f8;
+}
+
+.PopupHeader h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
+
+.CloseButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.CloseButton:hover {
+    color: red;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.FormGroup {
+    margin-bottom: 20px;
+}
+
+.FormGroup label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
+
+.CategorySelect {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 15px;
+    background-color: white;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.CategorySelect:focus {
+    border-color: red;
+}
+
+.TitleInput {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.TitleInput:focus {
+    border-color: red;
+}
+
+.ContentTextarea {
+    width: 100%;
+    height: 280px;
+    padding: 12px;
+    font-size: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+    outline: none;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+    font-family: 'inter', sans-serif;
+}
+
+.ContentTextarea:focus {
+    border-color: red;
+}
+
+.FormActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.CancelButton, .SubmitButton {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: bold;
+}
+
+.CancelButton {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    color: #666;
+}
+
+.CancelButton:hover {
+    background-color: #e0e0e0;
+}
+
+.SubmitButton {
+    background-color: red;
+    border: none;
+    color: white;
+}
+
+.SubmitButton:hover {
+    background-color: #e60000;
+    box-shadow: 0 2px 5px rgba(255, 0, 0, 0.2);
 }
