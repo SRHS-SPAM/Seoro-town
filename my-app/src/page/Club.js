@@ -1,7 +1,7 @@
 import './Boardpage.css'; // 페이지 명에 맞게 수정
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
-
-    function Boardpage() {
+import { LoginComponent } from '../App.js';
+    function Club() {
         return (
             <div>
             <div className="NavBar">
@@ -19,13 +19,10 @@ import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-do
                 <NavLink to="/Market" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>서로당근</NavLink>
                 <NavLink to="/Friends" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>친구</NavLink>
             </div>
-            <div className="NavRight">
-                <span>로그인</span>
-                <span>회원가입</span>
-            </div>
+            <LoginComponent />
             </div>
         </div>
         )
     }
 
-    export default Boardpage; // 페이지명에 맞게 수정
+    export default Club; // 페이지명에 맞게 수정

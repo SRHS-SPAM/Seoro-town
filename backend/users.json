@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1748252475610",
+    "username": "junseok",
+    "email": "junseok05030@gmail.com",
+    "password": "$2b$10$X3DvwGZQWi8vAOm68kd13u3Q3CxDdOM79zIhyBXARHo/aLq1s2g0a",
+    "createdAt": "2025-05-26T09:41:15.610Z"
+  },
+  {
+    "id": "1748254646348",
+    "username": "야이야이",
+    "email": "jyqaz@gmail.com",
+    "password": "$2b$10$oHq.VDR8faMH5rCmhdYfXeUs0IXj.h./1ZsjTBhXRYOQ46R51Dgm.",
+    "createdAt": "2025-05-26T10:17:26.348Z"
+  }
+]
