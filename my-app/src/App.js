@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-do
 // 페이지 컴포넌트들 import
 import Boardpage from './page/Boardpage';
 import Schedule from './page/Schedule';
-import Notice from './page/Notice';
+import Com from './page/Com';
 import Grade from './page/Grade';
 import Club from './page/Club';
 import Market from './page/Market';
@@ -59,7 +59,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Boardpage />} />
             <Route path="/Schedule" element={<Schedule />} />
-            <Route path="/Notice" element={<Notice />} />
+            <Route path="/Com" element={<Com />} />
             <Route path="/Grade" element={<Grade />} />
             <Route path="/Club" element={<Club />} />
             <Route path="/Market" element={<Market />} />
