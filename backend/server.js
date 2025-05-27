@@ -1,4 +1,6 @@
-    const express = require('express');
+
+
+const express = require('express');
     const cors = require('cors');
     const bcrypt = require('bcrypt');
     const jwt = require('jsonwebtoken');
@@ -191,7 +193,7 @@
         return res.status(404).json({ 
             success: false, 
             message: '사용자를 찾을 수 없습니다.' 
-        });
+        });z
         }
 
         res.json({
@@ -216,3 +218,5 @@
     app.listen(PORT, () => {
     console.log(`서버가 http://localhost:${PORT}에서 실행 중입니다.`);
     });
+
+    

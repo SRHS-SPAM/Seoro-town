@@ -12,5 +12,26 @@
     "email": "jyqaz@gmail.com",
     "password": "$2b$10$oHq.VDR8faMH5rCmhdYfXeUs0IXj.h./1ZsjTBhXRYOQ46R51Dgm.",
     "createdAt": "2025-05-26T10:17:26.348Z"
+  },
+  {
+    "id": "1748255698109",
+    "username": "mostlikegun",
+    "email": "gun@gmail.com",
+    "password": "$2b$10$qK/3wLWglYvkChIMTOAc/u1Y.j9fVhwG6lYGpsWettgixgFr4JEXK",
+    "createdAt": "2025-05-26T10:34:58.110Z"
+  },
+  {
+    "id": "1748259830497",
+    "username": "jangseun",
+    "email": "seun@gmail.com",
+    "password": "$2b$10$CAGzUoanz.di4Mk9AeN57OpYGi1xg53DFDm.26w7BpiAoJ7nu/qf6",
+    "createdAt": "2025-05-26T11:43:50.497Z"
+  },
+  {
+    "id": "1748328231214",
+    "username": "insen",
+    "email": "baek@gmail.com",
+    "password": "$2b$10$w70p1gvvOpVLDXAtLjyOc.9ZggAPKYQ0AsV91dS3zSpPv8xFAlKVC",
+    "createdAt": "2025-05-27T06:43:51.214Z"
   }
 ]
