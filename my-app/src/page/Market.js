@@ -1,9 +1,9 @@
-import './Boardpage.css'; // 페이지 명에 맞게 수정
+import './Market.css'; // 페이지 명에 맞게 수정
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import { Search, PenLine, FileText, Clock, MessageSquare, ThumbsUp, AlertCircle } from 'lucide-react'; // Lucide 아이콘 추가
+import { LoginComponent } from '../App.js'; // 로그인 컴포넌트 임포트   
 
-
-    function Boardpage() {
+    function Market() {
         return (
             <div>
             <div className="NavBar">
@@ -21,10 +21,7 @@ import { Search, PenLine, FileText, Clock, MessageSquare, ThumbsUp, AlertCircle 
                 <NavLink to="/Market" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>서로당근</NavLink>
                 <NavLink to="/Friends" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>친구</NavLink>
             </div>
-            <div className="NavRight">
-                <span>로그인</span>
-                <span>회원가입</span>
-            </div>
+            <LoginComponent />
             </div>
             <div className="Title">
                 <img src="pngwing.com.png" alt="어서오고" className="ping" />
@@ -44,4 +41,4 @@ import { Search, PenLine, FileText, Clock, MessageSquare, ThumbsUp, AlertCircle 
         )
     }
 
-    export default Boardpage; // 페이지명에 맞게 수정
+    export default Market; // 페이지명에 맞게 수정
