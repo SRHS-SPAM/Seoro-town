@@ -1,20 +1,30 @@
 import './Boardpage.css'; // 페이지 명에 맞게 수정
-import { useState, useContext } from 'react'; // useContext 추가
+import { useState, useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { LoginComponent } from '../App.js';
 import { Search, PenLine, AlertCircle, X } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
 
-// 팝업 모달 컴포넌트
-const WritePopup = ({ isOpen, onClose }) => {
+const WritePopup = ({ isOpen, onClose, onSubmit }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('재학생');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 여기에 폼 제출 로직 구현
-    console.log({ category, title, content });
+    if (title.trim() && content.trim()) {
+      onSubmit({ category, title: title.trim(), content: content.trim() });
+      setTitle('');
+      setContent('');
+      setCategory('재학생');
+      onClose();
+    }
+  };
+
+  const handleClose = () => {
+    setTitle('');
+    setContent('');
+    setCategory('재학생');
     onClose();
   };
 
@@ -25,7 +35,7 @@ const WritePopup = ({ isOpen, onClose }) => {
       <div className="WritePopup">
         <div className="PopupHeader">
           <h2>게시글 작성</h2>
-          <button className="CloseButton" onClick={onClose}>
+          <button className="CloseButton" onClick={handleClose}>
             <X size={24} />
           </button>
         </div>
@@ -67,7 +77,7 @@ const WritePopup = ({ isOpen, onClose }) => {
           </div>
           
           <div className="FormActions">
-            <button type="button" className="CancelButton" onClick={onClose}>취소</button>
+            <button type="button" className="CancelButton" onClick={handleClose}>취소</button>
             <button type="submit" className="SubmitButton">등록</button>
           </div>
         </form>
@@ -77,9 +87,59 @@ const WritePopup = ({ isOpen, onClose }) => {
 };
 
 function Boardpage() {
-    // 팝업 상태 관리
+    const { isLoggedIn, user } = useContext(AuthContext);
+    
     const [isWritePopupOpen, setIsWritePopupOpen] = useState(false);
+    const [posts, setPosts] = useState({
+      재학생: [],
+      졸업생: []
+    });
+    const handleAddPost = (postData) => {
+        const newPost = {
+            id: Date.now(),
+            title: postData.title,
+            content: postData.content,
+            author: user?.name || '익명',
+            date: new Date().toLocaleDateString('ko-KR')
+        };
+        
+        setPosts(prevPosts => ({
+            ...prevPosts,
+            [postData.category]: [...prevPosts[postData.category], newPost]
+        }));
+    };
 
+    const handleWriteButtonClick = () => {
+        if (!isLoggedIn) {
+            alert('로그인 후 이용해주세요!');
+            return;
+        }
+        setIsWritePopupOpen(true);
+    };
+
+    const renderPosts = (category) => {
+        const categoryPosts = posts[category];
+        
+        if (categoryPosts.length === 0) {
+            return (
+                <div className="EmptyBoard">
+                    <AlertCircle size={32} />
+                    <p>게시판을 찾을 수 없네요</p>
+                </div>
+            );
+        }
+        
+        return (
+            <div className="PostList">
+                {categoryPosts.slice(-3).reverse().map(post => (
+                    <div key={post.id} className="PostItem">
+                        <div className="PostTitle">{post.title}</div>
+                    </div>
+                ))}
+            </div>
+        );
+    };
+    
     return (
         <div>
             <div className="NavBar">
@@ -122,37 +182,38 @@ function Boardpage() {
                         <h3 className="BoardTitle">재학생 게시글</h3>
                         <h5 className="ViewMore">더보기</h5>
                     </div>
-        
-                    <div className="EmptyBoard">
-                        <AlertCircle size={32} />
-                        <p>게시판을 찾을 수 없네요</p>
-                    </div>
+                    {renderPosts('재학생')}
                 </div>
                 <div className='NoticeBoard2'>
                     <div className="BoardTitleBox">
                         <h3 className="BoardTitle">졸업생 게시글</h3>
                         <h5 className="ViewMore">더보기</h5>
                     </div>
-                    
-                    <div className="EmptyBoard">
-                        <AlertCircle size={32} />
-                        <p>게시판을 찾을 수 없네요</p>
-                    </div>
+                    {renderPosts('졸업생')}
                 </div>
             </div>
             
-            {/* 글쓰기 버튼 */}
-            <button 
-                className="FloatingWriteButton" 
-                onClick={() => setIsWritePopupOpen(true)}
-            >
-                <PenLine size={24} />
-            </button>
+            {isLoggedIn ? (
+                <button 
+                    className="FloatingWriteButton" 
+                    onClick={handleWriteButtonClick}
+                >
+                    <PenLine size={24} />
+                </button>
+            ) : (
+                <button 
+                    className="FloatingWriteButton disabled" 
+                    onClick={handleWriteButtonClick}
+                    title="로그인 후 이용해주세요"
+                >
+                    <PenLine size={24} />
+                </button>
+            )}
             
-            {/* 글쓰기 팝업 모달 */}
             <WritePopup 
                 isOpen={isWritePopupOpen} 
-                onClose={() => setIsWritePopupOpen(false)} 
+                onClose={() => setIsWritePopupOpen(false)}
+                onSubmit={handleAddPost}
             />
         </div>
     );

@@ -287,7 +287,7 @@
         transform: translateY(0);
         opacity: 1;
     }
-/* 애니메이션: 밑에서 위로 30px */}
+}
 
 /* 팝업창 대가리  */
 .PopupHeader {
@@ -425,4 +425,20 @@ form {
 .SubmitButton:hover {
     background-color: #e60000;
     box-shadow: 0 2px 5px rgba(255, 0, 0, 0.2);
+}
+
+
+/* 게시판 띄우기 css */
+
+.PageInfo{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+    padding: 10px 20px;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
