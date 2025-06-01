@@ -1,7 +1,7 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
-import { AuthContext } from './context/AuthContext';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { AuthProvider, AuthContext } from './context/AuthContext';
 
 // 페이지 컴포넌트 임포트
 import Boardpage from './page/Boardpage';
@@ -12,10 +12,11 @@ import Club from './page/Club';
 import Market from './page/Market';
 import Login from './page/Login';
 import Signup from './page/Signup';
+import Boardinfo from './page/Boardinfo';
 
 function LoginComponent() {
   const { isLoggedIn, logout, user } = React.useContext(AuthContext);
-
+  
   return (
     <div className="NavRight">
       {isLoggedIn ? (
@@ -36,46 +37,8 @@ function LoginComponent() {
 export { LoginComponent };
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      fetch('http://localhost:3001/api/user', {
-        headers: { 'Authorization': `Bearer ${token}` }
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          setIsLoggedIn(true);
-          setUser(data.user);
-        } else {
-          localStorage.removeItem('token');
-        }
-      })
-      .catch(() => {
-        localStorage.removeItem('token');
-      });
-    }
-  }, []);
-
-  const login = (userData, token) => {
-    if (token) {
-      localStorage.setItem('token', token);
-    }
-    setIsLoggedIn(true);
-    setUser(userData);
-  };
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    setIsLoggedIn(false);
-    setUser(null);
-  };
-
   return (
-    <AuthContext.Provider value={{ isLoggedIn, user, login, logout }}>
+    <AuthProvider>
       <Router>
         <div>
           <Routes>
@@ -89,10 +52,11 @@ function App() {
             <Route path="/Friends" element={<Market />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/Signup" element={<Signup />} />
+            <Route path="/infoboard" element={<Boardinfo />} />
           </Routes>
         </div>
       </Router>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
 

@@ -1,5 +1,5 @@
-import './Boardpage.css'; // 페이지 명에 맞게 수정
-import { useState, useContext } from 'react';
+import './Boardpage.css';
+import { useState, useContext, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { LoginComponent } from '../App.js';
 import { Search, PenLine, AlertCircle, X } from 'lucide-react';
@@ -87,44 +87,138 @@ const WritePopup = ({ isOpen, onClose, onSubmit }) => {
 };
 
 function Boardpage() {
-    const { isLoggedIn, user } = useContext(AuthContext);
+    const { isLoggedIn, user, token, logout } = useContext(AuthContext);
+    const navigate = useNavigate();
     
     const [isWritePopupOpen, setIsWritePopupOpen] = useState(false);
-    const [posts, setPosts] = useState({
-      재학생: [],
-      졸업생: []
-    });
-    const handleAddPost = (postData) => {
-        const newPost = {
-            id: Date.now(),
-            title: postData.title,
-            content: postData.content,
-            author: user?.name || '익명',
-            date: new Date().toLocaleDateString('ko-KR')
-        };
-        
-        setPosts(prevPosts => ({
-            ...prevPosts,
-            [postData.category]: [...prevPosts[postData.category], newPost]
-        }));
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    // 게시글 목록 불러오기
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+
+    const fetchPosts = async () => {
+        try {
+            setLoading(true);
+            const response = await fetch('http://localhost:3001/api/posts');
+            const data = await response.json();
+            
+            if (data.success) {
+                setPosts(data.posts);
+                console.log('게시글 목록:', data.posts);
+            } else {
+                console.error('게시글 불러오기 실패:', data.message);
+            }
+        } catch (error) {
+            console.error('게시글 불러오기 오류:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleAddPost = async (postData) => {
+        try {
+            console.log('전송할 데이터:', postData);
+            console.log('현재 토큰:', token);
+            console.log('로그인 상태:', isLoggedIn);
+            console.log('사용자 정보:', user);
+            
+            // 토큰 검증
+            if (!token) {
+                alert('인증 토큰이 없습니다. 다시 로그인해주세요.');
+                logout(); // 로그아웃 처리
+                return;
+            }
+
+            // 로그인 상태 재확인
+            if (!isLoggedIn) {
+                alert('로그인이 필요합니다.');
+                return;
+            }
+
+            const response = await fetch('http://localhost:3001/api/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    title: postData.title,
+                    content: postData.content,
+                    category: postData.category
+                })
+            });
+
+            const data = await response.json();
+            console.log('서버 응답:', data);
+            
+            if (response.status === 401 || response.status === 403) {
+                // 토큰이 만료되었거나 유효하지 않음
+                alert('인증이 만료되었습니다. 다시 로그인해주세요.');
+                logout();
+                return;
+            }
+            
+            if (data.success) {
+                await fetchPosts(); // 게시글 목록 새로고침
+                alert('게시글이 작성되었습니다!');
+            } else {
+                alert(data.message || '게시글 작성에 실패했습니다.');
+                console.error('게시글 작성 실패:', data);
+            }
+        } catch (error) {
+            console.error('게시글 작성 오류:', error);
+            alert('서버 오류가 발생했습니다.');
+        }
     };
 
     const handleWriteButtonClick = () => {
+        console.log('글쓰기 버튼 클릭 - 상태 확인:');
+        console.log('isLoggedIn:', isLoggedIn);
+        console.log('token:', token);
+        console.log('user:', user);
+
         if (!isLoggedIn) {
             alert('로그인 후 이용해주세요!');
             return;
         }
+        
+        if (!token) {
+            alert('인증 토큰이 없습니다. 다시 로그인해주세요.');
+            logout(); // 상태 초기화
+            return;
+        }
+        
         setIsWritePopupOpen(true);
     };
 
+    const handlePostClick = (post) => {
+        navigate('/infoboard', { state: { post } });
+    };
+
     const renderPosts = (category) => {
-        const categoryPosts = posts[category];
+        const categoryPosts = posts.filter(post => {
+            const postCategory = post.category || '재학생';
+            return postCategory === category;
+        });
+        
+        console.log(`${category} 카테고리 게시글:`, categoryPosts);
+        
+        if (loading) {
+            return (
+                <div className="EmptyBoard">
+                    <p>로딩 중...</p>
+                </div>
+            );
+        }
         
         if (categoryPosts.length === 0) {
             return (
                 <div className="EmptyBoard">
                     <AlertCircle size={32} />
-                    <p>게시판을 찾을 수 없네요</p>
+                    <p>게시글이 없습니다</p>
                 </div>
             );
         }
@@ -132,8 +226,17 @@ function Boardpage() {
         return (
             <div className="PostList">
                 {categoryPosts.slice(-3).reverse().map(post => (
-                    <div key={post.id} className="PostItem">
+                    <div 
+                        key={post.id} 
+                        className="PostItem"
+                        onClick={() => handlePostClick(post)}
+                    >
                         <div className="PostTitle">{post.title}</div>
+                        <div className="PostInfo">
+                            <span className="PostAuthor">{post.authorName}</span>
+                            <span className="PostDate">{new Date(post.createdAt).toLocaleDateString('ko-KR')}</span>
+                            <span className="PostStats">조회 {post.views || 0} · 좋아요 {post.likes || 0}</span>
+                        </div>
                     </div>
                 ))}
             </div>
@@ -151,7 +254,7 @@ function Boardpage() {
                 <div className="NavCenter">
                     <NavLink to="/" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>게시판</NavLink>
                     <NavLink to="/Schedule" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>시간표</NavLink>
-                    <NavLink to="/Notice"className={({ isActive }) => isActive ? "NavItem active" : "NavItem"}>가정통신문</NavLink>
+                    <NavLink to="/Com"className={({ isActive }) => isActive ? "NavItem active" : "NavItem"}>가정통신문</NavLink>
                     <NavLink to="/Meal" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>급식</NavLink>
                     <NavLink to="/Club" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>동아리</NavLink>
                     <NavLink to="/Market" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>서로당근</NavLink>
@@ -193,7 +296,7 @@ function Boardpage() {
                 </div>
             </div>
             
-            {isLoggedIn ? (
+            {isLoggedIn && token ? (
                 <button 
                     className="FloatingWriteButton" 
                     onClick={handleWriteButtonClick}
