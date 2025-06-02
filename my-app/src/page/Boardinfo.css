@@ -1,4 +1,4 @@
-/* 게시글 상세 페이지 개선 스타일 */
+
 .BoardInfoContainer {
     max-width: 900px;
     margin: 0 auto;
@@ -156,7 +156,6 @@
     word-break: break-word;
 }
 
-/* 게시글 액션 버튼들 - 오른쪽 정렬로 변경 */
 .PostActions {
     display: flex;
     justify-content: flex-end;
@@ -166,7 +165,6 @@
     border-top: 1px solid #e9ecef;
 }
 
-/* 외곽선 없는 버튼 스타일 */
 .ActionButton {
     display: flex;
     align-items: center;
@@ -207,25 +205,24 @@
 
 .CommentButton {
     background-color: #f0f1ff;
-    color: #3742fa;
+    color: #ff4757
 }
 
 .CommentButton:hover {
     background-color: #e8eaff;
-    color: #2c2db8;
+    color: #ff4757
 }
 
 .ShareButton {
     background-color: #f0fff4;
-    color: #2ed573;
+    color: #ff4757
 }
 
 .ShareButton:hover {
     background-color: #e8f5e8;
-    color: #259e4a;
+    color: #ff4757
 }
 
-/* 댓글 섹션 */
 .CommentsSection {
     background-color: white;
     border-radius: 12px;
@@ -273,7 +270,6 @@
     flex-shrink: 0;
 }
 
-/* 댓글 입력창 가로로 길게 */
 .CommentInput {
     flex: 1;
     padding: 12px 16px;
@@ -284,7 +280,7 @@
     resize: none;
     outline: none;
     transition: border-color 0.2s ease;
-    min-width: 0; /* flex 아이템이 줄어들 수 있도록 */
+    min-width: 0;
     width: 100%;
 }
 
@@ -292,7 +288,6 @@
     border-color: red;
 }
 
-/* 댓글 등록 버튼 컨테이너 - 오른쪽 정렬 */
 .CommentSubmitContainer {
     display: flex;
     justify-content: flex-end;
@@ -360,7 +355,7 @@
     .PostActions {
         flex-wrap: wrap;
         gap: 0.5rem;
-        justify-content: center; /* 모바일에서는 중앙 정렬 */
+        justify-content: center;
     }
     
     .ActionButton {

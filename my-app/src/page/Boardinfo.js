@@ -430,7 +430,6 @@ function Boardinfo() {
                     </div>
                 </div>
 
-                {/* 댓글 섹션 */}
                 <div className="CommentsSection">
                     <div className="CommentsSectionHeader">
                         <h3>댓글 0개</h3>

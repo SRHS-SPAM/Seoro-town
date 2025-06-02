@@ -1,7 +1,7 @@
-import './Boardpage.css'; // 페이지 명에 맞게 수정
+// 페이지 명에 맞게 수정
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
-
-    function Boardpage() {
+import { LoginComponent } from '../App.js';
+    function Meal() {
         return (
             <div>
             <div className="NavBar">
@@ -13,19 +13,16 @@ import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-do
             <div className="NavCenter">
                 <NavLink to="/" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>게시판</NavLink>
                 <NavLink to="/Schedule" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>시간표</NavLink>
-                <NavLink to="/Notice"className={({ isActive }) => isActive ? "NavItem active" : "NavItem"}>가정통신문</NavLink>
+                <NavLink to="/Com"className={({ isActive }) => isActive ? "NavItem active" : "NavItem"}>가정통신문</NavLink>
                 <NavLink to="/Meal" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>급식</NavLink>
                 <NavLink to="/Club" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>동아리</NavLink>
                 <NavLink to="/Market" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>서로당근</NavLink>
                 <NavLink to="/Friends" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>친구</NavLink>
             </div>
-            <div className="NavRight">
-                <span>로그인</span>
-                <span>회원가입</span>
-            </div>
+            <LoginComponent/>
             </div>
         </div>
         )
     }
 
-    export default Boardpage; // 페이지명에 맞게 수정
+    export default Meal; 

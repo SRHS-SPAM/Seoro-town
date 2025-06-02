@@ -8,25 +8,18 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    // 페이지 로드 시 localStorage에서 인증 정보 복원
     useEffect(() => {
         const restoreAuthData = async () => {
             try {
-                // 기존 방식과 새 방식 모두 체크
                 const savedToken = localStorage.getItem('token') || localStorage.getItem('authToken');
                 const savedUser = localStorage.getItem('authUser');
-               
                 console.log('저장된 토큰:', savedToken);
                 console.log('저장된 사용자:', savedUser);
-               
                 if (savedToken) {
-                    // 토큰 유효성 검증
                     const validationResult = await validateToken(savedToken);
-                   
                     if (validationResult.isValid) {
                         let userData = null;
                         
-                        // 저장된 사용자 데이터가 있으면 사용, 없으면 API에서 가져온 데이터 사용
                         if (savedUser) {
                             try {
                                 userData = JSON.parse(savedUser);
