@@ -34,7 +34,6 @@ function Boardinfo() {
         setLikeCount(fixedLikeCount);
     }, [post]);
     
-    // 게시글 데이터가 없으면 게시판으로 리다이렉트
     if (!post) {
         navigate('/');
         return null;

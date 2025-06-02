@@ -8,7 +8,11 @@
   },
   {
     "id": "1748254646348",
+<<<<<<< HEAD
     "username": "준영칠가이",
+=======
+    "username": "야이야이",
+>>>>>>> b30f922dcacf40c818a525b7880470ca07b11de2
     "email": "jyqaz@gmail.com",
     "password": "$2b$10$oHq.VDR8faMH5rCmhdYfXeUs0IXj.h./1ZsjTBhXRYOQ46R51Dgm.",
     "createdAt": "2025-05-26T10:17:26.348Z"
@@ -33,6 +37,7 @@
     "email": "baek@gmail.com",
     "password": "$2b$10$w70p1gvvOpVLDXAtLjyOc.9ZggAPKYQ0AsV91dS3zSpPv8xFAlKVC",
     "createdAt": "2025-05-27T06:43:51.214Z"
+<<<<<<< HEAD
   },
   {
     "id": "1748670832468",
@@ -40,5 +45,7 @@
     "email": "jsk05030@gmail.com",
     "password": "$2b$10$r63NchEVtj0EckuCUfcwEOV8b3NAHsFkxt0/PK6XOd6DllPMXbdOG",
     "createdAt": "2025-05-31T05:53:52.468Z"
+=======
+>>>>>>> b30f922dcacf40c818a525b7880470ca07b11de2
   }
 ]

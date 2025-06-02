@@ -1,6 +1,12 @@
 import './Boardpage.css'; // 페이지 명에 맞게 수정
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+<<<<<<< HEAD
 import { LoginComponent } from '../App.js';
+=======
+import Login from './Login';
+import { LoginComponent } from '../App';
+
+>>>>>>> b30f922dcacf40c818a525b7880470ca07b11de2
     function Boardpage() {
         return (
     <div>
@@ -18,7 +24,11 @@ import { LoginComponent } from '../App.js';
                         <NavLink to="/Market" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>서로당근</NavLink>
                         <NavLink to="/Friends" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>친구</NavLink>
                 </centerbar>
+<<<<<<< HEAD
                 <LoginComponent />
+=======
+            <LoginComponent/>
+>>>>>>> b30f922dcacf40c818a525b7880470ca07b11de2
         </div>
     </div>
         )
