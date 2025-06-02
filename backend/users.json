@@ -1,51 +1,9 @@
 [
   {
-    "id": "1748252475610",
-    "username": "junseok",
-    "email": "junseok05030@gmail.com",
-    "password": "$2b$10$X3DvwGZQWi8vAOm68kd13u3Q3CxDdOM79zIhyBXARHo/aLq1s2g0a",
-    "createdAt": "2025-05-26T09:41:15.610Z"
-  },
-  {
-    "id": "1748254646348",
-<<<<<<< HEAD
-    "username": "준영칠가이",
-=======
-    "username": "야이야이",
->>>>>>> b30f922dcacf40c818a525b7880470ca07b11de2
-    "email": "jyqaz@gmail.com",
-    "password": "$2b$10$oHq.VDR8faMH5rCmhdYfXeUs0IXj.h./1ZsjTBhXRYOQ46R51Dgm.",
-    "createdAt": "2025-05-26T10:17:26.348Z"
-  },
-  {
-    "id": "1748255698109",
-    "username": "mostlikegun",
-    "email": "gun@gmail.com",
-    "password": "$2b$10$qK/3wLWglYvkChIMTOAc/u1Y.j9fVhwG6lYGpsWettgixgFr4JEXK",
-    "createdAt": "2025-05-26T10:34:58.110Z"
-  },
-  {
-    "id": "1748259830497",
-    "username": "jangseun",
-    "email": "seun@gmail.com",
-    "password": "$2b$10$CAGzUoanz.di4Mk9AeN57OpYGi1xg53DFDm.26w7BpiAoJ7nu/qf6",
-    "createdAt": "2025-05-26T11:43:50.497Z"
-  },
-  {
-    "id": "1748328231214",
-    "username": "insen",
-    "email": "baek@gmail.com",
-    "password": "$2b$10$w70p1gvvOpVLDXAtLjyOc.9ZggAPKYQ0AsV91dS3zSpPv8xFAlKVC",
-    "createdAt": "2025-05-27T06:43:51.214Z"
-<<<<<<< HEAD
-  },
-  {
-    "id": "1748670832468",
-    "username": "20512이준석",
-    "email": "jsk05030@gmail.com",
-    "password": "$2b$10$r63NchEVtj0EckuCUfcwEOV8b3NAHsFkxt0/PK6XOd6DllPMXbdOG",
-    "createdAt": "2025-05-31T05:53:52.468Z"
-=======
->>>>>>> b30f922dcacf40c818a525b7880470ca07b11de2
+    "id": "1748870841953",
+    "username": "tq",
+    "email": "tq@gmail.com",
+    "password": "$2b$10$ygOOjbtDG9vJhMwRDK9zH.H53XSVxoHBmVi79CHJWApXuENjfXQuG",
+    "createdAt": "2025-06-02T13:27:21.953Z"
   }
 ]
