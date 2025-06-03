@@ -13,6 +13,7 @@ import Market from './page/Market';
 import Login from './page/Login';
 import Signup from './page/Signup';
 import Boardinfo from './page/Boardinfo';
+import Boardarr from './page/Boardarr';
 
 function LoginComponent() {
   const { isLoggedIn, logout, user } = React.useContext(AuthContext);
@@ -53,6 +54,7 @@ function App() {
             <Route path="/Login" element={<Login />} />
             <Route path="/Signup" element={<Signup />} />
             <Route path="/infoboard" element={<Boardinfo />} />
+            <Route path="/Boardarr" element={<Boardarr/>}/>
           </Routes>
         </div>
       </Router>

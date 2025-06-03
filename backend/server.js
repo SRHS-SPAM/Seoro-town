@@ -12,6 +12,8 @@ const JWT_SECRET = 'your-secret-key-change-this-in-production';
 const USERS_FILE = path.join(__dirname, 'users.json');
 const POSTS_FILE = path.join(__dirname, 'boardlist.json');
 
+// 메모리 저장소 제거
+
 // CORS 설정
 app.use(cors({
     origin: ['http://localhost:3000', 'http://localhost:3001'],
@@ -72,6 +74,8 @@ const writePosts = async (posts) => {
         throw error;
     }
 };
+
+// 조회수 관련 함수 제거
 
 // 인증 미들웨어
 const authenticateToken = (req, res, next) => {
@@ -318,13 +322,10 @@ app.post('/api/posts', authenticateToken, async (req, res) => {
             id: Date.now().toString(),
             title: title.trim(),
             content: content.trim(),
-            category: postCategory, // 카테고리 필드 추가
+            category: postCategory,
             authorId: req.user.id,
             authorName: req.user.username,
             createdAt: new Date().toISOString(),
-            views: 0,
-            likes: 0,
-            likedUsers: [],
             comments: []
         };
 
@@ -357,69 +358,21 @@ app.post('/api/posts', authenticateToken, async (req, res) => {
 app.get('/api/posts/:id', async (req, res) => {
     try {
         const posts = await readPosts();
-        const postIndex = posts.findIndex(p => p.id === req.params.id);
+        const post = posts.find(p => p.id === req.params.id);
         
-        if (postIndex === -1) {
+        if (!post) {
             return res.status(404).json({ 
                 success: false, 
                 message: '게시글을 찾을 수 없습니다.' 
             });
         }
-
-        // 조회수 증가
-        posts[postIndex].views += 1;
-        await writePosts(posts);
 
         res.json({ 
             success: true, 
-            post: posts[postIndex] 
+            post: post 
         });
     } catch (error) {
         console.error('게시글 조회 오류:', error);
-        res.status(500).json({ 
-            success: false, 
-            message: '서버 오류가 발생했습니다.' 
-        });
-    }
-});
-
-// 좋아요 토글
-app.post('/api/posts/:id/like', authenticateToken, async (req, res) => {
-    try {
-        const posts = await readPosts();
-        const postIndex = posts.findIndex(p => p.id === req.params.id);
-        
-        if (postIndex === -1) {
-            return res.status(404).json({ 
-                success: false, 
-                message: '게시글을 찾을 수 없습니다.' 
-            });
-        }
-
-        const post = posts[postIndex];
-        const userId = req.user.id;
-        const isLiked = post.likedUsers.includes(userId);
-
-        if (isLiked) {
-            post.likedUsers = post.likedUsers.filter(id => id !== userId);
-            post.likes = Math.max(0, post.likes - 1);
-        } else {
-            post.likedUsers.push(userId);
-            post.likes += 1;
-        }
-
-        posts[postIndex] = post;
-        await writePosts(posts);
-
-        res.json({
-            success: true,
-            message: isLiked ? '좋아요를 취소했습니다.' : '좋아요를 누르셨습니다.',
-            likes: post.likes,
-            isLiked: !isLiked
-        });
-
-    } catch (error) {
-        console.error('좋아요 오류:', error);
         res.status(500).json({ 
             success: false, 
             message: '서버 오류가 발생했습니다.' 
@@ -530,7 +483,6 @@ app.listen(PORT, () => {
     console.log(`   - GET  /api/posts - 게시글 목록`);
     console.log(`   - POST /api/posts - 게시글 작성`);
     console.log(`   - GET  /api/posts/:id - 게시글 조회`);
-    console.log(`   - POST /api/posts/:id/like - 좋아요`);
     console.log(`   - POST /api/posts/:id/comments - 댓글 작성`);
     console.log(`   - GET  /api/posts/:id/comments - 댓글 조회`);
     console.log(`   - GET  /api/health - 서버 상태 확인`);

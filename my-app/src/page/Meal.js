@@ -1,5 +1,5 @@
 // 페이지 명에 맞게 수정
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as NavLink } from 'react-router-dom';
 import { LoginComponent } from '../App.js';
     function Meal() {
         return (

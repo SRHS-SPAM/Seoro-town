@@ -1,5 +1,4 @@
 [
-
   {
     "id": "1748871198888",
     "title": "tqtqtqtqtqqtq",
@@ -10,7 +9,22 @@
     "views": 0,
     "likes": 0,
     "likedUsers": [],
-    "comments": []
+    "comments": [
+      {
+        "id": "1748929926805",
+        "content": "축하혀",
+        "authorId": "1748870841953",
+        "authorName": "tq",
+        "createdAt": "2025-06-03T05:52:06.805Z"
+      },
+      {
+        "id": "1748930039747",
+        "content": "ㅊㅋㅇ",
+        "authorId": "1748930016720",
+        "authorName": "jyqaz",
+        "createdAt": "2025-06-03T05:53:59.747Z"
+      }
+    ]
   },
   {
     "id": "1748871210423",
@@ -22,7 +36,15 @@
     "views": 0,
     "likes": 0,
     "likedUsers": [],
-    "comments": []
+    "comments": [
+      {
+        "id": "1748929936344",
+        "content": "??",
+        "authorId": "1748870841953",
+        "authorName": "tq",
+        "createdAt": "2025-06-03T05:52:16.344Z"
+      }
+    ]
   },
   {
     "id": "1748871284423",
@@ -43,6 +65,48 @@
     "authorId": "1748870841953",
     "authorName": "tq",
     "createdAt": "2025-06-02T13:48:22.486Z",
+    "views": 0,
+    "likes": 0,
+    "likedUsers": [],
+    "comments": [
+      {
+        "id": "1748929983510",
+        "content": "왜불렁 ㅋㅋㅋ",
+        "authorId": "1748870841953",
+        "authorName": "tq",
+        "createdAt": "2025-06-03T05:53:03.510Z"
+      }
+    ]
+  },
+  {
+    "id": "1748929963210",
+    "title": "기모딱따구리",
+    "content": "히히히히히히히ㅣ",
+    "category": "졸업생",
+    "authorId": "1748870841953",
+    "authorName": "tq",
+    "createdAt": "2025-06-03T05:52:43.210Z",
+    "views": 0,
+    "likes": 0,
+    "likedUsers": [],
+    "comments": [
+      {
+        "id": "1748929970720",
+        "content": "지랄하네;",
+        "authorId": "1748870841953",
+        "authorName": "tq",
+        "createdAt": "2025-06-03T05:52:50.720Z"
+      }
+    ]
+  },
+  {
+    "id": "1748930468336",
+    "title": "개같이 성공",
+    "content": "앙기모딱따구리",
+    "category": "재학생",
+    "authorId": "1748930016720",
+    "authorName": "jyqaz",
+    "createdAt": "2025-06-03T06:01:08.336Z",
     "views": 0,
     "likes": 0,
     "likedUsers": [],

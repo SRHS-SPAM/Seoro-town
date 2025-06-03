@@ -249,6 +249,11 @@ function Boardpage() {
         navigate('/infoboard', { state: { post } });
     };
 
+    // 더보기 버튼 클릭 핸들러 추가
+    const handleViewMoreClick = (category) => {
+        navigate('/Boardarr', { state: { category } });
+    };
+
     const renderPosts = (category) => {
         const categoryPosts = posts.filter(post => {
             const postCategory = post.category || '재학생';
@@ -300,9 +305,6 @@ function Boardpage() {
                             <span className="PostDate">
                                 {new Date(post.createdAt).toLocaleDateString('ko-KR')}
                             </span>
-                            <span className="PostStats">
-                                조회 {post.views || 0} · 좋아요 {post.likes || 0}
-                            </span>
                         </div>
                     </div>
                 ))}
@@ -350,14 +352,14 @@ function Boardpage() {
                 <div className='NoticeBoard1'>
                     <div className="BoardTitleBox">
                         <h3 className="BoardTitle">재학생 게시글</h3>
-                        <h5 className="ViewMore">더보기</h5>
+                        <h5 className="ViewMore" onClick={() => handleViewMoreClick('재학생')}>더보기</h5>
                     </div>
                     {renderPosts('재학생')}
                 </div>
                 <div className='NoticeBoard2'>
                     <div className="BoardTitleBox">
                         <h3 className="BoardTitle">졸업생 게시글</h3>
-                        <h5 className="ViewMore">더보기</h5>
+                        <h5 className="ViewMore" onClick={() => handleViewMoreClick('졸업생')}>더보기</h5>
                     </div>
                     {renderPosts('졸업생')}
                 </div>

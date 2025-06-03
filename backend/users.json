@@ -5,5 +5,12 @@
     "email": "tq@gmail.com",
     "password": "$2b$10$ygOOjbtDG9vJhMwRDK9zH.H53XSVxoHBmVi79CHJWApXuENjfXQuG",
     "createdAt": "2025-06-02T13:27:21.953Z"
+  },
+  {
+    "id": "1748930016720",
+    "username": "jyqaz",
+    "email": "jy@gmail.com",
+    "password": "$2b$10$GG.UBauC5kTR5v/ojkcZquZlUFxybRP5VT6qWfcz0at3L5/H9YL7a",
+    "createdAt": "2025-06-03T05:53:36.720Z"
   }
 ]

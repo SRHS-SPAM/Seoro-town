@@ -1,6 +1,5 @@
-
 .BoardInfoContainer {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
     min-height: 100vh;
@@ -204,23 +203,23 @@
 }
 
 .CommentButton {
-    background-color: #f0f1ff;
-    color: #ff4757
+    background-color: #fff5f5;
+    color: #ff4757;
 }
 
 .CommentButton:hover {
-    background-color: #e8eaff;
-    color: #ff4757
+    background-color: #ffebee;
+    color: #d32f2f;
 }
 
 .ShareButton {
-    background-color: #f0fff4;
-    color: #ff4757
+    background-color: #fff5f5;
+    color: #ff4757;
 }
 
 .ShareButton:hover {
-    background-color: #e8f5e8;
-    color: #ff4757
+    background-color: #ffebee;
+    color: #d32f2f;
 }
 
 .CommentsSection {
@@ -277,15 +276,18 @@
     border-radius: 8px;
     font-size: 14px;
     font-family: 'inter', sans-serif;
-    resize: none;
+    resize: vertical;
     outline: none;
     transition: border-color 0.2s ease;
     min-width: 0;
     width: 100%;
+    min-height: 80px;
+    line-height: 1.4;
 }
 
 .CommentInput:focus {
     border-color: red;
+    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.1);
 }
 
 .CommentSubmitContainer {
@@ -313,16 +315,69 @@
     box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
 }
 
+.CommentSubmitButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
 .LoginRequired {
     padding: 2rem;
     text-align: center;
     color: #666;
     font-family: 'LINESeedKR-Bd', sans-serif;
     background-color: #f8f9fa;
+    border-radius: 8px;
 }
 
 .CommentsList {
     padding: 2rem;
+}
+
+.CommentItem {
+    padding: 16px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.CommentItem:last-child {
+    border-bottom: none;
+}
+
+.CommentHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.CommentInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.CommentAuthor {
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
+
+.CommentDate {
+    color: #666;
+    font-size: 12px;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
+
+.CommentContent {
+    margin-left: 52px;
+    color: #333;
+    line-height: 1.5;
+    font-size: 14px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: 'inter', sans-serif;
 }
 
 .EmptyComments {
@@ -335,6 +390,7 @@
 .EmptyComments svg {
     margin-bottom: 1rem;
     opacity: 0.5;
+    color: #ccc;
 }
 
 .EmptyComments p {
@@ -346,16 +402,22 @@
 @media (max-width: 768px) {
     .BoardInfoContainer {
         padding: 1rem;
+        max-width: 100%;
     }
     
     .PostDetailTitle {
         font-size: 1.5rem;
     }
     
+    .PostDetailHeader, .PostDetailContent, .CommentWrite, .CommentsList {
+        padding: 1.5rem;
+    }
+    
     .PostActions {
         flex-wrap: wrap;
         gap: 0.5rem;
         justify-content: center;
+        padding: 1rem 1.5rem;
     }
     
     .ActionButton {
@@ -367,5 +429,20 @@
     .CommentWriteBox {
         flex-direction: column;
         gap: 0.75rem;
+    }
+    
+    .CommentInput {
+        min-width: 100%;
+    }
+    
+    .CommentContent {
+        margin-left: 0;
+        margin-top: 8px;
+    }
+    
+    .CommentHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
     }
 }
