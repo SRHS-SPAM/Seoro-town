@@ -58,7 +58,7 @@ function Login() {
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        placeholder="이메일을을 입력하세요"
+                        placeholder="사용자이름을 입력하세요"
                         required
                         disabled={isLoading}
                     />

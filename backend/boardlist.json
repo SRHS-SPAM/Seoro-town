@@ -1,56 +1,12 @@
 [
   {
-    "id": "1748871284423",
-    "title": "ㅁㄴㅇㄹ",
-    "content": "ㅁㄴㅇㄻㅇㄹㄴ",
-    "authorId": "1748870841953",
-    "authorName": "tq",
-    "createdAt": "2025-06-02T13:34:44.423Z",
-    "views": 0,
-    "likes": 0,
-    "likedUsers": [],
-    "comments": [
-      {
-        "id": "1749038181211",
-        "content": "지우세요",
-        "authorId": "1749037440080",
-        "authorName": "관리자",
-        "createdAt": "2025-06-04T11:56:21.211Z"
-      }
-    ]
-  },
-  {
-    "id": "1748872102486",
-    "title": "야",
-    "content": "따야야야야야야",
-    "authorId": "1748870841953",
-    "authorName": "tq",
-    "createdAt": "2025-06-02T13:48:22.486Z",
-    "views": 0,
-    "likes": 0,
-    "likedUsers": [],
-    "comments": [
-      {
-        "id": "1748929983510",
-        "content": "왜불렁 ㅋㅋㅋ",
-        "authorId": "1748870841953",
-        "authorName": "tq",
-        "createdAt": "2025-06-03T05:53:03.510Z"
-      }
-    ]
-  },
-  {
-    "id": "1748930468336",
-    "title": "개같이 성공",
-    "content": "앙기모딱따구리",
+    "id": "1749039233029",
+    "title": "관리자입니다.",
+    "content": "20512이준석",
     "category": "재학생",
-    "authorId": "1748930016720",
-    "authorName": "jyqaz",
-    "createdAt": "2025-06-03T06:01:08.336Z",
-    "views": 0,
-    "likes": 0,
-    "likedUsers": [],
+    "authorId": "1749037440080",
+    "authorName": "관리자",
+    "createdAt": "2025-06-04T12:13:53.029Z",
     "comments": []
   }
-  
 ]

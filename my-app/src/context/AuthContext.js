@@ -36,7 +36,6 @@ export const AuthProvider = ({ children }) => {
                             setUser(userData);
                             setIsLoggedIn(true);
                             
-                            // 통일된 형태로 다시 저장
                             localStorage.setItem('token', savedToken);
                             localStorage.setItem('authToken', savedToken);
                             localStorage.setItem('authUser', JSON.stringify(userData));
@@ -44,7 +43,6 @@ export const AuthProvider = ({ children }) => {
                             console.log('인증 정보 복원됨:', { token: savedToken, user: userData });
                         }
                     } else {
-                        // 토큰이 유효하지 않으면 모든 인증 데이터 제거
                         console.log('유효하지 않은 토큰, 모든 인증 데이터를 제거합니다.');
                         clearAuthData();
                     }
@@ -60,14 +58,12 @@ export const AuthProvider = ({ children }) => {
         restoreAuthData();
     }, []);
 
-    // 인증 데이터 완전 삭제 함수
     const clearAuthData = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('authToken');
         localStorage.removeItem('authUser');
     };
 
-    // 토큰 유효성 검증 함수 (더 안전하게)
     const validateToken = async (token) => {
         try {
             const response = await fetch('http://localhost:3001/api/user', {

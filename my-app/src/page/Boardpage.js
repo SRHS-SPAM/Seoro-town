@@ -336,7 +336,7 @@ function Boardpage() {
                 <img src="pngwing.com.png" alt="어서오고" className="ping" />
                 서로타운에 오신 여러분들 환영합니다!
             </div>
-
+                {/* 검색창 죽이기
             <div className="SearchContainer">
                 <div className="SearchBox">
                     <div className="SearchPrefix">게시판</div>
@@ -346,7 +346,7 @@ function Boardpage() {
                         <Search size={22} />
                     </button>
                 </div>
-            </div>
+            </div>*/}
             
             <div className="BoardContainer">
                 <div className='NoticeBoard1'>
