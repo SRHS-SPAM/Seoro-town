@@ -12,8 +12,6 @@ const JWT_SECRET = 'your-secret-key-change-this-in-production';
 const USERS_FILE = path.join(__dirname, 'users.json');
 const POSTS_FILE = path.join(__dirname, 'boardlist.json');
 
-// 메모리 저장소 제거
-
 // CORS 설정
 app.use(cors({
     origin: ['http://localhost:3000', 'http://localhost:3001'],
@@ -24,7 +22,6 @@ app.use(cors({
 
 app.use(express.json());
 
-// 로그 미들웨어
 app.use((req, res, next) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
     if (req.body && Object.keys(req.body).length > 0) {
@@ -33,7 +30,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// 파일 처리 함수들
 const readUsers = async () => {
     try {
         const data = await fs.readFile(USERS_FILE, 'utf8');
@@ -75,7 +71,10 @@ const writePosts = async (posts) => {
     }
 };
 
-// 조회수 관련 함수 제거
+// 관리자 권한 확인 헬퍼 함수
+const isAdmin = (user) => {
+    return user?.username === '관리자' || user?.email === 'DBADMIN@dba.com';
+};
 
 // 인증 미들웨어
 const authenticateToken = (req, res, next) => {
@@ -228,7 +227,7 @@ app.post('/api/login', async (req, res) => {
             { expiresIn: '24h' }
         );
 
-        console.log('로그인 성공:', username);
+        console.log('로그인 성공:', username, isAdmin(user) ? '(관리자)' : '(일반 사용자)');
 
         res.json({
             success: true,
@@ -299,11 +298,11 @@ app.get('/api/posts', async (req, res) => {
     }
 });
 
-// 게시글 작성 - 카테고리 필드 추가
+// 게시글 작성
 app.post('/api/posts', authenticateToken, async (req, res) => {
     try {
         console.log('게시글 작성 요청:', req.body);
-        console.log('요청 사용자:', req.user);
+        console.log('요청 사용자:', req.user, isAdmin(req.user) ? '(관리자)' : '(일반 사용자)');
         
         const { title, content, category } = req.body;
         
@@ -336,7 +335,8 @@ app.post('/api/posts', authenticateToken, async (req, res) => {
             title: newPost.title,
             category: newPost.category,
             author: req.user.username,
-            id: newPost.id
+            id: newPost.id,
+            isAdmin: isAdmin(req.user)
         });
 
         res.status(201).json({
@@ -380,9 +380,124 @@ app.get('/api/posts/:id', async (req, res) => {
     }
 });
 
+// 게시글 삭제 - 관리자 권한 추가
+app.delete('/api/posts/:id', authenticateToken, async (req, res) => {
+    try {
+        console.log('=== 게시글 삭제 요청 시작 ===');
+        console.log('요청된 게시글 ID:', req.params.id, '(타입:', typeof req.params.id, ')');
+        console.log('요청 사용자:', req.user);
+        console.log('관리자 여부:', isAdmin(req.user));
+    
+        const posts = await readPosts();
+        console.log('boardlist.json에서 불러온 게시글 수:', posts.length);
+    
+        const requestedId = req.params.id;
+        let postIndex = -1;
+
+        postIndex = posts.findIndex(p => {
+            if (p.id.toString() === requestedId.toString()) return true;
+            if (Number(p.id) === Number(requestedId)) return true;
+            if (p.id === requestedId) return true;
+            return false;
+        });
+        
+        console.log('찾는 ID:', requestedId, '(타입:', typeof requestedId, ')');
+        console.log('찾은 게시글 인덱스:', postIndex);
+
+        console.log('저장된 게시글 ID들:');
+        posts.forEach((p, index) => {
+            console.log(`  ${index}: ID=${p.id} (${typeof p.id}), 제목=${p.title}, 작성자=${p.authorName || p.author}`);
+        });
+
+        if (postIndex === -1) {
+            console.log('❌ 게시글을 찾을 수 없음');
+            return res.status(404).json({
+                success: false,
+                message: '게시글을 찾을 수 없습니다.'
+            });
+        }
+        
+        const post = posts[postIndex];
+        console.log('✅ 찾은 게시글:', {
+            id: post.id,
+            title: post.title,
+            authorId: post.authorId,
+            authorName: post.authorName,
+            author: post.author
+        });
+
+        // 관리자는 모든 게시글 삭제 가능, 일반 사용자는 본인 게시글만 삭제 가능
+        const userIsAdmin = isAdmin(req.user);
+        const isAuthor = 
+            (post.authorId && req.user.id && post.authorId === req.user.id) ||
+            (post.authorName && req.user.username && post.authorName === req.user.username) ||
+            (post.author && req.user.username && post.author === req.user.username) ||
+            (post.authorName && req.user.name && post.authorName === req.user.name) ||
+            (post.author && req.user.name && post.author === req.user.name);
+    
+        console.log('권한 확인:', {
+            postAuthorId: post.authorId,
+            postAuthorName: post.authorName,
+            postAuthor: post.author,
+            requestUserId: req.user.id,
+            requestUserName: req.user.username,
+            requestUserDisplayName: req.user.name,
+            isAuthor: isAuthor,
+            userIsAdmin: userIsAdmin,
+            canDelete: userIsAdmin || isAuthor
+        });
+        
+        // 관리자이거나 작성자인 경우에만 삭제 허용
+        if (!userIsAdmin && !isAuthor) {
+            console.log('❌ 권한 없음 - 삭제 거부');
+            return res.status(403).json({
+                success: false,
+                message: '본인이 작성한 게시글만 삭제할 수 있습니다.'
+            });
+        }
+        
+        // 게시글 삭제
+        const deletedPost = posts.splice(postIndex, 1)[0];
+        await writePosts(posts);
+        
+        console.log('✅ 게시글 삭제 완료:', {
+            id: deletedPost.id,
+            title: deletedPost.title,
+            author: deletedPost.authorName || deletedPost.author,
+            deletedBy: req.user.username,
+            deletedByAdmin: userIsAdmin
+        });
+        console.log('남은 게시글 수:', posts.length);
+        console.log('=== 게시글 삭제 요청 완료 ===');
+        
+        res.json({
+            success: true,
+            message: userIsAdmin && !isAuthor ? 
+                '관리자 권한으로 게시글이 삭제되었습니다.' : 
+                '게시글이 삭제되었습니다.'
+        });
+        
+    } catch (error) {
+        console.error('❌ 게시글 삭제 오류:', error);
+        console.error('오류 스택:', error.stack);
+        res.status(500).json({
+            success: false,
+            message: '서버 오류가 발생했습니다.',
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
+    }
+});
+
 // 댓글 작성
 app.post('/api/posts/:id/comments', authenticateToken, async (req, res) => {
     try {
+        console.log('댓글 작성 요청:', {
+            postId: req.params.id,
+            user: req.user.username,
+            isAdmin: isAdmin(req.user),
+            content: req.body.content?.substring(0, 50) + '...'
+        });
+
         const { content } = req.body;
         
         if (!content) {
@@ -413,7 +528,12 @@ app.post('/api/posts/:id/comments', authenticateToken, async (req, res) => {
         posts[postIndex].comments.push(newComment);
         await writePosts(posts);
 
-        console.log('새 댓글 작성:', content, 'by', req.user.username);
+        console.log('새 댓글 작성 완료:', {
+            content: content.substring(0, 30) + '...',
+            author: req.user.username,
+            isAdmin: isAdmin(req.user),
+            postTitle: posts[postIndex].title
+        });
 
         res.status(201).json({
             success: true,
@@ -456,7 +576,88 @@ app.get('/api/posts/:id/comments', async (req, res) => {
     }
 });
 
-// 404 에러 핸들러
+// 관리자 전용 - 모든 사용자 목록 조회
+app.get('/api/admin/users', authenticateToken, async (req, res) => {
+    try {
+        if (!isAdmin(req.user)) {
+            return res.status(403).json({
+                success: false,
+                message: '관리자만 접근할 수 있습니다.'
+            });
+        }
+
+        const users = await readUsers();
+        const safeUsers = users.map(user => ({
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            createdAt: user.createdAt
+        }));
+
+        console.log('관리자가 사용자 목록 조회:', req.user.username);
+
+        res.json({
+            success: true,
+            users: safeUsers
+        });
+    } catch (error) {
+        console.error('사용자 목록 조회 오류:', error);
+        res.status(500).json({
+            success: false,
+            message: '서버 오류가 발생했습니다.'
+        });
+    }
+});
+
+// 관리자 전용 - 사용자 삭제
+app.delete('/api/admin/users/:id', authenticateToken, async (req, res) => {
+    try {
+        if (!isAdmin(req.user)) {
+            return res.status(403).json({
+                success: false,
+                message: '관리자만 접근할 수 있습니다.'
+            });
+        }
+
+        const users = await readUsers();
+        const userIndex = users.findIndex(u => u.id === req.params.id);
+        
+        if (userIndex === -1) {
+            return res.status(404).json({
+                success: false,
+                message: '사용자를 찾을 수 없습니다.'
+            });
+        }
+
+        // 관리자 자신은 삭제할 수 없음
+        if (users[userIndex].id === req.user.id) {
+            return res.status(400).json({
+                success: false,
+                message: '자신의 계정은 삭제할 수 없습니다.'
+            });
+        }
+
+        const deletedUser = users.splice(userIndex, 1)[0];
+        await writeUsers(users);
+
+        console.log('관리자가 사용자 삭제:', {
+            admin: req.user.username,
+            deletedUser: deletedUser.username
+        });
+
+        res.json({
+            success: true,
+            message: '사용자가 삭제되었습니다.'
+        });
+    } catch (error) {
+        console.error('사용자 삭제 오류:', error);
+        res.status(500).json({
+            success: false,
+            message: '서버 오류가 발생했습니다.'
+        });
+    }
+});
+
 app.use('*', (req, res) => {
     res.status(404).json({
         success: false,
@@ -464,7 +665,6 @@ app.use('*', (req, res) => {
     });
 });
 
-// 전역 에러 핸들러
 app.use((error, req, res, next) => {
     console.error('서버 에러:', error);
     res.status(500).json({
@@ -473,22 +673,23 @@ app.use((error, req, res, next) => {
     });
 });
 
-// 서버 시작
 app.listen(PORT, () => {
-    console.log(`🚀 서버가 http://localhost:${PORT}에서 실행 중입니다.`);
-    console.log(`📝 API 엔드포인트:`);
+    console.log(`서버가 http://localhost:${PORT}에서 실행 중입니다.`);
+    console.log(`API 엔드포인트:`);
     console.log(`   - POST /api/signup - 회원가입`);
     console.log(`   - POST /api/login - 로그인`);
     console.log(`   - GET  /api/user - 사용자 정보`);
     console.log(`   - GET  /api/posts - 게시글 목록`);
     console.log(`   - POST /api/posts - 게시글 작성`);
     console.log(`   - GET  /api/posts/:id - 게시글 조회`);
+    console.log(`   - DELETE /api/posts/:id - 게시글 삭제`);
     console.log(`   - POST /api/posts/:id/comments - 댓글 작성`);
     console.log(`   - GET  /api/posts/:id/comments - 댓글 조회`);
+    console.log(`   - GET  /api/admin/users - 관리자: 사용자 목록`);
+    console.log(`   - DELETE /api/admin/users/:id - 관리자: 사용자 삭제`);
     console.log(`   - GET  /api/health - 서버 상태 확인`);
 });
 
-// 프로세스 종료 처리
 process.on('SIGINT', () => {
     console.log('\n👋 서버를 종료합니다...');
     process.exit(0);

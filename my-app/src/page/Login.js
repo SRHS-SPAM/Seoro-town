@@ -53,12 +53,12 @@ function Login() {
             <h2>로그인</h2>
             <form onSubmit={handleSubmit}>
                 <div className="FormGroup">
-                    <label>아이디</label>
+                    <label>이메일</label>
                     <input
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        placeholder="아이디를 입력하세요"
+                        placeholder="이메일을을 입력하세요"
                         required
                         disabled={isLoading}
                     />

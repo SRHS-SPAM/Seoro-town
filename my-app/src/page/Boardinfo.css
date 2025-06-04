@@ -1,9 +1,9 @@
 .BoardInfoContainer {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 2rem; 
     min-height: 100vh;
-    background-color: #f8f9fa;
+    background-color: white;
 }
 
 .BoardInfoHeader {
@@ -208,16 +208,6 @@
 }
 
 .CommentButton:hover {
-    background-color: #ffebee;
-    color: #d32f2f;
-}
-
-.ShareButton {
-    background-color: #fff5f5;
-    color: #ff4757;
-}
-
-.ShareButton:hover {
     background-color: #ffebee;
     color: #d32f2f;
 }

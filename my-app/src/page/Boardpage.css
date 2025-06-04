@@ -1,3 +1,4 @@
+
 .NavBar {
     display: flex;
     justify-content: space-between;
@@ -85,6 +86,7 @@
 }
 
 .Title {
+
     margin-top: 15vh;
     text-align: center;
     font-size: 30px;

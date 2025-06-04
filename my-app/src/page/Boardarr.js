@@ -10,7 +10,6 @@ function Boardarr() {
     const navigate = useNavigate();
     const location = useLocation();
     
-    // URL 파라미터에서 카테고리 정보 받기
     const category = location.state?.category || '재학생';
     
     const [posts, setPosts] = useState([]);
@@ -18,7 +17,6 @@ function Boardarr() {
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
 
-    // 게시글 목록 불러오기
     useEffect(() => {
         fetchPosts();
     }, []);

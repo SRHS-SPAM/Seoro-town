@@ -1,52 +1,5 @@
 [
   {
-    "id": "1748871198888",
-    "title": "tqtqtqtqtqqtq",
-    "content": "해결하다",
-    "authorId": "1748870841953",
-    "authorName": "tq",
-    "createdAt": "2025-06-02T13:33:18.888Z",
-    "views": 0,
-    "likes": 0,
-    "likedUsers": [],
-    "comments": [
-      {
-        "id": "1748929926805",
-        "content": "축하혀",
-        "authorId": "1748870841953",
-        "authorName": "tq",
-        "createdAt": "2025-06-03T05:52:06.805Z"
-      },
-      {
-        "id": "1748930039747",
-        "content": "ㅊㅋㅇ",
-        "authorId": "1748930016720",
-        "authorName": "jyqaz",
-        "createdAt": "2025-06-03T05:53:59.747Z"
-      }
-    ]
-  },
-  {
-    "id": "1748871210423",
-    "title": ">?",
-    "content": "????",
-    "authorId": "1748870841953",
-    "authorName": "tq",
-    "createdAt": "2025-06-02T13:33:30.423Z",
-    "views": 0,
-    "likes": 0,
-    "likedUsers": [],
-    "comments": [
-      {
-        "id": "1748929936344",
-        "content": "??",
-        "authorId": "1748870841953",
-        "authorName": "tq",
-        "createdAt": "2025-06-03T05:52:16.344Z"
-      }
-    ]
-  },
-  {
     "id": "1748871284423",
     "title": "ㅁㄴㅇㄹ",
     "content": "ㅁㄴㅇㄻㅇㄹㄴ",
@@ -56,7 +9,15 @@
     "views": 0,
     "likes": 0,
     "likedUsers": [],
-    "comments": []
+    "comments": [
+      {
+        "id": "1749038181211",
+        "content": "지우세요",
+        "authorId": "1749037440080",
+        "authorName": "관리자",
+        "createdAt": "2025-06-04T11:56:21.211Z"
+      }
+    ]
   },
   {
     "id": "1748872102486",
@@ -79,27 +40,6 @@
     ]
   },
   {
-    "id": "1748929963210",
-    "title": "기모딱따구리",
-    "content": "히히히히히히히ㅣ",
-    "category": "졸업생",
-    "authorId": "1748870841953",
-    "authorName": "tq",
-    "createdAt": "2025-06-03T05:52:43.210Z",
-    "views": 0,
-    "likes": 0,
-    "likedUsers": [],
-    "comments": [
-      {
-        "id": "1748929970720",
-        "content": "지랄하네;",
-        "authorId": "1748870841953",
-        "authorName": "tq",
-        "createdAt": "2025-06-03T05:52:50.720Z"
-      }
-    ]
-  },
-  {
     "id": "1748930468336",
     "title": "개같이 성공",
     "content": "앙기모딱따구리",
@@ -110,6 +50,44 @@
     "views": 0,
     "likes": 0,
     "likedUsers": [],
+    "comments": []
+  },
+  {
+    "id": "1748930776783",
+    "title": "아 집가고 싶다ㅏ",
+    "content": "ㅎㅇㅌ!",
+    "category": "재학생",
+    "authorId": "1748930016720",
+    "authorName": "jyqaz",
+    "createdAt": "2025-06-03T06:06:16.783Z",
+    "views": 0,
+    "likes": 0,
+    "likedUsers": [],
+    "comments": [
+      {
+        "id": "1748930798520",
+        "content": "시발",
+        "authorId": "1748930016720",
+        "authorName": "jyqaz",
+        "createdAt": "2025-06-03T06:06:38.520Z"
+      },
+      {
+        "id": "1748930816850",
+        "content": "캬 쩐다",
+        "authorId": "1748930016720",
+        "authorName": "jyqaz",
+        "createdAt": "2025-06-03T06:06:56.850Z"
+      }
+    ]
+  },
+  {
+    "id": "1749034871249",
+    "title": "야호 졸업",
+    "content": "뺑이쳐라",
+    "category": "졸업생",
+    "authorId": "1749034795733",
+    "authorName": "kim",
+    "createdAt": "2025-06-04T11:01:11.249Z",
     "comments": []
   }
 ]
