@@ -111,5 +111,23 @@
     "likes": 0,
     "likedUsers": [],
     "comments": []
+  },
+  {
+    "id": "1749012642135",
+    "title": "솔직히 로봇고 별로임",
+    "content": "ㅇㅇ",
+    "category": "재학생",
+    "authorId": "1749012595335",
+    "authorName": "아아아아",
+    "createdAt": "2025-06-04T04:50:42.135Z",
+    "comments": [
+      {
+        "id": "1749012658434",
+        "content": "ㅇㅇ",
+        "authorId": "1749012595335",
+        "authorName": "아아아아",
+        "createdAt": "2025-06-04T04:50:58.434Z"
+      }
+    ]
   }
 ]
