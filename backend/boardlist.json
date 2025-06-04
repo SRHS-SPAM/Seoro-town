@@ -51,43 +51,6 @@
     "likes": 0,
     "likedUsers": [],
     "comments": []
-  },
-  {
-    "id": "1748930776783",
-    "title": "아 집가고 싶다ㅏ",
-    "content": "ㅎㅇㅌ!",
-    "category": "재학생",
-    "authorId": "1748930016720",
-    "authorName": "jyqaz",
-    "createdAt": "2025-06-03T06:06:16.783Z",
-    "views": 0,
-    "likes": 0,
-    "likedUsers": [],
-    "comments": [
-      {
-        "id": "1748930798520",
-        "content": "시발",
-        "authorId": "1748930016720",
-        "authorName": "jyqaz",
-        "createdAt": "2025-06-03T06:06:38.520Z"
-      },
-      {
-        "id": "1748930816850",
-        "content": "캬 쩐다",
-        "authorId": "1748930016720",
-        "authorName": "jyqaz",
-        "createdAt": "2025-06-03T06:06:56.850Z"
-      }
-    ]
-  },
-  {
-    "id": "1749034871249",
-    "title": "야호 졸업",
-    "content": "뺑이쳐라",
-    "category": "졸업생",
-    "authorId": "1749034795733",
-    "authorName": "kim",
-    "createdAt": "2025-06-04T11:01:11.249Z",
-    "comments": []
   }
+  
 ]
