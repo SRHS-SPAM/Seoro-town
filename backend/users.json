@@ -14,27 +14,6 @@
     "createdAt": "2025-06-03T05:53:36.720Z"
   },
   {
-<<<<<<< HEAD
-    "id": "1749014878098",
-    "username": "이준석",
-    "email": "junseok05030@gmail.com",
-    "password": "$2b$10$22s/pnnPgilOs5d0QqHOPuZkYzvA064lkUH3ZfqJ7MJfQMRm.hkC6",
-    "createdAt": "2025-06-04T05:27:58.098Z"
-  },
-  {
-    "id": "1749034795733",
-    "username": "kim",
-    "email": "kim@kim.co.kr",
-    "password": "$2b$10$KmjrWtixr9LtC2mvC0Ng0.8fATB6QdF65VUqLEcp4n4Gn8ip.uGym",
-    "createdAt": "2025-06-04T10:59:55.733Z"
-  },
-  {
-    "id": "1749037440080",
-    "username": "관리자",
-    "email": "DBADMIN@dba.com",
-    "password": "$2b$10$WDk0ZY9/2w.6fM900vKmFuOE2hqTO0LLrM4FfbvHIyuYjRh02Dnby",
-    "createdAt": "2025-06-04T11:44:00.080Z"
-=======
     "id": "1749012522552",
     "username": "이준영",
     "email": "jyqaz7548@gmail.com",
@@ -47,6 +26,12 @@
     "email": "dkdkdk@gmaiasdpjsakj.com",
     "password": "$2b$10$Tm.H81jPWneBnjjGvK5KD.r05Fu.ayyXb.4z5KEdIXqow1Yb6gnZq",
     "createdAt": "2025-06-04T04:49:55.335Z"
->>>>>>> dbf758e3dd8f886411547b87d86f4c31a4dbaf13
+  },
+    {
+    "id": "1749037440080",
+    "username": "관리자",
+    "email": "DBADMIN@dba.com",
+    "password": "$2b$10$WDk0ZY9/2w.6fM900vKmFuOE2hqTO0LLrM4FfbvHIyuYjRh02Dnby",
+    "createdAt": "2025-06-04T11:44:00.080Z"
   }
 ]
