@@ -1,6 +1,20 @@
 {
   "dependencies": {
+    "axios": "^1.9.0",
+    "cheerio": "^1.0.0",
+    "fs": "^0.0.1-security",
+    "node-cron": "^4.1.0",
     "react-quill": "^2.0.0",
     "react-router-dom": "^7.6.0"
-  }
+  },
+  "name": "seoro-town",
+  "version": "1.0.0",
+  "description": "Seoul Robot community site project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

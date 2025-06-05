@@ -1,0 +1,212 @@
+
+
+.MealContainer {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.MealHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.MealHeader h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.UpdateInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.LastUpdated {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.RefreshButton {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.RefreshButton:hover:not(:disabled) {
+    background: #218838;
+}
+
+.RefreshButton:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+}
+
+.MealDate {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 30px;
+    padding: 15px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 10px;
+}
+
+.LoadingContainer,
+.ErrorContainer {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.LoadingContainer p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.ErrorContainer p {
+    color: #dc3545;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.RetryButton {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.RetryButton:hover {
+    background: #0056b3;
+}
+
+.MealContent {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.MealSection {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #e9ecef;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.MealSection:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.MealSection h3 {
+    color: #333;
+    font-size: 1.3rem;
+    margin: 0 0 15px 0;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.MealItems {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.MealItem {
+    background: white;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #444;
+    transition: background-color 0.2s ease;
+}
+
+.MealItem:hover {
+    background: #f0f8ff;
+}
+
+.NoMeal {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    border: 2px dashed #ddd;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .MealContainer {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .MealHeader {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .MealContent {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .MealSection {
+        padding: 15px;
+    }
+}
+
+/* 다크모드 지원 */
+@media (prefers-color-scheme: dark) {
+    .MealContainer {
+        background: #1a1a1a;
+        color: #e0e0e0;
+    }
+    
+    .MealSection {
+        background: #2d2d2d;
+        border-color: #404040;
+    }
+    
+    .MealItem {
+        background: #1a1a1a;
+        color: #e0e0e0;
+        border-left-color: #4a90e2;
+    }
+    
+    .MealItem:hover {
+        background: #0d1117;
+    }
+    
+    .DateInput {
+        background: #2d2d2d;
+        border-color: #404040;
+        color: #e0e0e0;
+    }
+}

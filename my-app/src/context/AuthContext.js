@@ -36,6 +36,7 @@ export const AuthProvider = ({ children }) => {
                             setUser(userData);
                             setIsLoggedIn(true);
                             
+                            // 통일된 형태로 다시 저장
                             localStorage.setItem('token', savedToken);
                             localStorage.setItem('authToken', savedToken);
                             localStorage.setItem('authUser', JSON.stringify(userData));
@@ -43,6 +44,7 @@ export const AuthProvider = ({ children }) => {
                             console.log('인증 정보 복원됨:', { token: savedToken, user: userData });
                         }
                     } else {
+                        // 토큰이 유효하지 않으면 모든 인증 데이터 제거
                         console.log('유효하지 않은 토큰, 모든 인증 데이터를 제거합니다.');
                         clearAuthData();
                     }
@@ -75,7 +77,6 @@ export const AuthProvider = ({ children }) => {
             if (response.ok) {
                 const data = await response.json();
                 
-                // 다양한 응답 형태에 대응
                 if (data.success === true || data.user || response.status === 200) {
                     return {
                         isValid: true,
@@ -93,7 +94,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = (userData, authToken) => {
         console.log('로그인 시도:', { userData, authToken });
-       
+    
         if (!authToken) {
             console.error('토큰이 없습니다!');
             return false;

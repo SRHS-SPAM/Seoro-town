@@ -21,7 +21,6 @@ function Login() {
         setIsLoading(true);
 
         try {
-            // 서버에 로그인 요청
             const response = await fetch('http://localhost:3001/api/login', {
                 method: 'POST',
                 headers: {
@@ -33,7 +32,6 @@ function Login() {
             const data = await response.json();
 
             if (data.success) {
-                // Context의 login 함수에 사용자 데이터와 토큰 전달
                 login(data.user, data.token);
                 alert('로그인 성공!');
                 navigate('/');
@@ -53,7 +51,7 @@ function Login() {
             <h2>로그인</h2>
             <form onSubmit={handleSubmit}>
                 <div className="FormGroup">
-                    <label>이메일</label>
+                    <label>사용자이름</label>
                     <input
                         type="text"
                         value={username}
