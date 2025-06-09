@@ -5,7 +5,7 @@ body:
   - type: textarea
     attributes:
       label: 📄 설명
-      description: 발견한 버그그에 대한 설명을 작성해 주세요.
+      description: 발견한 버그에 대한 설명을 작성해 주세요.
       placeholder: 자세히 적을수록 좋습니다!
     validations:
       required: true
