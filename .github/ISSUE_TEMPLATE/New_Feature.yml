@@ -10,16 +10,16 @@ body:
     validations:
       required: true
 
-  - type: textarea
+  - type: checkboxes
     attributes:
       label: ✅ 작업할 내용
-      description: 아래 형식으로 체크리스트를 작성해 주세요.
-      placeholder: |
-        - [ ] 친구페이지 → 마이페이지로 변경
-        - [ ] 게시글 리스트 열람
-        - [ ] 댓글 페이지 열람
-        - [ ] 팔로우 기능
-        - [ ] 팔로잉 기능
+      description: 아래 항목을 체크해주세요.
+      options:
+        - label: 친구페이지 → 마이페이지로 변경
+        - label: 게시글 리스트 열람
+        - label: 댓글 페이지 열람
+        - label: 팔로우 기능
+        - label: 팔로잉 기능
     validations:
       required: true
 
