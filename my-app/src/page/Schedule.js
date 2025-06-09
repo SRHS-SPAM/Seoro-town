@@ -23,11 +23,8 @@ function Schedule() {
         </div>
         <LoginComponent />        
         </div>
-        
-        {/* 게시판 페이지 내용 추가 */}
         <div className="PageContent">
-            <h1>게시판</h1>
-            {/* 여기에 게시판 내용 추가 */}
+            <h1>시간표</h1>
         </div>
         
         </div>

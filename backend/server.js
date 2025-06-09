@@ -4,9 +4,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const fs = require('fs').promises;
 const path = require('path');
-const axios = require('axios');      
-const cheerio = require('cheerio'); 
-const cron = require('node-cron');  
+//const axios = require('axios');      
+//const cheerio = require('cheerio'); 
+//const cron = require('node-cron');  
 
 const app = express();
 const PORT = process.env.PORT || 3001;
