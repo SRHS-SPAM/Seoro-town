@@ -7,6 +7,14 @@
     "authorId": "1749037440080",
     "authorName": "관리자",
     "createdAt": "2025-06-04T12:13:53.029Z",
-    "comments": []
+    "comments": [
+      {
+        "id": "1749480092527",
+        "content": "잘부탁드림",
+        "authorId": "1749037440080",
+        "authorName": "관리자",
+        "createdAt": "2025-06-09T14:41:32.527Z"
+      }
+    ]
   }
 ]

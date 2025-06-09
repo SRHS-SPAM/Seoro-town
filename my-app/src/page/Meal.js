@@ -59,7 +59,7 @@ function Meal() {
             if (data.success) {
                 setMealData(data.meal);
                 setLastUpdated(new Date().toLocaleString('ko-KR'));
-                setError(""); // 성공 시 에러 초기화
+                setError("");
             } else {
                 setError(data.message || "급식 정보를 불러올 수 없습니다.");
                 setMealData({
@@ -126,7 +126,6 @@ function Meal() {
                     <img src="RobotLogo.png" alt="로고" className="RobotLogo" />
                     <span className="BrandName">ROBOTOWN</span>
                 </div>
-
                 <div className="NavCenter">
                     <NavLink to="/" className={({ isActive }) => isActive ? "NavItem active" : "NavItem"}>게시판</NavLink>
                     <NavLink to="/Schedule" className={({ isActive }) => isActive ? "NavItem active" : "NavItem"}>시간표</NavLink>
@@ -134,9 +133,8 @@ function Meal() {
                     <NavLink to="/Meal" className={({ isActive }) => isActive ? "NavItem active" : "NavItem"}>급식</NavLink>
                     <NavLink to="/Club" className={({ isActive }) => isActive ? "NavItem active" : "NavItem"}>동아리</NavLink>
                     <NavLink to="/Market" className={({ isActive }) => isActive ? "NavItem active" : "NavItem"}>서로당근</NavLink>
-                    <NavLink to="/Friends" className={({ isActive }) => isActive ? "NavItem active" : "NavItem"}>친구</NavLink>
+                    <NavLink to="/Mypage" className={({ isActive }) => isActive ? "NavItem active" : "NavItem"}>마이페이지</NavLink>
                 </div>
-
                 <LoginComponent />
             </div>
 
