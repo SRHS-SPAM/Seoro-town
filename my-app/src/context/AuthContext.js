@@ -15,7 +15,6 @@ export const AuthProvider = ({ children }) => {
                 const savedUser = localStorage.getItem('authUser');
                 console.log('저장된 토큰:', savedToken);
                 console.log('저장된 사용자:', savedUser);
-                
                 if (savedToken) {
                     const validationResult = await validateToken(savedToken);
                     if (validationResult.isValid) {
@@ -65,18 +64,13 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('token');
         localStorage.removeItem('authToken');
         localStorage.removeItem('authUser');
-        setToken(null);
-        setUser(null);
-        setIsLoggedIn(false);
     };
 
     const validateToken = async (token) => {
         try {
             const response = await fetch('http://localhost:3001/api/user', {
-                method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
+                    'Authorization': `Bearer ${token}`
                 }
             });
             
@@ -121,40 +115,14 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         console.log('로그아웃 시작');
+        
+        setUser(null);
+        setToken(null);
+        setIsLoggedIn(false);
+       
         clearAuthData();
+       
         console.log('로그아웃 완료');
-    };
-
-    // API 호출을 위한 헬퍼 함수 추가
-    const apiCall = async (url, options = {}) => {
-        const defaultOptions = {
-            headers: {
-                'Content-Type': 'application/json',
-                ...(token && { 'Authorization': `Bearer ${token}` }),
-                ...options.headers
-            }
-        };
-
-        const finalOptions = {
-            ...options,
-            headers: defaultOptions.headers
-        };
-
-        try {
-            const response = await fetch(url, finalOptions);
-            
-            // 401 에러 시 자동 로그아웃
-            if (response.status === 401) {
-                console.log('인증 토큰이 만료되었습니다. 로그아웃합니다.');
-                logout();
-                return null;
-            }
-
-            return response;
-        } catch (error) {
-            console.error('API 호출 오류:', error);
-            throw error;
-        }
     };
 
     if (isLoading) {
@@ -168,8 +136,7 @@ export const AuthProvider = ({ children }) => {
             token,
             login,
             logout,
-            isLoading,
-            apiCall
+            isLoading
         }}>
             {children}
         </AuthContext.Provider>
