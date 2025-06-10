@@ -10,7 +10,7 @@ import {useNavigate } from 'react-router-dom';
 
             const navigate = useNavigate();  // useNavigate 훅 사용
             const handleWriteClick = () => {
-                navigate('/Write'); // 글쓰기 페이지로 이동
+                navigate('/MarketWrite'); // 글쓰기 페이지로 이동
             };
         return (
             <div>
