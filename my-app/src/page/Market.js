@@ -19,7 +19,7 @@ import { LoginComponent } from '../App.js'; // 로그인 컴포넌트 임포트
                 <NavLink to="/Meal" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>급식</NavLink>
                 <NavLink to="/Club" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>동아리</NavLink>
                 <NavLink to="/Market" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>서로당근</NavLink>
-                <NavLink to="/Mypage" className={({ isActive }) => isActive ? "NavItem active" : "NavItem"}>마이페이지</NavLink>
+                <NavLink to="/Friends" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>친구</NavLink>
             </div>
             <LoginComponent />
             </div>
