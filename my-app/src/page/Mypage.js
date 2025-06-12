@@ -2,7 +2,7 @@ import './Mypage.css';
 import { useState, useContext, useEffect } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { LoginComponent } from '../App.js';
-import { User, Users, FileText, MessageCircle, Settings, ArrowLeft, UserPlus, UserMinus, Heart } from 'lucide-react';
+import { User, Users, FileText, MessageCircle, Settings, ArrowLeft, UserPlus, UserMinus, Heart, Search, X } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
 
 function Mypage() {
@@ -29,13 +29,54 @@ function Mypage() {
         followingCount: 0
     });
 
+    // 사용자 검색 관련 상태
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const [isSearching, setIsSearching] = useState(false);
+    const [showSearchResults, setShowSearchResults] = useState(false);
+
     useEffect(() => {
         if (isLoggedIn && viewUserId) {
             loadProfileData();
         }
     }, [isLoggedIn, viewUserId]);
 
-    // 프로필 데이터 로드
+    // 검색 기능
+    useEffect(() => {
+        const searchUsers = async () => {
+            if (searchQuery.trim().length >= 2) {
+                setIsSearching(true);
+                try {
+                    const response = await fetch(`http://localhost:3001/api/users/search?query=${encodeURIComponent(searchQuery)}`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        setSearchResults(data.users || []);
+                        setShowSearchResults(true);
+                    } else {
+                        console.error('사용자 검색 실패:', response.status);
+                        setSearchResults([]);
+                    }
+                } catch (error) {
+                    console.error('사용자 검색 오류:', error);
+                    setSearchResults([]);
+                } finally {
+                    setIsSearching(false);
+                }
+            } else {
+                setSearchResults([]);
+                setShowSearchResults(false);
+            }
+        };
+
+        const debounceTimer = setTimeout(searchUsers, 300);
+        return () => clearTimeout(debounceTimer);
+    }, [searchQuery, token]);
+
     const loadProfileData = async () => {
         try {
             setLoading(true);
@@ -218,6 +259,21 @@ function Mypage() {
             // 다른 사용자 프로필로 이동
             navigate('/Mypage', { state: { userId } });
         }
+        // 검색 결과 닫기
+        setShowSearchResults(false);
+        setSearchQuery('');
+    };
+
+    // 검색 결과에서 사용자 클릭
+    const handleSearchResultClick = (userId) => {
+        handleUserProfileClick(userId);
+    };
+
+    // 검색창 초기화
+    const clearSearch = () => {
+        setSearchQuery('');
+        setSearchResults([]);
+        setShowSearchResults(false);
     };
 
     const handleBackClick = () => {
@@ -351,6 +407,63 @@ function Mypage() {
                             <span className="StatNumber">{stats.followingCount}</span>
                             <span className="StatLabel">팔로잉</span>
                         </div>
+                    </div>
+                </div>
+
+                {/* 사용자 검색 섹션 */}
+                <div className="SearchSection">
+                    <div className="SearchContainer">
+                        <div className="SearchInputWrapper">
+                            <Search size={20} className="SearchIcon" />
+                            <input
+                                type="text"
+                                placeholder="사용자를 검색하세요... (2자 이상)"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="SearchInput"
+                            />
+                            {searchQuery && (
+                                <button onClick={clearSearch} className="ClearButton">
+                                    <X size={16} />
+                                </button>
+                            )}
+                        </div>
+                        
+                        {isSearching && (
+                            <div className="SearchLoading">
+                                <Settings size={16} className="LoadingIcon" />
+                                <span>검색 중...</span>
+                            </div>
+                        )}
+                        
+                        {showSearchResults && (
+                            <div className="SearchResults">
+                                {searchResults.length > 0 ? (
+                                    <div className="SearchResultsList">
+                                        {searchResults.map(user => (
+                                            <div 
+                                                key={user.id} 
+                                                className="SearchResultItem"
+                                                onClick={() => handleSearchResultClick(user.id)}
+                                            >
+                                                <div className="SearchResultAvatar">
+                                                    <User size={24} />
+                                                </div>
+                                                <div className="SearchResultInfo">
+                                                    <span className="SearchResultName">{user.username}</span>
+                                                    <span className="SearchResultEmail">{user.email}</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="NoSearchResults">
+                                        <Search size={32} />
+                                        <p>검색 결과가 없습니다.</p>
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
 

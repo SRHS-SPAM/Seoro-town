@@ -6,6 +6,21 @@
     font-family: 'LINESeedKR-Bd', sans-serif;
 }
 
+
+.CommentCategory {
+    background-color: #f0f0f0;
+    color: #666;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-right: 8px;
+}
+
+.CommentCategory:first-child {
+    margin-left: 0;
+}
+
 /* 마이페이지 헤더 (뒤로가기 버튼) */
 .MypageHeader {
     margin-bottom: 2rem;
@@ -307,10 +322,32 @@
     padding: 1.5rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease;
+    cursor: pointer; /* 클릭 가능한 커서 추가 */
+    position: relative;
+    overflow: hidden;
+}
+
+.CommentItem::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: red;
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
 }
 
 .CommentItem:hover {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: red;
+    background-color: #fafafa;
+}
+
+.CommentItem:hover::before {
+    transform: scaleY(1);
 }
 
 .CommentHeader {
@@ -462,6 +499,207 @@
     display: inline-block;
     animation: spin 2s linear infinite;
     color: red;
+}
+
+/* 검색 섹션 스타일 */
+.SearchSection {
+    margin: 20px 0;
+    padding: 0 20px;
+}
+
+.SearchContainer {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.SearchInputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 2px solid #e0e0e0;
+    width: 100%;
+    border-radius: 25px;
+    padding: 12px 20px;
+    transition: border-color 0.3s ease;
+}
+
+.SearchInputWrapper:focus-within {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.SearchIcon {
+    color: #666;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.SearchInput {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    background: transparent;
+}
+
+.SearchInput::placeholder {
+    color: #999;
+}
+
+.ClearButton {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 4px;
+    margin-left: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.ClearButton:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.SearchLoading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    color: #666;
+    font-size: 14px;
+}
+
+.LoadingIcon {
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.SearchResults {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 8px;
+    z-index: 1000;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.SearchResultsList {
+    padding: 8px 0;
+}
+
+.SearchResultItem {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.SearchResultItem:last-child {
+    border-bottom: none;
+}
+
+.SearchResultItem:hover {
+    background-color: #f8f9fa;
+}
+
+.SearchResultAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.SearchResultInfo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.SearchResultName {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.SearchResultEmail {
+    font-size: 13px;
+    color: #666;
+}
+
+.NoSearchResults {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    color: #666;
+    text-align: center;
+}
+
+.NoSearchResults svg {
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
+
+.NoSearchResults p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .SearchSection {
+        padding: 0 16px;
+    }
+    
+    .SearchInputWrapper {
+        padding: 10px 16px;
+    }
+    
+    .SearchInput {
+        font-size: 14px;
+    }
+    
+    .SearchResults {
+        max-height: 300px;
+    }
+    
+    .SearchResultItem {
+        padding: 10px 12px;
+    }
+    
+    .SearchResultAvatar {
+        width: 36px;
+        height: 36px;
+    }
 }
 
 @keyframes spin {

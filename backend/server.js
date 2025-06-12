@@ -4,10 +4,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const fs = require('fs').promises;
 const path = require('path');
-//const axios = require('axios');      
-//const cheerio = require('cheerio'); 
-//const cron = require('node-cron');  
-
 const app = express();
 const PORT = process.env.PORT || 3001;
 const JWT_SECRET = 'your-secret-key-change-this-in-production';
@@ -16,6 +12,45 @@ const POSTS_FILE = path.join(__dirname, 'boardlist.json');
 const FOLLOWS_FILE = path.join(__dirname, 'follows.json');
 
 // CORS 설정
+
+// 사용자 검색
+app.get('/api/users/search', authenticateToken, async (req, res) => {
+    try {
+        const { query } = req.query;
+        
+        if (!query || query.trim().length < 2) {
+            return res.status(400).json({
+                success: false,
+                message: '검색어는 2자 이상 입력해주세요.'
+            });
+        }
+
+        const users = await readUsers();
+        const searchResults = users
+            .filter(user => 
+                user.username.toLowerCase().includes(query.toLowerCase()) ||
+                user.email.toLowerCase().includes(query.toLowerCase())
+            )
+            .map(user => ({
+                id: user.id,
+                username: user.username,
+                email: user.email
+            }))
+            .slice(0, 10); // 최대 10개 결과
+
+        res.json({
+            success: true,
+            users: searchResults
+        });
+
+    } catch (error) {
+        console.error('사용자 검색 오류:', error);
+        res.status(500).json({
+            success: false,
+            message: '서버 오류가 발생했습니다.'
+        });
+    }
+});
 app.use(cors({
     origin: ['http://localhost:3000', 'http://localhost:3001'],
     credentials: true,
