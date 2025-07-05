@@ -27,11 +27,11 @@
     "password": "$2b$10$Tm.H81jPWneBnjjGvK5KD.r05Fu.ayyXb.4z5KEdIXqow1Yb6gnZq",
     "createdAt": "2025-06-04T04:49:55.335Z"
   },
-    {
-    "id": "1749037440080",
+  {
+    "id": "1751694646978",
     "username": "관리자",
-    "email": "DBADMIN@dba.com",
-    "password": "$2b$10$WDk0ZY9/2w.6fM900vKmFuOE2hqTO0LLrM4FfbvHIyuYjRh02Dnby",
-    "createdAt": "2025-06-04T11:44:00.080Z"
+    "email": "TownAdmin@gmail.com",
+    "password": "$2b$10$.6V10bspFo2RP2Z2y25MCOhTxEloINuF3Bf6uLMFaN7Tl0KCnXVLu",
+    "createdAt": "2025-07-05T05:50:46.978Z"
   }
 ]
