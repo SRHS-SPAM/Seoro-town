@@ -1,9 +1,9 @@
 import './Boardpage.css';
 import { useState, useContext, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { LoginComponent } from '../App.js';
-import { Search, PenLine, AlertCircle, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { PenLine, AlertCircle, X } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
+import Navbar from './Navbar';
 
 const WritePopup = ({ isOpen, onClose, onSubmit }) => {
     const [title, setTitle] = useState('');
@@ -314,24 +314,7 @@ function Boardpage() {
     
     return (
         <div>
-            <div className="NavBar">
-                <div className="NavLeft">
-                    <img src="RobotLogo.png" alt="로고" className="RobotLogo" />
-                    <span className="BrandName">ROBOTOWN</span>
-                </div>
-        
-                <div className="NavCenter">
-                    <NavLink to="/" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>게시판</NavLink>
-                    <NavLink to="/Schedule" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>시간표</NavLink>
-                    <NavLink to="/Com"className={({ isActive }) => isActive ? "NavItem active" : "NavItem"}>가정통신문</NavLink>
-                    <NavLink to="/Meal" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>급식</NavLink>
-                    <NavLink to="/Club" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>동아리</NavLink>
-                    <NavLink to="/Market" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>서로당근</NavLink>
-                    <NavLink to="/Friends" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>친구</NavLink>
-                </div>
-                <LoginComponent />
-            </div>
-        
+            <Navbar />
             <div className="Title">
                 <img src="pngwing.com.png" alt="어서오고" className="ping" />
                 서로타운에 오신 여러분들 환영합니다!

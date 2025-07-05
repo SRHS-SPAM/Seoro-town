@@ -18,7 +18,7 @@ function Guide() {
                             <NavLink to="/Club" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>동아리</NavLink>
                             <NavLink to="/Market" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>서로당근</NavLink>
                             <NavLink to="/Friends" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>친구</NavLink>
-                        <NavLink to="/Guide" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>로봇 가이드</NavLink>
+                            <NavLink to="/Guide" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>로봇 가이드</NavLink>
                         </div>
                         <LoginComponent />
                     </div>

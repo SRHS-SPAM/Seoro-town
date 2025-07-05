@@ -16,7 +16,7 @@ import Boardinfo from './page/Boardinfo';
 import Boardarr from './page/Boardarr';
 import Meal from './page/Meal';
 import Guide from './page/Guide';
-
+import Mypage from './page/Mypage';
 function LoginComponent() {
   const { isLoggedIn, logout, user } = React.useContext(AuthContext);
   
@@ -24,7 +24,8 @@ function LoginComponent() {
     <div className="NavRight">
       {isLoggedIn ? (
         <>
-          <span className="NavItem">{user?.username || '사용자'} 님</span>
+          <NavLink to="/Mypage" className="NavItem">{user?.username || '사용자'} 님</NavLink>
+          {/*<span className="NavItem">{user?.username || '사용자'} 님</span>/*/}
           <button className="NavItem" onClick={logout}>로그아웃</button>
         </>
       ) : (
@@ -52,7 +53,7 @@ function App() {
             <Route path="/Club" element={<Club />} />
             <Route path="/Market" element={<Market />} />
             <Route path="/Meal" element={<Meal />} />
-            <Route path="/Friends" element={<Market />} />
+            <Route path="/Mypage" element={<Mypage />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/Signup" element={<Signup />} />
             <Route path="/infoboard" element={<Boardinfo />} />
