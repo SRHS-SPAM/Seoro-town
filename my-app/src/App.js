@@ -15,6 +15,7 @@ import Signup from './page/Signup';
 import Boardinfo from './page/Boardinfo';
 import Boardarr from './page/Boardarr';
 import Meal from './page/Meal';
+import Guide from './page/Guide';
 
 function LoginComponent() {
   const { isLoggedIn, logout, user } = React.useContext(AuthContext);
@@ -56,6 +57,7 @@ function App() {
             <Route path="/Signup" element={<Signup />} />
             <Route path="/infoboard" element={<Boardinfo />} />
             <Route path="/Boardarr" element={<Boardarr/>}/>
+            <Route path="/Guide" element={<Guide />} />
           </Routes>
         </div>
       </Router>

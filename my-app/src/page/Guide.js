@@ -1,8 +1,8 @@
-import React from 'react';
+
 import { NavLink } from 'react-router-dom';    
 import { LoginComponent } from '../App.js';
 import './Boardpage.css'; // 페이지 명에 맞게 수정
-function Com() {
+function Guide() {
         return (
             <div>
                 <div className="NavBar">
@@ -18,10 +18,11 @@ function Com() {
                             <NavLink to="/Club" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>동아리</NavLink>
                             <NavLink to="/Market" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>서로당근</NavLink>
                             <NavLink to="/Friends" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>친구</NavLink>
+                        <NavLink to="/Guide" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>로봇 가이드</NavLink>
                         </div>
                         <LoginComponent />
                     </div>
         </div>
     )
 }
-export default Com;
+export default Guide;
