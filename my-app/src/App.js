@@ -1,9 +1,9 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
-import { AuthContext } from './context/AuthContext';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { AuthProvider, AuthContext } from './context/AuthContext';
 
-// 페이지 컴포넌트들 import
+// 페이지 컴포넌트 임포트
 import Boardpage from './page/Boardpage';
 import Schedule from './page/Schedule';
 import Com from './page/Com';
@@ -12,15 +12,18 @@ import Club from './page/Club';
 import Market from './page/Market';
 import Login from './page/Login';
 import Signup from './page/Signup';
+import Boardinfo from './page/Boardinfo';
+import Boardarr from './page/Boardarr';
+import Meal from './page/Meal';
 
 function LoginComponent() {
   const { isLoggedIn, logout, user } = React.useContext(AuthContext);
-
+  
   return (
     <div className="NavRight">
       {isLoggedIn ? (
         <>
-          <span className="NavItem">{user?.name || '사용자'} 님</span>
+          <span className="NavItem">{user?.username || '사용자'} 님</span>
           <button className="NavItem" onClick={logout}>로그아웃</button>
         </>
       ) : (
@@ -36,24 +39,8 @@ function LoginComponent() {
 export { LoginComponent };
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-  }, []);
-
-  const login = (userData) => {
-    setIsLoggedIn(true);
-    setUser(userData);
-  };
-
-  const logout = () => {
-    setIsLoggedIn(false);
-    setUser(null);
-  };
-
   return (
-    <AuthContext.Provider value={{ isLoggedIn, user, login, logout }}>
+    <AuthProvider>
       <Router>
         <div>
           <Routes>
@@ -63,14 +50,16 @@ function App() {
             <Route path="/Grade" element={<Grade />} />
             <Route path="/Club" element={<Club />} />
             <Route path="/Market" element={<Market />} />
-            <Route path="/Meal" element={<Market />} />
+            <Route path="/Meal" element={<Meal />} />
             <Route path="/Friends" element={<Market />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/Signup" element={<Signup />} />
+            <Route path="/infoboard" element={<Boardinfo />} />
+            <Route path="/Boardarr" element={<Boardarr/>}/>
           </Routes>
         </div>
       </Router>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
 

@@ -1,3 +1,4 @@
+
 .NavBar {
     display: flex;
     justify-content: space-between;
@@ -85,6 +86,7 @@
 }
 
 .Title {
+
     margin-top: 15vh;
     text-align: center;
     font-size: 30px;
@@ -287,7 +289,7 @@
         transform: translateY(0);
         opacity: 1;
     }
-/* 애니메이션: 밑에서 위로 30px */}
+}
 
 /* 팝업창 대가리  */
 .PopupHeader {
@@ -425,4 +427,176 @@ form {
 .SubmitButton:hover {
     background-color: #e60000;
     box-shadow: 0 2px 5px rgba(255, 0, 0, 0.2);
+}
+
+.PageInfo{
+    display: flex;  
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+    padding: 10px 20px;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+.PostList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.PostItem {
+    padding: 15px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.PostItem:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: red;
+}
+
+.PostTitle {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.PostInfo {
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #666;
+}
+
+.PostAuthor, .PostDate {
+    font-weight: 500;
+}
+
+.BoardInfoContainer {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.BoardInfoHeader {
+    margin-bottom: 2rem;
+    padding-top: 2rem;
+}
+
+.BackButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 12px 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #495057;
+    transition: all 0.2s ease;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+    font-weight: bold;
+}
+
+.BackButton:hover {
+    background-color: #e9ecef;
+    border-color: red;
+    color: red;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255, 0, 0, 0.1);
+}
+
+.PostDetailContainer {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.PostDetailHeader {
+    padding: 2rem;
+    border-bottom: 1px solid #e9ecef;
+    background-color: #f8f9fa;
+}
+
+.PostCategory {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: red;
+    color: white;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
+
+.PostDetailTitle {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.3;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
+
+.PostDetailInfo {
+    display: flex;
+    gap: 2rem;
+    color: #666;
+    font-size: 0.9rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.PostDetailAuthor,
+.PostDetailDate {
+    font-weight: bold;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
+
+.PostDetailContent {
+    padding: 2.5rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #333;
+    min-height: 300px;
+    font-family: 'inter', sans-serif;
+}
+
+.PostDetailContent p {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.FloatingWriteButton.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.FloatingWriteButton.disabled:hover {
+    transform: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: red;
 }

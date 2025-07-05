@@ -9,6 +9,7 @@ function Schedule() {
         <div className="NavLeft">
             <img src="RobotLogo.png" alt="로고" className="RobotLogo" />
             <span className="BrandName">ROBOTOWN</span>
+
         </div>
         
         <div className="NavCenter">
