@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": "1751874970654",
+    "title": "이기자이기자",
+    "content": "이기이기이기자",
+    "category": "재학생",
+    "authorId": "1748870841953",
+    "authorName": "tq",
+    "createdAt": "2025-07-07T07:56:10.654Z",
+    "comments": []
+  },
+  {
+    "id": "1751874979784",
+    "title": "자 운지ㅏ",
+    "content": "운지빔~~~",
+    "category": "재학생",
+    "authorId": "1748870841953",
+    "authorName": "tq",
+    "createdAt": "2025-07-07T07:56:19.784Z",
+    "comments": []
+  }
+]
