@@ -1,826 +1,936 @@
-/* 마이페이지 메인 컨테이너 */
-.MypageContainer {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-    font-family: 'LINESeedKR-Bd', sans-serif;
-}
+    /* 마이페이지 메인 컨테이너 */
+    .MypageContainer {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+        font-family: 'LINESeedKR-Bd', sans-serif;
+    }
 
 
-.CommentCategory {
-    background-color: #f0f0f0;
-    color: #666;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 500;
-    margin-right: 8px;
-}
+    .CommentCategory {
+        background-color: #f0f0f0;
+        color: #666;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+        margin-right: 8px;
+    }
 
-.CommentCategory:first-child {
-    margin-left: 0;
-}
+    .CommentCategory:first-child {
+        margin-left: 0;
+    }
 
-/* 마이페이지 헤더 (뒤로가기 버튼) */
-.MypageHeader {
-    margin-bottom: 2rem;
-}
+    /* 마이페이지 헤더 (뒤로가기 버튼) */
+    .MypageHeader {
+        margin-bottom: 2rem;
+    }
 
-.BackButton {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: none;
-    border: none;
-    color: #666;
-    font-size: 1rem;
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    font-family: 'LINESeedKR-Bd', sans-serif;
-}
+    .BackButton {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: none;
+        border: none;
+        color: #666;
+        font-size: 1rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        font-family: 'LINESeedKR-Bd', sans-serif;
+    }
 
-.BackButton:hover {
-    background-color: #f5f5f5;
-    color: red;
-}
+    .BackButton:hover {
+        background-color: #f5f5f5;
+        color: red;
+    }
 
-/* 프로필 섹션 */
-.ProfileSection {
-    background-color: white;
-    border: 1px solid #e9ecef;
-    border-radius: 12px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
+    /* 프로필 섹션 */
+    .ProfileSection {
+        background-color: white;
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
 
-.ProfileHeader {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-}
+    .ProfileHeader {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+    }
 
+    .ProfileAvatar {
+        width: 80px;
+        height: 80px;
+        background-color: #f8f9fa;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        flex-shrink: 0;
+    }
+
+    .ProfileInfo {
+        flex: 1;
+        min-width: 250px;
+    }
+
+    .ProfileName {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #333;
+        margin: 0 0 0.5rem 0;
+        font-family: 'LINESeedKR-Bd', sans-serif;
+    }
+
+    .ProfileEmail {
+        color: #666;
+        font-size: 1rem;
+        margin: 0 0 0.5rem 0;
+    }
+
+    .ProfileJoinDate {
+        color: #888;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    .ProfileActions {
+        flex-shrink: 0;
+    }
+
+    .FollowButton {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.8rem 1.5rem;
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-family: 'LINESeedKR-Bd', sans-serif;
+    }
+
+    .FollowButton.following {
+        background-color: #6c757d;
+    }
+
+    .FollowButton:hover {
+        background-color: #e60000;
+    }
+
+    .FollowButton.following:hover {
+        background-color: #5a6268;
+    }
+
+    /* 프로필 통계 */
+    .ProfileStats {
+        display: flex;
+        justify-content: space-around;
+        padding-top: 1.5rem;
+        border-top: 1px solid #f0f0f0;
+    }
+
+    .StatItem {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        padding: 1rem;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        flex: 1;
+    }
+
+    .StatItem:hover {
+        background-color: #f8f9fa;
+        transform: translateY(-2px);
+    }
+
+    .StatNumber {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        font-family: 'LINESeedKR-Bd', sans-serif;
+    }
+
+    .StatLabel {
+        font-size: 0.9rem;
+        color: #666;
+        font-weight: 500;
+    }
+
+    /* 프로필 탭 */
+    .ProfileTabs {
+        display: flex;
+        background-color: white;
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .TabButton {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1rem;
+        background: none;
+        border: none;
+        color: #666;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-family: 'LINESeedKR-Bd', sans-serif;
+        border-right: 1px solid #e9ecef;
+    }
+
+    .TabButton:last-child {
+        border-right: none;
+    }
+
+    .TabButton.active {
+        background-color: red;
+        color: white;
+    }
+
+    .TabButton:not(.active):hover {
+        background-color: #f8f9fa;
+        color: red;
+    }
+
+    /* 콘텐츠 섹션 */
+    .ProfileContent {
+        min-height: 400px;
+    }
+
+    /* 게시글 목록 */
+    .PostsList {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .PostItem {
+        background-color: white;
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        padding: 1.5rem 2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .PostItem::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background-color: red;
+        transform: scaleY(0);
+        transition: transform 0.3s ease;
+    }
+
+    .PostItem:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        border-color: red;
+        background-color: #fafafa;
+    }
+
+    .PostItem:hover::before {
+        transform: scaleY(1);
+    }
+
+    .PostHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 0.8rem;
+        gap: 1rem;
+    }
+
+    .PostCategory {
+        background-color: red;
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .PostTitle {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+        line-height: 1.4;
+        font-family: 'LINESeedKR-Bd', sans-serif;
+        margin: 0;
+        flex: 1;
+    }
+
+    .PostDate {
+        color: #666;
+        font-size: 0.9rem;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+
+    .PostPreview {
+        color: #555;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* 댓글 목록 */
+    .CommentsList {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .CommentItem {
+        background-color: white;
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        transition: all 0.2s ease;
+        cursor: pointer; /* 클릭 가능한 커서 추가 */
+        position: relative;
+        overflow: hidden;
+    }
+
+    .CommentItem::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background-color: red;
+        transform: scaleY(0);
+        transition: transform 0.3s ease;
+    }
+
+    .CommentItem:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        border-color: red;
+        background-color: #fafafa;
+    }
+
+    .CommentItem:hover::before {
+        transform: scaleY(1);
+    }
+
+    .CommentHeader {
+        margin-bottom: 0.8rem;
+    }
+
+    .CommentDate {
+        color: #666;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .CommentContent {
+        color: #333;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin: 0 0 1rem 0;
+    }
+
+    .CommentPostInfo {
+        color: #666;
+        font-size: 0.85rem;
+        padding-top: 0.8rem;
+        border-top: 1px solid #f0f0f0;
+        font-style: italic;
+    }
+
+    /* 사용자 목록 */
+    .UsersList {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .UserItem {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background-color: white;
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        padding: 1.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .UserItem:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        border-color: red;
+        background-color: #fafafa;
+    }
+
+    .UserAvatar {
+        width: 48px;
+        height: 48px;
+        background-color: #f8f9fa;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        flex-shrink: 0;
+    }
+
+    .UserInfo {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    .UserName {
+        font-weight: 600;
+        color: #333;
+        font-family: 'LINESeedKR-Bd', sans-serif;
+    }
+
+    .UserEmail {
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    /* 빈 상태 */
+    .EmptyState {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: #999;
+    }
+
+    .EmptyState svg {
+        margin-bottom: 1rem;
+        opacity: 0.6;
+        color: #ccc;
+    }
+
+    .EmptyState p {
+        font-size: 1.1rem;
+        margin: 0;
+        color: #666;
+        font-family: 'LINESeedKR-Bd', sans-serif;
+    }
+
+    /* 로딩 및 오류 상태 */
+    .LoginRequired, .LoadingContainer {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: #666;
+        font-family: 'LINESeedKR-Bd', sans-serif;
+    }
+
+    .LoginRequired h2 {
+        font-size: 1.5rem;
+        color: #333;
+        margin: 1rem 0;
+        font-family: 'LINESeedKR-Bd', sans-serif;
+    }
+
+    .LoginRequired p {
+        font-size: 1rem;
+        margin: 1rem 0 2rem 0;
+        color: #666;
+    }
+
+    .LoginRequired button {
+        padding: 0.8rem 1.5rem;
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        font-family: 'LINESeedKR-Bd', sans-serif;
+    }
+
+    .LoginRequired button:hover {
+        background-color: #e60000;
+    }
+
+    .LoadingContainer p {
+        font-size: 1.1rem;
+        margin: 1rem 0 0 0;
+        color: #666;
+    }
+
+    .LoadingSpinner {
+        display: inline-block;
+        animation: spin 2s linear infinite;
+        color: red;
+    }
+
+    /* 검색 섹션 스타일 */
+    .SearchSection {
+        margin: 20px 0;
+        padding: 0 20px;
+    }
+
+    .SearchContainer {
+        position: relative;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .SearchInputWrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background: white;
+        border: 2px solid #e0e0e0;
+        width: 100%;
+        border-radius: 25px;
+        padding: 12px 20px;
+        margin-bottom: 20px;
+        transition: border-color 0.3s ease;
+    }
+
+    .SearchInputWrapper:focus-within {
+        border-color: #007bff;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    }
+
+    .SearchIcon {
+        color: #666;
+        margin-right: 12px;
+        flex-shrink: 0;
+    }
+
+    .SearchInput {
+        flex: 1;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        color: #333;
+        background: transparent;
+    }
+
+    .SearchInput::placeholder {
+        color: #999;
+    }
+
+    .ClearButton {
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        padding: 4px;
+        margin-left: 8px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s ease;
+    }
+
+    .ClearButton:hover {
+        background-color: #f0f0f0;
+        color: #333;
+    }
+
+    .SearchLoading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+        color: #666;
+        font-size: 14px;
+    }
+
+    .LoadingIcon {
+        animation: spin 1s linear infinite;
+        margin-right: 8px;
+    }
+
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    .SearchResults {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        margin-top: 8px;
+        z-index: 1000;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .SearchResultsList {
+        padding: 8px 0;
+    }
+
+    .SearchResultItem {
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .SearchResultItem:last-child {
+        border-bottom: none;
+    }
+
+    .SearchResultItem:hover {
+        background-color: #f8f9fa;
+    }
+
+    .SearchResultAvatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        margin-right: 12px;
+        flex-shrink: 0;
+    }
+
+    .SearchResultInfo {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .SearchResultName {
+        font-weight: 600;
+        color: #333;
+        font-size: 14px;
+        margin-bottom: 2px;
+    }
+
+    .SearchResultEmail {
+        font-size: 13px;
+        color: #666;
+    }
+
+    .NoSearchResults {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        color: #666;
+        text-align: center;
+    }
+
+    .NoSearchResults svg {
+        margin-bottom: 12px;
+        opacity: 0.5;
+    }
+
+    .NoSearchResults p {
+        margin: 0;
+        font-size: 14px;
+    }
+
+    /* Mypage.css 파일에 아래 내용을 추가하거나 기존 내용을 수정/대체하세요. */
+
+/* ... (기존 Mypage.css 내용) ... */
+
+/* ✨ 프로필 섹션 아바타 스타일 */
 .ProfileAvatar {
+    position: relative;
     width: 80px;
     height: 80px;
-    background-color: #f8f9fa;
     border-radius: 50%;
+    background-color: #e9ecef;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #666;
-    flex-shrink: 0;
+    color: #868e96;
+    overflow: hidden; /* 이미지가 원 밖으로 나가지 않도록 */
 }
 
-.ProfileInfo {
-    flex: 1;
-    min-width: 250px;
+.ProfileAvatar.editable {
+    cursor: pointer;
 }
 
-.ProfileName {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #333;
-    margin: 0 0 0.5rem 0;
-    font-family: 'LINESeedKR-Bd', sans-serif;
+.ProfileAvatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지가 비율을 유지하며 꽉 차도록 */
 }
 
-.ProfileEmail {
-    color: #666;
-    font-size: 1rem;
-    margin: 0 0 0.5rem 0;
-}
-
-.ProfileJoinDate {
-    color: #888;
-    font-size: 0.9rem;
-    margin: 0;
-}
-
-.ProfileActions {
-    flex-shrink: 0;
-}
-
-.FollowButton {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.8rem 1.5rem;
-    background-color: red;
+/* ✨ 아바타 편집 오버레이 */
+.AvatarEditOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: 'LINESeedKR-Bd', sans-serif;
-}
-
-.FollowButton.following {
-    background-color: #6c757d;
-}
-
-.FollowButton:hover {
-    background-color: #e60000;
-}
-
-.FollowButton.following:hover {
-    background-color: #5a6268;
-}
-
-/* 프로필 통계 */
-.ProfileStats {
-    display: flex;
-    justify-content: space-around;
-    padding-top: 1.5rem;
-    border-top: 1px solid #f0f0f0;
-}
-
-.StatItem {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    padding: 1rem;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    flex: 1;
-}
-
-.StatItem:hover {
-    background-color: #f8f9fa;
-    transform: translateY(-2px);
-}
-
-.StatNumber {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-    font-family: 'LINESeedKR-Bd', sans-serif;
-}
-
-.StatLabel {
-    font-size: 0.9rem;
-    color: #666;
-    font-weight: 500;
-}
-
-/* 프로필 탭 */
-.ProfileTabs {
-    display: flex;
-    background-color: white;
-    border: 1px solid #e9ecef;
-    border-radius: 12px;
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.TabButton {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 1rem;
-    background: none;
-    border: none;
-    color: #666;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: 'LINESeedKR-Bd', sans-serif;
-    border-right: 1px solid #e9ecef;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    border-radius: 50%;
 }
 
-.TabButton:last-child {
-    border-right: none;
+.ProfileAvatar.editable:hover .AvatarEditOverlay {
+    opacity: 1;
 }
 
-.TabButton.active {
-    background-color: red;
-    color: white;
-}
 
-.TabButton:not(.active):hover {
-    background-color: #f8f9fa;
-    color: red;
-}
-
-/* 콘텐츠 섹션 */
-.ProfileContent {
-    min-height: 400px;
-}
-
-/* 게시글 목록 */
-.PostsList {
+/* ✨ 사용자 목록 아이템 아바타 스타일 */
+.UserItem .UserAvatar,
+.SearchResultItem .SearchResultAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f1f3f5;
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.PostItem {
-    background-color: white;
-    border: 1px solid #e9ecef;
-    border-radius: 12px;
-    padding: 1.5rem 2rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    position: relative;
+    align-items: center;
+    justify-content: center;
+    color: #adb5bd;
     overflow: hidden;
+    margin-right: 12px;
+    flex-shrink: 0;
 }
 
-.PostItem::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
+.SearchResultItem .SearchResultAvatar {
+    width: 36px;
+    height: 36px;
+}
+
+
+.UserItem .UserAvatar img,
+.SearchResultItem .SearchResultAvatar img {
+    width: 100%;
     height: 100%;
-    background-color: red;
-    transform: scaleY(0);
-    transition: transform 0.3s ease;
-}
-
-.PostItem:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    border-color: red;
-    background-color: #fafafa;
-}
-
-.PostItem:hover::before {
-    transform: scaleY(1);
-}
-
-.PostHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 0.8rem;
-    gap: 1rem;
-}
-
-.PostCategory {
-    background-color: red;
-    color: white;
-    padding: 0.3rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    white-space: nowrap;
-}
-
-.PostTitle {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-    line-height: 1.4;
-    font-family: 'LINESeedKR-Bd', sans-serif;
-    margin: 0;
-    flex: 1;
-}
-
-.PostDate {
-    color: #666;
-    font-size: 0.9rem;
-    font-weight: 500;
-    white-space: nowrap;
-}
-
-.PostPreview {
-    color: #555;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* 댓글 목록 */
-.CommentsList {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.CommentItem {
-    background-color: white;
-    border: 1px solid #e9ecef;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    transition: all 0.2s ease;
-    cursor: pointer; /* 클릭 가능한 커서 추가 */
-    position: relative;
-    overflow: hidden;
-}
-
-.CommentItem::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background-color: red;
-    transform: scaleY(0);
-    transition: transform 0.3s ease;
-}
-
-.CommentItem:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    border-color: red;
-    background-color: #fafafa;
-}
-
-.CommentItem:hover::before {
-    transform: scaleY(1);
-}
-
-.CommentHeader {
-    margin-bottom: 0.8rem;
-}
-
-.CommentDate {
-    color: #666;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.CommentContent {
-    color: #333;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin: 0 0 1rem 0;
-}
-
-.CommentPostInfo {
-    color: #666;
-    font-size: 0.85rem;
-    padding-top: 0.8rem;
-    border-top: 1px solid #f0f0f0;
-    font-style: italic;
-}
-
-/* 사용자 목록 */
-.UsersList {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    object-fit: cover;
 }
 
 .UserItem {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    background-color: white;
-    border: 1px solid #e9ecef;
-    border-radius: 12px;
-    padding: 1.5rem;
+    padding: 12px;
+    border-bottom: 1px solid #e9ecef;
     cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.2s;
 }
 
 .UserItem:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    border-color: red;
-    background-color: #fafafa;
-}
-
-.UserAvatar {
-    width: 48px;
-    height: 48px;
     background-color: #f8f9fa;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #666;
-    flex-shrink: 0;
 }
 
 .UserInfo {
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
 }
 
 .UserName {
     font-weight: 600;
-    color: #333;
-    font-family: 'LINESeedKR-Bd', sans-serif;
+    color: #343a40;
 }
 
 .UserEmail {
-    color: #666;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    color: #868e96;
 }
 
-/* 빈 상태 */
-.EmptyState {
-    text-align: center;
-    padding: 4rem 2rem;
-    color: #999;
-}
 
-.EmptyState svg {
-    margin-bottom: 1rem;
-    opacity: 0.6;
-    color: #ccc;
-}
 
-.EmptyState p {
-    font-size: 1.1rem;
-    margin: 0;
-    color: #666;
-    font-family: 'LINESeedKR-Bd', sans-serif;
-}
-
-/* 로딩 및 오류 상태 */
-.LoginRequired, .LoadingContainer {
-    text-align: center;
-    padding: 4rem 2rem;
-    color: #666;
-    font-family: 'LINESeedKR-Bd', sans-serif;
-}
-
-.LoginRequired h2 {
-    font-size: 1.5rem;
-    color: #333;
-    margin: 1rem 0;
-    font-family: 'LINESeedKR-Bd', sans-serif;
-}
-
-.LoginRequired p {
-    font-size: 1rem;
-    margin: 1rem 0 2rem 0;
-    color: #666;
-}
-
-.LoginRequired button {
-    padding: 0.8rem 1.5rem;
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    font-family: 'LINESeedKR-Bd', sans-serif;
-}
-
-.LoginRequired button:hover {
-    background-color: #e60000;
-}
-
-.LoadingContainer p {
-    font-size: 1.1rem;
-    margin: 1rem 0 0 0;
-    color: #666;
-}
-
-.LoadingSpinner {
-    display: inline-block;
-    animation: spin 2s linear infinite;
-    color: red;
-}
-
-/* 검색 섹션 스타일 */
-.SearchSection {
-    margin: 20px 0;
-    padding: 0 20px;
-}
-
-.SearchContainer {
-    position: relative;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.SearchInputWrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: white;
-    border: 2px solid #e0e0e0;
-    width: 100%;
-    border-radius: 25px;
-    padding: 12px 20px;
-    transition: border-color 0.3s ease;
-}
-
-.SearchInputWrapper:focus-within {
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
-}
-
-.SearchIcon {
-    color: #666;
-    margin-right: 12px;
-    flex-shrink: 0;
-}
-
-.SearchInput {
-    flex: 1;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    color: #333;
-    background: transparent;
-}
-
-.SearchInput::placeholder {
-    color: #999;
-}
-
-.ClearButton {
-    background: none;
-    border: none;
-    color: #666;
-    cursor: pointer;
-    padding: 4px;
-    margin-left: 8px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s ease;
-}
-
-.ClearButton:hover {
-    background-color: #f0f0f0;
-    color: #333;
-}
-
-.SearchLoading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px;
-    color: #666;
-    font-size: 14px;
-}
-
-.LoadingIcon {
-    animation: spin 1s linear infinite;
-    margin-right: 8px;
-}
-
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-.SearchResults {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    margin-top: 8px;
-    z-index: 1000;
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-.SearchResultsList {
-    padding: 8px 0;
-}
-
-.SearchResultItem {
-    display: flex;
-    align-items: center;
-    padding: 12px 16px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.SearchResultItem:last-child {
-    border-bottom: none;
-}
-
-.SearchResultItem:hover {
-    background-color: #f8f9fa;
-}
-
-.SearchResultAvatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    margin-right: 12px;
-    flex-shrink: 0;
-}
-
-.SearchResultInfo {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-
-.SearchResultName {
-    font-weight: 600;
-    color: #333;
-    font-size: 14px;
-    margin-bottom: 2px;
-}
-
-.SearchResultEmail {
-    font-size: 13px;
-    color: #666;
-}
-
-.NoSearchResults {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-    color: #666;
-    text-align: center;
-}
-
-.NoSearchResults svg {
-    margin-bottom: 12px;
-    opacity: 0.5;
-}
-
-.NoSearchResults p {
-    margin: 0;
-    font-size: 14px;
-}
-
-/* 반응형 디자인 */
-@media (max-width: 768px) {
-    .SearchSection {
-        padding: 0 16px;
+    /* 반응형 디자인 */
+    @media (max-width: 768px) {
+        .SearchSection {
+            padding: 0 16px;
+        }
+        
+        .SearchInputWrapper {
+            padding: 10px 16px;
+        }
+        
+        .SearchInput {
+            font-size: 14px;
+        }
+        
+        .SearchResults {
+            max-height: 300px;
+        }
+        
+        .SearchResultItem {
+            padding: 10px 12px;
+        }
+        
+        .SearchResultAvatar {
+            width: 36px;
+            height: 36px;
+        }
     }
-    
-    .SearchInputWrapper {
-        padding: 10px 16px;
-    }
-    
-    .SearchInput {
-        font-size: 14px;
-    }
-    
-    .SearchResults {
-        max-height: 300px;
-    }
-    
-    .SearchResultItem {
-        padding: 10px 12px;
-    }
-    
-    .SearchResultAvatar {
-        width: 36px;
-        height: 36px;
-    }
-}
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 
-/* 모바일 반응형 */
-@media (max-width: 768px) {
-    .MypageContainer {
-        padding: 1rem 0.5rem;
+    /* 모바일 반응형 */
+    @media (max-width: 768px) {
+        .MypageContainer {
+            padding: 1rem 0.5rem;
+        }
+        
+        .ProfileSection {
+            padding: 1.5rem;
+        }
+        
+        .ProfileHeader {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.5rem;
+            text-align: center;
+        }
+        
+        .ProfileInfo {
+            min-width: auto;
+            width: 100%;
+        }
+        
+        .ProfileStats {
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .StatItem {
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .ProfileTabs {
+            flex-wrap: wrap;
+        }
+        
+        .TabButton {
+            flex: 1;
+            min-width: 120px;
+            padding: 0.8rem;
+            font-size: 0.8rem;
+        }
+        
+        .PostItem, .CommentItem, .UserItem {
+            padding: 1.2rem;
+            margin: 0 0.5rem;
+        }
+        
+        .PostHeader {
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: flex-start;
+        }
+        
+        .PostTitle {
+            font-size: 1.1rem;
+        }
+        
+        .PostDate {
+            font-size: 0.8rem;
+            align-self: flex-end;
+        }
     }
-    
-    .ProfileSection {
-        padding: 1.5rem;
-    }
-    
-    .ProfileHeader {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1.5rem;
-        text-align: center;
-    }
-    
-    .ProfileInfo {
-        min-width: auto;
-        width: 100%;
-    }
-    
-    .ProfileStats {
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-    
-    .StatItem {
-        flex: 1;
-        min-width: 120px;
-    }
-    
-    .ProfileTabs {
-        flex-wrap: wrap;
-    }
-    
-    .TabButton {
-        flex: 1;
-        min-width: 120px;
-        padding: 0.8rem;
-        font-size: 0.8rem;
-    }
-    
-    .PostItem, .CommentItem, .UserItem {
-        padding: 1.2rem;
-        margin: 0 0.5rem;
-    }
-    
-    .PostHeader {
-        flex-direction: column;
-        gap: 0.5rem;
-        align-items: flex-start;
-    }
-    
-    .PostTitle {
-        font-size: 1.1rem;
-    }
-    
-    .PostDate {
-        font-size: 0.8rem;
-        align-self: flex-end;
-    }
-}
 
-@media (max-width: 480px) {
-    .MypageContainer {
-        padding: 0.5rem;
+    @media (max-width: 480px) {
+        .MypageContainer {
+            padding: 0.5rem;
+        }
+        
+        .ProfileSection {
+            padding: 1rem;
+        }
+        
+        .ProfileName {
+            font-size: 1.5rem;
+        }
+        
+        .ProfileStats {
+            justify-content: space-between;
+        }
+        
+        .StatItem {
+            min-width: 80px;
+            padding: 0.5rem;
+        }
+        
+        .StatNumber {
+            font-size: 1.2rem;
+        }
+        
+        .StatLabel {
+            font-size: 0.8rem;
+        }
+        
+        .TabButton {
+            padding: 0.6rem;
+            font-size: 0.75rem;
+            gap: 0.3rem;
+        }
+        
+        .PostItem, .CommentItem, .UserItem {
+            padding: 1rem;
+        }
+        
+        .PostTitle {
+            font-size: 1rem;
+        }
+        
+        .UserItem {
+            gap: 0.8rem;
+        }
+        
+        .UserAvatar {
+            width: 40px;
+            height: 40px;
+        }
     }
-    
-    .ProfileSection {
-        padding: 1rem;
-    }
-    
-    .ProfileName {
-        font-size: 1.5rem;
-    }
-    
-    .ProfileStats {
-        justify-content: space-between;
-    }
-    
-    .StatItem {
-        min-width: 80px;
-        padding: 0.5rem;
-    }
-    
-    .StatNumber {
-        font-size: 1.2rem;
-    }
-    
-    .StatLabel {
-        font-size: 0.8rem;
-    }
-    
-    .TabButton {
-        padding: 0.6rem;
-        font-size: 0.75rem;
-        gap: 0.3rem;
-    }
-    
-    .PostItem, .CommentItem, .UserItem {
-        padding: 1rem;
-    }
-    
-    .PostTitle {
-        font-size: 1rem;
-    }
-    
-    .UserItem {
-        gap: 0.8rem;
-    }
-    
-    .UserAvatar {
-        width: 40px;
-        height: 40px;
-    }
-}

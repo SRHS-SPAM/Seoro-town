@@ -1,7 +1,8 @@
 {
     "name": "auth-backend",
     "version": "1.0.0",
-    "description": "회원가입/로그인 백엔드 서버",
+    "description": "백엔드 서버",
+    "type": "module",
     "main": "server.js",
     "scripts": {
         "start": "node server.js",
@@ -10,8 +11,10 @@
     "dependencies": {
         "bcrypt": "^5.1.1",
         "cors": "^2.8.5",
+        "dotenv": "^17.2.0",
         "express": "^4.21.2",
-        "jsonwebtoken": "^9.0.2"
+        "jsonwebtoken": "^9.0.2",
+        "multer": "^2.0.1"
     },
     "devDependencies": {
         "nodemon": "^2.0.22"

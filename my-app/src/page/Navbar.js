@@ -5,7 +5,7 @@ function Navbar() {
     return (
         <div className="NavBar">
             <div className="NavLeft">
-                <img src="RobotLogo.png" alt="로고" className="RobotLogo" />
+                <img src="/RobotLogo.png" alt="로고" className="RobotLogo" />
                 <span className="BrandName">ROBOTOWN</span>
             </div>
             <div className="NavCenter">

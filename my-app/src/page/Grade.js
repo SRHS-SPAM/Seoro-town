@@ -11,7 +11,7 @@ import Navbar from './Navbar';
                 {/* 게시판 내용을 여기에 추가하세요 */}
             </div>
     </div>
-        )
-    }
+    )
+}
 
     export default Boardpage; // 페이지명에 맞게 수정

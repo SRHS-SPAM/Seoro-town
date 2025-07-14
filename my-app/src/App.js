@@ -1,3 +1,5 @@
+// App.js (수정된 버전)
+
 import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
@@ -17,6 +19,7 @@ import Boardarr from './page/Boardarr';
 import Meal from './page/Meal';
 import Guide from './page/Guide';
 import Mypage from './page/Mypage';
+
 function LoginComponent() {
   const { isLoggedIn, logout, user } = React.useContext(AuthContext);
   
@@ -25,7 +28,6 @@ function LoginComponent() {
       {isLoggedIn ? (
         <>
           <NavLink to="/Mypage" className="NavItem">{user?.username || '사용자'} 님</NavLink>
-          {/*<span className="NavItem">{user?.username || '사용자'} 님</span>/*/}
           <button className="NavItem" onClick={logout}>로그아웃</button>
         </>
       ) : (
@@ -56,7 +58,7 @@ function App() {
             <Route path="/Mypage" element={<Mypage />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/Signup" element={<Signup />} />
-            <Route path="/infoboard" element={<Boardinfo />} />
+            <Route path="/infoboard/:id" element={<Boardinfo />} /> 
             <Route path="/Boardarr" element={<Boardarr/>}/>
             <Route path="/Guide" element={<Guide />} />
           </Routes>

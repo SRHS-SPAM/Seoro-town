@@ -245,11 +245,9 @@ function Boardpage() {
         setIsWritePopupOpen(true);
     };
 
-    const handlePostClick = (post) => {
-        navigate('/infoboard', { state: { post } });
-    };
-
-    // 더보기 버튼 클릭 핸들러 추가
+const handlePostClick = (post) => {
+    navigate(`/infoboard/${post.id}`);
+};
     const handleViewMoreClick = (category) => {
         navigate('/Boardarr', { state: { category } });
     };
@@ -319,17 +317,7 @@ function Boardpage() {
                 <img src="pngwing.com.png" alt="어서오고" className="ping" />
                 서로타운에 오신 여러분들 환영합니다!
             </div>
-                {/* 검색창 죽이기
-            <div className="SearchContainer">
-                <div className="SearchBox">
-                    <div className="SearchPrefix">게시판</div>
-                    <div className="SearchDivider"></div>
-                    <input type="text" className="SearchInput" placeholder="검색어를 입력하세요!" />
-                    <button className="SearchButton">
-                        <Search size={22} />
-                    </button>
-                </div>
-            </div>*/}
+
             
             <div className="BoardContainer">
                 <div className='NoticeBoard1'>

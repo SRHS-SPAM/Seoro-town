@@ -4,7 +4,8 @@
     "username": "tq",
     "email": "tq@gmail.com",
     "password": "$2b$10$ygOOjbtDG9vJhMwRDK9zH.H53XSVxoHBmVi79CHJWApXuENjfXQuG",
-    "createdAt": "2025-06-02T13:27:21.953Z"
+    "createdAt": "2025-06-02T13:27:21.953Z",
+    "profileImage": "/uploads/1752480565076.png"
   },
   {
     "id": "1748930016720",
@@ -32,6 +33,23 @@
     "username": "관리자",
     "email": "TownAdmin@gmail.com",
     "password": "$2b$10$.6V10bspFo2RP2Z2y25MCOhTxEloINuF3Bf6uLMFaN7Tl0KCnXVLu",
-    "createdAt": "2025-07-05T05:50:46.978Z"
+    "createdAt": "2025-07-05T05:50:46.978Z",
+    "profileImage": "/uploads/1752478328459.png"
+  },
+  {
+    "id": "1752481641801",
+    "username": "준석이",
+    "email": "jsk05030@gmail.com",
+    "password": "$2b$10$X/tcLLhii.lcTwipTPdjK.WP6D.mri0HsZ.VxNgUb428.1WRDugtq",
+    "profileImage": null,
+    "createdAt": "2025-07-14T08:27:21.801Z"
+  },
+  {
+    "id": "1752484870729",
+    "username": "취민위",
+    "email": "alsdnr071120@gmail.com",
+    "password": "$2b$10$Ml2y5nSRJ.MFInbDBXExbOGzhq6TBKx3BPDPe6L/HfzH3M3oifiVe",
+    "profileImage": "/uploads/1752485143037.png",
+    "createdAt": "2025-07-14T09:21:10.729Z"
   }
 ]
