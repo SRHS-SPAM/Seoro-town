@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "id": "1752622939930",
+    "title": "sdf",
+    "content": "sdfsdf",
+    "category": "재학생",
+    "authorId": "1752576484460",
+    "authorName": "관리자",
+    "authorProfileImage": "/uploads/1752576521351.png",
+    "createdAt": "2025-07-15T23:42:19.930Z",
+    "comments": []
+  }
+]

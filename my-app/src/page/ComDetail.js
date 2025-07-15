@@ -1,5 +1,3 @@
-// src/page/ComDetail.js (최종 완성 버전)
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
@@ -24,7 +22,6 @@ function ComDetail() {
         try {
             const response = await fetch(`/api/com/detail/${nttId}`);
             if (!response.ok) {
-                // 서버에서 보낸 에러 메시지가 있다면 사용, 없다면 기본 메시지
                 const errorData = await response.json().catch(() => null);
                 throw new Error(errorData?.message || `서버 응답 오류: ${response.status}`);
             }
@@ -70,7 +67,6 @@ function ComDetail() {
                             <div className="DetailInfo">
                                 <span><strong>작성자:</strong> {detail.author}</span>
                                 <span><strong>등록일:</strong> {detail.date}</span>
-                                <span><strong>조회수:</strong> {detail.views}</span>
                             </div>
                         </div>
                         

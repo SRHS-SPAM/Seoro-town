@@ -1,5 +1,3 @@
-// src/page/Com.js (최종 버전)
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
