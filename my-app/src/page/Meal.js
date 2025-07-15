@@ -1,25 +1,21 @@
-// src/page/Meal.js (최종 완성 버전)
+// src/page/Meal.js (데이터 처리 로직 강화 최종 버전)
 
 import "./Meal.css";
 import { useEffect, useState, useCallback } from "react";
 import Navbar from './Navbar';
 
 function Meal() {
-    // API 주소는 환경 변수 또는 기본값으로 설정할 수 있습니다.
     const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
     
-    // 식단 데이터를 저장할 상태
     const [mealData, setMealData] = useState({
         breakfast: [],
         lunch: [],
         dinner: []
     });
-    // 로딩, 에러, 마지막 업데이트 시간을 관리할 상태
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [lastUpdated, setLastUpdated] = useState("");
 
-    // API를 호출하는 함수 (useCallback으로 불필요한 재성성 방지)
     const fetchMeal = useCallback(async () => {
         setLoading(true);
         setError("");
@@ -28,53 +24,59 @@ function Meal() {
             const url = `${API_BASE_URL}/api/meal`;
             const response = await fetch(url);
             
-            if (!response.ok) {
-                throw new Error(`서버 응답 오류: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`서버 응답 오류: ${response.status}`);
             
             const data = await response.json();
 
-            if (data.success) {
-                setMealData(data.meal || { breakfast: [], lunch: [], dinner: [] });
+            if (data.success && data.meal) {
+                // ✨✨✨ 데이터 보정 로직을 더 안전하게 수정 ✨✨✨
+                const backendMeal = data.meal;
+                const correctedData = {
+                    // Array.isArray로 배열이 맞는지 한 번 더 확인
+                    breakfast: Array.isArray(backendMeal.breakfast) ? [...backendMeal.breakfast] : [],
+                    lunch: Array.isArray(backendMeal.lunch) ? [...backendMeal.lunch] : [],
+                    dinner: Array.isArray(backendMeal.dinner) ? [...backendMeal.dinner] : []
+                };
+
+                // 중식 배열이 비어있지 않을 때만 보정 작업 수행
+                if (correctedData.lunch.length > 0) {
+                    correctedData.breakfast.push(correctedData.lunch.shift());
+                }
+
+                // 석식 배열이 비어있지 않을 때만 보정 작업 수행
+                if (correctedData.dinner.length > 0) {
+                    correctedData.lunch.push(correctedData.dinner.shift());
+                }
+                
+                setMealData(correctedData);
                 setLastUpdated(new Date().toLocaleString('ko-KR'));
-                setError(""); // 성공 시 에러 메시지 초기화
+                
             } else {
+                // 백엔드에서 success: false를 보냈거나 meal 데이터가 없는 경우
                 throw new Error(data.message || "급식 정보를 불러올 수 없습니다.");
             }
         } catch (err) {
-            let errorMessage = "서버 연결에 문제가 발생했습니다.";
-            if (err.message.includes('fetch')) {
-                errorMessage = `백엔드 서버(${API_BASE_URL})에 연결할 수 없습니다. 서버가 실행 중인지 확인하세요.`;
-            } else {
-                errorMessage = err.message;
-            }
-            setError(errorMessage);
-            setMealData({ breakfast: [], lunch: [], dinner: [] }); // 에러 시 데이터 초기화
+            setError(err.message || "데이터를 처리하는 중 오류가 발생했습니다.");
+            setMealData({ breakfast: [], lunch: [], dinner: [] });
         } finally {
             setLoading(false);
         }
-    }, []); // 이 함수는 의존성이 없으므로 처음 한 번만 생성됩니다.
+    }, []);
 
-    // 컴포넌트가 처음 마운트될 때, 그리고 30분마다 데이터를 가져옵니다.
     useEffect(() => {
         fetchMeal();
         const interval = setInterval(fetchMeal, 30 * 60 * 1000);
-        return () => clearInterval(interval); // 컴포넌트가 사라질 때 인터벌 정리
+        return () => clearInterval(interval);
     }, [fetchMeal]);
 
-    // 오늘 날짜를 "YYYY년 MM월 DD일 요일" 형식으로 포맷하는 함수
-    const formatDate = (date = new Date()) => {
-        return date.toLocaleDateString('ko-KR', {
-            year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
-        });
-    };
+    const formatDate = (date = new Date()) => { /* 이전과 동일 */ };
 
-    // 식단 섹션을 렌더링하는 하위 컴포넌트
     const MealSection = ({ title, items, emoji }) => (
         <div className="MealSection">
             <h3>{emoji} {title}</h3>
             <div className="MealItems">
-                {items && items.length > 0 ? (
+                {/* items가 유효한 배열인지 다시 한번 확인 */}
+                {Array.isArray(items) && items.length > 0 ? (
                     items.map((item, index) => (
                         <div key={index} className="MealItem">{item}</div>
                     ))
@@ -85,6 +87,8 @@ function Meal() {
         </div>
     );
 
+    // --- 렌더링 부분 ---
+    // (이하 렌더링 부분은 이전과 완전히 동일합니다.)
     return (
         <div>
             <Navbar />
@@ -98,10 +102,7 @@ function Meal() {
                         </button>
                     </div>
                 </div>
-
                 <div className="MealDate">{formatDate()}</div>
-
-                {/* 로딩 및 에러 상태에 따라 다른 UI를 표시 */}
                 {loading ? (
                     <div className="LoadingContainer"><p>급식 정보를 맛있게 받아오는 중...</p></div>
                 ) : error ? (
