@@ -3,6 +3,7 @@ import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
 import postRoutes from './routes/posts.js';
 import mealRoutes from './routes/meal.js';
+import comRoutes from './routes/com.js';
 
 import 'dotenv/config'; 
 import express from 'express';
@@ -37,6 +38,7 @@ app.use('/api/meal', mealRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
+app.use('/api/com', comRoutes);
 
 // 서버 상태 확인 API
 app.get('/api/health', (req, res) => {

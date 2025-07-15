@@ -29,21 +29,17 @@ function Meal() {
             const data = await response.json();
 
             if (data.success && data.meal) {
-                // ✨✨✨ 데이터 보정 로직을 더 안전하게 수정 ✨✨✨
                 const backendMeal = data.meal;
                 const correctedData = {
-                    // Array.isArray로 배열이 맞는지 한 번 더 확인
                     breakfast: Array.isArray(backendMeal.breakfast) ? [...backendMeal.breakfast] : [],
                     lunch: Array.isArray(backendMeal.lunch) ? [...backendMeal.lunch] : [],
                     dinner: Array.isArray(backendMeal.dinner) ? [...backendMeal.dinner] : []
                 };
 
-                // 중식 배열이 비어있지 않을 때만 보정 작업 수행
                 if (correctedData.lunch.length > 0) {
                     correctedData.breakfast.push(correctedData.lunch.shift());
                 }
 
-                // 석식 배열이 비어있지 않을 때만 보정 작업 수행
                 if (correctedData.dinner.length > 0) {
                     correctedData.lunch.push(correctedData.dinner.shift());
                 }
@@ -52,7 +48,6 @@ function Meal() {
                 setLastUpdated(new Date().toLocaleString('ko-KR'));
                 
             } else {
-                // 백엔드에서 success: false를 보냈거나 meal 데이터가 없는 경우
                 throw new Error(data.message || "급식 정보를 불러올 수 없습니다.");
             }
         } catch (err) {
@@ -87,8 +82,7 @@ function Meal() {
         </div>
     );
 
-    // --- 렌더링 부분 ---
-    // (이하 렌더링 부분은 이전과 완전히 동일합니다.)
+
     return (
         <div>
             <Navbar />

@@ -1,0 +1,520 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+
+<link rel="shortcut icon" href="/images/favicon.ico" />
+<script type="text/javascript" src="/js/dggb/common/common.js?ver=1"></script>
+
+<script>
+var param={
+		url : location.href			
+};
+
+
+</script>
+</head>
+		        
+
+	
+	
+		
+	
+
+
+<script type="text/javascript">
+
+	var fileObjArray = new Array();
+
+	var title = document.getElementsByTagName("title")[0].innerHTML;
+	if ( title.split('|').length > 2) {
+		document.title =  "상세 | " + title.substr(5);
+	}
+	else {
+		document.title = "상세 | " + title;
+	}
+	
+	$("#list_btn").click(function(){
+		
+		$.ajax({
+			type:'POST'
+			, url:'/dggb/module/board/selectBoardListAjax.do'
+			, cache : false
+			, async : false
+			, data:$("#boardFrm").serialize()
+			, success:function (data) {
+				$('#board_area').html(data);
+			}
+			, error:function (data) {
+			    alert('오류');
+			}
+      	});
+	});
+		
+	$("#reply_btn").click(function(){
+		
+		$.ajax({
+			type:'POST'
+			, url:'/dggb/module/board/replyBoardPageAjax.do'
+			, cache : false
+			, async : false
+			, data:$("#boardFrm").serialize()
+			, success:function (data) {
+				$('#board_area').html(data);
+			}
+			, error:function (data) {
+			    alert('오류');
+			}
+      	});
+	});
+		
+	$("#delete_btn").click(function(){
+		
+		if(!confirm('삭제하시겠습니까?')){
+			return;
+		}
+		
+		$.ajax({
+			type:'POST'
+			, url:'/dggb/module/board/deleteBoardAjax.do'
+			, cache : false
+			, async : false
+			, data:$("#boardFrm").serialize()
+			, success:function (data) {
+				$('#board_area').html(data);
+			}
+			, error:function (data) {
+			    alert('오류');
+			}
+      	});
+	});
+	
+	$("#modify_btn").click(function(){
+
+		$.ajax({
+			type:'POST'
+			, url:'/dggb/module/board/modifyBoardPageAjax.do'
+			, cache : false
+			, async : false
+			, data:$("#boardFrm").serialize()
+			, success:function (data) {
+				$('#board_area').html(data);
+			}
+			, error:function (data) {
+			    alert('오류');
+			}
+      	});
+	});
+
+</script>
+
+	<input type="hidden" id="nttId" name="nttId" value="25793186" />
+	<input type="hidden" id="sortOrdr" name="sortOrdr" value="1" />
+
+	<table class="board_type01_tb_readform" summary="이표는 이름, 등록일, 제목, 내용, 파일첨부로 구성되어 있습니다.">
+	<caption>공지사항 게시판 상세보기</caption>
+	<colgroup>
+		<col width="10%"/>
+		<col width="40%"/>
+		<col width="10%"/>
+		<col width="40%"/>
+	</colgroup>
+	<tbody>
+		<tr>
+			<th scope="row">이름</th>
+			<td>
+				<div>
+					
+					이봉숙
+				</div>
+			</td>
+			<th scope="row" class="mid">등록일</th>
+			<td>
+				
+				<div>2025-03-06 08:49:47</div>
+				
+				
+			</td>
+			
+		</tr>
+		<tr>
+			<th scope="row">제목</th>
+			<td colspan="3">
+				<div>2025학년도 교외체험학습 안내(창의체험지원부)</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<th scope="row">내용</th>
+			<td colspan="3">
+				<div class="content">
+					<p>
+						<p><br /></p>
+					</p>
+				</div>
+			</td>
+		</tr>	
+		
+		
+			
+				
+					
+					
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+	var serverFileObjArray = new Array();
+	var updateFlag = "N";
+	
+	$(function(){
+		var uploader = $("#multiFileUploader");
+		
+		
+			var serverFileObj = new Object();
+			
+			serverFileObj["name"] = "2025학년도 교외체험학습 운영 가정통신문.hwp";
+			serverFileObj["size"] = "531456";
+			serverFileObj["atchFileId"] = "FILE_000000011600203";
+			serverFileObj["fileSn"] = "0";
+			serverFileObj["fileCn"] = "";
+			
+			serverFileObjArray.push(serverFileObj);
+		
+		
+		setTimeout(function(){reflashFileInfoList();}, 200);
+
+		$("#uploadBtn").bind("click", function(){
+			uploader.trigger("click");
+		});
+		
+		uploader.bind("change", function(){
+			var fileList = this.files;
+			var fileCount = $("#fileListTable").find("span").find("li").length;
+			var maxUploadCount = Number("10");
+			
+			for(var fileIndex in fileList){
+				if(Object.prototype.toString.call(fileList[fileIndex]) === "[object File]"){
+					if(fileCount < maxUploadCount){
+						// fileObjArray.push(fileList[fileIndex]); 기존 위치 2018.05.28  
+						
+						if(fnMaxFileSize(fileList[fileIndex], "dliv")){
+							/* fileObjArray.push(fileList[fileIndex]); // 위치변경 2018.05.28 임근기
+							addFileInfoList(fileList[fileIndex]); */
+							fileObjArray.push({
+							    file: fileList[fileIndex],
+							    fileCn: ""
+							});
+							addFileInfoList(fileList[fileIndex], fileObjArray.length - 1);
+							fileCount++;
+						}
+					}
+					else{
+						alert("첨부파일은 최대 10까지 업로드 가능합니다.");
+						break;
+					}
+				}
+			}
+			
+			$(this).val("");
+		});
+	});
+	
+	function reflashFileInfoList(){
+		$("#fileListTable").find("span").children("*").remove();
+		$("#multiFileUploader").parent().find("input[name^=file_]").remove();
+
+		for(var index in serverFileObjArray){
+			var serverFileObj = serverFileObjArray[index];
+			
+			if(Object.prototype.toString.call(serverFileObj.atchFileId) != "[object Undefined]" 
+					&& serverFileObj.atchFileId != null 
+					&& serverFileObj.atchFileId != ""){
+						addFileInfoList(serverFileObj);
+			}
+		}
+		
+		for(var index in fileObjArray){
+			if(fnMaxFileSize(addFileInfoList(fileObjArray[index]), "dliv")){
+				addFileInfoList(fileObjArray[index]);
+			}
+		}
+	}
+	
+	function addFileInfoList(fileObj){
+		var uploader = $("#multiFileUploader");
+		var tbodyElement = $("#fileListTable").find("span");
+		var index = tbodyElement.find("li").length;
+		var trElement = $("<li class='file-row' ></li>");
+		var fileNameExt = fileObj.name.split(".");
+		var fileName = null;
+		var fileExt = fileNameExt[fileNameExt.length-1].toUpperCase();
+		////
+		if(fileExt == "JSP" 
+			|| fileExt == "PHP" || fileExt == "ASP" 
+			|| fileExt == "EXE" || fileExt == "COM" 
+			|| fileExt == "BAT" || fileExt == "HTML" 
+			|| fileExt == "DO" ){
+			alert("첨부할수 없는 파일입니다. 다시 첨부 하세요. \n 반복시 관리자에게 문의하세요.");
+			return false;
+		}		
+		////
+		var sz = fileObj.size;
+		var fileSize = Math.round(sz/1024/1024 * 100)/100;
+		var spanElement = $("<span />");
+		var spanElement2 = $("<span />");
+		
+		var hrefElement = $("<a />");
+		var hrefElement2 = $("<a />");
+
+		var fileCn = fileObj.fileCn;
+		for(var i=0; i<(fileNameExt.length-1); i++){
+			fileName = fileName==null?fileNameExt[i]:fileName+"."+fileNameExt[i];
+		}
+
+		//미리보기(모바일/웹)
+		if ('SEI_00001496' == 'SEI_00000818'){			   
+	 		trElement.append($("<div />").text(++index))
+					 .append(
+							 $("<div />").append(
+							 $("<div />")
+						      .text(fileName)
+						      .attr("sr-only", fileCn)
+						      ,(updateFlag === "Y" && index > serverFileObjArray.length && ["jpg", "jpeg", "png","gif"].includes(fileExt.toLowerCase())) 
+						          ? $("<input />")
+						              .attr({
+						                type: "text",
+						                name:  "fileCn",
+						                value: fileCn,
+						                "class": "file-cn-input",
+						                placeholder: "대체텍스트입력",
+						                title: "대체텍스트"
+						              })
+						                .on("input", function() {
+										        var row = $(this).closest(".file-row");
+										        var index = Number(row.find("div:eq(0)").text()) - 1;
+										
+										        if (index >= serverFileObjArray.length) {
+										            var newIndex = index - serverFileObjArray.length;
+										            fileObjArray[newIndex].fileCn = $(this).val();
+										        }
+										    })
+						          : null 
+						      ) 
+						  )
+					 .append($("<div />").text(fileExt))
+					 .append($("<div />").text(fileSize+"MB"))
+					 .append($("<div />").append(hrefElement)
+					 .append("&nbsp;").append(hrefElement2));
+		}
+ 		else{
+			 trElement.append($("<div />").text(++index)).append($("<div />").text(fileName)).append($("<div />").text(fileExt)).append($("<div />").text(fileSize+"MB")).append($("<div />").append(hrefElement).append("&nbsp;").append(hrefElement2));
+ 		}
+		
+		if(updateFlag != "Y" && Object.prototype.toString.call(fileObj.atchFileId) === "[object Undefined]"){
+			spanElement.addClass("btn_up").bind("click", function(){
+				alert("업로드 대기 중인 파일입니다.\n수정 버튼을 클릭하여 파일을 업로드 해 주세요.");
+			}).text("업로드 대기 중");
+		}
+
+		else{
+			hrefElement.attr({"href": "#file"+(updateFlag=="Y"?"Delete":"Down"), "title": fileName+(updateFlag=="Y"?" 파일삭제":" 다운로드")}).addClass(updateFlag=="Y"?"btn_del":"btn_down").bind("click", function(){
+				var trElement = $(this).parent().parent();
+				var currentIndex = Number(trElement.find("div:eq(0)").text())-1;
+
+				if(updateFlag == "Y"){
+					if(currentIndex < serverFileObjArray.length){
+						deleteFileObjArray.push(serverFileObjArray[currentIndex]);
+						serverFileObjArray.splice(currentIndex, 1);
+					}
+					else{
+						fileObjArray.splice((currentIndex-serverFileObjArray.length), 1);
+					}
+					
+					reflashFileInfoList();
+				}
+				else{
+					if(currentIndex < serverFileObjArray.length){
+						var currentFileObj = serverFileObjArray[currentIndex];
+							fn_egov_downFile(currentFileObj.atchFileId, currentFileObj.fileSn);
+					}
+				}
+			}).text(updateFlag=="Y"?"파일삭제":"다운로드");
+			
+			//미리보기(모바일/웹)
+			hrefElement2.attr({"href": "#file"+(updateFlag=="Y"?"":"btn_down2"), "title": fileName+(updateFlag=="Y"?"":" 미리보기 새창 열림")}).addClass(updateFlag=="Y"?"":"btn_down2").bind("click", function(){
+				var trElement = $(this).parent().parent();
+				var currentIndex = Number(trElement.find("div:eq(0)").text())-1; 
+				if(updateFlag == "Y"){
+					if(currentIndex < serverFileObjArray.length){
+						deleteFileObjArray.push(serverFileObjArray[currentIndex]);
+						serverFileObjArray.splice(currentIndex, 1);
+					}
+					else{
+						fileObjArray.splice((currentIndex-serverFileObjArray.length), 1);
+					}
+					
+					reflashFileInfoList();
+				}
+				else{
+					if(currentIndex < serverFileObjArray.length){
+						var currentFileObj = serverFileObjArray[currentIndex];
+						
+						fn_cnvrFileDown(currentFileObj.atchFileId, currentFileObj.fileSn);
+					}
+				}
+			}).text(updateFlag=="Y"?"":"미리보기");
+			
+		}		
+		
+
+
+		tbodyElement.append(trElement);
+	}
+
+	function fn_egov_downFile(atchFileId, fileSn){
+		window.open("/dggb/board/boardFile/downFile.do?atchFileId="+atchFileId+"&fileSn="+fileSn+"");
+	}
+
+	function fn_cnvrFileDown(atchFileId, fileSn){
+		window.open("http://viewhosting.ssem.or.kr:8080/SynapDocViewServer/job?fid="+atchFileId+"_"+fileSn+"&filePath=https://srobot.sen.hs.kr:443/dggb/cnvrFileDown.do?atchFileId="+atchFileId+":"+fileSn+"&convertType=0&fileType=URL&sync=true");
+	}
+	
+	function fn_egov_deleteFile(atchFileId, fileSn) {
+		forms = document.getElementsByTagName("form");
+
+		for (var i = 0; i < forms.length; i++) {
+			if (typeof(forms[i].atchFileId) != "undefined" &&
+					typeof(forms[i].fileSn) != "undefined" &&
+					typeof(forms[i].fileListCnt) != "undefined") {
+				form = forms[i];
+			}
+		}
+		
+		form.atchFileId.value = atchFileId;
+		form.fileSn.value = fileSn;
+		
+		$.ajax({
+	        type:'POST'
+	      , url:'/dggb/module/boardFile/deleteBoardFile.do'
+	      , cache : false
+	      , data:$("#boardFrm").serialize()
+	      , success:function (data) {
+				$("#board_area").html(data);
+	      }
+	      , error:function (data) {
+	          alert('오류');
+	      }
+	      , dateType: 'html'
+	 	});  
+		
+	}
+
+</script>
+<div id="file_div">
+
+
+	
+
+
+
+
+
+<input type="hidden" name="atchFileId" value="FILE_000000011600203">
+<input type="hidden" name="fileSn" >
+<input type="hidden" name="fileListCnt" id="fileListCnt" value="1">
+<input type="hidden" name="posblAtchFileNumber" value="10" />
+	
+	
+	
+		
+		
+	
+	<!--[if !IE]>-->
+	<tr>
+		<th scope="row">파일첨부 </th>
+		<td colspan="3">
+		
+			<div id="fileListTable" class="file-table">
+				  <ul>
+					    <li class="file-row header">
+					      <div>NO.</div>
+					      <div>파일명</div>
+					      <div>파일형식</div>
+					      <div>파일크기</div>
+					      <div>
+							
+							다운로드
+					      </div>
+					    </li>
+					    <span></span>
+				  </ul>
+			</div>					
+			
+			
+		</td>
+	</tr>
+	
+</div>
+
+	<style>
+	  .file-table { max-width: 100%; border: 0px solid #ccc;}	  
+	  .file-table li a { color: #fff;}	  	
+	  .file-table ul { list-style: none; margin: 0; padding: 0;}	
+	  .file-row { display: grid; grid-template-columns: 6% 1fr 15% 15% 25%; border-bottom: 1px solid #ddd; align-items: center;}	
+	  .file-row.header { background-color: #888; font-weight: bold; color: #fff;}	
+	  .file-row div { padding: 10px; border-right: 0px solid #eee; box-sizing: border-box; text-align: center; overflow: visible; text-overflow: initial; white-space: normal;}	
+	  .file-row div:last-child { border-right: none;}	
+	  .btn_del, .btn_down, .btn_down2 { background: #222; color: #fff; padding: 3px 5px; letter-spacing: -0.07em; cursor: pointer; display: inline-block;}
+	</style>
+			
+		
+		
+	</tbody>
+	</table>
+		
+	
+		
+		
+	
+	<div class="board_type01_table_bottom">
+		<div class="button_left">
+			
+		</div>
+		<div class="button_right">
+			
+			
+			<button type="button" class="dark" id="list_btn">목록</button>
+		</div>
+	</div>
+	

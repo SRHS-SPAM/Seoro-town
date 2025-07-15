@@ -1,4 +1,4 @@
-// App.js (수정된 버전)
+// src/App.js (최종 수정 완료 버전)
 
 import './App.css';
 import React from 'react';
@@ -19,6 +19,7 @@ import Boardarr from './page/Boardarr';
 import Meal from './page/Meal';
 import Guide from './page/Guide';
 import Mypage from './page/Mypage';
+import ComDetail from './page/ComDetail'; // ✨ 상세 페이지 컴포넌트 임포트
 
 function LoginComponent() {
   const { isLoggedIn, logout, user } = React.useContext(AuthContext);
@@ -61,6 +62,7 @@ function App() {
             <Route path="/infoboard/:id" element={<Boardinfo />} /> 
             <Route path="/Boardarr" element={<Boardarr/>}/>
             <Route path="/Guide" element={<Guide />} />
+            <Route path="/com-detail/:nttId" element={<ComDetail />} />
           </Routes>
         </div>
       </Router>
