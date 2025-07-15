@@ -26,5 +26,16 @@
         "createdAt": "2025-07-14T10:21:17.999Z"
       }
     ]
+  },
+  {
+    "id": "1752558320834",
+    "title": "asdasd",
+    "content": "asdasdasdad",
+    "category": "재학생",
+    "authorId": "1751694646978",
+    "authorName": "관리자",
+    "authorProfileImage": "/uploads/1752478328459.png",
+    "createdAt": "2025-07-15T05:45:20.834Z",
+    "comments": []
   }
 ]

@@ -1,5 +1,3 @@
-// src/page/Mypage.js (완전한 최종 버전)
-
 import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
@@ -7,7 +5,6 @@ import { User, Users, FileText, MessageCircle, Settings, ArrowLeft, UserPlus, Us
 import Navbar from './Navbar';
 import './Mypage.css';
 
-// --- 하위 컴포넌트들 ---
 
 const ProfileSection = ({ user, stats, isMyProfile, isFollowing, onFollowToggle, onStatClick, onAvatarClick }) => (
     <div className="ProfileSection">

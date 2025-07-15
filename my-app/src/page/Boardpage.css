@@ -600,3 +600,31 @@ form {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     background-color: red;
 }
+
+    .PostTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    }
+
+    .PostTitle span:first-child {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+
+    .NewBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background-color: #ff4757;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    line-height: 1;
+    flex-shrink: 0;
+    }

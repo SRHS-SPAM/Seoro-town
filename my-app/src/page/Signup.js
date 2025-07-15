@@ -1,5 +1,3 @@
-// Signup.js (수정된 최종 버전)
-
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
@@ -28,7 +26,6 @@ function Signup() {
         }
 
         try {
-            // ✨✨✨ API 경로를 올바르게 수정! ✨✨✨
             const response = await fetch('/api/auth/signup', {
                 method: 'POST',
                 headers: {
@@ -43,12 +40,11 @@ function Signup() {
 
             const data = await response.json();
 
-            if (data.success) { // ✨ 백엔드 응답의 success 필드를 확인
+            if (data.success) {
                 alert('회원가입이 완료되었습니다!');
                 
-                // ✨ 백엔드에서 받은 사용자 정보와 토큰으로 로그인 처리
                 login(data.user, data.token);
-                navigate('/'); // 홈으로 이동
+                navigate('/');
             } else {
                 alert(data.message || '회원가입에 실패했습니다.');
             }

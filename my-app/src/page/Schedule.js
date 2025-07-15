@@ -8,7 +8,7 @@ function Schedule() {
         <Navbar />
         <div className="PageContent">
             <h1>시간표</h1>
-            {/*시간표 만드는 버튼*/}
+            {/*수작업으로 넣을예정*/}
         </div>
         
         </div>

@@ -2,6 +2,7 @@
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
 import postRoutes from './routes/posts.js';
+import mealRoutes from './routes/meal.js';
 
 import 'dotenv/config'; 
 import express from 'express';
@@ -23,6 +24,7 @@ app.use(cors({
 app.use(express.json());
 
 
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use((req, res, next) => {
@@ -31,6 +33,7 @@ app.use((req, res, next) => {
 });
 
 // API 라우트 연결
+app.use('/api/meal', mealRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);

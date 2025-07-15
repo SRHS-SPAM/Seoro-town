@@ -76,7 +76,7 @@ router.post('/login', async (req, res) => {
             id: user.id, 
             username: user.username, 
             email: user.email,
-            profileImage: user.profileImage // ✨ 토큰에 프로필 이미지 정보 추가
+            profileImage: user.profileImage 
         };
         const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: '24h' });
 

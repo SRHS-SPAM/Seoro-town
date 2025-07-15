@@ -1,5 +1,3 @@
-// src/page/Boardinfo.js (최종 전체 코드)
-
 import './Boardinfo.css';
 import { useContext, useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -19,7 +17,6 @@ function Boardinfo() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     
-    // --- 데이터 로딩 함수 ---
     const loadPostDetails = useCallback(async () => {
         if (!id) {
             console.error("게시글 ID가 URL에 없습니다.");
@@ -46,13 +43,11 @@ function Boardinfo() {
         }
     }, [id]);
     
-    // --- useEffect 훅 ---
     useEffect(() => {
         setIsLoading(true);
         loadPostDetails();
     }, [loadPostDetails]);
 
-    // --- 로딩 및 데이터 없음 UI ---
     if (isLoading) {
         return (
             <div>
@@ -74,14 +69,13 @@ function Boardinfo() {
         );
     }
 
-    // --- 헬퍼 및 핸들러 함수들 ---
     const isAdmin = () => user?.username === '관리자' || user?.email === 'DBADMIN@dba.com';
     const isAuthor = () => post && user?.id === post.authorId;
     const canDelete = () => isAuthor() || isAdmin();
     const handleBackClick = () => navigate(-1);
 
     const goToUserProfile = (userId) => {
-        if (!userId) return; // userId가 없을 경우 아무것도 하지 않음
+        if (!userId) return;
         if (userId === user?.id) {
             navigate('/Mypage');
         } else {
@@ -151,8 +145,6 @@ function Boardinfo() {
     
     const getPostDate = () => new Date(post.createdAt).toLocaleDateString('ko-KR');
     const getInitial = (name) => (name ? name.charAt(0).toUpperCase() : '?');
-        
-    // --- JSX 렌더링 ---
     return (
         <div>
             <Navbar />
@@ -224,7 +216,7 @@ function Boardinfo() {
                             <div key={comment.id} className="CommentItem">
                                 <div className="CommentHeader" onClick={() => goToUserProfile(comment.authorId)} style={{cursor: 'pointer'}}>
                                     <div className="CommentAuthorAvatar">
-                                         {comment.authorProfileImage ? (
+                                        {comment.authorProfileImage ? (
                                             <img src={`http://localhost:3001${comment.authorProfileImage}`} alt={comment.authorName} />
                                         ) : (
                                             <span>{getInitial(comment.authorName)}</span>
