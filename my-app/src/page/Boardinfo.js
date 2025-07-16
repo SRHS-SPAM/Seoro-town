@@ -76,6 +76,13 @@ function Boardinfo() {
 
     const goToUserProfile = (userId) => {
         if (!userId) return;
+        
+        // 비로그인 사용자가 프로필을 클릭하려 할 때 경고창 표시
+        if (!isLoggedIn) {
+            alert('로그인 후 이용 가능한 서비스입니다.');
+            return;
+        }
+        
         if (userId === user?.id) {
             navigate('/Mypage');
         } else {

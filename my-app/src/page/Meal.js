@@ -92,13 +92,13 @@ function Meal() {
                     <div className="UpdateInfo">
                         {lastUpdated && <span className="LastUpdated">마지막 업데이트: {lastUpdated}</span>}
                         <button onClick={fetchMeal} className="RefreshButton" disabled={loading}>
-                            {loading ? '로딩중...' : '🔄 새로고침'}
+                            {loading ? '로딩중...' : '새로고침'}
                         </button>
                     </div>
                 </div>
                 <div className="MealDate">{formatDate()}</div>
                 {loading ? (
-                    <div className="LoadingContainer"><p>급식 정보를 맛있게 받아오는 중...</p></div>
+                    <div className="LoadingContainer"><p>급식 정보를 받아오는 중...</p></div>
                 ) : error ? (
                     <div className="ErrorContainer">
                         <p>{error}</p>

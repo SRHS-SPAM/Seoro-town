@@ -102,7 +102,7 @@ router.get('/', async (req, res) => {
                     } else {
                         // 키워드가 없는 일반 메뉴 줄 처리
                         const cleanMenu = line.replace(/\s*\([\d\.]+\)\s*$/, '')
-                                              .trim();
+                                            .trim();
                         
                         if (currentMealType && cleanMenu) {
                             mealData[currentMealType].push(cleanMenu);

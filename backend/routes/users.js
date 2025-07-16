@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Multer 저장소 설정
+// Multer 저장소 설정 (기존과 동일)
 const storage = multer.diskStorage({
     destination: (req, file, cb) => { cb(null, 'uploads/'); },
     filename: (req, file, cb) => {
@@ -20,6 +20,7 @@ const storage = multer.diskStorage({
     },
 });
 const upload = multer({ storage: storage });
+
 
 
 
@@ -158,6 +159,58 @@ router.delete('/admin/:id', authenticateToken, async (req, res) => {
         res.status(500).json({ success: false, message: '서버 오류' });
     }
 });
+
+router.get('/me/schedule', authenticateToken, async (req, res) => {
+    try {
+        const users = await readUsers();
+        const user = users.find(u => u.id === req.user.id);
+        if (!user) {
+            return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
+        }
+        const userSchedule = user.schedule && Array.isArray(user.schedule) && user.schedule.length === 8 && user.schedule[0].length === 6 ? 
+                                user.schedule : 
+                                [
+                                    ["", "월", "화", "수", "목", "금"],
+                                    ["1", "", "", "", "", ""], ["2", "", "", "", "", ""],
+                                    ["3", "", "", "", "", ""], ["4", "", "", "", "", ""],
+                                    ["5", "", "", "", "", ""], ["6", "", "", "", "", ""],
+                                    ["7", "", "", "", "", ""]
+                                ];
+        res.json({ success: true, schedule: userSchedule });
+    } catch (error) {
+        console.error('시간표 조회 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류' });
+    }
+});
+
+
+router.post('/me/schedule', authenticateToken, async (req, res) => {
+    try {
+        const { schedule } = req.body;
+        // 시간표 데이터의 유효성 검사 (기본 구조와 일치하는지)
+        if (!schedule || !Array.isArray(schedule) || schedule.length !== 8 || schedule[0].length !== 6) {
+            return res.status(400).json({ success: false, message: '유효한 시간표 데이터가 필요합니다. (6x8 배열 형식)' });
+        }
+
+        let users = await readUsers();
+        const userIndex = users.findIndex(u => u.id === req.user.id);
+        if (userIndex === -1) {
+            return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
+        }
+
+        // 사용자 데이터에 시간표 업데이트
+        users[userIndex].schedule = schedule;
+        await writeUsers(users);
+
+        res.json({ success: true, message: '시간표가 성공적으로 저장되었습니다.' });
+    } catch (error) {
+        console.error('시간표 저장 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류' });
+    }
+});
+
+
+
 
 // 인증(로그인)이 필요 없는 공개 API 모음 
 
