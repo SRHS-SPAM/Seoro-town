@@ -19,8 +19,10 @@ import Boardarr from './page/Boardarr';
 import Meal from './page/Meal';
 import Guide from './page/Guide';
 import Mypage from './page/Mypage';
-import ComDetail from './page/ComDetail'; // ✨ 상세 페이지 컴포넌트 임포트
-
+import ComDetail from './page/ComDetail'; 
+import FGuide from './page/FGuide';
+import MBGuide from './page/MBGuide';
+import PBGuide from './page/PBGuide';
 function LoginComponent() {
   const { isLoggedIn, logout, user } = React.useContext(AuthContext);
   
@@ -49,6 +51,7 @@ function App() {
       <Router>
         <div>
           <Routes>
+
             <Route path="/" element={<Boardpage />} />
             <Route path="/Schedule" element={<Schedule />} />
             <Route path="/Com" element={<Com />} />
@@ -63,6 +66,10 @@ function App() {
             <Route path="/Boardarr" element={<Boardarr/>}/>
             <Route path="/Guide" element={<Guide />} />
             <Route path="/com-detail/:nttId" element={<ComDetail />} />
+            <Route path="/guide/facility" element={<FGuide />} />
+            <Route path="/guide/main-building" element={<MBGuide />} />
+            <Route path="/guide/practice-building" element={<PBGuide />} />
+
           </Routes>
         </div>
       </Router>
