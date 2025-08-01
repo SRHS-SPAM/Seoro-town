@@ -318,7 +318,7 @@ function Mypage() {
         <>
             <Navbar />
             <div className="MypageContainer">
-                 <input type="file" ref={fileInputRef} onChange={handleProfileImageChange}
+                <input type="file" ref={fileInputRef} onChange={handleProfileImageChange}
                     accept="image/*" style={{ display: 'none' }} />
                 {!isMyProfile && (
                     <div className="MypageHeader"><button className="BackButton" onClick={() => navigate(-1)}><ArrowLeft size={24} /> <span>뒤로가기</span></button></div>

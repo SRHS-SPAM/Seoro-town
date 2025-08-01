@@ -1,10 +1,11 @@
+// src/page/Boardarr.js (최신순 정렬 최종 전체 코드)
+
 import './Boardarr.css';
 import { useState, useContext, useEffect } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { LoginComponent } from '../App.js';
+import Navbar from './Navbar.js';
 import { Search, PenLine, AlertCircle, ArrowLeft } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
-import Navbar from './Navbar.js';
 
 function Boardarr() {
     const { isLoggedIn, user, token } = useContext(AuthContext);
@@ -17,6 +18,15 @@ function Boardarr() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
+
+    // 텍스트 길이 제한 헬퍼 함수
+    const truncateText = (text, maxLength) => {
+        if (!text) return '';
+        if (text.length > maxLength) {
+            return text.substring(0, maxLength) + '...';
+        }
+        return text;
+    };
 
     useEffect(() => {
         fetchPosts();
@@ -41,6 +51,7 @@ function Boardarr() {
             const data = await response.json();
             
             if (data.success) {
+                // 백엔드에서 이미 최신순으로 정렬되어 오므로 그대로 사용
                 setPosts(data.posts || []);
                 console.log('게시글 목록 불러오기 성공:', data.posts?.length || 0, '개');
             } else {
@@ -55,9 +66,9 @@ function Boardarr() {
         }
     };
 
-const handlePostClick = (post) => {
-    navigate(`/infoboard/${post.id}`);
-};
+    const handlePostClick = (post) => {
+        navigate(`/infoboard/${post.id}`);
+    };
     const handleBackClick = () => {
         navigate('/');
     };
@@ -78,6 +89,13 @@ const handlePostClick = (post) => {
     });
 
     const renderAllPosts = () => {
+        const isNew = (createdAt) => {
+            const now = new Date();
+            const postDate = new Date(createdAt);
+            const diffMinutes = (now.getTime() - postDate.getTime()) / (1000 * 60);
+            return diffMinutes < 5; // 5분
+        };
+
         if (loading) {
             return (
                 <div className="EmptyBoard">
@@ -109,20 +127,18 @@ const handlePostClick = (post) => {
         
         return (
             <div className="AllPostsList">
-                {filteredPosts.reverse().map(post => (
-                    <div 
-                        key={post.id} 
-                        className="AllPostItem"
-                        onClick={() => handlePostClick(post)}
-                    >
-                        <div className="PostHeader">
-                            <div className="PostTitle">{post.title}</div>
-                            <div className="PostDate">
-                                {new Date(post.createdAt).toLocaleDateString('ko-KR')}
+                {/* ✨✨✨ reverse() 메서드 제거하여 최신순 유지 ✨✨✨ */}
+                {filteredPosts.map(post => ( 
+                    <div key={post.id} className="AllPostItem" onClick={() => handlePostClick(post)}>
+                        <div className="PostContentWrapper">
+                            <div className="PostTitle">
+                                <span>{truncateText(post.title, 25)}</span> 
                             </div>
+                            {isNew(post.createdAt) && <span className="NewBadge">N</span>}
                         </div>
                         <div className="PostInfo">
                             <span className="PostAuthor">작성자: {post.authorName}</span>
+                            <span className="PostDate">{new Date(post.createdAt).toLocaleDateString('ko-KR')}</span>
                         </div>
                     </div>
                 ))}

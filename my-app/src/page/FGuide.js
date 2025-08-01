@@ -24,34 +24,32 @@ function FGuide() {
                     <div className="FacilityGrid">
                         <div className="FacilityItem">
                             {/* 운동장 이미지를 여기에 넣으세요 */}
-                            <img src="path/to/playground.jpg" alt="운동장" className="FacilityImage" />
+                            <img src="/field.png" alt="운동장" className="FacilityImage" />
                             <h4>운동장</h4>
                         </div>
                         <div className="FacilityItem">
                             {/* 강당 이미지를 여기에 넣으세요 */}
-                            <img src="path/to/auditorium.jpg" alt="강당" className="FacilityImage" />
-                            <h4>강당</h4>
+                            <img src="/gym.png" alt="체육관" className="FacilityImage" />
+                            <h4>체육관</h4>
                         </div>
                         <div className="FacilityItem">
                             {/* 급식실 이미지를 여기에 넣으세요 */}
-                            <img src="path/to/cafeteria.jpg" alt="급식실" className="FacilityImage" />
+                            <img src="/dyningroom.png" alt="급식실" className="FacilityImage" />
                             <h4>급식실</h4>
                         </div>
                         <div className="FacilityItem">
                             {/* 도서관 이미지를 여기에 넣으세요 */}
-                            <img src="path/to/library.jpg" alt="도서관" className="FacilityImage" />
-                            <h4>도서관</h4>
+                            <img src="/dormitory.png" alt="예성관" className="FacilityImage" />
+                            <h4>예성관</h4>
                         </div>
-                        {/* 추가 시설이 있다면 여기에 더 넣으세요 */}
                     </div>
-                    {/* 시설 이미지 그리드 끝 */}
                     
                     <h3>주요 시설 상세 정보</h3>
                     <ul>
                         <li>운동장: 축구, 농구 등 야외 활동 공간</li>
-                        <li>강당: 입학식, 졸업식 등 각종 행사 진행</li>
-                        <li>급식실: 위생적이고 맛있는 점심 제공</li>
-                        <li>도서관: 다양한 서적 및 학습 공간</li>
+                        <li>체육관: 입학식, 졸업식 등 각종 행사 진행</li>
+                        <li>급식실: 수요일마다 맛있는 급식 제공</li>
+                        <li>예성관: 기숙사</li>
                     </ul>
                 </div>
             </div>

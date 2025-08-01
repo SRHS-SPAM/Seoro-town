@@ -31,9 +31,6 @@ function Guide() {
                     <button onClick={() => handleGuideClick('/guide/main-building')} className="GuideButton">
                         본관동 안내
                     </button>
-                    <button onClick={() => handleGuideClick('/guide/practice-building')} className="GuideButton">
-                        실습동 안내
-                    </button>
                 </div>
             </div>
         </div>

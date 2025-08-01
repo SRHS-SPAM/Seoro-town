@@ -1,11 +1,8 @@
-// src/App.js (최종 수정 완료 버전)
-
 import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import { AuthProvider, AuthContext } from './context/AuthContext';
 
-// 페이지 컴포넌트 임포트
 import Boardpage from './page/Boardpage';
 import Schedule from './page/Schedule';
 import Com from './page/Com';
@@ -22,7 +19,7 @@ import Mypage from './page/Mypage';
 import ComDetail from './page/ComDetail'; 
 import FGuide from './page/FGuide';
 import MBGuide from './page/MBGuide';
-import PBGuide from './page/PBGuide';
+
 function LoginComponent() {
   const { isLoggedIn, logout, user } = React.useContext(AuthContext);
   
@@ -68,7 +65,6 @@ function App() {
             <Route path="/com-detail/:nttId" element={<ComDetail />} />
             <Route path="/guide/facility" element={<FGuide />} />
             <Route path="/guide/main-building" element={<MBGuide />} />
-            <Route path="/guide/practice-building" element={<PBGuide />} />
 
           </Routes>
         </div>
