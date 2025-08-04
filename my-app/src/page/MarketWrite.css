@@ -1,0 +1,91 @@
+.WriteContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    background-color: #f9f9f9;
+}
+
+.ModalBox {
+    background: white;
+    border: 2px solid #007aff;
+    border-radius: 10px;
+    padding: 30px;
+    width: 400px;
+    position: relative;
+}
+
+.CloseButton {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.Title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.CategoryGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.CategoryBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.CategoryBox:hover {
+    background: #e5e5e5;
+}
+
+.CategoryBox.selected {
+    border: 2px solid #007aff;
+    background: #e6f0ff;
+}
+
+.CategoryIcon {
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+.CategoryText {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.NextButton {
+    width: 100%;
+    padding: 10px 0;
+    font-weight: bold;
+    border: 1.5px solid #222;
+    border-radius: 25px;
+    background: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.NextButton.disabled {
+    color: #aaa;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
+.NextButton.enabled {
+    color: #000;
+}

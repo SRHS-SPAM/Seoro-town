@@ -3,9 +3,15 @@ import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-do
 import { Search, PenLine, FileText, Clock, MessageSquare, ThumbsUp, AlertCircle } from 'lucide-react'; // Lucide 아이콘 추가
 import { LoginComponent } from '../App.js'; // 로그인 컴포넌트 임포트 
 import React from 'react';
+import {useNavigate } from 'react-router-dom';
 
 
     function Market() {
+
+            const navigate = useNavigate();  // useNavigate 훅 사용
+            const handleWriteClick = () => {
+                navigate('/Write'); // 글쓰기 페이지로 이동
+            };
         return (
             <div>
             <div className="NavBar">
@@ -24,7 +30,7 @@ import React from 'react';
                 <NavLink to="/Friends" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>친구</NavLink>
             </div>
             <LoginComponent />
-            <button className="WriteButton">글쓰기</button>
+            <button className="WriteButton" onClick={handleWriteClick}>글쓰기</button>
             </div>
             <div className="Searchbar">{/* 검색창 */}
                 <div className="SearchBox">

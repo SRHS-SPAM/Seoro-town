@@ -12,6 +12,7 @@ import Club from './page/Club';
 import Market from './page/Market';
 import Login from './page/Login';
 import Signup from './page/Signup';
+import MarketWrite from './page/MarketWrite.js';  // 글쓰기 페이지 컴포넌트 임포트
 
 function LoginComponent() {
   const { isLoggedIn, logout, user } = React.useContext(AuthContext);
@@ -67,6 +68,7 @@ function App() {
             <Route path="/Friends" element={<Market />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/Signup" element={<Signup />} />
+            <Route path="/write" element={<MarketWrite />} />
           </Routes>
         </div>
       </Router>
