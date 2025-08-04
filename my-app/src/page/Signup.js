@@ -27,7 +27,7 @@
         }
 
         try {
-            // 백엔드 POST요청~~
+
             const response = await fetch('http://localhost:3001/api/signup', {
             method: 'POST',
             headers: {
@@ -74,7 +74,7 @@
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="사용자명을 입력하세요"
+                placeholder="사용자님의 실명을 입력하세요"
                 required
             />
             </div>

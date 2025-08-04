@@ -10,7 +10,11 @@ import {useNavigate } from 'react-router-dom';
 
             const navigate = useNavigate();  // useNavigate 훅 사용
             const handleWriteClick = () => {
+<<<<<<< HEAD
                 navigate('/Write'); // 글쓰기 페이지로 이동
+=======
+                navigate('/MarketWrite'); // 글쓰기 페이지로 이동
+>>>>>>> e814d96ddf3884dac21f3ecad7cf1573f4a33bdb
             };
         return (
             <div>
@@ -23,7 +27,7 @@ import {useNavigate } from 'react-router-dom';
             <div className="NavCenter">
                 <NavLink to="/" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>게시판</NavLink>
                 <NavLink to="/Schedule" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>시간표</NavLink>
-                <NavLink to="/Notice"className={({ isActive }) => isActive ? "NavItem active" : "NavItem"}>가정통신문</NavLink>
+                <NavLink to="/Com"className={({ isActive }) => isActive ? "NavItem active" : "NavItem"}>가정통신문</NavLink>
                 <NavLink to="/Meal" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>급식</NavLink>
                 <NavLink to="/Club" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>동아리</NavLink>
                 <NavLink to="/Market" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>서로당근</NavLink>

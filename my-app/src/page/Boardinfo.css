@@ -1,0 +1,438 @@
+.BoardInfoContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem; 
+    min-height: 100vh;
+    background-color: white;
+}
+
+.BoardInfoHeader {
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+}
+
+.BackButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 12px 20px;
+    background-color: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #495057;
+    transition: all 0.3s ease;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.BackButton:hover {
+    background-color: red;
+    border-color: red;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
+}
+
+.PostDetailContainer {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 2rem;
+}
+
+.PostDetailHeader {
+    padding: 2rem;
+    border-bottom: 1px solid #e9ecef;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.PostHeaderTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.PostCategory {
+    display: inline-block;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, red 0%, #e60000 100%);
+    color: white;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+    box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
+}
+
+.PostStats {
+    display: flex;
+    gap: 1rem;
+    color: #666;
+    font-size: 14px;
+}
+
+.ViewCount {
+    font-weight: bold;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
+
+.PostDetailTitle {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.3;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+    word-break: keep-all;
+}
+
+.PostDetailInfo {
+    display: flex;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.AuthorInfo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.AuthorAvatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, red 0%, #e60000 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+    box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
+}
+
+.AuthorDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.PostDetailAuthor {
+    font-weight: bold;
+    color: #333;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+    font-size: 16px;
+}
+
+.PostDetailDate {
+    color: #666;
+    font-size: 14px;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
+
+.PostDetailContent {
+    padding: 2.5rem;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #333;
+    min-height: 300px;
+    font-family: 'inter', sans-serif;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.PostDetailContent p {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.PostActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+}
+
+.ActionButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    background-color: #f1f3f4;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+    transition: all 0.3s ease;
+    min-width: 80px;
+    color: #666;
+}
+
+.ActionButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.LikeButton {
+    background-color: #fff5f5;
+    color: #ff4757;
+}
+
+.LikeButton:hover {
+    background-color: #ffebee;
+    color: #d32f2f;
+}
+
+.LikeButton.liked {
+    background-color: #ff4757;
+    color: white;
+}
+
+.CommentButton {
+    background-color: #fff5f5;
+    color: #ff4757;
+}
+
+.CommentButton:hover {
+    background-color: #ffebee;
+    color: #d32f2f;
+}
+
+.CommentsSection {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.CommentsSectionHeader {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #e9ecef;
+    background-color: #f8f9fa;
+}
+
+.CommentsSectionHeader h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
+
+.CommentWrite {
+    padding: 2rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.CommentWriteBox {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.CommentAuthorAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, red 0%, #e60000 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+    flex-shrink: 0;
+}
+
+.CommentInput {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'inter', sans-serif;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s ease;
+    min-width: 0;
+    width: 100%;
+    min-height: 80px;
+    line-height: 1.4;
+}
+
+.CommentInput:focus {
+    border-color: red;
+    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.1);
+}
+
+.CommentSubmitContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.CommentSubmitButton {
+    padding: 12px 20px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.CommentSubmitButton:hover {
+    background-color: #e60000;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
+}
+
+.CommentSubmitButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.LoginRequired {
+    padding: 2rem;
+    text-align: center;
+    color: #666;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.CommentsList {
+    padding: 2rem;
+}
+
+.CommentItem {
+    padding: 16px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.CommentItem:last-child {
+    border-bottom: none;
+}
+
+.CommentHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.CommentInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.CommentAuthor {
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
+
+.CommentDate {
+    color: #666;
+    font-size: 12px;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
+
+.CommentContent {
+    margin-left: 52px;
+    color: #333;
+    line-height: 1.5;
+    font-size: 14px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: 'inter', sans-serif;
+}
+
+.EmptyComments {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    padding: 3rem 0;
+}
+
+.EmptyComments svg {
+    margin-bottom: 1rem;
+    opacity: 0.5;
+    color: #ccc;
+}
+
+.EmptyComments p {
+    margin: 0;
+    font-size: 16px;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
+
+@media (max-width: 768px) {
+    .BoardInfoContainer {
+        padding: 1rem;
+        max-width: 100%;
+    }
+    
+    .PostDetailTitle {
+        font-size: 1.5rem;
+    }
+    
+    .PostDetailHeader, .PostDetailContent, .CommentWrite, .CommentsList {
+        padding: 1.5rem;
+    }
+    
+    .PostActions {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+        padding: 1rem 1.5rem;
+    }
+    
+    .ActionButton {
+        min-width: auto;
+        padding: 10px 15px;
+        font-size: 12px;
+    }
+    
+    .CommentWriteBox {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .CommentInput {
+        min-width: 100%;
+    }
+    
+    .CommentContent {
+        margin-left: 0;
+        margin-top: 8px;
+    }
+    
+    .CommentHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}
