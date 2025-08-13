@@ -3,7 +3,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import { AuthProvider, AuthContext } from './context/AuthContext';
 
-// 페이지 컴포넌트 임포트
 import Boardpage from './page/Boardpage';
 import Schedule from './page/Schedule';
 import Com from './page/Com';
@@ -12,13 +11,14 @@ import Club from './page/Club';
 import Market from './page/Market';
 import Login from './page/Login';
 import Signup from './page/Signup';
-<<<<<<< HEAD
-import MarketWrite from './page/MarketWrite.js';  // 글쓰기 페이지 컴포넌트 임포트
-=======
 import Boardinfo from './page/Boardinfo';
 import Boardarr from './page/Boardarr';
 import Meal from './page/Meal';
->>>>>>> e814d96ddf3884dac21f3ecad7cf1573f4a33bdb
+import Guide from './page/Guide';
+import Mypage from './page/Mypage';
+import ComDetail from './page/ComDetail'; 
+import FGuide from './page/FGuide';
+import MBGuide from './page/MBGuide';
 
 function LoginComponent() {
   const { isLoggedIn, logout, user } = React.useContext(AuthContext);
@@ -27,7 +27,7 @@ function LoginComponent() {
     <div className="NavRight">
       {isLoggedIn ? (
         <>
-          <span className="NavItem">{user?.username || '사용자'} 님</span>
+          <NavLink to="/Mypage" className="NavItem">{user?.username || '사용자'} 님</NavLink>
           <button className="NavItem" onClick={logout}>로그아웃</button>
         </>
       ) : (
@@ -48,6 +48,7 @@ function App() {
       <Router>
         <div>
           <Routes>
+
             <Route path="/" element={<Boardpage />} />
             <Route path="/Schedule" element={<Schedule />} />
             <Route path="/Com" element={<Com />} />
@@ -55,15 +56,16 @@ function App() {
             <Route path="/Club" element={<Club />} />
             <Route path="/Market" element={<Market />} />
             <Route path="/Meal" element={<Meal />} />
-            <Route path="/Friends" element={<Market />} />
+            <Route path="/Mypage" element={<Mypage />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/Signup" element={<Signup />} />
-<<<<<<< HEAD
-            <Route path="/write" element={<MarketWrite />} />
-=======
-            <Route path="/infoboard" element={<Boardinfo />} />
+            <Route path="/infoboard/:id" element={<Boardinfo />} /> 
             <Route path="/Boardarr" element={<Boardarr/>}/>
->>>>>>> e814d96ddf3884dac21f3ecad7cf1573f4a33bdb
+            <Route path="/Guide" element={<Guide />} />
+            <Route path="/com-detail/:nttId" element={<ComDetail />} />
+            <Route path="/guide/facility" element={<FGuide />} />
+            <Route path="/guide/main-building" element={<MBGuide />} />
+
           </Routes>
         </div>
       </Router>
