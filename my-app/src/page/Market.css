@@ -1,479 +1,193 @@
-<<<<<<< Updated upstream
-/* 전체 배경 설정 */
-.WritePageContainer {
-<<<<<<< HEAD
-  font-family: 'LINESeedKR-Bd', sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 80px;
-}
-
-/* 글쓰기 박스 */
-.WriteBox {
-  width: 500px;
-  border: 1px solid #ccc;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  background-color: #fff;
-  position: relative;
-}
-
-/* 닫기 버튼 (오른쪽 상단) */
-.CloseButton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 22px;
-  cursor: pointer;
-}
-
-/* 질문 제목 */
-.QuestionTitle {
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 30px;
-}
-
-/* 카테고리 선택 섹션 */
-.CategoryGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  justify-items: center;
-  margin-bottom: 30px;
-}
-
-.CategoryItem {
-  width: 100px;
-  height: 100px;
-  background-color: #f6f6f6;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: border 0.2s ease;
-}
-.CategoryItem:hover {
-  border: 2px solid orange;
-}
-.CategoryItem.selected {
-  border: 2px solid orange;
-}
-.CategoryItem img {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 8px;
-}
-.CategoryItem span {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-/* 다음 버튼 & 등록 버튼 */
-.NextButton,
-.SubmitButton {
-  margin-top: 20px;
-  background: white;
-  border: 1.5px solid black;
-  border-radius: 12px;
-  padding: 8px 32px;
-  font-size: 16px;
-  cursor: pointer;
-  align-self: center;
-}
-
-/* Step2 입력 폼 */
-.FormGroup {
-  display: flex;
-  flex-direction: column;
-}
-
-.TitleRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-.TitleRow input {
-  flex: 1;
-  font-size: 18px;
-  font-weight: bold;
-  border: none;
-  outline: none;
-  border-bottom: 1px solid #999;
-  padding: 5px 0;
-  margin-right: 10px;
-}
-
-.IconButtons {
-  display: flex;
-  gap: 10px;
-}
-.IconButtons input[type="file"] {
-  display: none;
-}
-.IconButtons label {
-  font-size: 18px;
-  cursor: pointer;
-}
-
-/* 텍스트 에어리어 */
-textarea {
-  border: none;
-  outline: none;
-  resize: none;
-  font-size: 15px;
-  font-family: 'LINESeedKR-Bd', sans-serif;
-  min-height: 300px;
-  margin-top: 10px;
-}
-
-/* 등록 버튼 정렬 */
-.SubmitButton {
-  align-self: center;
-}
-=======
-    font-family: 'LINESeedKR-Bd', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 80px;
-  }
-  
-  /* 글쓰기 박스 */
-  .WriteBox {
-    width: 500px;
-    border: 1px solid #ccc;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    background-color: #fff;
-    position: relative;
-  }
-  
-  /* 닫기 버튼 (오른쪽 상단) */
-  .CloseButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 22px;
-    cursor: pointer;
-  }
-  
-  /* 질문 제목 */
-  .QuestionTitle {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 30px;
-  }
-  
-  /* 카테고리 선택 섹션 */
-  .CategoryGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    justify-items: center;
-    margin-bottom: 30px;
-  }
-  
-  .CategoryItem {
-    width: 100px;
-    height: 100px;
-    background-color: #f6f6f6;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: border 0.2s ease;
-  }
-  .CategoryItem:hover {
-    border: 2px solid orange;
-  }
-  .CategoryItem.selected {
-    border: 2px solid orange;
-  }
-  .CategoryItem img {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 8px;
-  }
-  .CategoryItem span {
-    font-size: 14px;
-    font-weight: 500;
-  }
-  
-  /* 다음 버튼 & 등록 버튼 */
-  .NextButton,
-  .SubmitButton {
-    margin-top: 20px;
-    background: white;
-    border: 1.5px solid black;
-    border-radius: 12px;
-    padding: 8px 32px;
-    font-size: 16px;
-    cursor: pointer;
-    align-self: center;
-  }
-  
-  /* Step2 입력 폼 */
-  .FormGroup {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .TitleRow {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-  }
-  
-  .TitleRow input {
-    flex: 1;
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    outline: none;
-    border-bottom: 1px solid #999;
-    padding: 5px 0;
-    margin-right: 10px;
-  }
-  
-  .IconButtons {
-    display: flex;
-    gap: 10px;
-  }
-  .IconButtons input[type="file"] {
-    display: none;
-  }
-  .IconButtons label {
-    font-size: 18px;
-    cursor: pointer;
-  }
-  
-  /* 텍스트 에어리어 */
-  textarea {
-    border: none;
-    outline: none;
-    resize: none;
-    font-size: 15px;
-    font-family: 'LINESeedKR-Bd', sans-serif;
-    min-height: 300px;
-    margin-top: 10px;
-  }
-  
-  /* 등록 버튼 정렬 */
-  .SubmitButton {
-    align-self: center;
-  }
->>>>>>> e814d96ddf3884dac21f3ecad7cf1573f4a33bdb
-=======
 /* Market.css */
 
 .MarketContainer {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
 }
 
 .HeaderActions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
 /* Boardpage.css의 검색창 스타일을 참고하거나 그대로 사용합니다. */
 .SearchBox {
-    display: flex;
-    align-items: center;
-    flex-grow: 1; /* ✨ 변경점: 부모 컨테이너의 남는 공간을 모두 차지하도록 설정 */
-    margin-right: 2rem; /* ✨ 변경점: 오른쪽 '글쓰기' 버튼과의 간격을 만듦 */
-    max-width: 1200px; /* ✨ 변경점: 최대 너비를 더 넉넉하게 늘려줌 */
-    height: 48px;
-    border: 1px solid #e0e0e0;
-    border-radius: 24px;
-    padding: 0 15px;
-    transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  flex-grow: 1; /* ✨ 변경점: 부모 컨테이너의 남는 공간을 모두 차지하도록 설정 */
+  margin-right: 2rem; /* ✨ 변경점: 오른쪽 '글쓰기' 버튼과의 간격을 만듦 */
+  max-width: 1200px; /* ✨ 변경점: 최대 너비를 더 넉넉하게 늘려줌 */
+  height: 48px;
+  border: 1px solid #e0e0e0;
+  border-radius: 24px;
+  padding: 0 15px;
+  transition: all 0.2s ease;
 }
 .SearchBox:focus-within {
-    border-color: red;
-    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.1);
+  border-color: red;
+  box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.1);
 }
 .SearchPrefix {
-    font-weight: bold;
-    color: #333;
-    font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  font-size: 16px;
 }
 .SearchDivider {
-    height: 60%;
-    width: 1px;
-    background-color: #ccc;
-    margin: 0 10px;
+  height: 60%;
+  width: 1px;
+  background-color: #ccc;
+  margin: 0 10px;
 }
 .SearchInput {
-    flex: 1;
-    border: none;
-    outline: none;
-    font-size: 15px;
-    background: transparent;
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  background: transparent;
 }
 .SearchButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    color: #666;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: #666;
 }
 .SearchButton:hover {
-    color: red;
+  color: red;
 }
 
 .WriteButton {
-    padding: 10px 20px;
-    background-color: #ff8a3d;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  padding: 10px 20px;
+  background-color: #ff8a3d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .WriteButton:hover {
-    background-color: #f07d32;
+  background-color: #f07d32;
 }
 
 /* 상품 카드 그리드 */
 .ProductGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
 }
 
 /* 개별 상품 카드 (ProductItem) */
 .ProductItem {
-    cursor: pointer;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-    background-color: white;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  background-color: white;
 }
 
 .ProductItem:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
 
 .ProductImageContainer {
-    width: 100%;
-    padding-top: 100%; /* 1:1 비율 유지 */
-    position: relative;
-    background-color: #f0f0f0;
+  width: 100%;
+  padding-top: 100%; /* 1:1 비율 유지 */
+  position: relative;
+  background-color: #f0f0f0;
 }
 
 .ProductImageContainer img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .ProductInfo {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .ProductTitle {
-    font-size: 1rem;
-    font-weight: 500;
-    color: #333;
-    margin: 0 0 0.5rem 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  margin: 0 0 0.5rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ProductPrice {
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin: 0;
-    color: #000;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0;
+  color: #000;
 }
 
 .CategoryFilter {
-    display: flex;
-    gap: 0.8rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap; /* 화면이 좁아지면 줄바꿈 */
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap; /* 화면이 좁아지면 줄바꿈 */
 }
 
 .CategoryButton {
-    padding: 0.6rem 1.2rem;
-    border: 1px solid #e0e0e0;
-    border-radius: 20px;
-    background-color: white;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.2s;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  background-color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .CategoryButton:hover {
-    background-color: #f8f8f8;
+  background-color: #f8f8f8;
 }
 
 .CategoryButton.active {
-    background-color: red;
-    color: white;
-    border-color: red;
-    font-weight: bold;
+  background-color: red;
+  color: white;
+  border-color: red;
+  font-weight: bold;
 }
 .ActionButtons {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 .ActionButton {
-    padding: 0.5rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f8f8f8;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.2s;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
 }
 
 .ActionButton.delete {
-    color: red;
-    border-color: red;
+  color: red;
+  border-color: red;
 }
 
 .ActionButton:hover {
-    background-color: #e0e0e0;
+  background-color: #e0e0e0;
 }
 .ActionButton.delete:hover {
-    background-color: red;
-    color: white;
+  background-color: red;
+  color: white;
 }
 
 
->>>>>>> Stashed changes

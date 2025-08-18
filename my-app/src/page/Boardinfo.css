@@ -1,3 +1,5 @@
+/* src/page/Boardinfo.css (최종 버전) */
+
 .BoardInfoContainer {
     max-width: 1200px;
     margin: 0 auto;
@@ -40,7 +42,6 @@
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
     border: 1px solid #e0e0e0;
     margin-bottom: 2rem;
 }
@@ -68,18 +69,6 @@
     font-weight: bold;
     font-family: 'LINESeedKR-Bd', sans-serif;
     box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
-}
-
-.PostStats {
-    display: flex;
-    gap: 1rem;
-    color: #666;
-    font-size: 14px;
-}
-
-.ViewCount {
-    font-weight: bold;
-    font-family: 'LINESeedKR-Bd', sans-serif;
 }
 
 .PostDetailTitle {
@@ -110,7 +99,6 @@
     height: 48px;
     border-radius: 50%;
     background: linear-gradient(135deg, red 0%, #e60000 100%);
-    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -118,6 +106,15 @@
     font-size: 18px;
     font-family: 'LINESeedKR-Bd', sans-serif;
     box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
+    overflow: hidden;
+    flex-shrink: 0;
+    color: white;
+}
+
+.AuthorAvatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .AuthorDetails {
@@ -187,31 +184,6 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.LikeButton {
-    background-color: #fff5f5;
-    color: #ff4757;
-}
-
-.LikeButton:hover {
-    background-color: #ffebee;
-    color: #d32f2f;
-}
-
-.LikeButton.liked {
-    background-color: #ff4757;
-    color: white;
-}
-
-.CommentButton {
-    background-color: #fff5f5;
-    color: #ff4757;
-}
-
-.CommentButton:hover {
-    background-color: #ffebee;
-    color: #d32f2f;
-}
-
 .CommentsSection {
     background-color: white;
     border-radius: 12px;
@@ -223,6 +195,7 @@
     padding: 1.5rem 2rem;
     border-bottom: 1px solid #e9ecef;
     background-color: #f8f9fa;
+    margin-bottom: 1.5rem;
 }
 
 .CommentsSectionHeader h3 {
@@ -235,7 +208,7 @@
 
 .CommentWrite {
     padding: 2rem;
-    border-bottom: 1px solid #e9ecef;
+    border-top: 1px solid #e9ecef;
 }
 
 .CommentWriteBox {
@@ -249,7 +222,6 @@
     height: 40px;
     border-radius: 50%;
     background: linear-gradient(135deg, red 0%, #e60000 100%);
-    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -257,6 +229,14 @@
     font-size: 14px;
     font-family: 'LINESeedKR-Bd', sans-serif;
     flex-shrink: 0;
+    overflow: hidden;
+    color: white;
+}
+
+.CommentAuthorAvatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .CommentInput {
@@ -308,17 +288,6 @@
 .CommentSubmitButton:disabled {
     background-color: #ccc;
     cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-.LoginRequired {
-    padding: 2rem;
-    text-align: center;
-    color: #666;
-    font-family: 'LINESeedKR-Bd', sans-serif;
-    background-color: #f8f9fa;
-    border-radius: 8px;
 }
 
 .CommentsList {
@@ -376,19 +345,6 @@
     font-style: italic;
     padding: 3rem 0;
 }
-
-.EmptyComments svg {
-    margin-bottom: 1rem;
-    opacity: 0.5;
-    color: #ccc;
-}
-
-.EmptyComments p {
-    margin: 0;
-    font-size: 16px;
-    font-family: 'LINESeedKR-Bd', sans-serif;
-}
-
 @media (max-width: 768px) {
     .BoardInfoContainer {
         padding: 1rem;

@@ -20,11 +20,14 @@ import Mypage from './page/Mypage';
 import ComDetail from './page/ComDetail'; 
 import FGuide from './page/FGuide';
 import MBGuide from './page/MBGuide';
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 import ChatListPage from './page/ChatListPage';
 import ChatRoomPage from './page/ChatRoomPage';
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
 
 function LoginComponent() {
   const { isLoggedIn, logout, user } = React.useContext(AuthContext);
@@ -72,11 +75,14 @@ function App() {
             <Route path="/com-detail/:nttId" element={<ComDetail />} />
             <Route path="/guide/facility" element={<FGuide />} />
             <Route path="/guide/main-building" element={<MBGuide />} />
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
             <Route path="/chats" element={<ChatListPage />} />
             <Route path="/chat/:roomId" element={<ChatRoomPage />} /> 
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
 
           </Routes>
         </div>

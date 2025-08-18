@@ -1,0 +1,105 @@
+/* src/page/ComDetail.css (새 파일) */
+
+.ComDetailContainer {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.BackButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 10px 18px;
+    border: 1px solid #ddd;
+    background: #f8f8f8;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+.BackButton:hover {
+    background-color: #e9ecef;
+    border-color: #ccc;
+}
+
+.DetailContent {
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.DetailHeader {
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.DetailHeader h1 {
+    font-size: 1.8rem;
+    margin: 0 0 1rem 0;
+    line-height: 1.4;
+}
+
+.DetailInfo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.FileAttachment {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.FileAttachment h4 {
+    margin: 0 0 0.75rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+}
+
+.FileAttachment ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.FileAttachment a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.FileAttachment a:hover {
+    text-decoration: underline;
+}
+
+.DetailBody {
+    line-height: 1.7;
+    font-size: 1rem;
+    overflow-x: auto; 
+}
+.DetailBody img {
+    max-width: 100%;
+    height: auto;
+}
+.DetailBody table {
+    max-width: 100%;
+    border-collapse: collapse;
+}
+.DetailBody td, .DetailBody th {
+    border: 1px solid #ccc;
+    padding: 8px;
+}
