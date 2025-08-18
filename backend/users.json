@@ -76,14 +76,6 @@
   {
     "id": "1752576484460",
     "username": "관리자",
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    "email": "TownAdmin@gmail.com",
-    "password": "$2b$10$.6V10bspFo2RP2Z2y25MCOhTxEloINuF3Bf6uLMFaN7Tl0KCnXVLu",
-    "createdAt": "2025-07-05T05:50:46.978Z"
-=======
-=======
->>>>>>> main
     "email": "sroTown@gmail.com",
     "password": "$2b$10$aTha8iDck1rYKRv3j7gVB.tf0Zjeq2rcbXY7RTPReevc5xiaps0Wi",
     "profileImage": "/uploads/1752576521351.png",
@@ -162,7 +154,6 @@
     "password": "$2b$10$.VYi0fN9iqj5h10OzcysPOVqEwA1mmPcHqsgMvoHvs8BMK9K96UBq",
     "profileImage": null,
     "createdAt": "2025-08-01T08:07:28.723Z"
-<<<<<<< HEAD
   },
   {
     "id": "1755430462423",
@@ -245,8 +236,5 @@
     "password": "$2b$10$XIJHVWz6P0wViblnoBqfg.ZRjOLFPqNzpRivXsSHF7yNnYFuimej.",
     "profileImage": null,
     "createdAt": "2025-08-17T12:51:11.032Z"
->>>>>>> Stashed changes
-=======
->>>>>>> main
   }
 ]
