@@ -1,16 +1,54 @@
+<<<<<<< Updated upstream
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const fs = require('fs').promises;
 const path = require('path');
+=======
+// backend/server.js (전체 코드)
+
+import http from 'http';
+import { Server } from 'socket.io';
+
+import authRoutes from './routes/auth.js';
+import userRoutes from './routes/users.js';
+import postRoutes from './routes/posts.js';
+import mealRoutes from './routes/meal.js';
+import comRoutes from './routes/com.js';
+import marketRoutes from './routes/market.js';
+import chatRoutes from './routes/chat.js'; // chatRoutes import 추가
+
+import 'dotenv/config'; 
+import express from 'express';
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { readChatMessages, writeChatMessages } from './utils/fileHandlers.js'; // 메시지 저장을 위해 import
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+>>>>>>> Stashed changes
 const app = express();
 const PORT = process.env.PORT || 3001;
 const JWT_SECRET = 'your-secret-key-change-this-in-production';
 const USERS_FILE = path.join(__dirname, 'users.json');
 const POSTS_FILE = path.join(__dirname, 'boardlist.json');
 
+<<<<<<< Updated upstream
 // CORS 설정
+=======
+const server = http.createServer(app);
+
+const io = new Server(server, {
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"]
+    }
+});
+
+>>>>>>> Stashed changes
 app.use(cors({
     origin: ['http://localhost:3000', 'http://localhost:3001'],
     credentials: true,
@@ -19,6 +57,10 @@ app.use(cors({
 }));
 
 app.use(express.json());
+<<<<<<< Updated upstream
+=======
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+>>>>>>> Stashed changes
 
 app.use((req, res, next) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
@@ -28,6 +70,7 @@ app.use((req, res, next) => {
     next();
 });
 
+<<<<<<< Updated upstream
 // 파일 읽기/쓰기 함수들
 const readUsers = async () => {
     try {
@@ -146,6 +189,17 @@ app.get('/api/users/search', authenticateToken, async (req, res) => {
 });
 
 // 서버 상태 확인
+=======
+// API 라우트 연결
+app.use('/api/meal', mealRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/com', comRoutes);
+app.use('/api/market', marketRoutes);
+app.use('/api/chat', chatRoutes); // chatRoutes 연결 추가
+
+>>>>>>> Stashed changes
 app.get('/api/health', (req, res) => {
     res.json({ 
         success: true, 
@@ -615,7 +669,45 @@ app.get('/api/posts/:id/comments', async (req, res) => {
     }
 });
 
+io.on('connection', (socket) => {
+    console.log('✅ 새 사용자가 접속했습니다:', socket.id);
 
+    socket.on('joinRoom', (roomId) => {
+        socket.join(roomId);
+        console.log(`사용자 ${socket.id}가 ${roomId} 방에 참여했습니다.`);
+    });
+
+    socket.on('sendMessage', async (data) => {
+        try {
+            const allMessages = await readChatMessages();
+            if (!allMessages[data.roomId]) {
+                allMessages[data.roomId] = [];
+            }
+            
+            const newMessage = {
+                senderId: data.senderId,
+                senderName: data.senderName,
+                message: data.message,
+                timestamp: new Date().toISOString()
+            };
+
+            allMessages[data.roomId].push(newMessage);
+            await writeChatMessages(allMessages);
+            
+            io.to(data.roomId).emit('receiveMessage', newMessage);
+            console.log(`${data.roomId} 방으로 메시지 전송:`, data.message);
+
+        } catch (error) {
+            console.error('메시지 저장 중 오류:', error);
+        }
+    });
+
+    socket.on('disconnect', () => {
+        console.log('🔻 사용자가 접속을 끊었습니다:', socket.id);
+    });
+});
+
+<<<<<<< Updated upstream
 app.get('/api/admin/users', authenticateToken, async (req, res) => {
     try {
         if (!isAdmin(req.user)) {
@@ -737,4 +829,21 @@ process.on('SIGINT', () => {
 process.on('SIGTERM', () => {
     console.log('\n👋 서버를 종료합니다...');
     process.exit(0);
+=======
+app.get('*', (req, res) => {
+    res.status(404).json({ success: false, message: 'API 경로가 아닙니다.' });
+});
+
+app.use((req, res, next) => {
+    res.status(404).json({ success: false, message: '요청한 경로를 찾을 수 없습니다.' });
+});
+
+app.use((err, req, res, next) => {
+    console.error('치명적인 서버 오류:', err.stack);
+    res.status(500).json({ success: false, message: '서버에 문제가 발생했습니다.' });
+});
+
+server.listen(PORT, () => {
+    console.log(`서버가 http://localhost:${PORT} 에서 실행 중입니다.`);
+>>>>>>> Stashed changes
 });

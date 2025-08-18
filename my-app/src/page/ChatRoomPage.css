@@ -1,0 +1,130 @@
+/* src/page/ChatRoomPage.css (전체 코드 - 레이아웃 최종 수정) */
+
+.ChatRoomContainer {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 61px); /* Navbar의 대략적인 높이(61px)를 뺌 */
+    background-color: #f9f9f9;
+}
+
+.ChatRoomHeader {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid #eee;
+    background: white;
+    flex-shrink: 0;
+}
+
+.BackButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 1rem;
+    display: flex;
+}
+
+.HeaderInfo h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.HeaderInfo p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.MessageBox {
+    flex-grow: 1;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.Message {
+    max-width: 70%;
+    margin-bottom: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 18px;
+    line-height: 1.4;
+    display: flex;
+    flex-direction: column;
+}
+
+.Message p {
+    margin: 0;
+    word-break: break-word;
+}
+
+.Message.sent {
+    background: #007bff;
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+    align-items: flex-end;
+}
+
+.Message.received {
+    background: #e9e9eb;
+    color: #333;
+    margin-right: auto;
+    border-bottom-left-radius: 4px;
+    align-items: flex-start;
+}
+
+.SenderName {
+    font-size: 0.8rem;
+    color: #555;
+    margin-bottom: 0.3rem;
+    display: block;
+}
+
+.Timestamp {
+    font-size: 0.7rem;
+    color: #999;
+    margin-top: 0.3rem;
+}
+
+.Message.sent .Timestamp {
+    color: #f0f0f0;
+}
+
+.InputBox {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-top: 1px solid #eee;
+    background: white;
+    flex-shrink: 0;
+}
+
+.InputBox input {
+    flex: 1 !important; /* ✨ 변경점: !important 를 추가하여 최우선 순위로 만듦 */
+
+    min-width: 0;
+    padding: 0.6rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+    font-size: 0.9rem;
+    margin: 0;
+}
+.InputBox button {
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-left: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+}
+
+.InputBox button:hover {
+    background-color: #0056b3;
+}

@@ -319,6 +319,7 @@ function Mypage() {
         );
     }
 
+<<<<<<< Updated upstream
     // 로딩 중인 경우
     if (loading) {
         return (
@@ -331,6 +332,34 @@ function Mypage() {
                         </div>
                         <p>프로필 정보를 불러오는 중...</p>
                     </div>
+=======
+    return (
+        <>
+            <Navbar />
+            <div className="MypageContainer">
+                <input type="file" ref={fileInputRef} onChange={handleProfileImageChange}
+                    accept="image/*" style={{ display: 'none' }} />
+                {!isMyProfile && (
+                    <div className="MypageHeader"><button className="BackButton" onClick={() => navigate(-1)}><ArrowLeft size={24} /> <span>뒤로가기</span></button></div>
+                )}
+                <ProfileSection 
+                    user={profileData.user} stats={profileData} isMyProfile={isMyProfile}
+                    isFollowing={profileData.isFollowing} onFollowToggle={handleFollowToggle}
+                    onStatClick={setActiveTab} onAvatarClick={handleAvatarClick}
+                />
+                <SearchSection 
+                    query={searchQuery} onQueryChange={setSearchQuery} isSearching={isSearching}
+                    results={searchResults} onResultClick={goToUserProfile}
+                />
+                <div className="ProfileTabs">
+                    <TabButton icon={<FileText size={18} />} label="게시글" name="posts" activeTab={activeTab} onClick={setActiveTab} />
+                    <TabButton icon={<MessageCircle size={18} />} label="댓글" name="comments" activeTab={activeTab} onClick={setActiveTab} />
+                    <TabButton icon={<Users size={18} />} label="팔로워" name="followers" activeTab={activeTab} onClick={setActiveTab} />
+                    <TabButton icon={<Heart size={18} />} label="팔로잉" name="following" activeTab={activeTab} onClick={setActiveTab} />
+                </div>
+                <div className="ProfileContent">
+                    {renderTabContent()}
+>>>>>>> Stashed changes
                 </div>
             </div>
         );

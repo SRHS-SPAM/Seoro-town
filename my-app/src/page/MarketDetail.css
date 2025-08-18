@@ -1,0 +1,98 @@
+/* MarketDetail.css */
+
+.DetailContainer {
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: 0 1rem;
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+}
+
+.ProductImageLarge {
+    flex: 1;
+    max-width: 450px;
+}
+
+.ProductImageLarge img {
+    width: 100%;
+    border-radius: 16px;
+    background-color: #f0f0f0;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.ProductDetails {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+}
+
+.ProductTitleLarge {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 0 1rem 0;
+}
+
+.ProductPriceLarge {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0 0 1.5rem 0;
+}
+
+.ProductDescription {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+    white-space: pre-wrap;
+    min-height: 100px;
+}
+
+.ChatButton {
+    width: 100%;
+    padding: 1rem;
+    background-color: #ff8a3d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.ChatButton:hover {
+    background-color: #f07d32;
+}
+
+
+.SellerInfo {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.SellerAvatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.SellerAvatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.SellerName {
+    font-weight: bold;
+}

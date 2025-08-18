@@ -30,8 +30,171 @@
   {
     "id": "1751694646978",
     "username": "관리자",
+<<<<<<< Updated upstream
     "email": "TownAdmin@gmail.com",
     "password": "$2b$10$.6V10bspFo2RP2Z2y25MCOhTxEloINuF3Bf6uLMFaN7Tl0KCnXVLu",
     "createdAt": "2025-07-05T05:50:46.978Z"
+=======
+    "email": "sroTown@gmail.com",
+    "password": "$2b$10$aTha8iDck1rYKRv3j7gVB.tf0Zjeq2rcbXY7RTPReevc5xiaps0Wi",
+    "profileImage": "/uploads/1752576521351.png",
+    "createdAt": "2025-07-15T10:48:04.460Z",
+    "schedule": [
+      [
+        "",
+        "월",
+        "화",
+        "수",
+        "목",
+        "금"
+      ],
+      [
+        "1",
+        "d\n",
+        "d",
+        "d\n",
+        "d",
+        "d"
+      ],
+      [
+        "2",
+        "d",
+        "d",
+        "d",
+        "d",
+        "d"
+      ],
+      [
+        "3",
+        "d",
+        "d",
+        "d",
+        "d",
+        "d"
+      ],
+      [
+        "4",
+        "d",
+        "d",
+        "d",
+        "d",
+        "d"
+      ],
+      [
+        "5",
+        "d",
+        "d",
+        "d",
+        "d",
+        "d"
+      ],
+      [
+        "6",
+        "d",
+        "d",
+        "d",
+        "d",
+        "d"
+      ],
+      [
+        "7",
+        "d",
+        "d",
+        "d",
+        "d",
+        "d"
+      ]
+    ]
+  },
+  {
+    "id": "1754035648723",
+    "username": "10512이준석",
+    "email": "24robot10512@sonline20.sen.go.kr",
+    "password": "$2b$10$.VYi0fN9iqj5h10OzcysPOVqEwA1mmPcHqsgMvoHvs8BMK9K96UBq",
+    "profileImage": null,
+    "createdAt": "2025-08-01T08:07:28.723Z"
+  },
+  {
+    "id": "1755430462423",
+    "username": "유준영",
+    "email": "jyqaz7548@gmail.com",
+    "password": "$2b$10$QamP4rDuuTlUHheVOTH68eyRcRwBuhz8Si415myidHwXR.X6C6yPC",
+    "profileImage": null,
+    "createdAt": "2025-08-17T11:34:22.423Z",
+    "schedule": [
+      [
+        "",
+        "월",
+        "화",
+        "수",
+        "목",
+        "금"
+      ],
+      [
+        "1",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "2",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "3",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "4",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "5",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "6",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "7",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ]
+  },
+  {
+    "id": "1755435071032",
+    "username": "유준영2",
+    "email": "jyqaz1008@gmail.com",
+    "password": "$2b$10$XIJHVWz6P0wViblnoBqfg.ZRjOLFPqNzpRivXsSHF7yNnYFuimej.",
+    "profileImage": null,
+    "createdAt": "2025-08-17T12:51:11.032Z"
+>>>>>>> Stashed changes
   }
 ]

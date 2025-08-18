@@ -1,10 +1,17 @@
+// src/page/Boardpage.js (최종 전체 코드)
+
 import './Boardpage.css';
 import { useState, useContext, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { LoginComponent } from '../App.js';
 import { Search, PenLine, AlertCircle, X } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
+<<<<<<< Updated upstream
+=======
+import Navbar from './Navbar'; // Navbar 임포트 확인
+>>>>>>> Stashed changes
 
+// 게시글 작성 팝업 컴포넌트
 const WritePopup = ({ isOpen, onClose, onSubmit }) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -23,6 +30,7 @@ const WritePopup = ({ isOpen, onClose, onSubmit }) => {
 
         setIsSubmitting(true);
         try {
+<<<<<<< Updated upstream
             await onSubmit({ 
                 category, 
                 title: title.trim(), 
@@ -33,8 +41,16 @@ const WritePopup = ({ isOpen, onClose, onSubmit }) => {
             setContent('');
             setCategory('재학생');
             onClose();
+=======
+            await onSubmit({ category, title: title.trim(), content: content.trim() });
+            setTitle('');
+            setContent('');
+            setCategory('재학생');
+            onClose(); // 팝업 닫기
+>>>>>>> Stashed changes
         } catch (error) {
             console.error('게시글 작성 중 오류:', error);
+            // 오류 발생 시 alert은 onSubmit에서 처리
         } finally {
             setIsSubmitting(false);
         }
@@ -135,6 +151,18 @@ function Boardpage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
+<<<<<<< Updated upstream
+=======
+    // 텍스트 길이 제한 헬퍼 함수
+    const truncateText = (text, maxLength) => {
+        if (!text) return '';
+        if (text.length > maxLength) {
+            return text.substring(0, maxLength) + '...';
+        }
+        return text;
+    };
+
+>>>>>>> Stashed changes
     // 게시글 목록 불러오기
     useEffect(() => {
         fetchPosts();
@@ -218,8 +246,13 @@ function Boardpage() {
             
             if (data.success) {
                 alert('게시글이 성공적으로 작성되었습니다!');
+<<<<<<< Updated upstream
                 // 게시글 목록 새로고침
                 await fetchPosts();
+=======
+                setIsWritePopupOpen(false); // 팝업 닫기
+                await fetchPosts(); // 목록 새로고침
+>>>>>>> Stashed changes
             } else {
                 alert(data.message || '게시글 작성에 실패했습니다.');
                 console.error('게시글 작성 실패:', data);
@@ -227,6 +260,10 @@ function Boardpage() {
         } catch (error) {
             console.error('게시글 작성 오류:', error);
             alert('서버 오류가 발생했습니다. 다시 시도해주세요.');
+<<<<<<< Updated upstream
+=======
+            throw error; // 에러를 다시 던져서 WritePopup의 finally가 실행되도록 함
+>>>>>>> Stashed changes
         }
     };
 
@@ -255,6 +292,7 @@ function Boardpage() {
     };
 
     const renderPosts = (category) => {
+<<<<<<< Updated upstream
         const categoryPosts = posts.filter(post => {
             const postCategory = post.category || '재학생';
             return postCategory === category;
@@ -262,6 +300,15 @@ function Boardpage() {
         
         console.log(`${category} 카테고리 게시글:`, categoryPosts.length, '개');
         
+=======
+        const isNew = (createdAt) => {
+            const now = new Date();
+            const postDate = new Date(createdAt);
+            const diffMinutes = (now.getTime() - postDate.getTime()) / (1000 * 60);
+            return diffMinutes < 5; // 5분
+        };
+
+>>>>>>> Stashed changes
         if (loading) {
             return (
                 <div className="EmptyBoard">
@@ -282,17 +329,28 @@ function Boardpage() {
             );
         }
         
+<<<<<<< Updated upstream
         if (categoryPosts.length === 0) {
             return (
                 <div className="EmptyBoard">
                     <AlertCircle size={32} />
                     <p>게시글이 없습니다</p>
+=======
+        const categoryPosts = posts.filter(post => (post.category || '재학생') === category);
+        const recentPosts = categoryPosts.slice(0, 3); // 최신 3개만 가져옴
+        
+        if (recentPosts.length === 0) {
+            return (
+                <div className="EmptyBoard">
+                    <AlertCircle size={32} /><p>게시글이 없습니다</p>
+>>>>>>> Stashed changes
                 </div>
             );
         }
         
         return (
             <div className="PostList">
+<<<<<<< Updated upstream
                 {categoryPosts.slice(-3).reverse().map(post => (
                     <div 
                         key={post.id} 
@@ -300,6 +358,17 @@ function Boardpage() {
                         onClick={() => handlePostClick(post)}
                     >
                         <div className="PostTitle">{post.title}</div>
+=======
+                {recentPosts.map(post => (
+                    <div key={post.id} className="PostItem" onClick={() => handlePostClick(post)}>
+                        {/* New 배지 위치 조정을 위한 PostItem 내 구조 변경 */}
+                        <div className="PostContentWrapper">
+                            <div className="PostTitle">
+                                <span>{truncateText(post.title, 25)}</span> 
+                            </div>
+                            {isNew(post.createdAt) && <span className="NewBadge">N</span>}
+                        </div>
+>>>>>>> Stashed changes
                         <div className="PostInfo">
                             <span className="PostAuthor">{post.authorName}</span>
                             <span className="PostDate">

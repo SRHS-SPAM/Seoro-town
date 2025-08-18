@@ -1,0 +1,164 @@
+/* MarketWriteModal.css */
+/* Boardpage.css의 팝업 스타일을 기반으로 합니다. */
+
+.PopupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.WritePopup {
+    background-color: white;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.PopupHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.PopupHeader h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.CloseButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+}
+
+.PopupContent {
+    padding: 2rem;
+    text-align: center;
+}
+
+.PopupContent p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0 0 2rem 0;
+}
+
+.CategoryGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.CategoryBox {
+    border: 1px solid #e0e0e0;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.CategoryBox:hover {
+    background-color: #f0f0f0;
+}
+
+.CategoryBox.selected {
+    border-color: red;
+    background-color: #fff5f5;
+    font-weight: bold;
+}
+
+.SubmitButton {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s; /* transition 대상을 all로 변경 */
+    border: 1px solid #ccc;
+    background-color: white;
+    color: #aaa; /* 기본 글자색은 연하게 */
+}
+
+/* ✨ 변경점: 비활성화가 아닐 때의 스타일을 명확히 정의 */
+.SubmitButton:not(:disabled) {
+    border-color: #333;
+    color: #333; /* 글자색을 진하게 */
+    cursor: pointer;
+}
+
+/* ✨ 변경점: 마우스를 올렸을 때의 스타일 추가 */
+.SubmitButton:not(:disabled):hover {
+    background-color: rgb(255, 58, 58);
+}
+
+.SubmitButton:disabled {
+    border-color: #ccc;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+/* 2단계 폼 스타일 */
+.WriteForm {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.FormInput {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+.FormInput:focus {
+    outline: none;
+    border-bottom-color: red;
+}
+.FormTextarea {
+    width: 100%;
+    height: 150px;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+    font-size: 1rem;
+}
+
+
+.CategoryBox {
+    /* 기존 스타일에서 flexbox 관련 속성 추가 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; /* 이미지와 텍스트 사이 간격 */
+    padding: 1rem 0.5rem; /* 패딩 조정 */
+}
+
+.CategoryIcon {
+    width: 48px;  /* 아이콘 이미지 크기 */
+    height: 48px;
+    object-fit: contain; /* 이미지가 잘리지 않도록 설정 */
+}
+
+.CategoryText {
+    font-size: 0.9rem;
+}

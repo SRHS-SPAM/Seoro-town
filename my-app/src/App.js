@@ -9,7 +9,8 @@ import Com from './page/Com';
 import Grade from './page/Grade';
 import Club from './page/Club';
 import Market from './page/Market';
-import Login from './page/Login';
+import MarketDetail from './page/MarketDetail'; 
+import Login from './page/Login'; 
 import Signup from './page/Signup';
 import Boardinfo from './page/Boardinfo';
 import Boardarr from './page/Boardarr';
@@ -19,6 +20,11 @@ import Mypage from './page/Mypage';
 import ComDetail from './page/ComDetail'; 
 import FGuide from './page/FGuide';
 import MBGuide from './page/MBGuide';
+<<<<<<< Updated upstream
+=======
+import ChatListPage from './page/ChatListPage';
+import ChatRoomPage from './page/ChatRoomPage';
+>>>>>>> Stashed changes
 
 function LoginComponent() {
   const { isLoggedIn, logout, user } = React.useContext(AuthContext);
@@ -55,6 +61,7 @@ function App() {
             <Route path="/Grade" element={<Grade />} />
             <Route path="/Club" element={<Club />} />
             <Route path="/Market" element={<Market />} />
+            <Route path="/market/:productId" element={<MarketDetail />} />
             <Route path="/Meal" element={<Meal />} />
             <Route path="/Mypage" element={<Mypage />} />
             <Route path="/Login" element={<Login />} />
@@ -65,6 +72,11 @@ function App() {
             <Route path="/com-detail/:nttId" element={<ComDetail />} />
             <Route path="/guide/facility" element={<FGuide />} />
             <Route path="/guide/main-building" element={<MBGuide />} />
+<<<<<<< Updated upstream
+=======
+            <Route path="/chats" element={<ChatListPage />} />
+            <Route path="/chat/:roomId" element={<ChatRoomPage />} /> 
+>>>>>>> Stashed changes
 
           </Routes>
         </div>

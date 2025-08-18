@@ -1,0 +1,23 @@
+/* src/page/ChatListPage.css (새 파일) */
+
+.ChatListContainer { 
+    max-width: 800px; 
+    margin: 2rem auto; 
+    padding: 2rem; 
+
+}
+.ChatListHeader { 
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+}
+.ChatListHeader h1 { display: flex; align-items: center; gap: 1rem; }
+.ChatRoomItem { display: flex; align-items: center; padding: 1rem; border-bottom: 1px solid #f0f0f0; cursor: pointer; transition: background-color 0.2s; }
+.ChatRoomItem:hover { background-color: #f8f8f8; }
+.OpponentAvatar { width: 50px; height: 50px; border-radius: 50%; overflow: hidden; margin-right: 1rem; background: #eee; display:flex; align-items:center; justify-content:center; }
+.OpponentAvatar img { width: 100%; height: 100%; object-fit: cover; }
+.ChatRoomInfo { flex: 1; }
+.ChatRoomHeader { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+.OpponentName { font-weight: bold; }
+.ChatRoomDate { font-size: 0.8rem; color: #888; }
+.LastMessage { margin: 0; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

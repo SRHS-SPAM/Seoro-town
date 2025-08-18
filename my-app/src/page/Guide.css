@@ -1,0 +1,182 @@
+.GuideContainer {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
+
+.GuideHeader {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.GuideHeader h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin: 0;
+}
+.GuideMap {
+    text-align: center;
+    margin-bottom: 2rem;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 1.5rem;
+    border: 1px solid #e9ecef;
+}
+
+.RobotMapImage {
+    max-width: 75%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.MapDescription {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: #666;
+    font-style: italic;
+}
+
+.GuideButtons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.GuideButton {
+    flex: 1;
+    max-width: 250px;
+    padding: 15px 25px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.GuideButton:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+.GuideSection {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin-bottom: 2rem; /* 섹션 간 간격 */
+}
+
+.GuideSection h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed #ced4da;
+}
+
+.GuideSection p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.BackButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 8px 16px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #495057;
+    transition: all 0.2s ease;
+    font-weight: bold;
+}
+
+.BackButton:hover {
+    background-color: #e9ecef;
+}
+
+
+.FacilityGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* ✨ 한 줄에 2개 컬럼 */
+    gap: 20px; /* 아이템 간 간격 */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.FacilityItem {
+    background-color: white;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.FacilityItem:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.FacilityImage {
+    max-width: 100%;
+    height: 180px;
+    object-fit: cover; 
+    border-radius: 8px;
+    margin-bottom: 0.8rem;
+}
+
+.FacilityItem h4 {
+    font-size: 1.1rem;
+    color: #333;
+    margin: 0;
+}
+
+
+@media (max-width: 768px) {
+    .GuideContainer {
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+    .GuideHeader h1 {
+        font-size: 2rem;
+    }
+    .GuideButtons {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+    .GuideButton {
+        width: 100%;
+        max-width: 300px;
+    }
+    .GuideSection {
+        padding: 1.5rem;
+    }
+    .GuideSection h2 {
+        font-size: 1.5rem;
+    }
+}

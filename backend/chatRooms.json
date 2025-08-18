@@ -1,0 +1,21 @@
+[
+  {
+    "roomId": "1755435979473-1755435071032-1755430462423",
+    "productId": 1755435979473,
+    "productTitle": "나다",
+    "productImageUrl": "/uploads/image-1755435979469-129080772.jpg",
+    "participants": [
+      {
+        "id": "1755435071032",
+        "username": "유준영2",
+        "profileImage": null
+      },
+      {
+        "id": "1755430462423",
+        "username": "유준영",
+        "profileImage": null
+      }
+    ],
+    "createdAt": "2025-08-17T13:09:07.496Z"
+  }
+]

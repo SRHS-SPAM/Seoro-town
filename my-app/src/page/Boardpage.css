@@ -1,4 +1,8 @@
+/* src/page/Boardpage.css (완전한 최종 전체 코드) */
 
+/* --- Navbar 관련 스타일 (다른 CSS 파일에서 복사해왔을 가능성 높음) --- */
+/* 이 부분은 Navbar.css에 있거나, 아니면 전역 CSS에 있을 수 있습니다. */
+/* 만약 이 스타일이 적용되지 않으면, 이 부분을 확인해주세요. */
 .NavBar {
     display: flex;
     justify-content: space-between;
@@ -8,9 +12,7 @@
     font-weight: bold;
     position: relative;
     border-bottom: 1px solid #ddd;
-    font-size: 18px;
-    font-weight: bold;
-    font-family: LINESeedKR-Bd;
+    font-family: 'LINESeedKR-Bd'; /* 기존 폰트 설정 */
     box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1);
 }
 
@@ -86,7 +88,6 @@
 }
 
 .Title {
-
     margin-top: 15vh;
     text-align: center;
     font-size: 30px;
@@ -189,6 +190,7 @@
     background-color: #e60000;
 }
 
+/* --- 본문 컨테이너 및 게시글 목록 --- */
 .BoardContainer {
     display: flex;
     justify-content: space-between;
@@ -251,7 +253,7 @@
 }
 
 
-/* 팝업창 스타일 */
+/* --- 팝업창 스타일 --- */
 .PopupOverlay {
     position: fixed;
     top: 0;
@@ -265,7 +267,6 @@
     z-index: 2000;
 }
 
-/* 글쓰기 팝업 */
 .WritePopup {
     background-color: white;
     border-radius: 10px;
@@ -291,7 +292,6 @@
     }
 }
 
-/* 팝업창 대가리  */
 .PopupHeader {
     display: flex;
     justify-content: space-between;
@@ -353,6 +353,7 @@ form {
     background-color: white;
     outline: none;
     transition: border-color 0.2s ease;
+    box-sizing: border-box;
 }
 
 .CategorySelect:focus {
@@ -447,6 +448,7 @@ form {
     gap: 12px;
 }
 
+/* --- 게시글 아이템 (PostItem) 스타일 --- */
 .PostItem {
     padding: 15px;
     border: 1px solid #e9ecef;
@@ -455,6 +457,8 @@ form {
     cursor: pointer;
     transition: all 0.2s ease;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    position: relative; /* ✨ 자식 NewBadge의 absolute 기준 */
+    overflow: hidden; /* ✨ NewBadge가 밖으로 나가지 않도록 */
 }
 
 .PostItem:hover {
@@ -464,18 +468,32 @@ form {
     border-color: red;
 }
 
+/* PostTitle과 NewBadge를 감싸는 래퍼 */
+.PostContentWrapper {
+    display: flex;
+    justify-content: space-between; /* 제목과 New 배지를 양쪽 끝으로 */
+    align-items: center; /* 수직 중앙 정렬 */
+    margin-bottom: 8px; /* 제목과 정보 사이 간격 */
+    position: relative; /* NewBadge가 이 래퍼 안에서 absolute 될 수 있도록 */
+    width: 100%; /* 너비 100% */
+}
+
+/* PostTitle 스타일 (NewBadge 공간 확보 포함) */
 .PostTitle {
     font-size: 16px;
     font-weight: bold;
     color: #333;
     font-family: 'LINESeedKR-Bd', sans-serif;
     line-height: 1.4;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    
+    white-space: nowrap; /* 줄바꿈 방지 */
+    overflow: hidden; /* 넘치는 내용 숨기기 */
+    text-overflow: ellipsis; /* 말줄임표 표시 */
+    display: block; /* inline-flex나 flex 사용시 flex-grow 적용 안되므로 block 사용 */
+    flex-grow: 1; /* 제목이 남은 공간을 채우도록 */
+    padding-right: 30px; /* NewBadge 공간 확보 (선택사항) */
 }
+
 
 .PostInfo {
     margin-top: 8px;
@@ -490,6 +508,8 @@ form {
     font-weight: 500;
 }
 
+/* --- BoardInfoContainer 관련 스타일 (BoardInfo.css에 있을 수도 있음) --- */
+/* 여기서는 Boardpage.css에만 필요한 스타일을 유지 */
 .BoardInfoContainer {
     max-width: 900px;
     margin: 2rem auto;
@@ -599,4 +619,27 @@ form {
     transform: none;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     background-color: red;
+<<<<<<< Updated upstream
+=======
+}
+
+
+.NewBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background-color: #ff4757;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    line-height: 1;
+    flex-shrink: 0;
+    position: absolute;
+    right: 0;
+    top: 50%; 
+    transform: translateY(-50%); 
+>>>>>>> Stashed changes
 }
