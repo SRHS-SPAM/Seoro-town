@@ -5,14 +5,7 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PenLine, AlertCircle, X } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
 import Navbar from './Navbar'; // Navbar 임포트 확인
->>>>>>> Stashed changes
-=======
-import Navbar from './Navbar'; // Navbar 임포트 확인
->>>>>>> main
 
 // 게시글 작성 팝업 컴포넌트
 const WritePopup = ({ isOpen, onClose, onSubmit }) => {
@@ -31,32 +24,11 @@ const WritePopup = ({ isOpen, onClose, onSubmit }) => {
 
         setIsSubmitting(true);
         try {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-            await onSubmit({ 
-                category, 
-                title: title.trim(), 
-                content: content.trim() 
-            });
-            // 성공 시에만 폼 초기화 및 팝업 닫기
-            setTitle('');
-            setContent('');
-            setCategory('재학생');
-            onClose();
-=======
             await onSubmit({ category, title: title.trim(), content: content.trim() });
             setTitle('');
             setContent('');
             setCategory('재학생');
             onClose(); // 팝업 닫기
->>>>>>> Stashed changes
-=======
-            await onSubmit({ category, title: title.trim(), content: content.trim() });
-            setTitle('');
-            setContent('');
-            setCategory('재학생');
-            onClose(); // 팝업 닫기
->>>>>>> main
         } catch (error) {
             console.error('게시글 작성 중 오류:', error);
             // 오류 발생 시 alert은 onSubmit에서 처리
@@ -117,11 +89,6 @@ function Boardpage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> main
     // 텍스트 길이 제한 헬퍼 함수
     const truncateText = (text, maxLength) => {
         if (!text) return '';
@@ -131,10 +98,6 @@ function Boardpage() {
         return text;
     };
 
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> main
     // 게시글 목록 불러오기
     useEffect(() => {
         fetchPosts();
@@ -174,31 +137,14 @@ function Boardpage() {
             const data = await response.json();
             if (data.success) {
                 alert('게시글이 성공적으로 작성되었습니다!');
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-                // 게시글 목록 새로고침
-                await fetchPosts();
-=======
                 setIsWritePopupOpen(false); // 팝업 닫기
                 await fetchPosts(); // 목록 새로고침
->>>>>>> Stashed changes
-=======
-                setIsWritePopupOpen(false); // 팝업 닫기
-                await fetchPosts(); // 목록 새로고침
->>>>>>> main
             } else {
                 alert(data.message || '게시글 작성에 실패했습니다.');
             }
         } catch (error) {
             alert('서버 오류가 발생했습니다. 다시 시도해주세요.');
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
             throw error; // 에러를 다시 던져서 WritePopup의 finally가 실행되도록 함
->>>>>>> Stashed changes
-=======
-            throw error; // 에러를 다시 던져서 WritePopup의 finally가 실행되도록 함
->>>>>>> main
         }
     };
 
@@ -219,36 +165,12 @@ function Boardpage() {
     };
 
     const renderPosts = (category) => {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-        const categoryPosts = posts.filter(post => {
-            const postCategory = post.category || '재학생';
-            return postCategory === category;
-        });
-        
-        console.log(`${category} 카테고리 게시글:`, categoryPosts.length, '개');
-        
-=======
-=======
->>>>>>> main
         const isNew = (createdAt) => {
             const now = new Date();
             const postDate = new Date(createdAt);
             const diffMinutes = (now.getTime() - postDate.getTime()) / (1000 * 60);
             return diffMinutes < 5; // 5분
         };
-<<<<<<< HEAD
-
->>>>>>> Stashed changes
-        if (loading) {
-            return (
-                <div className="EmptyBoard">
-                    <p>로딩 중...</p>
-                </div>
-            );
-        }
-=======
->>>>>>> main
 
         if (loading) {
             return <div className="EmptyBoard"><p>로딩 중...</p></div>;
@@ -262,14 +184,6 @@ function Boardpage() {
             );
         }
         
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-        if (categoryPosts.length === 0) {
-            return (
-                <div className="EmptyBoard">
-                    <AlertCircle size={32} />
-                    <p>게시글이 없습니다</p>
-=======
         const categoryPosts = posts.filter(post => (post.category || '재학생') === category);
         const recentPosts = categoryPosts.slice(0, 3); // 최신 3개만 가져옴
         
@@ -277,34 +191,12 @@ function Boardpage() {
             return (
                 <div className="EmptyBoard">
                     <AlertCircle size={32} /><p>게시글이 없습니다</p>
->>>>>>> Stashed changes
-=======
-        const categoryPosts = posts.filter(post => (post.category || '재학생') === category);
-        const recentPosts = categoryPosts.slice(0, 3); // 최신 3개만 가져옴
-        
-        if (recentPosts.length === 0) {
-            return (
-                <div className="EmptyBoard">
-                    <AlertCircle size={32} /><p>게시글이 없습니다</p>
->>>>>>> main
                 </div>
             );
         }
         
         return (
             <div className="PostList">
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-                {categoryPosts.slice(-3).reverse().map(post => (
-                    <div 
-                        key={post.id} 
-                        className="PostItem"
-                        onClick={() => handlePostClick(post)}
-                    >
-                        <div className="PostTitle">{post.title}</div>
-=======
-=======
->>>>>>> main
                 {recentPosts.map(post => (
                     <div key={post.id} className="PostItem" onClick={() => handlePostClick(post)}>
                         {/* New 배지 위치 조정을 위한 PostItem 내 구조 변경 */}
@@ -314,10 +206,6 @@ function Boardpage() {
                             </div>
                             {isNew(post.createdAt) && <span className="NewBadge">N</span>}
                         </div>
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> main
                         <div className="PostInfo">
                             <span className="PostAuthor">{post.authorName}</span>
                             <span className="PostDate">{new Date(post.createdAt).toLocaleDateString('ko-KR')}</span>

@@ -1,39 +1,3 @@
-<<<<<<< Updated upstream
-import './Market.css'; // 페이지 명에 맞게 수정
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
-import { Search, PenLine, FileText, Clock, MessageSquare, ThumbsUp, AlertCircle } from 'lucide-react'; // Lucide 아이콘 추가
-import { LoginComponent } from '../App.js'; // 로그인 컴포넌트 임포트   
-import Navbar from './Navbar.js';
-    function Market() {
-<<<<<<< HEAD
-
-            const navigate = useNavigate();  // useNavigate 훅 사용
-            const handleWriteClick = () => {
-<<<<<<< HEAD
-                navigate('/Write'); // 글쓰기 페이지로 이동
-=======
-                navigate('/MarketWrite'); // 글쓰기 페이지로 이동
->>>>>>> e814d96ddf3884dac21f3ecad7cf1573f4a33bdb
-            };
-=======
->>>>>>> main
-        return (
-            <div>
-            <Navbar />
-            <div className="Title">
-                <img src="pngwing.com.png" alt="어서오고" className="ping" />
-                학생들이 물건을 나누는 공간이에요!
-            </div>
-            <div className="SearchContainer">{/* 검색창 */}
-                <div className="SearchBox">
-                    <div className="SearchPrefix">중고거래</div>
-                    <div className="SearchDivider"></div>
-                    <input type="text" className="SearchInput" placeholder="검색어를 입력하세요!" />
-                    <button className="SearchButton">
-                        <Search size={22} />
-                    </button>
-                </div>
-=======
 // src/page/Market.js (전체 코드 - 카테고리 필터링 포함)
 
 import './Market.css';
@@ -57,7 +21,6 @@ const ProductItem = ({ product }) => {
             <div className="ProductInfo">
                 <h4 className="ProductTitle">{product.title}</h4>
                 <p className="ProductPrice">{formatPrice(product.price)}원</p>
->>>>>>> Stashed changes
             </div>
         </div>
     );

@@ -15,22 +15,11 @@
         "cors": "^2.8.5",
         "dotenv": "^17.2.0",
         "express": "^4.21.2",
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-        "jsonwebtoken": "^9.0.2"
-=======
         "jsonwebtoken": "^9.0.2",
         "multer": "^2.0.1",
         "node-cache": "^5.1.2",
         "puppeteer": "^24.12.1",
         "socket.io": "^4.8.1"
->>>>>>> Stashed changes
-=======
-        "jsonwebtoken": "^9.0.2",
-        "multer": "^2.0.1",
-        "node-cache": "^5.1.2",
-        "puppeteer": "^24.12.1"
->>>>>>> main
     },
     "devDependencies": {
         "nodemon": "^2.0.22"

@@ -67,19 +67,8 @@ function Boardarr() {
     };
 
     const handlePostClick = (post) => {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-        navigate('/infoboard', { state: { post } });
-    };
-
-=======
         navigate(`/infoboard/${post.id}`);
     };
->>>>>>> Stashed changes
-=======
-        navigate(`/infoboard/${post.id}`);
-    };
->>>>>>> main
     const handleBackClick = () => {
         navigate('/');
     };

@@ -619,11 +619,6 @@ form {
     transform: none;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     background-color: red;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> main
 }
 
 
@@ -644,8 +639,4 @@ form {
     right: 0;
     top: 50%; 
     transform: translateY(-50%); 
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> main
 }
