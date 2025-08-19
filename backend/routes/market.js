@@ -1,4 +1,4 @@
-// backend/routes/market.js (전체 코드 - 카테고리 필터링 포함)
+
 
 import express from 'express';
 import { authenticateToken } from '../middleware/auth.js';

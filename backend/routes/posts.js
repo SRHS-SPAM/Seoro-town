@@ -1,4 +1,3 @@
-// backend/routes/posts.js (최종 버전)
 
 import express from 'express';
 import { readPosts, writePosts, readUsers } from '../utils/fileHandlers.js';

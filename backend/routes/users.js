@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Multer 저장소 설정 (기존과 동일)
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => { cb(null, 'uploads/'); },
     filename: (req, file, cb) => {
@@ -21,13 +21,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-
-
-
-//  인증(로그인)이 반드시 필요한 API 모음 
-
-
-// 내 프로필 이미지 업로드
 router.post('/me/profile-image', authenticateToken, upload.single('profileImage'), async (req, res) => {
     try {
         if (!req.file) {
@@ -74,7 +67,7 @@ router.get('/me', authenticateToken, async (req, res) => {
 
 // 다른 사용자에 대한 나의 팔로우 상태 확인
 router.get('/:id/follow-status', authenticateToken, async (req, res) => {
-    try {
+    try {ss
         const follows = await readFollows();
         const isFollowing = follows.some(f => f.followerId === req.user.id && f.followingId === req.params.id);
         res.json({ success: true, isFollowing });

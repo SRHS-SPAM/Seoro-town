@@ -1,4 +1,3 @@
-// backend/server.js (전체 코드)
 
 import http from 'http';
 import { Server } from 'socket.io';

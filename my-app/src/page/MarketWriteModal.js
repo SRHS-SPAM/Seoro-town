@@ -18,7 +18,6 @@ function MarketWriteModal({ isOpen, onClose, onSuccess, productToEdit }) {
     const [imageFile, setImageFile] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // 카테고리 데이터를 이름과 이미지 경로를 포함하는 객체 배열로 변경
     const categories = [
         { name: '교과서',   image: '/icons/textbook.png' },
         { name: '문제집',   image: '/icons/workbook.png' },
