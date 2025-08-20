@@ -1,161 +1,202 @@
-
+// backend/routes/markets.js (MongoDB 연동 최종 버전)
 
 import express from 'express';
+import multer from 'multer';
+import path from 'path'; 
+import fs from 'fs/promises';
+import User from '../models/User.js';         // ✨ User 모델 임포트 (판매자 정보 조회용)
+import Product from '../models/Product.js';   // ✨ Product 모델 임포트
+
 import { authenticateToken } from '../middleware/auth.js';
-import { upload } from '../utils/upload.js';
-import { readMarket, writeMarket } from '../utils/fileHandlers.js';
 
 const router = express.Router();
 
-// (GET) /api/market - 모든 상품 목록 가져오기 (검색 및 카테고리 필터링 기능 추가)
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Multer 저장소 설정 (기존과 동일)
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => { cb(null, 'uploads/'); },
+    filename: (req, file, cb) => {
+        const ext = path.extname(file.originalname);
+        cb(null, `${Date.now()}${ext}`);
+    },
+});
+const upload = multer({ storage: storage });
+
+
+// 모든 상품 목록 가져오기 (GET /api/market)
 router.get('/', async (req, res) => {
     try {
-        const searchTerm = req.query.search || '';
-        const category = req.query.category || '전체';
-        const allProducts = await readMarket();
+        const { search, category } = req.query;
+        let query = {}; // MongoDB 쿼리 객체
+
+        // 필터링 및 검색 조건 동적 생성
+        if (category && category !== '전체') {
+            query.category = category;
+        }
+        if (search) {
+            const searchTerm = new RegExp(search, 'i'); // 대소문자 구분 없는 정규식 검색
+            query.$or = [
+                { title: searchTerm },
+                { content: searchTerm },
+                // authorName은 Product 모델에 저장되어 있으므로 직접 검색 가능
+                { authorName: searchTerm } 
+            ];
+        }
+
+        // ✨ MongoDB 쿼리: 상품 조회 및 최신순 정렬
+        let products = await Product.find(query).sort({ createdAt: -1 });
         
-        // 1차: 검색어 필터링
-        const searchedProducts = searchTerm
-            ? allProducts.filter(product => 
-                product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                product.content.toLowerCase().includes(searchTerm.toLowerCase())
-              )
-            : allProducts;
-
-        // 2차: 카테고리 필터링
-        const categorizedProducts = (category && category !== '전체')
-            ? searchedProducts.filter(product => product.category === category)
-            : searchedProducts;
-
-        res.status(200).json({ success: true, products: categorizedProducts.reverse() });
-
+        // 판매자 정보 (이름, 프로필 이미지) 주입
+        // Product 스키마에 authorName과 authorProfileImage가 스냅샷으로 저장되어 있으므로, 
+        // 여기서 별도 User 조회는 불필요. product 객체를 그대로 사용.
+        
+        res.json({ success: true, products: products });
     } catch (error) {
-        console.error("상품 목록 조회 오류:", error);
-        res.status(500).json({ success: false, message: '상품 목록을 불러오는 중 오류가 발생했습니다.' });
+        console.error('상품 목록 조회 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류' });
     }
 });
 
-// (POST) /api/market - 새 상품 등록하기
+// 새 상품 등록하기 (POST /api/market)
 router.post('/', authenticateToken, upload.single('image'), async (req, res) => {
     try {
         const { category, title, price, content } = req.body;
         const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
         const authorId = req.user.id;
-        const authorName = req.user.username;
+        const authorName = req.user.username; // 현재 로그인한 사용자 정보에서 가져옴
+        const authorProfileImage = req.user.profileImage; // 현재 로그인한 사용자 프로필 이미지 (스냅샷)
 
-        if (!title || !price || !content || !imageUrl) {
-            return res.status(400).json({ success: false, message: '모든 필드를 입력해주세요.' });
+        if (!title || !price || !content || !category) {
+            return res.status(400).json({ success: false, message: '모든 필수 필드를 입력해주세요.' });
         }
-
-        const products = await readMarket();
         
-        const newProduct = {
-            id: Date.now(),
+        const newProductId = Date.now().toString();
+
+        // ✨ MongoDB: 새 상품 생성 및 저장
+        const newProduct = new Product({
+            id: newProductId,
+            _id: newProductId, // _id도 id와 동일하게 설정
             category,
-            title,
-            price: parseInt(price),
-            content,
+            title: title.trim(),
+            price: parseInt(price, 10),
+            content: content.trim(),
             imageUrl,
             authorId,
             authorName,
-            createdAt: new Date().toISOString()
-        };
-
-        products.push(newProduct);
-        await writeMarket(products);
+            authorProfileImage, // 스냅샷 저장
+            createdAt: new Date()
+        });
+        await newProduct.save();
 
         res.status(201).json({ success: true, message: '상품이 성공적으로 등록되었습니다.', product: newProduct });
-
     } catch (error) {
-        console.error("상품 등록 오류:", error);
-        res.status(500).json({ success: false, message: '상품 등록 중 오류가 발생했습니다.' });
+        console.error('상품 등록 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류' });
     }
 });
 
-// (GET) /api/market/:productId - 특정 상품 상세 정보 가져오기
+// 특정 상품 상세 정보 가져오기 (GET /api/market/:productId)
 router.get('/:productId', async (req, res) => {
     try {
-        const products = await readMarket();
-        const productId = parseInt(req.params.productId);
-        const product = products.find(p => p.id === productId);
-
-        if (product) {
-            res.status(200).json({ success: true, product: product });
-        } else {
-            res.status(404).json({ success: false, message: '상품을 찾을 수 없습니다.' });
+        const productId = req.params.productId;
+        // ✨ MongoDB 쿼리: 특정 상품 조회
+        let product = await Product.findOne({ id: productId });
+        if (!product) {
+            return res.status(404).json({ success: false, message: '상품을 찾을 수 없습니다.' });
         }
+
+        // 판매자 정보 (이름, 프로필 이미지) 주입 (Product 스키마에 스냅샷으로 저장되어 있음)
+        // product 객체는 이미 Mongoose 문서이므로 toObject() 불필요.
+        
+        res.json({ success: true, product: product });
     } catch (error) {
-        console.error("상품 상세 조회 오류:", error);
-        res.status(500).json({ success: false, message: '상품 정보를 불러오는 중 오류가 발생했습니다.' });
+        console.error('특정 상품 조회 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류' });
     }
 });
 
-// (DELETE) /api/market/:productId - 특정 상품 삭제하기
+// 특정 상품 삭제하기 (DELETE /api/market/:productId)
 router.delete('/:productId', authenticateToken, async (req, res) => {
     try {
-        const products = await readMarket();
-        const productId = parseInt(req.params.productId);
-        const productIndex = products.findIndex(p => p.id === productId);
+        const productId = req.params.productId;
 
-        // 상품이 존재하지 않으면
-        if (productIndex === -1) {
+        // ✨ MongoDB 쿼리: 상품 조회
+        const product = await Product.findOne({ id: productId });
+
+        if (!product) {
             return res.status(404).json({ success: false, message: '삭제할 상품을 찾을 수 없습니다.' });
         }
 
-        // 본인이 쓴 글이 맞는지 확인 (중요!)
-        if (products[productIndex].authorId !== req.user.id) {
+        if (product.authorId !== req.user.id) {
             return res.status(403).json({ success: false, message: '삭제 권한이 없습니다.' });
         }
 
-        // 배열에서 해당 상품 제거
-        products.splice(productIndex, 1);
-        await writeMarket(products);
+        // 이미지 파일 삭제
+        const imageUrlToDelete = product.imageUrl;
+        if (imageUrlToDelete && imageUrlToDelete.startsWith('/uploads/')) {
+            const imagePath = path.join(__dirname, '..', imageUrlToDelete);
+            try { await fs.unlink(imagePath); } catch (err) { if (err.code !== 'ENOENT') console.error('상품 이미지 삭제 오류:', err); }
+        }
 
-        res.status(200).json({ success: true, message: '상품이 삭제되었습니다.' });
+        // ✨ MongoDB 쿼리: 상품 삭제
+        const result = await Product.deleteOne({ id: productId });
+        
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ success: false, message: '상품을 찾을 수 없습니다.' });
+        }
 
+        res.json({ success: true, message: '상품이 삭제되었습니다.' });
     } catch (error) {
         console.error("상품 삭제 오류:", error);
-        res.status(500).json({ success: false, message: '상품 삭제 중 오류가 발생했습니다.' });
+        res.status(500).json({ success: false, message: '서버 오류' });
     }
 });
 
 
-// (PUT) /api/market/:productId - 특정 상품 수정하기
-// 참고: PUT은 전체를 교체, PATCH는 일부만 변경. 여기서는 간단히 PUT 사용
+// 특정 상품 수정하기 (PUT /api/market/:productId)
 router.put('/:productId', authenticateToken, upload.single('image'), async (req, res) => {
     try {
-        const { category, title, price, content } = req.body;
-        const products = await readMarket();
-        const productId = parseInt(req.params.productId);
-        const productIndex = products.findIndex(p => p.id === productId);
+        const { category, title, price, content, existingImageUrl } = req.body;
+        const productId = req.params.productId;
 
-        if (productIndex === -1) {
+        // ✨ MongoDB 쿼리: 상품 조회
+        let product = await Product.findOne({ id: productId });
+        if (!product) {
             return res.status(404).json({ success: false, message: '수정할 상품을 찾을 수 없습니다.' });
         }
 
-        if (products[productIndex].authorId !== req.user.id) {
+        if (product.authorId !== req.user.id) {
             return res.status(403).json({ success: false, message: '수정 권한이 없습니다.' });
         }
 
-        // 기존 정보에 새로운 정보 덮어쓰기
-        const updatedProduct = {
-            ...products[productIndex], // id, authorId, createdAt 등은 그대로 유지
-            category: category || products[productIndex].category,
-            title: title || products[productIndex].title,
-            price: price ? parseInt(price) : products[productIndex].price,
-            content: content || products[productIndex].content,
-            // 새 이미지가 업로드되었으면 URL을 바꾸고, 아니면 기존 URL 유지
-            imageUrl: req.file ? `/uploads/${req.file.filename}` : products[productIndex].imageUrl
-        };
+        let newImageUrl = existingImageUrl === 'null' ? null : (existingImageUrl || product.imageUrl);
+        
+        if (req.file) { 
+            if (product.imageUrl && product.imageUrl.startsWith('/uploads/')) {
+                const oldImagePath = path.join(__dirname, '..', product.imageUrl);
+                try { await fs.unlink(oldImagePath); } catch (err) { if (err.code !== 'ENOENT') console.error('기존 이미지 삭제 오류 (수정):', err); }
+            }
+            newImageUrl = `/uploads/${req.file.filename}`;
+        } 
 
-        products[productIndex] = updatedProduct;
-        await writeMarket(products);
+        // ✨ MongoDB 쿼리: 상품 업데이트 (findByIdAndUpdate 대신 findOne하고 수동 업데이트)
+        product.set({
+            category: category || product.category,
+            title: title ? title.trim() : product.title,
+            price: price ? parseInt(price, 10) : product.price,
+            content: content ? content.trim() : product.content,
+            imageUrl: newImageUrl
+        });
+        await product.save(); // 변경사항 저장
 
-        res.status(200).json({ success: true, message: '상품이 수정되었습니다.', product: updatedProduct });
+        res.json({ success: true, message: '상품이 수정되었습니다.', product: product });
 
     } catch (error) {
-        console.error("상품 수정 오류:", error);
-        res.status(500).json({ success: false, message: '상품 수정 중 오류가 발생했습니다.' });
+        console.error('상품 수정 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류' });
     }
 });
 

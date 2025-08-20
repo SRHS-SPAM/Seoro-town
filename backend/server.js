@@ -1,22 +1,23 @@
 
 import http from 'http';
 import { Server } from 'socket.io';
-
+import connectDB from './config/db.js';
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
 import postRoutes from './routes/posts.js';
 import mealRoutes from './routes/meal.js';
 import comRoutes from './routes/com.js';
 import marketRoutes from './routes/market.js';
-import chatRoutes from './routes/chat.js'; // chatRoutes import 추가
+import chatRoutes from './routes/chat.js';
 
 import 'dotenv/config'; 
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { readChatMessages, writeChatMessages } from './utils/fileHandlers.js'; // 메시지 저장을 위해 import
+import { readChatMessages, writeChatMessages } from './utils/fileHandlers.js';
 
+connectDB(); 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
