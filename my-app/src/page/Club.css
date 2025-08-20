@@ -1,99 +1,264 @@
-    .NavBar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 40px;
-    font-size: 18px;
-    font-weight: bold;
-    position: relative;
-    border-bottom: 1px solid #ddd; 
-    font-size: 18px;
-    font-weight: bold;
-    font-family: LINESeedKR-Bd;
-    
-    }
+.ClubContainer {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
 
-    .NavLeft {
-    display: flex;
-    align-items: center; 
-    gap: 10px;
-    flex: 1;
-    }
+.ClubHeader {
+    text-align: center;
+    margin-bottom: 2rem;
+}
 
-    .RobotLogo {
-    width: 40px;
-    height: auto;
-    display: block;
-    }
+.ClubHeader h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin: 0;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
 
-    .BrandName {
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 1; 
-    }
+.ClubGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
 
-
-    .NavCenter {
-    display: flex;
-    justify-content: center;
-    gap: 10vh;
-    }
-
-    .NavItem {
-    position: relative;
+.ClubCard {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 1.5rem;
     cursor: pointer;
-    color: black;
-    text-decoration: none;
-    transition: color 0.2s ease;
-    }
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    position: relative;
+    overflow: hidden;
+}
 
-    .NavItem::after {
+.ClubCard::before {
     content: '';
     position: absolute;
-    bottom: -4px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0%;
-    height: 2px;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
     background-color: red;
-    transition: width 0.3s ease;
-    }
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
 
+.ClubCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: red;
+    background-color: #fafafa;
+}
 
-    .NavItem:hover {
-    color: red;
-    }
-    .NavItem:hover::after {
-    width: 100%;
-    }
+.ClubCard:hover::before {
+    transform: scaleY(1);
+}
 
-    .NavItem.active {
-    color: red;
-    }
-    .NavItem.active::after {
-    width: 100%;
-    }
+.ClubImageContainer {
+    display: none;
+}
 
+.ClubImage {
+    display: none;
+}
 
-    .NavRight {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    gap: 20px;
-
-    }
-
-    .Title {
-    margin-top: 80px; 
-    text-align: center;
-    font-size: 24px;
+.ClubName {
+    font-size: 1.1rem;
     font-weight: bold;
-    }
+    color: #333;
+    text-align: center;
+    margin: 0;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
 
+/* 팝업 스타일 */
+.PopupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
 
-    .Logo {
-    width: 100px;
-    height: auto;
-    vertical-align: middle;
-    margin-right: 10px;
+.PopupContent {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    max-width: 800px;
+    max-height: 90vh;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+    animation: popupFadeIn 0.3s ease-out;
+}
+
+@keyframes popupFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
     }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.CloseButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.CloseButton:hover {
+    background-color: #f5f5f5;
+    color: red;
+}
+
+.PopupImageContainer {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 1.5rem auto;
+    overflow: hidden;
+    border-radius: 50%;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.PopupImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.PopupTitle {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin: 0 0 1.5rem 0;
+    font-family: 'LINESeedKR-Bd', sans-serif;
+}
+
+.PopupDescription {
+    color: #555;
+    line-height: 1.6;
+    font-size: 1rem;
+    text-align: left;
+    min-height: 200px;
+}
+
+.PopupDescription p {
+    margin: 0 0 1.2rem 0;
+}
+
+.PopupDescription p:last-child {
+    margin-bottom: 0;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .ClubContainer {
+        padding: 1rem 0.5rem;
+    }
+    
+    .ClubGrid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        gap: 15px;
+        max-width: 100%;
+    }
+    
+    .ClubCard {
+        min-height: 100px;
+        padding: 1rem;
+    }
+    
+    .ClubName {
+        font-size: 0.9rem;
+    }
+    
+    .PopupContent {
+        max-width: 95%;
+        width: 95%;
+        padding: 1.5rem;
+        margin: 1rem;
+        max-height: 85vh;
+    }
+    
+    .PopupTitle {
+        font-size: 1.5rem;
+    }
+    
+    .PopupImageContainer {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ClubGrid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        gap: 12px;
+    }
+    
+    .ClubCard {
+        min-height: 80px;
+        padding: 0.8rem;
+    }
+    
+    .ClubName {
+        font-size: 0.8rem;
+    }
+    
+    .ClubHeader h1 {
+        font-size: 2rem;
+    }
+    
+    .PopupContent {
+        padding: 1rem;
+        width: 95%;
+        max-width: 95%;
+    }
+    
+    .PopupDescription {
+        min-height: 150px;
+    }
+    
+    .PopupTitle {
+        font-size: 1.3rem;
+    }
+    
+    .PopupImageContainer {
+        width: 100px;
+        height: 100px;
+    }
+}
