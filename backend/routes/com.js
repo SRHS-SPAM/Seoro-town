@@ -1,4 +1,4 @@
-// backend/routes/com.js (최종 전체 코드)
+
 
 import express from 'express';
 import puppeteer from 'puppeteer';
@@ -10,7 +10,6 @@ const COM_PAGE_URL = 'https://srobot.sen.hs.kr/67182/subMenu.do';
 const LIST_API_URL = 'https://srobot.sen.hs.kr/dggb/module/board/selectBoardListAjax.do';
 const DETAIL_API_URL = 'https://srobot.sen.hs.kr/dggb/module/board/selectBoardDetailAjax.do';
 
-// --- (1) 게시물 '목록'을 가져오는 API ---
 router.get('/', async (req, res) => {
     let browser = null;
     try {
@@ -56,8 +55,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-
-// --- (2) 게시물 '상세 내용'을 가져오는 API (자바스크립트 코드에서 파일 정보 추출) ---
 router.get('/detail/:nttId', async (req, res) => {
     let browser = null;
     try {

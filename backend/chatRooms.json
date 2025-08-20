@@ -17,5 +17,24 @@
       }
     ],
     "createdAt": "2025-08-17T13:09:07.496Z"
+  },
+  {
+    "roomId": "1755435979473-1752576484460-1755430462423",
+    "productId": 1755435979473,
+    "productTitle": "나다",
+    "productImageUrl": "/uploads/image-1755435979469-129080772.jpg",
+    "participants": [
+      {
+        "id": "1752576484460",
+        "username": "관리자",
+        "profileImage": "/uploads/1752576521351.png"
+      },
+      {
+        "id": "1755430462423",
+        "username": "유준영",
+        "profileImage": null
+      }
+    ],
+    "createdAt": "2025-08-19T08:17:58.927Z"
   }
 ]

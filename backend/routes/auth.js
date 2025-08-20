@@ -1,4 +1,3 @@
-// backend/routes/auth.js (로그인 로직 개선 최종 버전)
 
 import express from 'express';
 import bcrypt from 'bcrypt';
@@ -7,7 +6,7 @@ import { readUsers, writeUsers } from '../utils/fileHandlers.js';
 
 const router = express.Router();
 
-// --- 회원가입 API (수정 없음) ---
+
 router.post('/signup', async (req, res) => {
     try {
         const { username, email, password } = req.body;

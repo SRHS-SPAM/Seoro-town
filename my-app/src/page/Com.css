@@ -1,7 +1,7 @@
 /* src/page/Com.css */
 
 .ComContainer {
-    max-width: 1200px;
+    max-width: 1250px;
     margin: 2rem auto;
     padding: 2rem;
 }
@@ -72,8 +72,9 @@
 
 .ComTable .num { width: 10%; text-align: center; }
 .ComTable .title { width: 55%; }
-.ComTable .author { width: 15%; text-align: center; }
-.ComTable .date { width: 20%; text-align: center; }
+.ComTable .author { width: 10%; text-align: center; }
+.ComTable .date { width: 15%; text-align: center; }
+.ComTable .views { width: 10%; text-align: center; }
 
 .ComTable td[colSpan="4"] {
     text-align: center;

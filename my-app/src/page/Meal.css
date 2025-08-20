@@ -56,17 +56,6 @@
     cursor: not-allowed;
 }
 
-.MealDate {
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #555;
-    margin-bottom: 30px;
-    padding: 15px;
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    border-radius: 10px;
-}
-
 .LoadingContainer,
 .ErrorContainer {
     text-align: center;
