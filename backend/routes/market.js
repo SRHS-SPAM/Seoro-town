@@ -71,7 +71,7 @@ router.post('/', authenticateToken, upload.single('image'), async (req, res) => 
             authorName,
             createdAt: new Date().toISOString(),
             status: 'selling' // 기본 상태는 '판매중'
-        };
+        });
 
         products.push(newProduct);
         await writeMarket(products);
