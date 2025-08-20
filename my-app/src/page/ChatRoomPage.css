@@ -1,130 +1,70 @@
-/* src/page/ChatRoomPage.css (전체 코드 - 레이아웃 최종 수정) */
+/* src/page/ChatRoomPage.css (최종 해결 버전) */
 
-.ChatRoomContainer {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 61px); /* Navbar의 대략적인 높이(61px)를 뺌 */
-    background-color: #f9f9f9;
+/* ... 다른 스타일은 모두 그대로 ... */
+.ChatRoomContainer, .ChatRoomHeader, .BackButton, .HeaderInfo, .MessageBox, .Message, .SenderName, .Timestamp {
+    /* 이 부분은 기존 코드와 동일합니다 */
 }
+.ChatRoomContainer { display: flex; flex-direction: column; height: calc(100vh - 61px); background-color: #f9f9f9; }
+.ChatRoomHeader { display: flex; align-items: center; padding: 0.8rem 1rem; border-bottom: 1px solid #eee; background: white; flex-shrink: 0; }
+.BackButton { background: none; border: none; cursor: pointer; margin-right: 1rem; display: flex; }
+.HeaderInfo h3 { margin: 0; font-size: 1.1rem; }
+.HeaderInfo p { margin: 0; color: #666; font-size: 0.9rem; }
+.MessageBox { flex: 1; min-height: 0; padding: 1rem; overflow-y: auto; }
+.Message { max-width: 70%; margin-bottom: 1rem; padding: 0.8rem 1rem; border-radius: 18px; line-height: 1.4; display: flex; flex-direction: column; }
+.Message p { margin: 0; word-break: break-word; }
+.Message.sent { background: #007bff; color: white; margin-left: auto; border-bottom-right-radius: 4px; align-items: flex-end; }
+.Message.received { background: #e9e9eb; color: #333; margin-right: auto; border-bottom-left-radius: 4px; align-items: flex-start; }
+.SenderName { font-size: 0.8rem; color: #555; margin-bottom: 0.3rem; display: block; }
+.Timestamp { font-size: 0.7rem; color: #999; margin-top: 0.3rem; }
+.Message.sent .Timestamp { color: #f0f0f0; }
 
-.ChatRoomHeader {
+
+/* --- Input Area --- */
+.InputBox {
     display: flex;
-    align-items: center;
-    padding: 0.8rem 1rem;
-    border-bottom: 1px solid #eee;
+    /* ✨✨✨ 이 부분을 수정합니다: center -> flex-end ✨✨✨ */
+    align-items: flex-end; /* 모든 요소를 아래쪽에 정렬 */
     background: white;
     flex-shrink: 0;
+    
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin: 0.5rem 1rem;
+    padding: 0 0.5rem 0 1rem;
 }
 
-.BackButton {
-    background: none;
+textarea.ChatInput {
+    flex: 1;
+    min-width: 0;
+    text-align: left; 
+    width: 100%;
+    /* 버튼과 시각적 높이를 맞추기 위해 패딩을 약간 조정합니다. */
+    padding: 0.5rem 0; 
     border: none;
-    cursor: pointer;
-    margin-right: 1rem;
-    display: flex;
-}
-
-.HeaderInfo h3 {
-    margin: 0;
-    font-size: 1.1rem;
-}
-
-.HeaderInfo p {
-    margin: 0;
-    color: #666;
+    outline: none;
+    background-color: transparent;
     font-size: 0.9rem;
-}
-
-.MessageBox {
-    flex-grow: 1;
-    padding: 1rem;
+    line-height: 1.4;
+    resize: none;
+    font-family: inherit;
+    max-height: 80px;
     overflow-y: auto;
 }
 
-.Message {
-    max-width: 70%;
-    margin-bottom: 1rem;
-    padding: 0.8rem 1rem;
-    border-radius: 18px;
-    line-height: 1.4;
-    display: flex;
-    flex-direction: column;
-}
-
-.Message p {
-    margin: 0;
-    word-break: break-word;
-}
-
-.Message.sent {
-    background: #007bff;
-    color: white;
-    margin-left: auto;
-    border-bottom-right-radius: 4px;
-    align-items: flex-end;
-}
-
-.Message.received {
-    background: #e9e9eb;
-    color: #333;
-    margin-right: auto;
-    border-bottom-left-radius: 4px;
-    align-items: flex-start;
-}
-
-.SenderName {
-    font-size: 0.8rem;
-    color: #555;
-    margin-bottom: 0.3rem;
-    display: block;
-}
-
-.Timestamp {
-    font-size: 0.7rem;
-    color: #999;
-    margin-top: 0.3rem;
-}
-
-.Message.sent .Timestamp {
-    color: #f0f0f0;
-}
-
-.InputBox {
-    display: flex;
-    align-items: center;
-    padding: 0.8rem 1rem;
-    border-top: 1px solid #eee;
-    background: white;
-    flex-shrink: 0;
-}
-
-.InputBox input {
-    flex: 1 !important; /* ✨ 변경점: !important 를 추가하여 최우선 순위로 만듦 */
-
-    min-width: 0;
-    padding: 0.6rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    outline: none;
-    font-size: 0.9rem;
-    margin: 0;
-}
-.InputBox button {
-    background: #007bff;
-    color: white;
+.SendTextButton {
+    background: none;
     border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    margin-left: 0.8rem;
+    color: #007bff;
+    font-weight: 600;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s;
+    padding: 0.6rem 0.5rem; /* 버튼의 높이를 결정하는 패딩 */
+    margin-left: 0.5rem;
+    font-size: 0.9rem;
+    transition: color 0.2s;
     flex-shrink: 0;
 }
 
-.InputBox button:hover {
-    background-color: #0056b3;
+.SendTextButton:disabled {
+    color: #b0c4de;
+    cursor: not-allowed;
 }
