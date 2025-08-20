@@ -136,7 +136,7 @@ router.put('/:productId', authenticateToken, upload.single('image'), async (req,
         if (products[productIndex].authorId !== req.user.id) {
             return res.status(403).json({ success: false, message: '수정 권한이 없습니다.' });
         }
-
+dx``
         const updatedProduct = {
             ...products[productIndex],
             category: category || products[productIndex].category,
