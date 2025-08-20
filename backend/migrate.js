@@ -1,14 +1,15 @@
-// backend/migrate.js (MongoDB 마이그레이션 스크립트 - Club 모델 제외)
+// backend/migrate.js (MongoDB 마이그레이션 스크립트 - 최종 버전)
 
 import mongoose from 'mongoose'; // Mongoose 임포트
 import 'dotenv/config';          // .env 파일 로드
 
 // ✨✨✨ 필요한 모델들을 임포트합니다. ✨✨✨
-// Club 모델은 사용하지 않으므로 임포트에서 제외됩니다.
 import User from './models/User.js';
 import Post from './models/Post.js';
 import Follow from './models/Follow.js';
-import Product from './models/Product.js'; // Product 모델
+// Club 모델은 사용하지 않으므로 마이그레이션에서 제외합니다.
+// import Club from './models/Club.js'; // 이 라인은 필요 없습니다.
+import Product from './models/Product.js'; 
 import ChatRoom from './models/ChatRoom.js';
 import ChatMessage from './models/ChatMessage.js';
 
@@ -49,7 +50,7 @@ const migrateData = async () => {
 
         console.log('--- 데이터 마이그레이션 시작 ---');
 
-        // 모든 컬렉션 비우기
+        // 모든 컬렉션 비우기 (마이그레이션 재실행 시 기존 데이터 삭제 방지)
         await User.deleteMany({});
         await Post.deleteMany({});
         await Follow.deleteMany({});
@@ -93,7 +94,9 @@ const migrateData = async () => {
         } else {
             console.log('마이그레이션할 팔로우 관계 없음.');
         }
-        // 4. Products 마이그레이션 (Market 데이터)
+
+
+        // 5. Products 마이그레이션 (market.json 파일 사용)
         const productsJson = await readJsonFile('market.json'); // market.json 파일 읽기
         if (productsJson.length > 0) {
             await Product.insertMany(productsJson.map(product => ({ ...product, _id: product.id })));
@@ -102,7 +105,7 @@ const migrateData = async () => {
             console.log('마이그레이션할 상품 (마켓) 없음.');
         }
 
-        // 5. ChatRooms 마이그레이션
+        // 6. ChatRooms 마이그레이션
         const chatRoomsJson = await readJsonFile('chat_rooms.json');
         if (chatRoomsJson.length > 0) {
             await ChatRoom.insertMany(chatRoomsJson.map(room => ({ ...room, _id: room.id })));
@@ -111,7 +114,7 @@ const migrateData = async () => {
             console.log('마이그레이션할 채팅방 없음.');
         }
 
-        // 6. ChatMessages 마이그레이션
+        // 7. ChatMessages 마이그레이션
         const chatMessagesObj = await readJsonFile('chat_messages.json');
         const chatMessagesToInsert = [];
         for (const roomId in chatMessagesObj) {
@@ -124,8 +127,6 @@ const migrateData = async () => {
             console.log('마이그레이션할 채팅 메시지 없음.');
         }
 
-        //7. 존재하지 않는 기억
-        
         console.log('--- 데이터 마이그레이션 완료! ---');
 
     } catch (error) {
