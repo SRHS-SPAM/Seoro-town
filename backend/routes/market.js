@@ -1,21 +1,18 @@
-// backend/routes/markets.js (MongoDB 연동 최종 버전)
+// backend/routes/market.js (MongoDB 연동 최종 버전)
 
 import express from 'express';
 import multer from 'multer';
 import path from 'path'; 
 import fs from 'fs/promises';
-import User from '../models/User.js';         // ✨ User 모델 임포트 (판매자 정보 조회용)
-import Product from '../models/Product.js';   // ✨ Product 모델 임포트
+// ✨✨✨ Mongoose 모델 임포트 ✨✨✨
+import User from '../models/User.js';         // User 모델 (판매자 정보 조회용)
+import Product from '../models/Product.js';   // Product 모델
 
 import { authenticateToken } from '../middleware/auth.js';
 
 const router = express.Router();
 
-import { fileURLToPath } from 'url';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Multer 저장소 설정 (기존과 동일)
+// Multer 설정 (기존과 동일)
 const storage = multer.diskStorage({
     destination: (req, file, cb) => { cb(null, 'uploads/'); },
     filename: (req, file, cb) => {
@@ -41,17 +38,19 @@ router.get('/', async (req, res) => {
             query.$or = [
                 { title: searchTerm },
                 { content: searchTerm },
-                // authorName은 Product 모델에 저장되어 있으므로 직접 검색 가능
                 { authorName: searchTerm } 
             ];
         }
 
         // ✨ MongoDB 쿼리: 상품 조회 및 최신순 정렬
-        let products = await Product.find(query).sort({ createdAt: -1 });
+        // deletionTimestamp가 미래이거나 null인 상품만 가져옴 (삭제 예정이 아닌 상품)
+        query.$or = [
+            { deletionTimestamp: { $exists: false } },
+            { deletionTimestamp: null },
+            { deletionTimestamp: { $gt: new Date() } } // 현재 시간보다 미래인 경우
+        ];
         
-        // 판매자 정보 (이름, 프로필 이미지) 주입
-        // Product 스키마에 authorName과 authorProfileImage가 스냅샷으로 저장되어 있으므로, 
-        // 여기서 별도 User 조회는 불필요. product 객체를 그대로 사용.
+        let products = await Product.find(query).sort({ createdAt: -1 });
         
         res.json({ success: true, products: products });
     } catch (error) {
@@ -87,7 +86,8 @@ router.post('/', authenticateToken, upload.single('image'), async (req, res) => 
             authorId,
             authorName,
             authorProfileImage, // 스냅샷 저장
-            createdAt: new Date()
+            createdAt: new Date(),
+            status: 'selling' // 기본 상태는 '판매중'
         });
         await newProduct.save();
 
@@ -107,9 +107,6 @@ router.get('/:productId', async (req, res) => {
         if (!product) {
             return res.status(404).json({ success: false, message: '상품을 찾을 수 없습니다.' });
         }
-
-        // 판매자 정보 (이름, 프로필 이미지) 주입 (Product 스키마에 스냅샷으로 저장되어 있음)
-        // product 객체는 이미 Mongoose 문서이므로 toObject() 불필요.
         
         res.json({ success: true, product: product });
     } catch (error) {
@@ -129,7 +126,6 @@ router.delete('/:productId', authenticateToken, async (req, res) => {
         if (!product) {
             return res.status(404).json({ success: false, message: '삭제할 상품을 찾을 수 없습니다.' });
         }
-
         if (product.authorId !== req.user.id) {
             return res.status(403).json({ success: false, message: '삭제 권한이 없습니다.' });
         }
@@ -155,7 +151,6 @@ router.delete('/:productId', authenticateToken, async (req, res) => {
     }
 });
 
-
 // 특정 상품 수정하기 (PUT /api/market/:productId)
 router.put('/:productId', authenticateToken, upload.single('image'), async (req, res) => {
     try {
@@ -167,7 +162,6 @@ router.put('/:productId', authenticateToken, upload.single('image'), async (req,
         if (!product) {
             return res.status(404).json({ success: false, message: '수정할 상품을 찾을 수 없습니다.' });
         }
-
         if (product.authorId !== req.user.id) {
             return res.status(403).json({ success: false, message: '수정 권한이 없습니다.' });
         }
@@ -183,6 +177,7 @@ router.put('/:productId', authenticateToken, upload.single('image'), async (req,
         } 
 
         // ✨ MongoDB 쿼리: 상품 업데이트 (findByIdAndUpdate 대신 findOne하고 수동 업데이트)
+        // Mongoose는 product.set() 후 product.save()를 호출하여 업데이트합니다.
         product.set({
             category: category || product.category,
             title: title ? title.trim() : product.title,
@@ -192,12 +187,40 @@ router.put('/:productId', authenticateToken, upload.single('image'), async (req,
         });
         await product.save(); // 변경사항 저장
 
-        res.json({ success: true, message: '상품이 수정되었습니다.', product: product });
+        res.json({ success: true, message: '상품이 수정되었습니다.', product: product }); // 업데이트된 상품 객체 반환
 
     } catch (error) {
         console.error('상품 수정 오류:', error);
         res.status(500).json({ success: false, message: '서버 오류' });
     }
 });
+
+// 판매 완료 처리 (PATCH /api/market/:productId/sold)
+router.patch('/:productId/sold', authenticateToken, async (req, res) => {
+    try {
+        const productId = req.params.productId;
+
+        // ✨ MongoDB 쿼리: 상품 조회
+        let product = await Product.findOne({ id: productId });
+
+        if (!product) {
+            return res.status(404).json({ success: false, message: '상품을 찾을 수 없습니다.' });
+        }
+        if (product.authorId !== req.user.id) {
+            return res.status(403).json({ success: false, message: '권한이 없습니다.' });
+        }
+
+        // ✨ MongoDB 쿼리: 상품 상태 업데이트
+        product.status = 'sold';
+        product.deletionTimestamp = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000); // 3일 후 삭제 예정
+        await product.save();
+
+        res.status(200).json({ success: true, message: '상품이 판매 완료 처리되었습니다.', product: product });
+    } catch (error) {
+        console.error("판매 완료 처리 오류:", error);
+        res.status(500).json({ success: false, message: '처리 중 오류가 발생했습니다.' });
+    }
+});
+
 
 export default router;

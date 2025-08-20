@@ -1,10 +1,11 @@
 // backend/routes/chat.js (MongoDB 연동 최종 버전)
 
 import express from 'express';
-import User from '../models/User.js';         // ✨ User 모델 임포트
-import Product from '../models/Product.js';   // ✨ Product 모델 임포트 (상품 정보 조회용)
-import ChatRoom from '../models/ChatRoom.js'; // ✨ ChatRoom 모델 임포트
-import ChatMessage from '../models/ChatMessage.js'; // ✨ ChatMessage 모델 임포트
+// ✨✨✨ Mongoose 모델 임포트 ✨✨✨
+import User from '../models/User.js';         // User 모델
+import Product from '../models/Product.js';   // Product 모델 (상품 정보 조회용)
+import ChatRoom from '../models/ChatRoom.js'; // ChatRoom 모델
+import ChatMessage from '../models/ChatMessage.js'; // ChatMessage 모델
 
 import { authenticateToken } from '../middleware/auth.js';
 
@@ -28,7 +29,6 @@ router.post('/start', authenticateToken, async (req, res) => {
         }
 
         // ✨ MongoDB 쿼리: 기존 채팅방 조회 (참여자가 buyerId와 sellerId 모두 포함하는 방)
-        // $all 연산자는 배열 필드에 특정 요소들을 모두 포함하는 문서를 찾습니다.
         let existingRoom = await ChatRoom.findOne({ 
             productId: product.id, // 특정 상품에 대한 채팅방
             participants: { $all: [buyerId, sellerId] } // 두 참여자 모두 포함
@@ -82,7 +82,7 @@ router.get('/:roomId/messages', authenticateToken, async (req, res) => {
 
         // ✨ MongoDB 쿼리: 해당 방의 메시지 조회
         const roomMessages = await ChatMessage.find({ roomId: roomId }).sort({ timestamp: 1 }); // 오래된 메시지부터
-
+        
         // roomInfo에 필요한 추가 정보 (productTitle, imageUrl 등)를 포함시키기 위해 product 조회
         let productInfo = null;
         if (room.productId) {
@@ -102,7 +102,7 @@ router.get('/:roomId/messages', authenticateToken, async (req, res) => {
             createdAt: room.createdAt
         };
         
-        res.status(200).json({ success: true, messages: roomMessages, roomInfo: roomInfo });
+        res.status(200).json({ success: true, messages: roomMessages, roomInfo: room });
     } catch (error) {
         console.error("메시지 불러오기 오류:", error);
         res.status(500).json({ success: false, message: '메시지를 불러오는 중 오류 발생' });

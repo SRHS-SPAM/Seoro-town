@@ -1,23 +1,34 @@
+// backend/server.js (MongoDB 연결 추가)
 
 import http from 'http';
 import { Server } from 'socket.io';
-import connectDB from './config/db.js';
+
+// ✨✨✨ MongoDB 연결 관련 임포트 ✨✨✨
+import connectDB from './config/db.js'; // DB 연결 함수 임포트
+// 필요한 모델 임포트 (기존 readChatMessages, writeChatMessages 대신 사용)
+import ChatMessage from './models/ChatMessage.js'; // ChatMessage 모델 임포트 (소켓용)
+import ChatRoom from './models/ChatRoom.js';       // ChatRoom 모델 (소켓용)
+import User from './models/User.js';               // User 모델 (소켓 메시지 저장 시 senderName, senderId 확인용)
+
+
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
 import postRoutes from './routes/posts.js';
 import mealRoutes from './routes/meal.js';
 import comRoutes from './routes/com.js';
 import marketRoutes from './routes/market.js';
-import chatRoutes from './routes/chat.js';
+import chatRoutes from './routes/chat.js'; 
 
 import 'dotenv/config'; 
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { readChatMessages, writeChatMessages } from './utils/fileHandlers.js';
+// import { readChatMessages, writeChatMessages } from './utils/fileHandlers.js'; // ✨ 이 라인 삭제
 
+// ✨✨✨ MongoDB 연결 실행 ✨✨✨
 connectDB(); 
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -52,42 +63,48 @@ app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/com', comRoutes);
 app.use('/api/market', marketRoutes);
-app.use('/api/chat', chatRoutes); // chatRoutes 연결 추가
+app.use('/api/chat', chatRoutes);
 
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', message: '서버가 정상적으로 작동중입니다.'});
 });
 
+// ✨✨✨ Socket.IO 메시지 저장 로직을 MongoDB로 변경 ✨✨✨
 io.on('connection', (socket) => {
     console.log('✅ 새 사용자가 접속했습니다:', socket.id);
 
     socket.on('joinRoom', (roomId) => {
         socket.join(roomId);
-        console.log(`사용자 ${socket.id}가 ${roomId} 방에 참여했습니다.`);
+        console.log(`[JOIN] 사용자 ${socket.id}가 ${roomId} 방에 참여했습니다.`);
     });
 
-    socket.on('sendMessage', async (data) => {
+    socket.on('sendMessage', async (messageData) => {
         try {
-            const allMessages = await readChatMessages();
-            if (!allMessages[data.roomId]) {
-                allMessages[data.roomId] = [];
+            // 메시지를 보낸 사용자와 방이 유효한지 간단히 확인
+            const senderExists = await User.exists({ id: messageData.senderId });
+            const roomExists = await ChatRoom.exists({ id: messageData.roomId });
+            
+            if (!senderExists || !roomExists) {
+                console.warn(`[MSG] 유효하지 않은 발신자 또는 방으로 메시지 수신: senderId=${messageData.senderId}, roomId=${messageData.roomId}`);
+                return;
             }
-            
-            const newMessage = {
-                senderId: data.senderId,
-                senderName: data.senderName,
-                message: data.message,
-                timestamp: new Date().toISOString()
-            };
 
-            allMessages[data.roomId].push(newMessage);
-            await writeChatMessages(allMessages);
-            
-            io.to(data.roomId).emit('receiveMessage', newMessage);
-            console.log(`${data.roomId} 방으로 메시지 전송:`, data.message);
+            // MongoDB ChatMessage 모델을 사용하여 메시지 저장
+            const newMessage = new ChatMessage({
+                roomId: messageData.roomId,
+                senderId: messageData.senderId,
+                senderName: messageData.senderName,
+                message: messageData.message,
+                timestamp: new Date() // 현재 시간으로 저장
+            });
+            await newMessage.save(); // DB에 저장
+
+            // '나를 포함한' 방의 모든 사람에게 메시지 방송
+            io.to(messageData.roomId).emit('receiveMessage', newMessage);
+            console.log(`[MSG] ${messageData.roomId} 방으로 메시지 방송 성공:`, messageData.message);
 
         } catch (error) {
-            console.error('메시지 저장 중 오류:', error);
+            console.error('!!!!!!!!!!! 메시지 저장/방송 중 심각한 오류 발생 !!!!!!!!!!!:', error);
         }
     });
 
