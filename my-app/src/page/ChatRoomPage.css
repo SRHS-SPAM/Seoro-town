@@ -1,4 +1,4 @@
-/* src/page/ChatRoomPage.css (전체 코드 - 레이아웃 최종 수정) */
+/* src/page/ChatRoomPage.css (최종 완성 코드) */
 
 .ChatRoomContainer {
     display: flex;
@@ -16,24 +16,9 @@
     flex-shrink: 0;
 }
 
-.BackButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-right: 1rem;
-    display: flex;
-}
-
-.HeaderInfo h3 {
-    margin: 0;
-    font-size: 1.1rem;
-}
-
-.HeaderInfo p {
-    margin: 0;
-    color: #666;
-    font-size: 0.9rem;
-}
+.BackButton { background: none; border: none; cursor: pointer; margin-right: 1rem; display: flex; }
+.HeaderInfo h3 { margin: 0; font-size: 1.1rem; }
+.HeaderInfo p { margin: 0; color: #666; font-size: 0.9rem; }
 
 .MessageBox {
     flex-grow: 1;
@@ -41,53 +26,14 @@
     overflow-y: auto;
 }
 
-.Message {
-    max-width: 70%;
-    margin-bottom: 1rem;
-    padding: 0.8rem 1rem;
-    border-radius: 18px;
-    line-height: 1.4;
-    display: flex;
-    flex-direction: column;
-}
-
-.Message p {
-    margin: 0;
-    word-break: break-word;
-}
-
-.Message.sent {
-    background: #007bff;
-    color: white;
-    margin-left: auto;
-    border-bottom-right-radius: 4px;
-    align-items: flex-end;
-}
-
-.Message.received {
-    background: #e9e9eb;
-    color: #333;
-    margin-right: auto;
-    border-bottom-left-radius: 4px;
-    align-items: flex-start;
-}
-
-.SenderName {
-    font-size: 0.8rem;
-    color: #555;
-    margin-bottom: 0.3rem;
-    display: block;
-}
-
-.Timestamp {
-    font-size: 0.7rem;
-    color: #999;
-    margin-top: 0.3rem;
-}
-
-.Message.sent .Timestamp {
-    color: #f0f0f0;
-}
+/* (Message, SenderName, Timestamp 등 메시지 관련 스타일은 그대로) */
+.Message { max-width: 70%; margin-bottom: 1rem; padding: 0.8rem 1rem; border-radius: 18px; line-height: 1.4; display: flex; flex-direction: column; }
+.Message p { margin: 0; word-break: break-word; }
+.Message.sent { background: #007bff; color: white; margin-left: auto; border-bottom-right-radius: 4px; align-items: flex-end; }
+.Message.received { background: #e9e9eb; color: #333; margin-right: auto; border-bottom-left-radius: 4px; align-items: flex-start; }
+.SenderName { font-size: 0.8rem; color: #555; margin-bottom: 0.3rem; display: block; }
+.Timestamp { font-size: 0.7rem; color: #999; margin-top: 0.3rem; }
+.Message.sent .Timestamp { color: #f0f0f0; }
 
 .InputBox {
     display: flex;
@@ -98,17 +44,21 @@
     flex-shrink: 0;
 }
 
-.InputBox input {
-    flex: 1 !important; /* ✨ 변경점: !important 를 추가하여 최우선 순위로 만듦 */
-
-    min-width: 0;
-    padding: 0.6rem 1rem;
+/* ✨ 최종 수정된 input 스타일 */
+.ChatRoomContainer .InputBox input {
+    flex: 1; /* 가로 길이를 꽉 채움 */
+    width: 1000px;
+    
+    /* height 속성 대신 padding으로 높이를 조절합니다. */
+    padding: 0.6rem 1rem; 
+    
     border: 1px solid #ccc;
     border-radius: 20px;
     outline: none;
     font-size: 0.9rem;
     margin: 0;
 }
+
 .InputBox button {
     background: #007bff;
     color: white;
