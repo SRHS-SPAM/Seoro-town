@@ -1,4 +1,4 @@
-// src/page/ChatRoomPage.js (수정된 버전)
+// src/page/ChatRoomPage.js (최종 전체 코드)
 
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -9,7 +9,6 @@ import { Send, ArrowLeft } from 'lucide-react';
 import { io } from 'socket.io-client';
 
 function ChatRoomPage() {
-    // ... (기존 state 및 useEffect 코드는 변경 없음) ...
     const { roomId } = useParams();
     const { user: currentUser, token } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -17,6 +16,7 @@ function ChatRoomPage() {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [roomInfo, setRoomInfo] = useState(null);
+    const [productStatus, setProductStatus] = useState('selling');
     const socketRef = useRef(null);
     const messageBoxRef = useRef(null);
 
@@ -31,6 +31,7 @@ function ChatRoomPage() {
                 if (data.success) {
                     setMessages(data.messages);
                     setRoomInfo(data.roomInfo);
+                    setProductStatus(data.productStatus);
                 } else {
                     alert(data.message);
                     navigate('/chats');
@@ -43,11 +44,18 @@ function ChatRoomPage() {
 
         socketRef.current = io('http://localhost:3001');
         const socket = socketRef.current;
-        socket.on('connect', () => socket.emit('joinRoom', roomId));
+
+        socket.on('connect', () => {
+            socket.emit('joinRoom', roomId);
+        });
+
         socket.on('receiveMessage', (receivedMessage) => {
             setMessages(prevMessages => [...prevMessages, receivedMessage]);
         });
-        return () => socket.disconnect();
+
+        return () => {
+            socket.disconnect();
+        };
     }, [roomId, token, navigate]);
 
     useEffect(() => {
@@ -59,12 +67,15 @@ function ChatRoomPage() {
     const handleSendMessage = (e) => {
         e.preventDefault();
         if (newMessage.trim() === '' || !socketRef.current || !currentUser) return;
+
         const messageData = {
-            roomId,
+            roomId: roomId,
             message: newMessage.trim(),
             senderId: currentUser.id,
-            senderName: currentUser.username
+            senderName: currentUser.username,
+            timestamp: new Date().toISOString()
         };
+        
         socketRef.current.emit('sendMessage', messageData);
         setNewMessage('');
     };
@@ -83,7 +94,6 @@ function ChatRoomPage() {
             <Navbar />
             <div className="ChatRoomContainer">
                 <div className="ChatRoomHeader">
-                    {/* ... (헤더 부분은 변경 없음) ... */}
                     <button onClick={() => navigate('/chats')} className="BackButton"><ArrowLeft /></button>
                     <div className="HeaderInfo">
                         <h3>{opponent?.username || '상대방'}</h3>
@@ -91,38 +101,41 @@ function ChatRoomPage() {
                     </div>
                 </div>
                 <div className="MessageBox" ref={messageBoxRef}>
-                    {/* ... (메시지 박스 부분은 변경 없음) ... */}
                     {messages.map((msg, index) => (
-                        <div key={index} className={`Message ${msg.senderId === currentUser?.id ? 'sent' : 'received'}`}>
-                            {msg.senderId !== currentUser?.id && <span className="SenderName">{msg.senderName}</span>}
+                        <div key={index} className={`Message ${msg.senderId == currentUser.id ? 'sent' : 'received'}`}>
+                            {msg.senderId != currentUser.id && <span className="SenderName">{msg.senderName}</span>}
                             <p>{msg.message}</p>
                             <span className="Timestamp">{new Date(msg.timestamp).toLocaleString('ko-KR')}</span>
                         </div>
                     ))}
                 </div>
                 
-                {/* ✨ 핵심 수정: JSX 구조 변경 */}
-                <form className="InputBox" onSubmit={handleSendMessage}>
-                    <textarea
-                        value={newMessage}
-                        onChange={(e) => setNewMessage(e.target.value)}
-                        onKeyDown={handleKeyDown}
-                        className="ChatInput"
-                        placeholder="메시지를 입력하세요"
-                        rows="1"
-                    ></textarea>
-                    <button 
-                        type="submit" 
-                        className="SendTextButton"
-                        disabled={newMessage.trim() === ''}
-                    >
-                        보내기
-                    </button>
-                </form>
+                {productStatus === 'sold' || productStatus === 'deleted' ? (
+                    <div className="InputBox disabled">
+                        <p>{productStatus === 'sold' ? '판매가 완료된 상품입니다.' : '삭제된 상품입니다.'}</p>
+                    </div>
+                ) : (
+                    <form className="InputBox" onSubmit={handleSendMessage}>
+                        <textarea
+                            value={newMessage}
+                            onChange={(e) => setNewMessage(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                            className="ChatInput"
+                            placeholder="메시지를 입력하세요"
+                            rows="1"
+                        ></textarea>
+                        <button 
+                            type="submit" 
+                            className="SendTextButton"
+                            disabled={newMessage.trim() === ''}
+                        >
+                            보내기
+                        </button>
+                    </form>
+                )}
             </div>
         </div>
     );
 }
-
 
 export default ChatRoomPage;

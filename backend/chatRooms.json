@@ -1,9 +1,9 @@
 [
   {
-    "roomId": "1755435979473-1755435071032-1755430462423",
-    "productId": 1755435979473,
-    "productTitle": "나다",
-    "productImageUrl": "/uploads/image-1755435979469-129080772.jpg",
+    "roomId": "1755686477141-1755435071032-1755430462423",
+    "productId": 1755686477141,
+    "productTitle": "교ㅗ가서팝니다",
+    "productImageUrl": "/uploads/image-1755686477127-330712205.png",
     "participants": [
       {
         "id": "1755435071032",
@@ -16,6 +16,44 @@
         "profileImage": null
       }
     ],
-    "createdAt": "2025-08-17T13:09:07.496Z"
+    "createdAt": "2025-08-20T10:41:29.885Z"
+  },
+  {
+    "roomId": "1755686975114-1755435071032-1755430462423",
+    "productId": 1755686975114,
+    "productTitle": "ㄴㄴㄴㄴ",
+    "productImageUrl": "/uploads/image-1755686975107-811845872.png",
+    "participants": [
+      {
+        "id": "1755435071032",
+        "username": "유준영2",
+        "profileImage": null
+      },
+      {
+        "id": "1755430462423",
+        "username": "유준영",
+        "profileImage": null
+      }
+    ],
+    "createdAt": "2025-08-20T10:49:57.433Z"
+  },
+  {
+    "roomId": "1755686952723-1755435071032-1755430462423",
+    "productId": 1755686952723,
+    "productTitle": "ㄴ",
+    "productImageUrl": "/uploads/image-1755686952717-531824443.ico",
+    "participants": [
+      {
+        "id": "1755435071032",
+        "username": "유준영2",
+        "profileImage": null
+      },
+      {
+        "id": "1755430462423",
+        "username": "유준영",
+        "profileImage": null
+      }
+    ],
+    "createdAt": "2025-08-20T11:03:57.028Z"
   }
 ]

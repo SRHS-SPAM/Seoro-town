@@ -1,4 +1,4 @@
-// src/page/Market.js (전체 코드 - 카테고리 필터링 포함)
+// src/page/Market.js (전체 코드)
 
 import './Market.css';
 import React, { useState, useEffect, useContext } from 'react';
@@ -8,13 +8,21 @@ import Navbar from './Navbar.js';
 import MarketWriteModal from './MarketWriteModal';
 import { Search } from 'lucide-react';
 
-// 상품 카드 컴포넌트
 const ProductItem = ({ product }) => {
     const navigate = useNavigate();
     const formatPrice = (price) => price ? price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : '가격 미정';
 
+    const handleClick = () => {
+        if (product.status !== 'sold') {
+            navigate(`/market/${product.id}`);
+        }
+    };
+
     return (
-        <div className="ProductItem" onClick={() => navigate(`/market/${product.id}`)}>
+        <div 
+            className={`ProductItem ${product.status === 'sold' ? 'sold' : ''}`} 
+            onClick={handleClick}
+        >
             <div className="ProductImageContainer">
                 <img src={product.imageUrl ? `http://localhost:3001${product.imageUrl}` : '/placeholder.png'} alt={product.title} />
             </div>
@@ -42,10 +50,7 @@ function Market() {
         const timer = setTimeout(() => {
             setDebouncedTerm(searchTerm);
         }, 300);
-
-        return () => {
-            clearTimeout(timer);
-        };
+        return () => clearTimeout(timer);
     }, [searchTerm]);
 
     useEffect(() => {
@@ -73,8 +78,7 @@ function Market() {
     const handleWriteSuccess = () => {
         setIsModalOpen(false);
         setSearchTerm('');
-        setDebouncedTerm('');
-        setSelectedCategory('전체'); // 글 작성 후 '전체' 카테고리로 초기화
+        setSelectedCategory('전체');
     };
 
     return (
