@@ -1,21 +1,20 @@
+// backend/server.js (최종 완성 버전)
 
 import http from 'http';
 import { Server } from 'socket.io';
-
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
 import postRoutes from './routes/posts.js';
 import mealRoutes from './routes/meal.js';
 import comRoutes from './routes/com.js';
 import marketRoutes from './routes/market.js';
-import chatRoutes from './routes/chat.js'; // chatRoutes import 추가
-
+import chatRoutes from './routes/chat.js';
 import 'dotenv/config'; 
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { readChatMessages, writeChatMessages } from './utils/fileHandlers.js'; // 메시지 저장을 위해 import
+import { readChatMessages, writeChatMessages } from './utils/fileHandlers.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -44,14 +43,13 @@ app.use((req, res, next) => {
     next();
 });
 
-// API 라우트 연결
 app.use('/api/meal', mealRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/com', comRoutes);
 app.use('/api/market', marketRoutes);
-app.use('/api/chat', chatRoutes); // chatRoutes 연결 추가
+app.use('/api/chat', chatRoutes);
 
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', message: '서버가 정상적으로 작동중입니다.'});
@@ -62,31 +60,27 @@ io.on('connection', (socket) => {
 
     socket.on('joinRoom', (roomId) => {
         socket.join(roomId);
-        console.log(`사용자 ${socket.id}가 ${roomId} 방에 참여했습니다.`);
+        console.log(`[JOIN] 사용자 ${socket.id}가 ${roomId} 방에 참여했습니다.`);
     });
 
-    socket.on('sendMessage', async (data) => {
+    socket.on('sendMessage', async (messageData) => {
         try {
             const allMessages = await readChatMessages();
-            if (!allMessages[data.roomId]) {
-                allMessages[data.roomId] = [];
+            
+            if (!allMessages[messageData.roomId]) {
+                allMessages[messageData.roomId] = [];
             }
             
-            const newMessage = {
-                senderId: data.senderId,
-                senderName: data.senderName,
-                message: data.message,
-                timestamp: new Date().toISOString()
-            };
-
-            allMessages[data.roomId].push(newMessage);
+            // 프론트에서 보낸 messageData 객체를 그대로 저장합니다.
+            allMessages[messageData.roomId].push(messageData);
             await writeChatMessages(allMessages);
             
-            io.to(data.roomId).emit('receiveMessage', newMessage);
-            console.log(`${data.roomId} 방으로 메시지 전송:`, data.message);
+            // '나를 포함한' 방의 모든 사람에게 방송합니다.
+            io.to(messageData.roomId).emit('receiveMessage', messageData);
+            console.log(`[MSG] ${messageData.roomId} 방으로 메시지 방송 성공:`, messageData.message);
 
         } catch (error) {
-            console.error('메시지 저장 중 오류:', error);
+            console.error('!!!!!!!!!!! 메시지 저장/방송 중 심각한 오류 발생 !!!!!!!!!!!:', error);
         }
     });
 

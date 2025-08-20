@@ -1,4 +1,4 @@
-// src/page/MarketDetail.js (전체 코드 - 채팅 시작 기능 최종)
+// src/page/MarketDetail.js (전체 코드)
 
 import './MarketDetail.css';
 import React, { useState, useEffect, useContext } from 'react';
@@ -6,7 +6,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import { AuthContext } from '../context/AuthContext';
 import MarketWriteModal from './MarketWriteModal';
-import { User } from 'lucide-react';
+import { User, ArrowLeft } from 'lucide-react';
 
 function MarketDetail() {
     const { productId } = useParams();
@@ -41,6 +41,34 @@ function MarketDetail() {
         fetchProduct().finally(() => setLoading(false));
     }, [productId]);
 
+    const handleMarkAsSold = async () => {
+        if (!window.confirm('이 상품을 판매 완료 처리하시겠습니까? 3일 후에 자동으로 삭제됩니다.')) return;
+        try {
+            const response = await fetch(`http://localhost:3001/api/market/${productId}/sold`, {
+                method: 'PATCH',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const data = await response.json();
+            if (data.success) {
+                alert('판매 완료 처리되었습니다.');
+                setProduct(data.product);
+            } else {
+                throw new Error(data.message);
+            }
+        } catch (err) {
+            alert(`처리 실패: ${err.message}`);
+        }
+    };
+
+    const handleSellerClick = () => {
+        if (!product || !product.authorId) return;
+        if (isMyProduct) {
+            navigate('/Mypage');
+        } else {
+            navigate('/Mypage', { state: { userId: product.authorId } });
+        }
+    };
+
     const handleChatStart = async () => {
         if (!token) {
             alert('로그인이 필요합니다.');
@@ -50,10 +78,7 @@ function MarketDetail() {
         try {
             const response = await fetch('http://localhost:3001/api/chat/start', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ productId: product.id })
             });
             const data = await response.json();
@@ -68,15 +93,11 @@ function MarketDetail() {
     };
 
     const handleDelete = async () => {
-        if (!window.confirm('정말로 이 상품을 삭제하시겠습니까?')) {
-            return;
-        }
+        if (!window.confirm('정말로 이 상품을 삭제하시겠습니까?')) return;
         try {
             const response = await fetch(`http://localhost:3001/api/market/${productId}`, {
                 method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                headers: { 'Authorization': `Bearer ${token}` }
             });
             const data = await response.json();
             if (data.success) {
@@ -90,9 +111,7 @@ function MarketDetail() {
         }
     };
     
-    const handleEdit = () => {
-        setIsEditModalOpen(true);
-    };
+    const handleEdit = () => setIsEditModalOpen(true);
 
     const handleEditSuccess = () => {
         setIsEditModalOpen(false);
@@ -110,14 +129,26 @@ function MarketDetail() {
     return (
         <div>
             <Navbar />
+            <div className="DetailNav">
+                <button className="BackButton" onClick={() => navigate('/market')}>
+                    <ArrowLeft size={20} />
+                    <span>목록으로 돌아가기</span>
+                </button>
+            </div>
             <div className="DetailContainer">
                 <div className="ProductImageLarge">
                     <img src={`http://localhost:3001${product.imageUrl}`} alt={product.title} />
+                    {product.status === 'sold' && <div className="ProductStatus">판매 완료</div>}
                 </div>
                 <div className="ProductDetails">
                     {isMyProduct && (
                         <div className="ActionButtons">
-                            <button onClick={handleEdit} className="ActionButton">수정</button>
+                            {product.status !== 'sold' && (
+                                <>
+                                    <button onClick={handleEdit} className="ActionButton">수정</button>
+                                    <button onClick={handleMarkAsSold} className="ActionButton sold">판매 완료</button>
+                                </>
+                            )}
                             <button onClick={handleDelete} className="ActionButton delete">삭제</button>
                         </div>
                     )}
@@ -125,11 +156,11 @@ function MarketDetail() {
                     <p className="ProductPriceLarge">{formatPrice(product.price)}원</p>
                     <p className="ProductDescription">{product.content}</p>
                     
-                    {!isMyProduct && (
+                    {!isMyProduct && product.status !== 'sold' && (
                         <button className="ChatButton" onClick={handleChatStart}>채팅하기</button>
                     )}
                     
-                    <div className="SellerInfo">
+                    <div className="SellerInfo" onClick={handleSellerClick} style={{ cursor: 'pointer' }}>
                         <div className="SellerAvatar">
                             {product.authorProfileImage ? (
                                 <img src={`http://localhost:3001${product.authorProfileImage}`} alt={product.authorName} />
