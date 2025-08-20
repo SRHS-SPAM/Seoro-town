@@ -4,8 +4,8 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path'; 
 import fs from 'fs/promises';
-import User from '../models/User.js';         // ✨ User 모델 임포트 (판매자 정보 조회용)
-import Product from '../models/Product.js';   // ✨ Product 모델 임포트
+import User from '../models/User.js';         
+import Product from '../models/Product.js';   
 
 import { authenticateToken } from '../middleware/auth.js';
 
