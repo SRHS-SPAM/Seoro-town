@@ -1,4 +1,4 @@
-// src/page/ChatRoomPage.js (전체 코드 - 레이아웃 최종 수정)
+// src/page/ChatRoomPage.js (최종 전체 코드)
 
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -16,6 +16,7 @@ function ChatRoomPage() {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [roomInfo, setRoomInfo] = useState(null);
+    const [productStatus, setProductStatus] = useState('selling');
     const socketRef = useRef(null);
     const messageBoxRef = useRef(null);
 
@@ -30,6 +31,7 @@ function ChatRoomPage() {
                 if (data.success) {
                     setMessages(data.messages);
                     setRoomInfo(data.roomInfo);
+                    setProductStatus(data.productStatus);
                 } else {
                     alert(data.message);
                     navigate('/chats');
@@ -44,7 +46,6 @@ function ChatRoomPage() {
         const socket = socketRef.current;
 
         socket.on('connect', () => {
-            console.log('소켓 연결 성공:', socket.id);
             socket.emit('joinRoom', roomId);
         });
 
@@ -53,7 +54,6 @@ function ChatRoomPage() {
         });
 
         return () => {
-            console.log('소켓 연결 해제');
             socket.disconnect();
         };
     }, [roomId, token, navigate]);
@@ -70,50 +70,72 @@ function ChatRoomPage() {
 
         const messageData = {
             roomId: roomId,
-            message: newMessage,
+            message: newMessage.trim(),
             senderId: currentUser.id,
-            senderName: currentUser.username
+            senderName: currentUser.username,
+            timestamp: new Date().toISOString()
         };
         
         socketRef.current.emit('sendMessage', messageData);
         setNewMessage('');
     };
+    
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSendMessage(e);
+        }
+    };
 
     const opponent = roomInfo?.participants.find(p => p.id !== currentUser?.id);
 
-return (
-    <div>
-        <Navbar />
-        <div className="ChatRoomContainer">
-            <div className="ChatRoomHeader">
-                <button onClick={() => navigate('/chats')} className="BackButton"><ArrowLeft /></button>
-                <div className="HeaderInfo">
-                    <h3>{opponent?.username || '상대방'}</h3>
-                    <p>{roomInfo?.productTitle}</p>
-                </div>
-            </div>
-            <div className="MessageBox" ref={messageBoxRef}>
-                {messages.map((msg, index) => (
-                    <div key={index} className={`Message ${msg.senderId === currentUser?.id ? 'sent' : 'received'}`}>
-                        {msg.senderId !== currentUser?.id && <span className="SenderName">{msg.senderName}</span>}
-                        <p>{msg.message}</p>
-                        <span className="Timestamp">{new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+    return (
+        <div>
+            <Navbar />
+            <div className="ChatRoomContainer">
+                <div className="ChatRoomHeader">
+                    <button onClick={() => navigate('/chats')} className="BackButton"><ArrowLeft /></button>
+                    <div className="HeaderInfo">
+                        <h3>{opponent?.username || '상대방'}</h3>
+                        <p>{roomInfo?.productTitle}</p>
                     </div>
-                ))}
+                </div>
+                <div className="MessageBox" ref={messageBoxRef}>
+                    {messages.map((msg, index) => (
+                        <div key={index} className={`Message ${msg.senderId == currentUser.id ? 'sent' : 'received'}`}>
+                            {msg.senderId != currentUser.id && <span className="SenderName">{msg.senderName}</span>}
+                            <p>{msg.message}</p>
+                            <span className="Timestamp">{new Date(msg.timestamp).toLocaleString('ko-KR')}</span>
+                        </div>
+                    ))}
+                </div>
+                
+                {productStatus === 'sold' || productStatus === 'deleted' ? (
+                    <div className="InputBox disabled">
+                        <p>{productStatus === 'sold' ? '판매가 완료된 상품입니다.' : '삭제된 상품입니다.'}</p>
+                    </div>
+                ) : (
+                    <form className="InputBox" onSubmit={handleSendMessage}>
+                        <textarea
+                            value={newMessage}
+                            onChange={(e) => setNewMessage(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                            className="ChatInput"
+                            placeholder="메시지를 입력하세요"
+                            rows="1"
+                        ></textarea>
+                        <button 
+                            type="submit" 
+                            className="SendTextButton"
+                            disabled={newMessage.trim() === ''}
+                        >
+                            보내기
+                        </button>
+                    </form>
+                )}
             </div>
-            {/* ✨ 이 form 구조가 정확한지 다시 한번 확인합니다. */}
-            <form className="InputBox" onSubmit={handleSendMessage}>
-                <input 
-                    type="text" 
-                    value={newMessage} 
-                    style={{ flex: 1, minWidth: 0 }}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    placeholder="메시지를 입력하세요"
-                />
-                <button type="submit"><Send /></button>
-            </form>
         </div>
-    </div>
-);
+    );
 }
+
 export default ChatRoomPage;

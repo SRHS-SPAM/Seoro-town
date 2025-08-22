@@ -1,4 +1,4 @@
-/* Market.css */
+/* src/page/Market.css (전체 코드) */
 
 .MarketContainer {
   max-width: 1200px;
@@ -13,13 +13,12 @@
   margin-bottom: 2rem;
 }
 
-/* Boardpage.css의 검색창 스타일을 참고하거나 그대로 사용합니다. */
 .SearchBox {
   display: flex;
   align-items: center;
-  flex-grow: 1; /* ✨ 변경점: 부모 컨테이너의 남는 공간을 모두 차지하도록 설정 */
-  margin-right: 2rem; /* ✨ 변경점: 오른쪽 '글쓰기' 버튼과의 간격을 만듦 */
-  max-width: 1200px; /* ✨ 변경점: 최대 너비를 더 넉넉하게 늘려줌 */
+  flex-grow: 1;
+  margin-right: 2rem;
+  max-width: 800px;
   height: 48px;
   border: 1px solid #e0e0e0;
   border-radius: 24px;
@@ -30,34 +29,11 @@
   border-color: red;
   box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.1);
 }
-.SearchPrefix {
-  font-weight: bold;
-  color: #333;
-  font-size: 16px;
-}
-.SearchDivider {
-  height: 60%;
-  width: 1px;
-  background-color: #ccc;
-  margin: 0 10px;
-}
-.SearchInput {
-  flex: 1;
-  border: none;
-  outline: none;
-  font-size: 15px;
-  background: transparent;
-}
-.SearchButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  color: #666;
-}
-.SearchButton:hover {
-  color: red;
-}
+.SearchPrefix { font-weight: bold; color: #333; font-size: 16px; }
+.SearchDivider { height: 60%; width: 1px; background-color: #ccc; margin: 0 10px; }
+.SearchInput { flex: 1; border: none; outline: none; font-size: 15px; background: transparent; }
+.SearchButton { background: none; border: none; cursor: pointer; padding: 8px; color: #666; }
+.SearchButton:hover { color: red; }
 
 .WriteButton {
   padding: 10px 20px;
@@ -69,20 +45,46 @@
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s;
+  flex-shrink: 0;
 }
-
 .WriteButton:hover {
   background-color: #f07d32;
 }
 
-/* 상품 카드 그리드 */
+.CategoryFilter {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.CategoryButton {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  background-color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.CategoryButton:hover {
+  background-color: #f8f8f8;
+}
+
+.CategoryButton.active {
+  background-color: red;
+  color: white;
+  border-color: red;
+  font-weight: bold;
+}
+
 .ProductGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 2rem;
 }
 
-/* 개별 상품 카드 (ProductItem) */
 .ProductItem {
   cursor: pointer;
   border-radius: 12px;
@@ -90,6 +92,7 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   transition: transform 0.2s, box-shadow 0.2s;
   background-color: white;
+  position: relative;
 }
 
 .ProductItem:hover {
@@ -99,7 +102,7 @@
 
 .ProductImageContainer {
   width: 100%;
-  padding-top: 100%; /* 1:1 비율 유지 */
+  padding-top: 100%;
   position: relative;
   background-color: #f0f0f0;
 }
@@ -134,60 +137,29 @@
   color: #000;
 }
 
-.CategoryFilter {
+/* --- 판매 완료 상품 스타일 --- */
+.ProductItem.sold {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.ProductItem.sold:hover {
+  transform: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.ProductItem.sold .ProductImageContainer::after {
+  content: '판매 완료';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #333;
   display: flex;
-  gap: 0.8rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap; /* 화면이 좁아지면 줄바꿈 */
-}
-
-.CategoryButton {
-  padding: 0.6rem 1.2rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 20px;
-  background-color: white;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.CategoryButton:hover {
-  background-color: #f8f8f8;
-}
-
-.CategoryButton.active {
-  background-color: red;
-  color: white;
-  border-color: red;
+  align-items: center;
+  justify-content: center;
   font-weight: bold;
+  font-size: 1.2rem;
 }
-.ActionButtons {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.ActionButton {
-  padding: 0.5rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f8f8f8;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s;
-}
-
-.ActionButton.delete {
-  color: red;
-  border-color: red;
-}
-
-.ActionButton:hover {
-  background-color: #e0e0e0;
-}
-.ActionButton.delete:hover {
-  background-color: red;
-  color: white;
-}
-
-

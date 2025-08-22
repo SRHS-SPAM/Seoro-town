@@ -1,24 +1,14 @@
-// backend/server.js (MongoDB 연결 추가)
+// backend/server.js (최종 완성 버전)
 
 import http from 'http';
 import { Server } from 'socket.io';
-
-// ✨✨✨ MongoDB 연결 관련 임포트 ✨✨✨
-import connectDB from './config/db.js'; // DB 연결 함수 임포트
-// 필요한 모델 임포트 (기존 readChatMessages, writeChatMessages 대신 사용)
-import ChatMessage from './models/ChatMessage.js'; // ChatMessage 모델 임포트 (소켓용)
-import ChatRoom from './models/ChatRoom.js';       // ChatRoom 모델 (소켓용)
-import User from './models/User.js';               // User 모델 (소켓 메시지 저장 시 senderName, senderId 확인용)
-
-
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
 import postRoutes from './routes/posts.js';
 import mealRoutes from './routes/meal.js';
 import comRoutes from './routes/com.js';
 import marketRoutes from './routes/market.js';
-import chatRoutes from './routes/chat.js'; 
-
+import chatRoutes from './routes/chat.js';
 import 'dotenv/config'; 
 import express from 'express';
 import cors from 'cors';
@@ -56,7 +46,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// API 라우트 연결
 app.use('/api/meal', mealRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
@@ -80,27 +69,18 @@ io.on('connection', (socket) => {
 
     socket.on('sendMessage', async (messageData) => {
         try {
-            // 메시지를 보낸 사용자와 방이 유효한지 간단히 확인
-            const senderExists = await User.exists({ id: messageData.senderId });
-            const roomExists = await ChatRoom.exists({ id: messageData.roomId });
+            const allMessages = await readChatMessages();
             
-            if (!senderExists || !roomExists) {
-                console.warn(`[MSG] 유효하지 않은 발신자 또는 방으로 메시지 수신: senderId=${messageData.senderId}, roomId=${messageData.roomId}`);
-                return;
+            if (!allMessages[messageData.roomId]) {
+                allMessages[messageData.roomId] = [];
             }
-
-            // MongoDB ChatMessage 모델을 사용하여 메시지 저장
-            const newMessage = new ChatMessage({
-                roomId: messageData.roomId,
-                senderId: messageData.senderId,
-                senderName: messageData.senderName,
-                message: messageData.message,
-                timestamp: new Date() // 현재 시간으로 저장
-            });
-            await newMessage.save(); // DB에 저장
-
-            // '나를 포함한' 방의 모든 사람에게 메시지 방송
-            io.to(messageData.roomId).emit('receiveMessage', newMessage);
+            
+            // 프론트에서 보낸 messageData 객체를 그대로 저장합니다.
+            allMessages[messageData.roomId].push(messageData);
+            await writeChatMessages(allMessages);
+            
+            // '나를 포함한' 방의 모든 사람에게 방송합니다.
+            io.to(messageData.roomId).emit('receiveMessage', messageData);
             console.log(`[MSG] ${messageData.roomId} 방으로 메시지 방송 성공:`, messageData.message);
 
         } catch (error) {
