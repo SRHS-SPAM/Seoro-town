@@ -15,6 +15,7 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { readChatMessages, writeChatMessages } from './utils/fileHandlers.js';
+import connectDB from './config/db.js';
 
 connectDB(); 
 const __filename = fileURLToPath(import.meta.url);

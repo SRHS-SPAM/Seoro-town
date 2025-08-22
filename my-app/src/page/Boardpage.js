@@ -107,7 +107,7 @@ function Boardpage() {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch('http://localhost:3001/api/posts');
+            const response = await fetch('/api/posts');
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const data = await response.json();
             if (data.success) {
@@ -129,7 +129,7 @@ function Boardpage() {
             return;
         }
         try {
-            const response = await fetch('http://localhost:3001/api/posts', {
+            const response = await fetch('/api/posts', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify(postData)

@@ -20,7 +20,9 @@
         "multer": "^2.0.1",
         "node-cache": "^5.1.2",
         "puppeteer": "^24.16.2",
-        "socket.io": "^4.8.1"
+        "seoro-town": "file:..",
+        "socket.io": "^4.8.1",
+        "sqlite3": "^5.1.7"
     },
     "devDependencies": {
         "nodemon": "^2.0.22"

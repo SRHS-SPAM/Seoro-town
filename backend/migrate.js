@@ -1,140 +1,212 @@
-// backend/migrate.js (MongoDB 마이그레이션 스크립트 - Club 모델 제외)
-
-import mongoose from 'mongoose'; // Mongoose 임포트
-import 'dotenv/config';          // .env 파일 로드
-
-// ✨✨✨ 필요한 모델들을 임포트합니다. ✨✨✨
-// Club 모델은 사용하지 않으므로 임포트에서 제외됩니다.
-import User from './models/User.js';
+import sqlite3 from 'sqlite3';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import mongoose from 'mongoose';
+import connectDB from './config/db.js';
+import User from './models/Users.js';
 import Post from './models/Post.js';
-import Follow from './models/Follow.js';
-import Product from './models/Product.js'; // Product 모델
+import Product from './models/Product.js';
 import ChatRoom from './models/ChatRoom.js';
 import ChatMessage from './models/ChatMessage.js';
+import Follow from './models/Follow.js';
 
-import fs from 'fs/promises';
-import path from 'path';
-import bcrypt from 'bcrypt'; // 비밀번호 해싱용
-import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const JSON_DIR = path.join(__dirname, 'json_backup'); // 0-1단계에서 백업한 JSON 파일 경로
+// Load environment variables from backend/.env
+dotenv.config({ path: path.join(__dirname, '.env') });
 
-// JSON 파일 읽기 헬퍼 함수
-const readJsonFile = async (filename) => {
-    try {
-        const data = await fs.readFile(path.join(JSON_DIR, filename), 'utf8');
-        return JSON.parse(data);
-    } catch (error) {
-        if (error.code === 'ENOENT') {
-            console.warn(`[Migrate] Warning: ${filename} 파일을 찾을 수 없습니다. 건너뜝니다.`);
-            return [];
-        }
-        console.error(`[Migrate] Error reading ${filename}:`, error.message);
-        throw error;
-    }
+// Helper function to query SQLite with promises
+const query = (db, sql, params = []) => {
+  return new Promise((resolve, reject) => {
+    db.all(sql, params, (err, rows) => {
+      if (err) {
+        console.error('SQLite query error:', err.message);
+        reject(err);
+      } else {
+        resolve(rows);
+      }
+    });
+  });
 };
 
-const migrateData = async () => {
-    try {
-        // MongoDB 연결
-        const mongoURI = process.env.MONGODB_URI || 'mongodb://mongodb:27017/seorotown'; 
-        await mongoose.connect(mongoURI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-        console.log('MongoDB 연결 성공 (마이그레이션용)!');
+const migrate = async () => {
+  let sqliteDb;
+  try {
+    // Connect to MongoDB
+    await connectDB();
+    console.log('MongoDB connected for migration.');
 
-        console.log('--- 데이터 마이그레이션 시작 ---');
+    // Connect to SQLite
+    const sqliteDbPath = path.join(__dirname, 'seorotown.db');
+    sqliteDb = new sqlite3.Database(sqliteDbPath, sqlite3.OPEN_READONLY, (err) => {
+      if (err) {
+        throw new Error(`Error opening SQLite database: ${err.message}`);
+      }
+    });
+    console.log('Connected to the SQLite database.');
 
-        // 모든 컬렉션 비우기
-        await User.deleteMany({});
-        await Post.deleteMany({});
-        await Follow.deleteMany({});
-        // await Club.deleteMany({}); // Club 모델은 사용하지 않으므로 마이그레이션에서 제외
-        await Product.deleteMany({});
-        await ChatRoom.deleteMany({});
-        await ChatMessage.deleteMany({});
-        console.log('기존 MongoDB 컬렉션 초기화 완료.');
+    // --- 0. Clean previous data in MongoDB ---
+    console.log('Cleaning old data from MongoDB...');
+    await User.deleteMany({});
+    await Post.deleteMany({});
+    await Product.deleteMany({});
+    await ChatRoom.deleteMany({});
+    await ChatMessage.deleteMany({});
+    await Follow.deleteMany({});
+    console.log('Old data cleaned.');
 
-        // 1. Users 마이그레이션
-        const usersJson = await readJsonFile('users.json');
-        const usersToInsert = [];
-        for (const user of usersJson) {
-            const isPasswordHashed = user.password.startsWith('$2b$'); 
-            if (!isPasswordHashed) {
-                user.password = await bcrypt.hash(user.password, 10);
-            }
-            usersToInsert.push({ ...user, _id: user.id }); 
-        }
-        if (usersToInsert.length > 0) {
-            await User.insertMany(usersToInsert);
-            console.log(`${usersToInsert.length}명의 사용자 마이그레이션 완료.`);
-        } else {
-            console.log('마이그레이션할 사용자 없음.');
-        }
+    // ID mapping storage
+    const userMap = new Map();
+    const productMap = new Map();
+    const chatRoomMap = new Map();
 
-        // 2. Posts 마이그레이션
-        const postsJson = await readJsonFile('boardlist.json'); 
-        if (postsJson.length > 0) {
-            await Post.insertMany(postsJson.map(post => ({ ...post, _id: post.id }))); 
-            console.log(`${postsJson.length}개의 게시글 마이그레이션 완료.`);
-        } else {
-            console.log('마이그레이션할 게시글 없음.');
-        }
-        
-        // 3. Follows 마이그레이션
-        const followsJson = await readJsonFile('follows.json');
-        if (followsJson.length > 0) {
-            await Follow.insertMany(followsJson.map(follow => ({ ...follow, _id: follow.id })));
-            console.log(`${followsJson.length}개의 팔로우 관계 마이그레이션 완료.`);
-        } else {
-            console.log('마이그레이션할 팔로우 관계 없음.');
-        }
-        // 4. Products 마이그레이션 (Market 데이터)
-        const productsJson = await readJsonFile('market.json'); // market.json 파일 읽기
-        if (productsJson.length > 0) {
-            await Product.insertMany(productsJson.map(product => ({ ...product, _id: product.id })));
-            console.log(`${productsJson.length}개의 상품 (마켓) 마이그레이션 완료.`);
-        } else {
-            console.log('마이그레이션할 상품 (마켓) 없음.');
-        }
-
-        // 5. ChatRooms 마이그레이션
-        const chatRoomsJson = await readJsonFile('chat_rooms.json');
-        if (chatRoomsJson.length > 0) {
-            await ChatRoom.insertMany(chatRoomsJson.map(room => ({ ...room, _id: room.id })));
-            console.log(`${chatRoomsJson.length}개의 채팅방 마이그레이션 완료.`);
-        } else {
-            console.log('마이그레이션할 채팅방 없음.');
-        }
-
-        // 6. ChatMessages 마이그레이션
-        const chatMessagesObj = await readJsonFile('chat_messages.json');
-        const chatMessagesToInsert = [];
-        for (const roomId in chatMessagesObj) {
-            chatMessagesToInsert.push(...chatMessagesObj[roomId]);
-        }
-        if (chatMessagesToInsert.length > 0) {
-            await ChatMessage.insertMany(chatMessagesToInsert);
-            console.log(`${chatMessagesToInsert.length}개의 채팅 메시지 마이그레이션 완료.`);
-        } else {
-            console.log('마이그레이션할 채팅 메시지 없음.');
-        }
-
-        //7. 존재하지 않는 기억
-        
-        console.log('--- 데이터 마이그레이션 완료! ---');
-
-    } catch (error) {
-        console.error('데이터 마이그레이션 중 오류 발생:', error);
-    } finally {
-        mongoose.connection.close(); // DB 연결 종료
-        console.log('MongoDB 연결 종료.');
-        process.exit(0); // 스크립트 종료
+    // --- 1. Migrate Users ---
+    console.log('Migrating users...');
+    const users = await query(sqliteDb, 'SELECT * FROM users');
+    const mongoUsers = users.map(u => {
+      const mongoUser = {
+        id: u.id.toString(), // Use SQLite ID as string for custom ID
+        username: u.username,
+        email: u.email,
+        password: u.password,
+        profileImage: u.profileImage,
+        createdAt: u.createdAt,
+        schedule: u.schedule ? JSON.parse(u.schedule) : undefined,
+      };
+      userMap.set(u.id, mongoUser.id); // Map: sqlite_id -> mongo_id_string
+      return mongoUser;
+    });
+    if (mongoUsers.length > 0) {
+      await User.insertMany(mongoUsers);
+      console.log(`${mongoUsers.length} users migrated.`);
+    } else {
+      console.log('No users found to migrate.');
     }
+
+    // --- 2. Migrate Products ---
+    console.log('Migrating products...');
+    const products = await query(sqliteDb, 'SELECT * FROM products');
+    const mongoProducts = products.map(p => {
+      const newMongoId = new mongoose.Types.ObjectId();
+      productMap.set(p.id, newMongoId); // Map: sqlite_id -> mongo_objectId
+      return {
+        _id: newMongoId,
+        name: p.name,
+        description: p.description,
+        price: p.price,
+        seller: p.seller,
+        userId: userMap.get(p.userId), // Map userId
+        image: p.image,
+        isSold: p.isSold === 1,
+        createdAt: p.createdAt,
+        updatedAt: p.updatedAt,
+      };
+    });
+    if (mongoProducts.length > 0) {
+      await Product.insertMany(mongoProducts);
+      console.log(`${mongoProducts.length} products migrated.`);
+    } else {
+      console.log('No products found to migrate.');
+    }
+
+    // --- 3. Migrate Posts ---
+    console.log('Migrating posts...');
+    const posts = await query(sqliteDb, 'SELECT * FROM posts');
+    const mongoPosts = posts.map(p => ({
+      title: p.title,
+      content: p.content,
+      author: p.author,
+      userId: userMap.get(p.userId), // Map userId
+      image: p.image,
+      createdAt: p.createdAt,
+      updatedAt: p.updatedAt,
+    }));
+    if (mongoPosts.length > 0) {
+      await Post.insertMany(mongoPosts);
+      console.log(`${mongoPosts.length} posts migrated.`);
+    } else {
+      console.log('No posts found to migrate.');
+    }
+
+    // --- 4. Migrate Follows ---
+    console.log('Migrating follows...');
+    const follows = await query(sqliteDb, 'SELECT * FROM follows');
+    const mongoFollows = follows
+      .map(f => {
+        const followerId = userMap.get(f.followerId);
+        const followingId = userMap.get(f.followingId);
+
+        if (!followerId || !followingId) {
+          console.warn(`Skipping invalid follow record (user not found): ${JSON.stringify(f)}`);
+          return null;
+        }
+
+        return {
+          id: f.id.toString(),
+          followerId: followerId,
+          followingId: followingId,
+        };
+      })
+      .filter(f => f !== null); // Remove null entries from skipped records
+
+    if (mongoFollows.length > 0) {
+      await Follow.insertMany(mongoFollows);
+      console.log(`${mongoFollows.length} follows migrated.`);
+    } else {
+      console.log('No follows found to migrate or all were invalid.');
+    }
+
+    // --- 5. Migrate ChatRooms ---
+    console.log('Migrating chat rooms...');
+    const chatRooms = await query(sqliteDb, 'SELECT * FROM chat_rooms');
+    const mongoChatRooms = chatRooms.map(cr => {
+      const mongoRoom = {
+        id: cr.id.toString(),
+        productId: productMap.get(cr.productId)?.toString(), // Map productId
+        participants: JSON.parse(cr.participants).map(pId => userMap.get(pId)), // Map participants
+        createdAt: cr.createdAt,
+      };
+      chatRoomMap.set(cr.id, mongoRoom.id); // Map: sqlite_id -> mongo_id_string
+      return mongoRoom;
+    });
+    if (mongoChatRooms.length > 0) {
+      await ChatRoom.insertMany(mongoChatRooms);
+      console.log(`${mongoChatRooms.length} chat rooms migrated.`);
+    } else {
+      console.log('No chat rooms found to migrate.');
+    }
+
+    // --- 6. Migrate ChatMessages ---
+    console.log('Migrating chat messages...');
+    const chatMessages = await query(sqliteDb, 'SELECT * FROM chat_messages');
+    const mongoChatMessages = chatMessages.map(cm => ({
+      roomId: chatRoomMap.get(cm.roomId), // Map roomId
+      senderId: userMap.get(cm.senderId), // Map senderId
+      senderName: cm.senderName,
+      message: cm.message,
+      timestamp: cm.timestamp,
+    }));
+    if (mongoChatMessages.length > 0) {
+      await ChatMessage.insertMany(mongoChatMessages);
+      console.log(`${mongoChatMessages.length} chat messages migrated.`);
+    } else {
+      console.log('No chat messages found to migrate.');
+    }
+
+    console.log('Data migration completed successfully!');
+  } catch (error) {
+    console.error('Error during migration:', error);
+  } finally {
+    if (sqliteDb) {
+      sqliteDb.close();
+      console.log('SQLite connection closed.');
+    }
+    await mongoose.connection.close();
+    console.log('MongoDB connection closed.');
+  }
 };
 
-migrateData();
+migrate();
