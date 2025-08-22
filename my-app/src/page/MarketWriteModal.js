@@ -68,8 +68,8 @@ function MarketWriteModal({ isOpen, onClose, onSuccess, productToEdit }) {
         }
 
         const url = isEditMode 
-            ? `http://localhost:3001/api/market/${productToEdit.id}` 
-            : 'http://localhost:3001/api/market';
+            ? `/api/market/${productToEdit.id}` 
+            : '/api/market';
         const method = isEditMode ? 'PUT' : 'POST';
 
         try {

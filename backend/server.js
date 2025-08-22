@@ -14,8 +14,9 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { readChatMessages, writeChatMessages } from './utils/fileHandlers.js';
+
 import connectDB from './config/db.js';
+import ChatMessage from './models/ChatMessage.js';
 
 connectDB(); 
 const __filename = fileURLToPath(import.meta.url);
@@ -67,19 +68,12 @@ io.on('connection', (socket) => {
 
     socket.on('sendMessage', async (messageData) => {
         try {
-            const allMessages = await readChatMessages();
-            
-            if (!allMessages[messageData.roomId]) {
-                allMessages[messageData.roomId] = [];
-            }
-            
-            // 프론트에서 보낸 messageData 객체를 그대로 저장합니다.
-            allMessages[messageData.roomId].push(messageData);
-            await writeChatMessages(allMessages);
-            
-            // '나를 포함한' 방의 모든 사람에게 방송합니다.
-            io.to(messageData.roomId).emit('receiveMessage', messageData);
-            console.log(`[MSG] ${messageData.roomId} 방으로 메시지 방송 성공:`, messageData.message);
+            // Save message to MongoDB
+            const newMessage = await ChatMessage.create(messageData);
+
+            // Emit the new message to the room
+            io.to(messageData.roomId).emit('receiveMessage', newMessage);
+            console.log(`[MSG] ${messageData.roomId} 방으로 메시지 방송 성공:`, newMessage.message);
 
         } catch (error) {
             console.error('!!!!!!!!!!! 메시지 저장/방송 중 심각한 오류 발생 !!!!!!!!!!!:', error);

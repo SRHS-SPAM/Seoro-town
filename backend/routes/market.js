@@ -9,29 +9,38 @@ import Product from '../models/Product.js';
 
 import { authenticateToken } from '../middleware/auth.js';
 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/'); // This path should be relative to the project root or an absolute path
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+
+const upload = multer({ storage: storage });
+
 const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
         const searchTerm = req.query.search || '';
         const category = req.query.category || '전체';
-        const allProducts = await readMarket();
-
-        const now = Date.now();
-        const activeProducts = allProducts.filter(p => 
-            !p.deletionTimestamp || p.deletionTimestamp > now
-        );
-
-        if (activeProducts.length < allProducts.length) {
-            await writeMarket(activeProducts);
-        }
+        
+        // Fetch only active products
+        const allProducts = await Product.find({
+            $or: [
+                { deletionTimestamp: { $exists: false } },
+                { deletionTimestamp: { $gt: Date.now() } }
+            ]
+        });
 
         const searchedProducts = searchTerm
-            ? activeProducts.filter(product => 
+            ? allProducts.filter(product =>
                 product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 product.content.toLowerCase().includes(searchTerm.toLowerCase())
               )
-            : activeProducts;
+            : allProducts;
 
         const categorizedProducts = (category && category !== '전체')
             ? searchedProducts.filter(product => product.category === category)
@@ -73,8 +82,7 @@ router.post('/', authenticateToken, upload.single('image'), async (req, res) => 
             status: 'selling' // 기본 상태는 '판매중'
         });
 
-        products.push(newProduct);
-        await writeMarket(products);
+        
 
         res.status(201).json({ success: true, message: '상품이 성공적으로 등록되었습니다.', product: newProduct });
     } catch (error) {
@@ -106,16 +114,27 @@ router.delete('/:productId', authenticateToken, async (req, res) => {
     try {
         const productId = req.params.productId;
 
-        if (productIndex === -1) {
+        // ✨ MongoDB 쿼리: 상품 조회 (권한 확인용)
+        const product = await Product.findOne({ id: productId });
+
+        if (!product) {
             return res.status(404).json({ success: false, message: '삭제할 상품을 찾을 수 없습니다.' });
         }
-        if (products[productIndex].authorId !== req.user.id) {
+        
+        const userIsAdmin = isAdmin(req.user); // Assuming isAdmin is defined and works
+        const isAuthor = product.authorId === req.user.id;
+
+        if (!userIsAdmin && !isAuthor) {
             return res.status(403).json({ success: false, message: '삭제 권한이 없습니다.' });
         }
 
-        products.splice(productIndex, 1);
-        await writeMarket(products);
+        // ✨ MongoDB 쿼리: 상품 삭제
+        const result = await Product.deleteOne({ id: productId });
 
+        if (result.deletedCount === 0) { // 삭제된 문서가 없으면
+            return res.status(404).json({ success: false, message: '상품을 찾을 수 없습니다.' });
+        }
+        
         res.status(200).json({ success: true, message: '상품이 삭제되었습니다.' });
     } catch (error) {
         console.error("상품 삭제 오류:", error);
@@ -133,18 +152,18 @@ router.put('/:productId', authenticateToken, upload.single('image'), async (req,
         if (!product) {
             return res.status(404).json({ success: false, message: '수정할 상품을 찾을 수 없습니다.' });
         }
-        if (products[productIndex].authorId !== req.user.id) {
+        
+        if (product.authorId !== req.user.id) { // Use product directly
             return res.status(403).json({ success: false, message: '수정 권한이 없습니다.' });
         }
-dx``
-        const updatedProduct = {
-            ...products[productIndex],
-            category: category || products[productIndex].category,
-            title: title || products[productIndex].title,
-            price: price ? parseInt(price) : products[productIndex].price,
-            content: content || products[productIndex].content,
-            imageUrl: req.file ? `/uploads/${req.file.filename}` : products[productIndex].imageUrl
-        };
+
+        // Determine new image URL
+        let newImageUrl = existingImageUrl;
+        if (req.file) {
+            newImageUrl = `/uploads/${req.file.filename}`;
+        } else if (existingImageUrl === 'null') { // If frontend explicitly sends 'null' for existing image
+            newImageUrl = null;
+        }
 
         // ✨ MongoDB 쿼리: 상품 업데이트 (findByIdAndUpdate 대신 findOne하고 수동 업데이트)
         product.set({
@@ -156,7 +175,7 @@ dx``
         });
         await product.save(); // 변경사항 저장
 
-        res.status(200).json({ success: true, message: '상품이 수정되었습니다.', product: updatedProduct });
+        res.status(200).json({ success: true, message: '상품이 수정되었습니다.', product: product }); // Return updated product
     } catch (error) {
         console.error('상품 수정 오류:', error);
         res.status(500).json({ success: false, message: '서버 오류' });
@@ -165,23 +184,24 @@ dx``
 
 router.patch('/:productId/sold', authenticateToken, async (req, res) => {
     try {
-        const products = await readMarket();
-        const productId = parseInt(req.params.productId);
-        const productIndex = products.findIndex(p => p.id === productId);
+        const productId = req.params.productId; // productId is already a string
 
-        if (productIndex === -1) {
+        // ✨ MongoDB 쿼리: 상품 조회
+        const product = await Product.findOne({ id: productId });
+
+        if (!product) {
             return res.status(404).json({ success: false, message: '상품을 찾을 수 없습니다.' });
         }
-        if (products[productIndex].authorId !== req.user.id) {
+        if (product.authorId !== req.user.id) {
             return res.status(403).json({ success: false, message: '권한이 없습니다.' });
         }
 
-        products[productIndex].status = 'sold';
-        products[productIndex].deletionTimestamp = Date.now() + 3 * 24 * 60 * 60 * 1000; 
+        product.status = 'sold';
+        product.deletionTimestamp = Date.now() + 3 * 24 * 60 * 60 * 1000; 
 
-        await writeMarket(products);
+        await product.save(); // Save the updated product
 
-        res.status(200).json({ success: true, message: '상품이 판매 완료 처리되었습니다.', product: products[productIndex] });
+        res.status(200).json({ success: true, message: '상품이 판매 완료 처리되었습니다.', product: product });
     } catch (error) {
         console.error("판매 완료 처리 오류:", error);
         res.status(500).json({ success: false, message: '처리 중 오류가 발생했습니다.' });

@@ -58,7 +58,7 @@ function Market() {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch(`http://localhost:3001/api/market?search=${debouncedTerm}&category=${selectedCategory}`);
+                const response = await fetch(`/api/market?search=${debouncedTerm}&category=${selectedCategory}`);
                 if (!response.ok) throw new Error('데이터를 불러오는데 실패했습니다.');
                 const data = await response.json();
                 if (data.success) {

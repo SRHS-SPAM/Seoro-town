@@ -33,7 +33,7 @@ function Schedule() {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch('http://localhost:3001/api/users/me/schedule', {
+            const response = await fetch('/api/users/me/schedule', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (!response.ok) throw new Error(`시간표 불러오기 실패: ${response.status}`);
@@ -74,7 +74,7 @@ function Schedule() {
         setIsSaving(true);
         setError(null);
         try {
-            const response = await fetch('http://localhost:3001/api/users/me/schedule', {
+            const response = await fetch('/api/users/me/schedule', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

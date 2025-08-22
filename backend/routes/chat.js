@@ -2,7 +2,11 @@
 
 import express from 'express';
 import { authenticateToken } from '../middleware/auth.js';
-import { readChatRooms, writeChatRooms, readChatMessages, writeChatMessages, readMarket, readUsers } from '../utils/fileHandlers.js';
+import ChatMessage from '../models/ChatMessage.js';
+import ChatRoom from '../models/ChatRoom.js';
+import Product from '../models/Product.js';
+import User from '../models/User.js';
+
 
 const router = express.Router();
 
@@ -11,8 +15,7 @@ router.post('/start', authenticateToken, async (req, res) => {
         const { productId } = req.body;
         const buyerId = req.user.id;
 
-        const products = await readMarket();
-        const product = products.find(p => p.id == productId);
+        const products = await Product.find();
         if (!product) {
             return res.status(404).json({ success: false, message: '상품을 찾을 수 없습니다.' });
         }
@@ -27,7 +30,7 @@ router.post('/start', authenticateToken, async (req, res) => {
             return res.status(400).json({ success: false, message: '자신과의 채팅은 시작할 수 없습니다.' });
         }
 
-        const chatRooms = await readChatRooms();
+        const chatRooms = await ChatRoom.find();
         
         let existingRoom = chatRooms.find(room => 
             room.productId == productId &&
@@ -38,7 +41,7 @@ router.post('/start', authenticateToken, async (req, res) => {
         if (existingRoom) {
             res.status(200).json({ success: true, roomId: existingRoom.roomId });
         } else {
-            const allUsers = await readUsers();
+            const allUsers = await User.find();
             const buyer = allUsers.find(u => u.id == buyerId);
             const seller = allUsers.find(u => u.id == sellerId);
 
@@ -57,12 +60,7 @@ router.post('/start', authenticateToken, async (req, res) => {
                 ],
                 createdAt: new Date().toISOString()
             };
-            chatRooms.push(newRoom);
-            await writeChatRooms(chatRooms);
-
-            const messages = await readChatMessages();
-            messages[newRoom.roomId] = [];
-            await writeChatMessages(messages);
+            await ChatRoom.create(newRoom);
 
             res.status(201).json({ success: true, roomId: newRoom.roomId });
         }
@@ -77,18 +75,15 @@ router.get('/:roomId/messages', authenticateToken, async (req, res) => {
     const userId = req.user.id;
     
     try {
-        const rooms = await readChatRooms();
-        const room = rooms.find(r => r.roomId === roomId);
+        const room = await ChatRoom.findOne({ roomId });
         
         if (!room || !room.participants.some(p => p.id == userId)) {
             return res.status(403).json({ success: false, message: '채팅방에 접근할 권한이 없습니다.' });
         }
         
-        const products = await readMarket();
-        const product = products.find(p => p.id === room.productId);
+        const product = await Product.findById(room.productId);
         
-        const allMessages = await readChatMessages();
-        const roomMessages = allMessages[roomId] || [];
+        const roomMessages = await ChatMessage.find({ roomId }).sort({ createdAt: 1 });
 
         res.status(200).json({ 
             success: true, 
@@ -105,15 +100,13 @@ router.get('/:roomId/messages', authenticateToken, async (req, res) => {
 router.get('/', authenticateToken, async (req, res) => {
     const userId = req.user.id;
     try {
-        const allRooms = await readChatRooms();
+        const allRooms = await ChatRoom.find();
         const myRooms = allRooms.filter(room => room.participants.some(p => p.id == userId));
 
-        const allMessages = await readChatMessages();
-        const roomsWithLastMessage = myRooms.map(room => {
-            const messages = allMessages[room.roomId] || [];
-            const lastMessage = messages[messages.length - 1];
-            return { ...room, lastMessage: lastMessage || null };
-        });
+        const roomsWithLastMessage = await Promise.all(myRooms.map(async (room) => {
+            const lastMessage = await ChatMessage.findOne({ roomId: room.roomId }).sort({ createdAt: -1 });
+            return { ...room.toObject(), lastMessage: lastMessage ? lastMessage.toObject() : null };
+        }));
         
         res.status(200).json({ success: true, chatRooms: roomsWithLastMessage.reverse() });
 

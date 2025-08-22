@@ -37,7 +37,7 @@ function Boardarr() {
             setLoading(true);
             setError(null);
             
-            const response = await fetch('http://localhost:3001/api/posts', {
+            const response = await fetch('/api/posts', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

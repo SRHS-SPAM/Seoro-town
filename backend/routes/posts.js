@@ -37,15 +37,10 @@ router.post('/', authenticateToken, async (req, res) => {
         // ✨ MongoDB: 새 게시글 생성 및 저장
         const newPost = new Post({
             id: newPostId,
-            _id: newPostId, // _id도 id와 동일하게 설정
             title: title.trim(),
             content: content.trim(),
-            category: category || '재학생',
-            authorId: req.user.id,
-            authorName: req.user.username, // 토큰에서 가져온 사용자 이름
-            authorProfileImage: req.user.profileImage, // 토큰에서 가져온 사용자 프로필 이미지
-            createdAt: new Date(), // Date 객체로 저장
-            comments: [] // 초기 댓글 배열 비어있음
+            userId: req.user.id,
+            author: req.user.username,
         });
         await newPost.save(); // DB에 저장
 

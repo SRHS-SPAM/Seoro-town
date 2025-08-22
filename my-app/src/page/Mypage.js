@@ -175,12 +175,12 @@ function Mypage() {
         setIsLoading(true);
         try {
             const [userData, postsData, commentsData, followersData, followingData, followStatusData] = await Promise.all([
-                fetchAPI(`http://localhost:3001/api/users/${targetUserId}`),
-                fetchAPI(`http://localhost:3001/api/users/${targetUserId}/posts`),
-                fetchAPI(`http://localhost:3001/api/users/${targetUserId}/comments`),
-                fetchAPI(`http://localhost:3001/api/users/${targetUserId}/followers`),
-                fetchAPI(`http://localhost:3001/api/users/${targetUserId}/following`),
-                !isMyProfile ? fetchAPI(`http://localhost:3001/api/users/${targetUserId}/follow-status`) : Promise.resolve({ isFollowing: false })
+                fetchAPI(`/api/users/${targetUserId}`),
+                fetchAPI(`/api/users/${targetUserId}/posts`),
+                fetchAPI(`/api/users/${targetUserId}/comments`),
+                fetchAPI(`/api/users/${targetUserId}/followers`),
+                fetchAPI(`/api/users/${targetUserId}/following`),
+                !isMyProfile ? fetchAPI(`/api/users/${targetUserId}/follow-status`) : Promise.resolve({ isFollowing: false })
             ]);
 
             setProfileData({
@@ -213,7 +213,7 @@ function Mypage() {
         const handleSearch = async () => {
             setIsSearching(true);
             try {
-                const data = await fetchAPI(`http://localhost:3001/api/users/search?query=${encodeURIComponent(searchQuery)}`);
+                const data = await fetchAPI(`/api/users/search?query=${encodeURIComponent(searchQuery)}`);
                 setSearchResults(data.users || []);
             } catch (error) {
                 console.error("검색 중 오류 발생:", error);
@@ -231,7 +231,7 @@ function Mypage() {
         const formData = new FormData();
         formData.append('profileImage', file);
         try {
-            const response = await fetch('http://localhost:3001/api/users/me/profile-image', {
+            const response = await fetch('/api/users/me/profile-image', {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` },
                 body: formData,
@@ -253,7 +253,7 @@ function Mypage() {
         if (isMyProfile) return;
         const endpoint = profileData.isFollowing ? 'unfollow' : 'follow';
         try {
-            await fetch(`http://localhost:3001/api/users/${profileUserId}/${endpoint}`, {
+            await fetch(`/api/users/${profileUserId}/${endpoint}`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` }
             });

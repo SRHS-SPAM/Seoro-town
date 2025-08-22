@@ -24,7 +24,7 @@ function ChatRoomPage() {
         const fetchMessages = async () => {
             if (!token) return;
             try {
-                const response = await fetch(`http://localhost:3001/api/chat/${roomId}/messages`, {
+                const response = await fetch(`/api/chat/${roomId}/messages`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const data = await response.json();

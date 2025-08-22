@@ -22,7 +22,7 @@ function MarketDetail() {
 
     const fetchProduct = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/api/market/${productId}`);
+            const response = await fetch(`/api/market/${productId}`);
             if (!response.ok) throw new Error('상품 정보를 불러오지 못했습니다.');
             const data = await response.json();
             if (data.success) {
@@ -44,7 +44,7 @@ function MarketDetail() {
     const handleMarkAsSold = async () => {
         if (!window.confirm('이 상품을 판매 완료 처리하시겠습니까? 3일 후에 자동으로 삭제됩니다.')) return;
         try {
-            const response = await fetch(`http://localhost:3001/api/market/${productId}/sold`, {
+            const response = await fetch(`/api/market/${productId}/sold`, {
                 method: 'PATCH',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -76,7 +76,7 @@ function MarketDetail() {
             return;
         }
         try {
-            const response = await fetch('http://localhost:3001/api/chat/start', {
+            const response = await fetch('/api/chat/start', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ productId: product.id })
@@ -95,7 +95,7 @@ function MarketDetail() {
     const handleDelete = async () => {
         if (!window.confirm('정말로 이 상품을 삭제하시겠습니까?')) return;
         try {
-            const response = await fetch(`http://localhost:3001/api/market/${productId}`, {
+            const response = await fetch(`/api/market/${productId}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });

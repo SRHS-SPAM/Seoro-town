@@ -27,7 +27,7 @@ function ChatListPage() {
 
             try {
                 console.log("API 요청 시작: /api/chat");
-                const response = await fetch('http://localhost:3001/api/chat', {
+                const response = await fetch('/api/chat', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 
