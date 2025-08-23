@@ -83,7 +83,11 @@ function MarketDetail() {
             });
             const data = await response.json();
             if (data.success) {
-                navigate(`/chat/${data.roomId}`);
+                if (data.roomId) {
+                    navigate(`/chat/${data.roomId}`);
+                } else {
+                    throw new Error('채팅방 ID를 받지 못했습니다.');
+                }
             } else {
                 throw new Error(data.message);
             }

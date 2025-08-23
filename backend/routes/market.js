@@ -70,7 +70,6 @@ router.post('/', authenticateToken, upload.single('image'), async (req, res) => 
         // ✨ MongoDB: 새 상품 생성 및 저장
         const newProduct = new Product({
             id: newProductId,
-            _id: newProductId, // _id도 id와 동일하게 설정
             category,
             title: title.trim(),
             price: parseInt(price, 10),
@@ -82,7 +81,7 @@ router.post('/', authenticateToken, upload.single('image'), async (req, res) => 
             status: 'selling' // 기본 상태는 '판매중'
         });
 
-        
+        await newProduct.save(); // <-- 이 라인이 누락되어 있었습니다!
 
         res.status(201).json({ success: true, message: '상품이 성공적으로 등록되었습니다.', product: newProduct });
     } catch (error) {

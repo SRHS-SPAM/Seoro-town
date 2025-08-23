@@ -15,7 +15,7 @@ router.post('/start', authenticateToken, async (req, res) => {
         const { productId } = req.body;
         const buyerId = req.user.id;
 
-        const products = await Product.find();
+        const product = await Product.findOne({ id: productId }); // 수정된 라인
         if (!product) {
             return res.status(404).json({ success: false, message: '상품을 찾을 수 없습니다.' });
         }
@@ -39,7 +39,8 @@ router.post('/start', authenticateToken, async (req, res) => {
         );
 
         if (existingRoom) {
-            res.status(200).json({ success: true, roomId: existingRoom.roomId });
+            res.status(200).json({ success: true, roomId: existingRoom.id });
+            console.log(`[CHAT] Existing room ID sent: ${existingRoom.id}`);
         } else {
             const allUsers = await User.find();
             const buyer = allUsers.find(u => u.id == buyerId);
@@ -50,8 +51,9 @@ router.post('/start', authenticateToken, async (req, res) => {
             }
 
             const newRoom = {
+                id: `${productId}-${buyerId}-${sellerId}`,
                 roomId: `${productId}-${buyerId}-${sellerId}`,
-                productId: parseInt(productId),
+                productId: productId,
                 productTitle: product.title,
                 productImageUrl: product.imageUrl,
                 participants: [
@@ -62,7 +64,8 @@ router.post('/start', authenticateToken, async (req, res) => {
             };
             await ChatRoom.create(newRoom);
 
-            res.status(201).json({ success: true, roomId: newRoom.roomId });
+            res.status(201).json({ success: true, roomId: newRoom.id });
+            console.log(`[CHAT] New room ID sent: ${newRoom.id}`);
         }
     } catch (error) {
         console.error("채팅방 시작 오류:", error);
@@ -73,15 +76,21 @@ router.post('/start', authenticateToken, async (req, res) => {
 router.get('/:roomId/messages', authenticateToken, async (req, res) => {
     const { roomId } = req.params;
     const userId = req.user.id;
-    
+
+    console.log(`[CHAT-GET] Received roomId: ${roomId}, userId: ${userId}`);
+
     try {
-        const room = await ChatRoom.findOne({ roomId });
-        
+        const room = await ChatRoom.findOne({ id: roomId }); // 'id' 필드를 사용하도록 수정
+
+        console.log(`[CHAT-GET] Found room: ${room ? room.id : 'null'}`);
+        console.log(`[CHAT-GET] Room participants: ${room ? JSON.stringify(room.participants) : 'null'}`);
+        console.log(`[CHAT-GET] User in participants: ${room ? room.participants.some(p => p.id == userId) : 'null'}`);
+
         if (!room || !room.participants.some(p => p.id == userId)) {
             return res.status(403).json({ success: false, message: '채팅방에 접근할 권한이 없습니다.' });
         }
         
-        const product = await Product.findById(room.productId);
+        const product = await Product.findOne({ id: room.productId }); // findById 대신 findOne 사용
         
         const roomMessages = await ChatMessage.find({ roomId }).sort({ createdAt: 1 });
 
@@ -104,7 +113,7 @@ router.get('/', authenticateToken, async (req, res) => {
         const myRooms = allRooms.filter(room => room.participants.some(p => p.id == userId));
 
         const roomsWithLastMessage = await Promise.all(myRooms.map(async (room) => {
-            const lastMessage = await ChatMessage.findOne({ roomId: room.roomId }).sort({ createdAt: -1 });
+            const lastMessage = await ChatMessage.findOne({ roomId: room.id }).sort({ createdAt: -1 }); // room.roomId 대신 room.id 사용
             return { ...room.toObject(), lastMessage: lastMessage ? lastMessage.toObject() : null };
         }));
         

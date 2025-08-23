@@ -68,8 +68,10 @@ io.on('connection', (socket) => {
 
     socket.on('sendMessage', async (messageData) => {
         try {
+            console.log('[MSG-DEBUG] Received messageData:', messageData); // ADDED LOG
             // Save message to MongoDB
             const newMessage = await ChatMessage.create(messageData);
+            console.log('[MSG-DEBUG] ChatMessage created:', newMessage); // ADDED LOG
 
             // Emit the new message to the room
             io.to(messageData.roomId).emit('receiveMessage', newMessage);

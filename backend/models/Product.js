@@ -1,11 +1,16 @@
 import mongoose from 'mongoose';
 
 const ProductSchema = new mongoose.Schema({
-    name: {
+    id: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    title: {
         type: String,
         required: true
     },
-    description: {
+    content: {
         type: String,
         required: true
     },
@@ -13,22 +18,25 @@ const ProductSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    seller: {
+    authorName: {
         type: String,
         required: true
     },
-    userId: {
-        type: String, // User 모델의 커스텀 'id' 필드와 연결
+    authorId: {
+        type: String,
         required: true,
         ref: 'User'
     },
-    image: {
+    imageUrl: {
         type: String,
         default: null
     },
-    isSold: {
-        type: Boolean,
-        default: false
+    category: {
+        type: String
+    },
+    status: {
+        type: String,
+        default: 'selling'
     }
 }, {
     timestamps: true
