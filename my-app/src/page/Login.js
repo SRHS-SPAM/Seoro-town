@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import './Login.css';
 
 function Login() {
-    const [username, setUsername] = useState('');
+    const [identifier, setIdentifier] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
@@ -13,8 +13,8 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!username || !password) {
-            alert('아이디와 비밀번호를 입력해주세요.');
+        if (!identifier || !password) {
+            alert('이메일 또는 사용자이름과 비밀번호를 입력해주세요.');
             return;
         }
 
@@ -26,7 +26,7 @@ function Login() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ identifier, password }),
             });
 
             const data = await response.json();
@@ -51,12 +51,12 @@ function Login() {
             <h2>로그인</h2>
             <form onSubmit={handleSubmit}>
                 <div className="FormGroup">
-                    <label>사용자이름</label>
+                    <label>이메일 또는 사용자이름</label>
                     <input
                         type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="사용자이름을 입력하세요"
+                        value={identifier}
+                        onChange={(e) => setIdentifier(e.target.value)}
+                        placeholder="이메일 또는 사용자이름을 입력하세요"
                         required
                         disabled={isLoading}
                     />

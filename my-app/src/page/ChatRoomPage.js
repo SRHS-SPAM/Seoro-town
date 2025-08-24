@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import Navbar from './Navbar';
+
 import './ChatRoomPage.css';
 import { Send, ArrowLeft } from 'lucide-react';
 import { io } from 'socket.io-client';
@@ -42,8 +42,8 @@ function ChatRoomPage() {
         };
         fetchMessages();
 
-        socketRef.current = io('http://localhost:3001');
-        const socket = socketRef.current;
+        const socket = io(process.env.REACT_APP_API_URL || 'http://localhost:3001');
+        socketRef.current = socket;
 
         socket.on('connect', () => {
             socket.emit('joinRoom', roomId);
@@ -91,7 +91,7 @@ function ChatRoomPage() {
 
     return (
         <div>
-            <Navbar />
+            
             <div className="ChatRoomContainer">
                 <div className="ChatRoomHeader">
                     <button onClick={() => navigate('/chats')} className="BackButton"><ArrowLeft /></button>

@@ -1,8 +1,8 @@
 import './App.css';
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider, AuthContext } from './context/AuthContext';
-
+import Navbar from './page/Navbar';
 import Boardpage from './page/Boardpage';
 import Schedule from './page/Schedule';
 import Com from './page/Com';
@@ -23,35 +23,19 @@ import MBGuide from './page/MBGuide';
 import ChatListPage from './page/ChatListPage';
 import ChatRoomPage from './page/ChatRoomPage';
 
-function LoginComponent() {
-  const { isLoggedIn, logout, user } = React.useContext(AuthContext);
-  
+// AppContent component to use the AuthContext
+function AppContent() {
+  const { isLoading } = React.useContext(AuthContext);
+
+  if (isLoading) {
+    return <div className="loading-container">Loading...</div>;
+  }
+
   return (
-    <div className="NavRight">
-      {isLoggedIn ? (
-        <>
-          <NavLink to="/Mypage" className="NavItem">{user?.username || '사용자'} 님</NavLink>
-          <button className="NavItem" onClick={logout}>로그아웃</button>
-        </>
-      ) : (
-        <>
-          <NavLink to="/Login" className="NavItem">로그인</NavLink>
-          <NavLink to="/Signup" className="NavItem">회원가입</NavLink>
-        </>
-      )}
-    </div>
-  );
-}
-
-export { LoginComponent };
-
-function App() {
-  return (
-    <AuthProvider>
-      <Router>
-        <div>
-          <Routes>
-
+    <Router>
+      <Navbar />
+      <main className="main-content">
+        <Routes>
             <Route path="/" element={<Boardpage />} />
             <Route path="/Schedule" element={<Schedule />} />
             <Route path="/Com" element={<Com />} />
@@ -71,10 +55,16 @@ function App() {
             <Route path="/guide/main-building" element={<MBGuide />} />
             <Route path="/chats" element={<ChatListPage />} />
             <Route path="/chat/:roomId" element={<ChatRoomPage />} /> 
+        </Routes>
+      </main>
+    </Router>
+  );
+}
 
-          </Routes>
-        </div>
-      </Router>
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
     </AuthProvider>
   );
 }

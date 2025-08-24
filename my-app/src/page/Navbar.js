@@ -1,7 +1,11 @@
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LoginComponent } from '../App.js';
+import { AuthContext } from '../context/AuthContext';
+
 //네비게이션바 컴포넌트
 function Navbar() {
+    const { isLoggedIn, logout, user } = React.useContext(AuthContext);
+
     return (
         <div className="NavBar">
             <div className="NavLeft">
@@ -18,7 +22,19 @@ function Navbar() {
                 <NavLink to="/Guide" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>로봇가이드</NavLink>
                 <NavLink to="/chats" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>채팅</NavLink>
             </div>
-            <LoginComponent />
+            <div className="NavRight">
+                {isLoggedIn ? (
+                    <>
+                        <NavLink to="/Mypage" className="NavItem">{user?.username || '사용자'} 님</NavLink>
+                        <button className="NavItem" onClick={logout}>로그아웃</button>
+                    </>
+                ) : (
+                    <>
+                        <NavLink to="/Login" className="NavItem">로그인</NavLink>
+                        <NavLink to="/Signup" className="NavItem">회원가입</NavLink>
+                    </>
+                )}
+            </div>
         </div>
     );
 }

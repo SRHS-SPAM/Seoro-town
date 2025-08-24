@@ -1,4 +1,4 @@
-import Navbar from './Navbar';
+
 import './Guide.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ function Guide() {
 
     return (
         <div>
-            <Navbar />
+            
             <div className="GuideContainer">
                 <div className="GuideHeader">
                     <h1>로봇가이드</h1>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from './Navbar';
+
 import './Guide.css';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
@@ -8,7 +8,7 @@ function FGuide() {
     const navigate = useNavigate();
     return (
         <div>
-            <Navbar />
+            
             <div className="GuideContainer">
                 <div className="GuideHeader">
                     <h1>시설 안내</h1>

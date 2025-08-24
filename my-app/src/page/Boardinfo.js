@@ -3,7 +3,7 @@ import { useContext, useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, MessageCircle, Share2, Trash2 } from 'lucide-react'; 
 import { AuthContext } from '../context/AuthContext';
-import Navbar from './Navbar';
+
 
 function Boardinfo() {
     const { isLoggedIn, user, token } = useContext(AuthContext);
@@ -51,7 +51,7 @@ function Boardinfo() {
     if (isLoading) {
         return (
             <div>
-                <Navbar />
+                
                 <div className="BoardInfoContainer" style={{ textAlign: 'center', paddingTop: '5rem' }}>로딩 중...</div>
             </div>
         );
@@ -60,7 +60,7 @@ function Boardinfo() {
     if (!post) {
         return (
             <div>
-                <Navbar />
+                
                 <div className="BoardInfoContainer" style={{ textAlign: 'center', paddingTop: '5rem' }}>
                     <h2>게시글을 찾을 수 없습니다.</h2>
                     <p>삭제되었거나 잘못된 경로입니다.</p>
@@ -153,7 +153,7 @@ function Boardinfo() {
     const getInitial = (name) => (name ? name.charAt(0).toUpperCase() : '?');
     return (
         <div>
-            <Navbar />
+            
             <div className="BoardInfoContainer">
                 <div className="BoardInfoHeader">
                     <button className="BackButton" onClick={handleBackClick}><ArrowLeft size={24} /><span>뒤로가기</span></button>
@@ -164,16 +164,16 @@ function Boardinfo() {
                         <div className="PostHeaderTop"><div className="PostCategory">{post.category}</div></div>
                         <h1 className="PostDetailTitle">{post.title}</h1>
                         <div className="PostDetailInfo">
-                            <div className="AuthorInfo" onClick={() => goToUserProfile(post.authorId)} style={{cursor: 'pointer'}}>
+                            <div className="AuthorInfo" onClick={() => goToUserProfile(post.userId?.id)} style={{cursor: 'pointer'}}>
                                 <div className="AuthorAvatar">
-                                    {post.authorProfileImage ? (
-                                        <img src={`http://localhost:3001${post.authorProfileImage}`} alt={post.authorName} />
+                                    {post.userId?.profileImage ? (
+                                        <img src={`http://localhost:3001${post.userId.profileImage}`} alt={post.userId.username} />
                                     ) : (
-                                        <span>{getInitial(post.authorName)}</span>
+                                        <span>{getInitial(post.userId?.username)}</span>
                                     )}
                                 </div>
                                 <div className="AuthorDetails">
-                                    <span className="PostDetailAuthor">{post.authorName}</span>
+                                    <span className="PostDetailAuthor">{post.userId?.username || post.author}</span>
                                     <span className="PostDetailDate">{getPostDate()}</span>
                                 </div>
                             </div>

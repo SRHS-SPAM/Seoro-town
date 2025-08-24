@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from './Navbar';
+
 import './Com.css';
 import { Settings, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -51,7 +51,7 @@ function Com() {
 
     return (
         <div>
-            <Navbar />
+            
             <div className="ComContainer">
                 <div className="ComHeader"><h2>가정통신문</h2></div>
                 <div className="ComContent">

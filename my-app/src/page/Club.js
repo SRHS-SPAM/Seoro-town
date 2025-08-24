@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from './Navbar';
+
 import './Club.css';
 
 function Club() {
@@ -28,7 +28,7 @@ function Club() {
 
     return (
         <div>
-            <Navbar />
+            
             <div className="ClubContainer">
                 <div className="ClubHeader">
                     <h1>동아리 안내</h1>

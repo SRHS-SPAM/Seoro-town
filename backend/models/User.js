@@ -1,17 +1,37 @@
-// backend/models/User.js
-
 import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
-    id: { type: String, required: true, unique: true }, // 기존 JSON의 ID를 유지
-    username: { type: String, required: true, unique: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true }, // 해시된 비밀번호 저장
-    profileImage: { type: String, default: null },
-    createdAt: { type: Date, default: Date.now },
-    schedule: { // 시간표 스키마 정의
-        type: [[String]], // 2차원 문자열 배열
-        default: [ // 프론트엔드의 defaultSchedule과 동일하게 설정
+    username: { 
+        type: String, 
+        required: [true, '사용자 이름은 필수 항목입니다.'], 
+        unique: true,
+        trim: true
+    },
+    // 💥💥💥 빠져있는 email 필드를 다시 추가해야 합니다! 💥💥💥
+    email: { 
+        type: String, 
+        required: [true, '이메일은 필수 항목입니다.'], 
+        unique: true,
+        trim: true,
+        lowercase: true
+    },
+    password: { 
+        type: String, 
+        required: [true, '비밀번호는 필수 항목입니다.']
+    },
+    // 이 필드들도 필요하다면 주석을 해제하세요.
+    profileImage: { 
+        type: String, 
+        default: null 
+    },
+    role: { 
+        type: String, 
+        default: 'user',
+        enum: ['user', 'admin']
+    },
+    schedule: { 
+        type: [[String]],
+        default: [
             ["", "월", "화", "수", "목", "금"],
             ["1", "", "", "", "", ""],
             ["2", "", "", "", "", ""],
@@ -22,7 +42,16 @@ const UserSchema = new mongoose.Schema({
             ["7", "", "", "", "", ""],
         ]
     }
-}, { _id: false }); // MongoDB 기본 _id 대신 id 필드를 사용하도록 설정
+}, { 
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+});
 
-const User = mongoose.model('User', UserSchema);
+UserSchema.virtual('id').get(function() {
+    return this._id.toHexString();
+});
+
+// 💥 변수 이름이 `userSchema`에서 `UserSchema`로 변경되었습니다.
+const User = mongoose.model('User', UserSchema); 
 export default User;

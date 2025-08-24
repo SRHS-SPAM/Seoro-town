@@ -2,7 +2,7 @@
 
 import "./Meal.css";
 import { useEffect, useState, useCallback } from "react";
-import Navbar from './Navbar';
+
 
 function Meal() {
     const API_BASE_URL = process.env.REACT_APP_API_URL || '';
@@ -85,7 +85,7 @@ function Meal() {
 
     return (
         <div>
-            <Navbar />
+            
             <div className="MealContainer">
                 <div className="MealHeader">
                     <h2>🍱 오늘의 급식</h2>

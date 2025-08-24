@@ -1,81 +1,37 @@
-PS C:\Users\dyqaz\OneDrive\문서\GitHub\Seoro-town\backend> docker-compose build --no-cache backend
-#1 [internal] load local bake definitions
-#1 reading from stdin 614B 0.0s done
-#1 DONE 0.0s
+============================================================
+       백엔드 모델(Schema) 통일성 및 버그 수정 요청서
+============================================================
 
-#2 [internal] load build definition from Dockerfile
-#2 transferring dockerfile: 510B 0.0s done
-#2 DONE 0.0s
+1. 문제 상황 요약
+------------------------------------------------------------
+- 서버 실행 시 `ReferenceError: [ModelName] is not defined` 에러가 발생하며 서버가 시작되지 않는 문제가 확인되었습니다.
+- `Product.js`, `ChatRoom.js` 등 일부 모델 파일에서 스키마를 정의한 후, `mongoose.model()`을 사용하여 모델로 컴파일하는 코드가 누락되었습니다.
+- 또한, 일부 모델(`Product.js`, `ChatRoom.js` 등)이 아직 Mongoose 표준 방식(`_id` 사용)이 아닌 수동 `id` 필드를 사용하고 있어, 추후 다른 버그를 유발할 가능성이 높습니다.
 
-#3 [auth] library/node:pull token for registry-1.docker.io
-#3 DONE 0.0s
+2. 해결 목표
+------------------------------------------------------------
+- 모든 모델 파일의 구조를 표준화하여 서버 실행 오류를 해결합니다.
+- 프로젝트의 모든 데이터 모델을 Mongoose 표준 방식인 `_id`를 기본 키로 사용하도록 통일하여 데이터 구조의 일관성을 확보하고 잠재적인 버그를 예방합니다.
 
-#4 [internal] load metadata for docker.io/library/node:20-slim
-#4 DONE 1.6s
+3. 수정 지시 사항
+------------------------------------------------------------
 
-#5 [internal] load .dockerignore
-#5 transferring context: 2B done
-#5 DONE 0.0s
+[1. 모든 모델 파일 구조 통일]
 
-#6 [internal] load build context
-#6 ...
+- 지시: `backend/models` 폴더 안에 있는 모든 `.js` 파일(예: `User.js`, `Post.js`, `Product.js`, `ChatRoom.js`, `Follow.js` 등)을 열어주세요.
+- 확인: 각 파일의 맨 아래 부분이 반드시 아래와 같은 3단계 구조로 되어 있는지 확인하고, 누락된 부분이 있다면 수정해주세요.
 
-#7 [1/5] FROM docker.io/library/node:20-slim@sha256:6db5e436948af8f0244488a1f658c2c8e55a3ae51ca2e1686ed042be8f25f70a
-#7 resolve docker.io/library/node:20-slim@sha256:6db5e436948af8f0244488a1f658c2c8e55a3ae51ca2e1686ed042be8f25f70a 0.1s done
-#7 DONE 0.1s
+  ```javascript
+  // 1단계: 스키마 정의 (이미 작성되어 있음)
+  const YourSchemaName = new mongoose.Schema({ ... });
 
-#8 [2/5] WORKDIR /app # 컨테이너 내부 작업 디렉토리 설정
-#8 CACHED
+  // (선택사항이지만 권장) virtual 필드 추가
+  YourSchemaName.virtual('id').get(function() {
+      return this._id.toHexString();
+  });
 
-#6 [internal] load build context
-#6 transferring context: 577.28kB 1.1s done
-#6 DONE 1.1s
+  // 2단계: 스키마를 모델로 컴파일 (이 부분이 누락되었을 수 있음)
+  const YourModelName = mongoose.model('YourModelName', YourSchemaName);
 
-#9 [3/5] COPY package.json package-lock.json ./
-#9 DONE 0.1s
-
-#10 [4/5] RUN npm install
-#10 72.56 
-#10 72.56 added 336 packages, and audited 337 packages in 1m
-#10 72.56
-#10 72.56 49 packages are looking for funding
-#10 72.56   run `npm fund` for details
-#10 72.57 
-#10 72.57 6 vulnerabilities (1 low, 4 high, 1 critical)
-#10 72.57
-#10 72.57 To address issues that do not require attention, run:
-#10 72.57   npm audit fix
-#10 72.57
-#10 72.57 To address all issues (including breaking changes), run:
-#10 72.57   npm audit fix --force
-#10 72.57
-#10 72.57 Run `npm audit` for details.
-#10 72.57 npm notice
-#10 72.57 npm notice New major version of npm available! 10.8.2 -> 11.5.2
-#10 72.57 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.5.2
-#10 72.57 npm notice To update run: npm install -g npm@11.5.2
-#10 72.57 npm notice
-#10 DONE 74.7s
-
-#11 [5/5] COPY . .
-#11 DONE 6.1s
-
-#12 exporting to image
-#12 exporting layers
-#12 exporting layers 45.0s done
-#12 exporting manifest sha256:0939e6e220eba4418a14ff8e1fdba0a7658ba0d6228339bce2a3a61f0016cd4c 0.1s done
-#12 exporting config sha256:b928cb00995b6600dd576d55497dee1b12c0ebdec4eb355c3b064d1bff1e39ca
-#12 exporting config sha256:b928cb00995b6600dd576d55497dee1b12c0ebdec4eb355c3b064d1bff1e39ca 0.1s done
-#12 exporting attestation manifest sha256:385c9f9322e22910128867a622cd2b192f3f3e73f704cd685788f3d071dcc55f
-#12 exporting attestation manifest sha256:385c9f9322e22910128867a622cd2b192f3f3e73f704cd685788f3d071dcc55f 0.2s done
-#12 exporting manifest list sha256:340182901330ccb2c17e6e9df450ad7e127d11f32d452e1dab644832874dcddf
-#12 exporting manifest list sha256:340182901330ccb2c17e6e9df450ad7e127d11f32d452e1dab644832874dcddf 0.1s done
-#12 naming to docker.io/library/seoro-town-backend:latest 0.0s done
-#12 unpacking to docker.io/library/seoro-town-backend:latest
-#12 unpacking to docker.io/library/seoro-town-backend:latest 49.3s done
-#12 DONE 95.0s
-
-#13 resolving provenance for metadata file
-#13 DONE 0.2s
-[+] Building 1/1
- ✔ seoro-town-backend  Built    
+  // 3단계: 생성된 모델을 export
+  export default YourModelName;

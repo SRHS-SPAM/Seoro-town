@@ -1,7 +1,7 @@
 // src/page/MBGuide.js (변경 없음)
 
 import React from 'react';
-import Navbar from './Navbar';
+
 import './Guide.css'; // 공통 CSS 재사용
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
@@ -10,7 +10,7 @@ function MBGuide() {
     const navigate = useNavigate();
     return (
         <div>
-            <Navbar />
+            
             <div className="GuideContainer">
                 <div className="GuideHeader">
                     <h1>본관동 안내</h1>

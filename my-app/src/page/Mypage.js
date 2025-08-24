@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect, useCallback, useRef } from 'rea
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { User, Users, FileText, MessageCircle, Settings, ArrowLeft, UserPlus, UserMinus, Heart, Search, X, Camera } from 'lucide-react';
-import Navbar from './Navbar';
+
 import './Mypage.css';
 
 
@@ -316,7 +316,7 @@ function Mypage() {
 
     return (
         <>
-            <Navbar />
+            
             <div className="MypageContainer">
                 <input type="file" ref={fileInputRef} onChange={handleProfileImageChange}
                     accept="image/*" style={{ display: 'none' }} />

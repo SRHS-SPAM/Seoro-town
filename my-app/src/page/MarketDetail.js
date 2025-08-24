@@ -3,7 +3,7 @@
 import './MarketDetail.css';
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Navbar from './Navbar';
+
 import { AuthContext } from '../context/AuthContext';
 import MarketWriteModal from './MarketWriteModal';
 import { User, ArrowLeft } from 'lucide-react';
@@ -132,7 +132,7 @@ function MarketDetail() {
 
     return (
         <div>
-            <Navbar />
+            
             <div className="DetailNav">
                 <button className="BackButton" onClick={() => navigate('/market')}>
                     <ArrowLeft size={20} />

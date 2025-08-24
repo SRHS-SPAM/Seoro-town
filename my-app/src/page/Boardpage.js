@@ -5,7 +5,7 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PenLine, AlertCircle, X } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
-import Navbar from './Navbar'; // Navbar 임포트 확인
+ // Navbar 임포트 확인
 
 // 게시글 작성 팝업 컴포넌트
 const WritePopup = ({ isOpen, onClose, onSubmit }) => {
@@ -143,7 +143,7 @@ function Boardpage() {
                 alert(data.message || '게시글 작성에 실패했습니다.');
             }
         } catch (error) {
-            alert('서버 오류가 발생했습니다. 다시 시도해주세요.');
+            alert('게시글 작성 중 서버와 연결할 수 없습니다. 네트워크 상태를 확인해주세요.');
             throw error; // 에러를 다시 던져서 WritePopup의 finally가 실행되도록 함
         }
     };
@@ -218,7 +218,7 @@ function Boardpage() {
     
     return (
         <div>
-            <Navbar />
+            
             <div className="Title">
                 <img src="/pngwing.com.png" alt="어서오고" className="ping" />
                 서로타운에 오신 여러분들 환영합니다!

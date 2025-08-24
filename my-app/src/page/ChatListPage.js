@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import Navbar from './Navbar';
+
 import './ChatListPage.css';
 import { MessageSquare, User } from 'lucide-react';
 
@@ -57,7 +57,6 @@ function ChatListPage() {
         // 로그인이 안된 상태의 UI
         return (
             <div>
-                <Navbar />
                 <div className="ChatListContainer">
                     <h1>로그인 필요</h1>
                     <p>채팅 목록을 보려면 로그인을 해주세요.</p>
@@ -68,12 +67,12 @@ function ChatListPage() {
     }
     
     if (loading) {
-        return <div><Navbar /><p>채팅 목록을 불러오는 중...</p></div>;
+        return <div><p>채팅 목록을 불러오는 중...</p></div>;
     }
 
     return (
         <div>
-            <Navbar />
+            
             <div className="ChatListContainer">
                 <div className="ChatListHeader">
                     <h1><MessageSquare size={32} /> 내 채팅 목록</h1>
@@ -83,7 +82,7 @@ function ChatListPage() {
                         const opponent = room.participants.find(p => p.id !== currentUser.id);
                         
                         return (
-                            <div key={room.roomId} className="ChatRoomItem" onClick={() => navigate(`/chat/${room.roomId}`)}>
+                            <div key={room.id} className="ChatRoomItem" onClick={() => navigate(`/chat/${room.id}`)}>
                                 <div className="OpponentAvatar">
                                     {opponent?.profileImage ? (
                                         <img src={`http://localhost:3001${opponent.profileImage}`} alt={opponent.username} />

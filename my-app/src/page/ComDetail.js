@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Navbar from './Navbar';
+
 import './ComDetail.css'; // 상세 페이지용 CSS (아래 제공)
 import { Settings, AlertCircle, ArrowLeft, Paperclip } from 'lucide-react';
 
@@ -44,7 +44,7 @@ function ComDetail() {
 
     return (
         <div>
-            <Navbar />
+            
             <div className="ComDetailContainer">
                 <div className="DetailHeaderNav">
                     <button className="BackButton" onClick={() => navigate(-1)}>

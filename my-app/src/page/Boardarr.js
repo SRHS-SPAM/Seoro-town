@@ -3,7 +3,7 @@
 import './Boardarr.css';
 import { useState, useContext, useEffect } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import Navbar from './Navbar.js';
+
 import { Search, PenLine, AlertCircle, ArrowLeft } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
 
@@ -148,7 +148,7 @@ function Boardarr() {
     
     return (
         <div>
-            <Navbar />
+            
             <div className="BoardArrHeader">
                 <button className="BackButton" onClick={handleBackClick}>
                     <ArrowLeft size={24} />

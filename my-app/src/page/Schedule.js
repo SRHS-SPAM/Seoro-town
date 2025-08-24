@@ -1,9 +1,8 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import Navbar from './Navbar';
 import './Schedule.css'; 
-import { Save, AlertCircle, Settings } from 'lucide-react';
+import { Save, AlertCircle, Settings, User } from 'lucide-react';
 
 const defaultSchedule = [
     ["", "월", "화", "수", "목", "금"], // 요일 (토요일 제거)
@@ -101,10 +100,10 @@ function Schedule() {
     if (!isLoggedIn) {
         return (
             <div>
-                <Navbar />
+                
                 <div className="ScheduleContainer">
                     <div className="LoginRequired">
-                        <user size={64} />
+                        <User size={64} />
                         <h2>로그인이 필요합니다</h2>
                         <p>나만의 시간표를 만들고 관리하려면 로그인해주세요.</p>
                         <button onClick={() => navigate('/login')}>로그인 페이지로</button>
@@ -118,7 +117,7 @@ function Schedule() {
     if (loading) {
         return (
             <div>
-                <Navbar />
+                
                 <div className="ScheduleContainer">
                     <div className="LoadingContainer">
                         <Settings size={48} className="LoadingSpinner" /><span>시간표를 불러오는 중...</span>
@@ -131,7 +130,7 @@ function Schedule() {
     // --- 메인 렌더링 ---
     return (
         <div>
-            <Navbar />
+            
             <div className="ScheduleContainer">
                 <div className="ScheduleHeader">
                     <h1>나만의 학교 시간표</h1>
@@ -166,7 +165,7 @@ function Schedule() {
                                         />
                                     )}
                                 </div>
-                            ))}
+                            )))}
                         </React.Fragment>
                     ))}
                 </div>

@@ -4,7 +4,7 @@ import './Market.css';
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import Navbar from './Navbar.js';
+
 import MarketWriteModal from './MarketWriteModal';
 import { Search } from 'lucide-react';
 
@@ -83,7 +83,7 @@ function Market() {
 
     return (
         <div>
-            <Navbar />
+            
             <div className="MarketContainer">
                 <div className="HeaderActions">
                     <div className="SearchBox">
