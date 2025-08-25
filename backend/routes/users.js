@@ -61,4 +61,18 @@ router.get('/me', authenticateToken, async (req, res) => {
 
 // ... (이하 다른 users.js 라우터들은 수동 id를 기준으로 작성되어 있음) ...
 
+// 시간표 정보 가져오기
+router.get('/me/schedule', authenticateToken, async (req, res) => {
+    try {
+        const user = await User.findOne({ id: req.user.id });
+        if (!user) {
+            return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
+        }
+        res.json({ success: true, schedule: user.schedule });
+    } catch (error) {
+        console.error('GET /api/users/me/schedule 오류:', error);
+        res.status(500).json({ success: false, message: '시간표를 불러오는데 실패했습니다.' });
+    }
+});
+
 export default router;

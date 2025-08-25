@@ -1,21 +1,61 @@
-# backend/Dockerfile
+# Base image
 FROM node:20-slim
 
-# Install Chromium and its dependencies
-RUN apt-get update && apt-get install -y     chromium     fontconfig     fonts-ipafont-gothic     fonts-wqy-zenhei     fonts-thai-tlwg     fonts-kacst     --no-install-recommends &&     rm -rf /var/lib/apt/lists/*
-# Node.js 20 슬림 버전을 기반 이미지로 사용
+# Install dependencies for Puppeteer and Chromium
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    fonts-liberation \
+    libasound2 \
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libc6 \
+    libcairo2 \
+    libcups2 \
+    libdbus-1-3 \
+    libexpat1 \
+    libfontconfig1 \
+    libgbm1 \
+    libgcc1 \
+    libgdk-pixbuf2.0-0 \
+    libglib2.0-0 \
+    libgtk-3-0 \
+    libnspr4 \
+    libnss3 \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    libstdc++6 \
+    libx11-6 \
+    libx11-xcb1 \
+    libxcb1 \
+    libxcomposite1 \
+    libxcursor1 \
+    libxdamage1 \
+    libxext6 \
+    libxfixes3 \
+    libxi6 \
+    libxrandr2 \
+    libxrender1 \
+    libxss1 \
+    libxtst6 \
+    lsb-release \
+    wget \
+    xdg-utils \
+    chromium \
+    --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/*
 
+# Set working directory
 WORKDIR /app
 
-# Node.js 종속성 설치 (효율적인 캐싱을 위함)
-COPY package.json package-lock.json ./
+# Copy package files and install dependencies
+COPY package.json package-lock.json ./ 
 RUN npm install
 
-# 애플리케이션 소스 코드 복사
+# Copy application source
 COPY . .
 
-# 포트 노출 (Express 서버가 사용하는 포트)
+# Expose port
 EXPOSE 3001
 
-# 애플리케이션 실행 명령어
+# Start the application
 CMD ["npm", "start"]

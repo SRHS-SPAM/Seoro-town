@@ -165,7 +165,7 @@ function Schedule() {
                                         />
                                     )}
                                 </div>
-                            )))}
+                            ))}
                         </React.Fragment>
                     ))}
                 </div>

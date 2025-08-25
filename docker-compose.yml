@@ -23,8 +23,10 @@ services:
       - DB_USER=rootuser
       - DB_PASS=rootpass
       - DB_NAME=seorotown
+    # 💥💥💥 수정된 부분 1 💥💥💥
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy # 'mongo' 서비스가 'healthy' 상태가 될 때까지 기다립니다.
 
   # MongoDB Database
   mongo:
@@ -37,3 +39,9 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=rootuser
       - MONGO_INITDB_ROOT_PASSWORD=rootpass
+    # 💥💥💥 수정된 부분 2 💥💥💥
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"] # 이 명령어로 DB 상태를 체크합니다.
+      interval: 10s   # 10초마다 체크
+      timeout: 10s    # 10초 안에 응답이 없으면 실패
+      retries: 5      # 5번까지 재시도

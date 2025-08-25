@@ -14,7 +14,11 @@ router.get('/', async (req, res) => {
     let browser = null;
     try {
         const pageNum = req.query.page || 1;
-        browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+        browser = await puppeteer.launch({
+            headless: true,
+            executablePath: '/usr/bin/chromium-browser',
+            args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+        });
         const page = await browser.newPage();
         await page.goto(COM_PAGE_URL, { waitUntil: 'networkidle2' });
 
@@ -63,7 +67,11 @@ router.get('/detail/:nttId', async (req, res) => {
             return res.status(400).json({ success: false, message: '유효하지 않은 게시글 ID입니다.' });
         }
 
-        browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+        browser = await puppeteer.launch({
+            headless: true,
+            executablePath: '/usr/bin/chromium-browser',
+            args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+        });
         const page = await browser.newPage();
         await page.goto(COM_PAGE_URL, { waitUntil: 'networkidle0' });
 
