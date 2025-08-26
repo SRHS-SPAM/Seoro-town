@@ -1,4 +1,4 @@
-// src/page/ChatRoomPage.js (최종 전체 코드)
+// src/page/ChatRoomPage.js (Timestamp formatting updated)
 
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -19,6 +19,33 @@ function ChatRoomPage() {
     const [productStatus, setProductStatus] = useState('selling');
     const socketRef = useRef(null);
     const messageBoxRef = useRef(null);
+
+    // --- Helper function for timestamp formatting ---
+    const formatTimestamp = (timestamp) => {
+        if (!timestamp) return '';
+        const date = new Date(timestamp);
+        const today = new Date();
+
+        const isToday = date.getDate() === today.getDate() &&
+                      date.getMonth() === today.getMonth() &&
+                      date.getFullYear() === today.getFullYear();
+
+        if (isToday) {
+            return date.toLocaleTimeString('ko-KR', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+        } else {
+            return date.toLocaleString('ko-KR', {
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+        }
+    };
 
     useEffect(() => {
         const fetchMessages = async () => {
@@ -72,8 +99,7 @@ function ChatRoomPage() {
             roomId: roomId,
             message: newMessage.trim(),
             senderId: currentUser.id,
-            senderName: currentUser.username,
-            timestamp: new Date().toISOString()
+            senderName: currentUser.username
         };
         
         socketRef.current.emit('sendMessage', messageData);
@@ -87,7 +113,7 @@ function ChatRoomPage() {
         }
     };
 
-    const opponent = roomInfo?.participants.find(p => p.id !== currentUser?.id);
+    const opponent = roomInfo?.participants.find(p => p._id !== currentUser?._id);
 
     return (
         <div>
@@ -97,7 +123,7 @@ function ChatRoomPage() {
                     <button onClick={() => navigate('/chats')} className="BackButton"><ArrowLeft /></button>
                     <div className="HeaderInfo">
                         <h3>{opponent?.username || '상대방'}</h3>
-                        <p>{roomInfo?.productTitle}</p>
+                        <p>{roomInfo?.productId?.title}</p>
                     </div>
                 </div>
                 <div className="MessageBox" ref={messageBoxRef}>
@@ -105,7 +131,7 @@ function ChatRoomPage() {
                         <div key={index} className={`Message ${msg.senderId == currentUser.id ? 'sent' : 'received'}`}>
                             {msg.senderId != currentUser.id && <span className="SenderName">{msg.senderName}</span>}
                             <p>{msg.message}</p>
-                            <span className="Timestamp">{new Date(msg.timestamp).toLocaleString('ko-KR')}</span>
+                            <span className="Timestamp">{formatTimestamp(msg.createdAt)}</span>
                         </div>
                     ))}
                 </div>

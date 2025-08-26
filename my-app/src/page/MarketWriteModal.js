@@ -1,8 +1,9 @@
-// src/page/MarketWriteModal.js (전체 코드 - 카테고리 이미지 포함)
+// src/page/MarketWriteModal.js (Toasts implemented)
 
 import './MarketWriteModal.css';
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 import { X } from 'lucide-react';
 
 function MarketWriteModal({ isOpen, onClose, onSuccess, productToEdit }) {
@@ -28,14 +29,16 @@ function MarketWriteModal({ isOpen, onClose, onSuccess, productToEdit }) {
     ];
 
     useEffect(() => {
-        if (isEditMode) {
-            setStep(2);
-            setTitle(productToEdit.title);
-            setPrice(productToEdit.price);
-            setContent(productToEdit.content);
-            setCategory(productToEdit.category);
-        } else {
-            resetState();
+        if (isOpen) {
+            if (isEditMode) {
+                setStep(2);
+                setTitle(productToEdit.title);
+                setPrice(productToEdit.price);
+                setContent(productToEdit.content);
+                setCategory(productToEdit.category);
+            } else {
+                resetState();
+            }
         }
     }, [isOpen, productToEdit, isEditMode]);
 
@@ -57,6 +60,7 @@ function MarketWriteModal({ isOpen, onClose, onSuccess, productToEdit }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
+        const toastId = toast.loading(isEditMode ? '수정 중...' : '등록 중...');
 
         const formData = new FormData();
         formData.append('category', category);
@@ -68,7 +72,7 @@ function MarketWriteModal({ isOpen, onClose, onSuccess, productToEdit }) {
         }
 
         const url = isEditMode 
-            ? `/api/market/${productToEdit.id}` 
+            ? `/api/market/${productToEdit._id}` // Use _id for API calls
             : '/api/market';
         const method = isEditMode ? 'PUT' : 'POST';
 
@@ -79,15 +83,15 @@ function MarketWriteModal({ isOpen, onClose, onSuccess, productToEdit }) {
                 body: formData,
             });
             const data = await response.json();
-            if (data.success) {
-                alert(isEditMode ? '게시글이 수정되었습니다.' : '게시글이 등록되었습니다.');
+            if (response.ok && data.success) {
+                toast.success(isEditMode ? '게시글이 수정되었습니다.' : '게시글이 등록되었습니다.', { id: toastId });
                 resetState();
                 onSuccess();
             } else {
-                throw new Error(data.message);
+                throw new Error(data.message || '알 수 없는 오류가 발생했습니다.');
             }
         } catch (error) {
-            alert(`오류: ${error.message}`);
+            toast.error(`오류: ${error.message}`, { id: toastId });
         } finally {
             setIsSubmitting(false);
         }
@@ -99,13 +103,13 @@ function MarketWriteModal({ isOpen, onClose, onSuccess, productToEdit }) {
         <div className="PopupOverlay">
             <div className="WritePopup">
                 <div className="PopupHeader">
-                    <h2>{isEditMode ? '게시글 수정' : ' '}</h2>
+                    <h2>{isEditMode ? '게시글 수정' : '판매 상품 등록'}</h2>
                     <button className="CloseButton" onClick={handleClose}><X size={24} /></button>
                 </div>
 
                 {step === 1 && !isEditMode ? (
                     <div className="PopupContent">
-                        <p>어떠한 글의 내용을 작성하실건가요?</p>
+                        <p>어떤 종류의 상품을 판매하시나요?</p>
                         <div className="CategoryGrid">
                             {categories.map(cat => (
                                 <div 
@@ -124,8 +128,8 @@ function MarketWriteModal({ isOpen, onClose, onSuccess, productToEdit }) {
                     <div className="PopupContent">
                         <form onSubmit={handleSubmit} className="WriteForm">
                             <input type="text" placeholder="제목" className="FormInput" value={title} onChange={(e) => setTitle(e.target.value)} required />
-                             <input type="number" placeholder="가격 (숫자만 입력)" className="FormInput" value={price} onChange={(e) => setPrice(e.target.value)} required />
-                            <textarea placeholder="글쓰기" className="FormTextarea" value={content} onChange={(e) => setContent(e.target.value)} required />
+                            <input type="number" placeholder="가격 (숫자만 입력)" className="FormInput" value={price} onChange={(e) => setPrice(e.target.value)} required />
+                            <textarea placeholder="상품에 대한 설명을 자세히 적어주세요." className="FormTextarea" value={content} onChange={(e) => setContent(e.target.value)} required />
                             <div>
                                 <label>{isEditMode ? "새 이미지로 변경 (선택): " : "이미지 첨부: "}</label>
                                 <input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files[0])} />

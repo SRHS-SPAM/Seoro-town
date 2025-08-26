@@ -2,6 +2,8 @@ import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider, AuthContext } from './context/AuthContext';
+import { Toaster } from 'react-hot-toast'; // 1. react-hot-toast 임포트
+
 import Navbar from './page/Navbar';
 import Boardpage from './page/Boardpage';
 import Schedule from './page/Schedule';
@@ -33,6 +35,17 @@ function AppContent() {
 
   return (
     <Router>
+      {/* 2. Toaster 컴포넌트 추가 */}
+      <Toaster 
+        position="top-right"
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: '#333',
+            color: '#fff',
+          },
+        }}
+      />
       <Navbar />
       <main className="main-content">
         <Routes>

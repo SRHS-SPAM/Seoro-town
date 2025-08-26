@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 import { User, Users, FileText, MessageCircle, Settings, ArrowLeft, UserPlus, UserMinus, Heart, Search, X, Camera } from 'lucide-react';
 
 import './Mypage.css';
@@ -197,7 +198,7 @@ function Mypage() {
     }, [fetchAPI, navigate, isMyProfile]);
     
     useEffect(() => {
-        const targetUserId = isMyProfile ? currentUser?.id : profileUserId;
+        const targetUserId = isMyProfile ? currentUser?._id : profileUserId; // Use _id
         if (targetUserId) {
             loadProfile(targetUserId);
         } else if (!isLoggedIn) {
@@ -237,13 +238,16 @@ function Mypage() {
                 body: formData,
             });
             const data = await response.json();
-            if (!data.success) throw new Error(data.message);
-            const newImageUrl = data.profileImage;
-            setProfileData(prev => ({ ...prev, user: { ...prev.user, profileImage: newImageUrl } }));
-            updateUserProfileImage(newImageUrl);
-            alert('프로필 이미지가 변경되었습니다.');
+            if (response.ok && data.success) {
+                const newImageUrl = data.profileImage;
+                setProfileData(prev => ({ ...prev, user: { ...prev.user, profileImage: newImageUrl } }));
+                updateUserProfileImage(newImageUrl);
+                toast.success('프로필 이미지가 변경되었습니다.');
+            } else {
+                throw new Error(data.message || '프로필 이미지 변경에 실패했습니다.');
+            }
         } catch (error) {
-            alert(`업로드 실패: ${error.message}`);
+            toast.error(`업로드 실패: ${error.message}`);
         }
     };
 
@@ -253,26 +257,33 @@ function Mypage() {
         if (isMyProfile) return;
         const endpoint = profileData.isFollowing ? 'unfollow' : 'follow';
         try {
-            await fetch(`/api/users/${profileUserId}/${endpoint}`, {
+            const response = await fetch(`/api/users/${profileUserId}/${endpoint}`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
-            setProfileData(prev => ({
-                ...prev,
-                isFollowing: !prev.isFollowing,
-                followers: prev.isFollowing 
-                    ? prev.followers.filter(f => f.id !== currentUser.id)
-                    : [...prev.followers, { ...currentUser }]
-            }));
+            const data = await response.json();
+            if (response.ok && data.success) {
+                setProfileData(prev => ({
+                    ...prev,
+                    isFollowing: !prev.isFollowing,
+                    followers: prev.isFollowing 
+                        ? prev.followers.filter(f => f._id !== currentUser._id) // Use _id
+                        : [...prev.followers, { ...currentUser, _id: currentUser._id }]
+                }));
+                toast.success(profileData.isFollowing ? '언팔로우 되었습니다.' : '팔로우 되었습니다.');
+            } else {
+                throw new Error(data.message || '팔로우/언팔로우 처리 실패');
+            }
         } catch (error) {
             console.error("팔로우/언팔로우 처리 오류:", error);
+            toast.error(`팔로우/언팔로우 실패: ${error.message}`);
         }
     };
 
     const goToUserProfile = (userId) => {
         setSearchQuery('');
         setSearchResults([]);
-        if (userId === currentUser?.id) {
+        if (userId === currentUser?._id) { // Use _id
             navigate('/Mypage', { replace: true });
         } else {
             navigate('/Mypage', { state: { userId }, replace: true });

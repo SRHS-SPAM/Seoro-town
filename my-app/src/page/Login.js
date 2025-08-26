@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 import './Login.css';
 
 function Login() {
@@ -14,7 +15,7 @@ function Login() {
         e.preventDefault();
 
         if (!identifier || !password) {
-            alert('이메일 또는 사용자이름과 비밀번호를 입력해주세요.');
+            toast.error('이메일 또는 사용자이름과 비밀번호를 입력해주세요.');
             return;
         }
 
@@ -31,16 +32,16 @@ function Login() {
 
             const data = await response.json();
 
-            if (data.success) {
+            if (response.ok && data.success) {
+                toast.success('로그인 성공!');
                 login(data.user, data.token);
-                alert('로그인 성공!');
                 navigate('/');
             } else {
-                alert(data.message || '로그인에 실패했습니다.');
+                throw new Error(data.message || '로그인에 실패했습니다.');
             }
         } catch (error) {
             console.error('로그인 오류:', error);
-            alert('서버 오류가 발생했습니다. 다시 시도해주세요.');
+            toast.error(`로그인 실패: ${error.message}`);
         } finally {
             setIsLoading(false);
         }

@@ -1,11 +1,11 @@
-// src/page/Boardpage.js (최종 전체 코드)
+// src/page/Boardpage.js (Toasts implemented)
 
 import './Boardpage.css';
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PenLine, AlertCircle, X } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
- // Navbar 임포트 확인
+import toast from 'react-hot-toast';
 
 // 게시글 작성 팝업 컴포넌트
 const WritePopup = ({ isOpen, onClose, onSubmit }) => {
@@ -17,7 +17,7 @@ const WritePopup = ({ isOpen, onClose, onSubmit }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!title.trim() || !content.trim()) {
-            alert('제목과 내용을 모두 입력해주세요.');
+            toast.error('제목과 내용을 모두 입력해주세요.');
             return;
         }
         if (isSubmitting) return;
@@ -28,17 +28,16 @@ const WritePopup = ({ isOpen, onClose, onSubmit }) => {
             setTitle('');
             setContent('');
             setCategory('재학생');
-            onClose(); // 팝업 닫기
+            onClose();
         } catch (error) {
-            console.error('게시글 작성 중 오류:', error);
-            // 오류 발생 시 alert은 onSubmit에서 처리
+            // Error toast is handled in the onSubmit function (handleAddPost)
         } finally {
             setIsSubmitting(false);
         }
     };
 
     const handleClose = () => {
-        if (isSubmitting) return; // 제출 중일 때는 닫기 방지
+        if (isSubmitting) return;
         setTitle('');
         setContent('');
         setCategory('재학생');
@@ -89,7 +88,6 @@ function Boardpage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // 텍스트 길이 제한 헬퍼 함수
     const truncateText = (text, maxLength) => {
         if (!text) return '';
         if (text.length > maxLength) {
@@ -98,7 +96,6 @@ function Boardpage() {
         return text;
     };
 
-    // 게시글 목록 불러오기
     useEffect(() => {
         fetchPosts();
     }, []);
@@ -124,10 +121,11 @@ function Boardpage() {
 
     const handleAddPost = async (postData) => {
         if (!isLoggedIn || !token) {
-            alert('로그인이 필요합니다. 다시 로그인해주세요.');
+            toast.error('로그인이 필요합니다. 다시 로그인해주세요.');
             logout();
             return;
         }
+        const toastId = toast.loading('게시글을 등록하는 중...');
         try {
             const response = await fetch('/api/posts', {
                 method: 'POST',
@@ -135,22 +133,22 @@ function Boardpage() {
                 body: JSON.stringify(postData)
             });
             const data = await response.json();
-            if (data.success) {
-                alert('게시글이 성공적으로 작성되었습니다!');
-                setIsWritePopupOpen(false); // 팝업 닫기
-                await fetchPosts(); // 목록 새로고침
+            if (response.ok && data.success) {
+                toast.success('게시글이 성공적으로 작성되었습니다!', { id: toastId });
+                setIsWritePopupOpen(false);
+                await fetchPosts();
             } else {
-                alert(data.message || '게시글 작성에 실패했습니다.');
+                throw new Error(data.message || '게시글 작성에 실패했습니다.');
             }
         } catch (error) {
-            alert('게시글 작성 중 서버와 연결할 수 없습니다. 네트워크 상태를 확인해주세요.');
-            throw error; // 에러를 다시 던져서 WritePopup의 finally가 실행되도록 함
+            toast.error(`작성 실패: ${error.message}`, { id: toastId });
+            throw error;
         }
     };
 
     const handleWriteButtonClick = () => {
         if (!isLoggedIn) {
-            alert('로그인 후 이용해주세요!');
+            toast.error('로그인 후 이용해주세요!');
             return;
         }
         setIsWritePopupOpen(true);
@@ -169,7 +167,7 @@ function Boardpage() {
             const now = new Date();
             const postDate = new Date(createdAt);
             const diffMinutes = (now.getTime() - postDate.getTime()) / (1000 * 60);
-            return diffMinutes < 5; // 5분
+            return diffMinutes < 5;
         };
 
         if (loading) {
@@ -185,7 +183,7 @@ function Boardpage() {
         }
         
         const categoryPosts = posts.filter(post => (post.category || '재학생') === category);
-        const recentPosts = categoryPosts.slice(0, 3); // 최신 3개만 가져옴
+        const recentPosts = categoryPosts.slice(0, 3);
         
         if (recentPosts.length === 0) {
             return (
@@ -199,7 +197,6 @@ function Boardpage() {
             <div className="PostList">
                 {recentPosts.map(post => (
                     <div key={post.id} className="PostItem" onClick={() => handlePostClick(post)}>
-                        {/* New 배지 위치 조정을 위한 PostItem 내 구조 변경 */}
                         <div className="PostContentWrapper">
                             <div className="PostTitle">
                                 <span>{truncateText(post.title, 25)}</span> 
@@ -218,7 +215,6 @@ function Boardpage() {
     
     return (
         <div>
-            
             <div className="Title">
                 <img src="/pngwing.com.png" alt="어서오고" className="ping" />
                 서로타운에 오신 여러분들 환영합니다!

@@ -8,10 +8,10 @@ function Navbar() {
 
     return (
         <div className="NavBar">
-            <div className="NavLeft">
+            <NavLink to="/" className={() => "NavLeft"} style={{ textDecoration: 'none', color: 'black' }}>
                 <img src="/RobotLogo.png" alt="로고" className="RobotLogo" />
-                <span className="BrandName">ROBOTOWN</span>
-            </div>
+                <span className="BrandName">SEOROTOWN</span>
+            </NavLink>
             <div className="NavCenter">
                 <NavLink to="/" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>게시판</NavLink>
                 <NavLink to="/Schedule" className={({isActive}) => isActive ? "NavItem active" : "NavItem"}>시간표</NavLink>

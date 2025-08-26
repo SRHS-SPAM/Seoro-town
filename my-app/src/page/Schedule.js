@@ -1,18 +1,19 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import toast from 'react-hot-toast'; // 1. toast 임포트
 import './Schedule.css'; 
 import { Save, AlertCircle, Settings, User } from 'lucide-react';
 
 const defaultSchedule = [
-    ["", "월", "화", "수", "목", "금"], // 요일 (토요일 제거)
-    ["1", "", "", "", "", ""], // 1교시
+    ["", "월", "화", "수", "목", "금"],
+    ["1", "", "", "", "", ""],
     ["2", "", "", "", "", ""],
     ["3", "", "", "", "", ""],
     ["4", "", "", "", "", ""],
     ["5", "", "", "", "", ""],
     ["6", "", "", "", "", ""],
-    ["7", "", "", "", "", ""]  // 7교시 (토요일 컬럼 제거)
+    ["7", "", "", "", "", ""]
 ];
 
 function Schedule() {
@@ -37,7 +38,7 @@ function Schedule() {
             });
             if (!response.ok) throw new Error(`시간표 불러오기 실패: ${response.status}`);
             const data = await response.json();
-            if (data.success && Array.isArray(data.schedule)) {
+            if (data.success && Array.isArray(data.schedule) && data.schedule.length > 0) {
                 setSchedule(data.schedule);
             } else {
                 setSchedule(defaultSchedule);
@@ -45,7 +46,7 @@ function Schedule() {
         } catch (err) {
             console.error("시간표 불러오기 오류:", err);
             setError("시간표를 불러오는 데 실패했습니다.");
-            setSchedule(defaultSchedule); // 오류 시에도 기본값으로 설정
+            setSchedule(defaultSchedule);
         } finally {
             setLoading(false);
         }
@@ -55,23 +56,23 @@ function Schedule() {
         fetchSchedule();
     }, [fetchSchedule]);
 
-    // --- 시간표 내용 변경 핸들러 ---
     const handleCellChange = (rowIndex, colIndex, value) => {
         setSchedule(prevSchedule => {
-            const newSchedule = prevSchedule.map(row => [...row]); // 깊은 복사
+            const newSchedule = prevSchedule.map(row => [...row]);
             newSchedule[rowIndex][colIndex] = value;
             return newSchedule;
         });
     };
 
-    // --- 시간표 저장 ---
     const handleSaveSchedule = async () => {
         if (!isLoggedIn || !token) {
-            alert('로그인 후 시간표를 저장할 수 있습니다.');
+            toast.error('로그인 후 시간표를 저장할 수 있습니다.');
             return;
         }
         setIsSaving(true);
         setError(null);
+        const toastId = toast.loading('저장 중...'); // 로딩 토스트
+
         try {
             const response = await fetch('/api/users/me/schedule', {
                 method: 'POST',
@@ -81,26 +82,23 @@ function Schedule() {
                 },
                 body: JSON.stringify({ schedule })
             });
-            if (!response.ok) throw new Error(`시간표 저장 실패: ${response.status}`);
             const data = await response.json();
-            if (data.success) {
-                alert('시간표가 성공적으로 저장되었습니다!');
+            if (response.ok && data.success) {
+                toast.success('시간표가 성공적으로 저장되었습니다!', { id: toastId });
             } else {
-                alert(data.message || '시간표 저장에 실패했습니다.');
+                throw new Error(data.message || '시간표 저장에 실패했습니다.');
             }
         } catch (err) {
             console.error("시간표 저장 오류:", err);
-            alert('시간표 저장 중 오류가 발생했습니다.');
+            toast.error(`저장 실패: ${err.message}`, { id: toastId });
         } finally {
             setIsSaving(false);
         }
     };
 
-    // --- 로그인 필요 UI ---
     if (!isLoggedIn) {
         return (
             <div>
-                
                 <div className="ScheduleContainer">
                     <div className="LoginRequired">
                         <User size={64} />
@@ -113,11 +111,9 @@ function Schedule() {
         );
     }
 
-    // --- 로딩 UI ---
     if (loading) {
         return (
             <div>
-                
                 <div className="ScheduleContainer">
                     <div className="LoadingContainer">
                         <Settings size={48} className="LoadingSpinner" /><span>시간표를 불러오는 중...</span>
@@ -127,10 +123,8 @@ function Schedule() {
         );
     }
 
-    // --- 메인 렌더링 ---
     return (
         <div>
-            
             <div className="ScheduleContainer">
                 <div className="ScheduleHeader">
                     <h1>나만의 학교 시간표</h1>
@@ -153,7 +147,6 @@ function Schedule() {
                                         ${rowIndex === 0 && colIndex === 0 ? 'corner-cell' : ''}
                                     `}
                                 >
-                                    {/* 첫 번째 행, 첫 번째 열은 편집 불가능한 헤더 */}
                                     {rowIndex === 0 || colIndex === 0 ? (
                                         cellData
                                     ) : (
@@ -161,7 +154,7 @@ function Schedule() {
                                             value={cellData}
                                             onChange={(e) => handleCellChange(rowIndex, colIndex, e.target.value)}
                                             placeholder="과목/계획"
-                                            rows="1" // 내용에 따라 자동 높이 조절되도록 CSS에서 설정
+                                            rows="1"
                                         />
                                     )}
                                 </div>
