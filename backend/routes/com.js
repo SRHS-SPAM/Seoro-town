@@ -1,5 +1,3 @@
-
-
 import express from 'express';
 import puppeteer from 'puppeteer';
 import * as cheerio from 'cheerio';
@@ -10,16 +8,61 @@ const COM_PAGE_URL = 'https://srobot.sen.hs.kr/67182/subMenu.do';
 const LIST_API_URL = 'https://srobot.sen.hs.kr/dggb/module/board/selectBoardListAjax.do';
 const DETAIL_API_URL = 'https://srobot.sen.hs.kr/dggb/module/board/selectBoardDetailAjax.do';
 
-router.get('/', async (req, res) => {
-    let browser = null;
-    try {
-        const pageNum = req.query.page || 1;
-        browser = await puppeteer.launch({
+// --- 캐싱 및 브라우저 최적화 ---
+
+const CACHE_DURATION = 10 * 60 * 1000; // 10분
+let listCache = new Map(); // 페이지 번호별 목록 캐시
+let detailCache = new Map(); // 게시글 ID별 상세 내용 캐시
+
+let browserInstance = null;
+
+// 서버 시작 시 한번만 브라우저 실행
+async function initializeBrowser() {
+    if (!browserInstance) {
+        console.log('[Puppeteer] Initializing new browser instance...');
+        browserInstance = await puppeteer.launch({
             headless: true,
-            executablePath: '/usr/bin/chromium-browser',
             args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
         });
-        const page = await browser.newPage();
+        browserInstance.on('disconnected', () => {
+            console.log('[Puppeteer] Browser instance disconnected.');
+            browserInstance = null; // 연결이 끊기면 인스턴스 초기화
+        });
+    }
+    return browserInstance;
+}
+
+// 앱 종료 시 브라우저 종료
+process.on('exit', async () => {
+    if (browserInstance) {
+        console.log('[Puppeteer] Closing browser instance on app exit.');
+        await browserInstance.close();
+    }
+});
+
+initializeBrowser(); // 서버 시작과 함께 브라우저 초기화
+
+// --- 라우터 ---
+
+router.get('/', async (req, res) => {
+    const pageNum = req.query.page || 1;
+    const now = Date.now();
+
+    // 1. 캐시 확인
+    if (listCache.has(pageNum)) {
+        const cached = listCache.get(pageNum);
+        if (now - cached.timestamp < CACHE_DURATION) {
+            console.log(`[Cache] HIT: Serving list for page ${pageNum} from cache.`);
+            return res.json({ success: true, list: cached.data });
+        }
+    }
+
+    // 2. 캐시 없으면 크롤링
+    console.log(`[Cache] MISS: Crawling list for page ${pageNum}.`);
+    let page = null;
+    try {
+        const browser = await initializeBrowser();
+        page = await browser.newPage();
         await page.goto(COM_PAGE_URL, { waitUntil: 'networkidle2' });
 
         const listResponsePromise = page.waitForResponse(response => response.url().startsWith(LIST_API_URL));
@@ -50,29 +93,41 @@ router.get('/', async (req, res) => {
                 });
             }
         });
+
+        // 3. 크롤링 성공 시 캐시 저장
+        listCache.set(pageNum, { data: comList, timestamp: Date.now() });
         res.json({ success: true, list: comList });
+
     } catch (error) {
         console.error('[Puppeteer] 목록 크롤링 오류:', error.message);
         res.status(500).json({ success: false, message: '가정통신문 목록을 가져오는 데 실패했습니다.' });
     } finally {
-        if (browser) await browser.close();
+        if (page) await page.close(); // 브라우저는 닫지 않고 페이지만 닫음
     }
 });
 
 router.get('/detail/:nttId', async (req, res) => {
-    let browser = null;
-    try {
-        const { nttId } = req.params;
-        if (!nttId || !/^\d+$/.test(nttId)) {
-            return res.status(400).json({ success: false, message: '유효하지 않은 게시글 ID입니다.' });
-        }
+    const { nttId } = req.params;
+    const now = Date.now();
 
-        browser = await puppeteer.launch({
-            headless: true,
-            executablePath: '/usr/bin/chromium-browser',
-            args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
-        });
-        const page = await browser.newPage();
+    if (!nttId || !/^\d+$/.test(nttId)) {
+        return res.status(400).json({ success: false, message: '유효하지 않은 게시글 ID입니다.' });
+    }
+
+    // 1. 캐시 확인
+    if (detailCache.has(nttId)) {
+        const cached = detailCache.get(nttId);
+        if (now - cached.timestamp < CACHE_DURATION) {
+            console.log(`[Cache] HIT: Serving detail for nttId ${nttId} from cache.`);
+            return res.json({ success: true, detail: cached.data });
+        }
+    }
+    
+    console.log(`[Cache] MISS: Crawling detail for nttId ${nttId}.`);
+    let page = null;
+    try {
+        const browser = await initializeBrowser();
+        page = await browser.newPage();
         await page.goto(COM_PAGE_URL, { waitUntil: 'networkidle0' });
 
         const detailResponsePromise = page.waitForResponse(
@@ -96,13 +151,10 @@ router.get('/detail/:nttId', async (req, res) => {
             files: []
         };
         
-        // 자바스크립트 코드에서 파일 정보 추출
         const scripts = $('script');
-        
         scripts.each((i, script) => {
             const scriptContent = $(script).html();
             if (scriptContent && scriptContent.includes('serverFileObjArray')) {
-                // 정규식을 사용해 파일 정보를 담고 있는 객체 문자열을 추출
                 const fileObjectsRegex = /serverFileObj\["(.*?)"\]\s*=\s*"(.*?)";/g;
                 let match;
                 let currentFile = {};
@@ -114,30 +166,25 @@ router.get('/detail/:nttId', async (req, res) => {
                     
                     if (key === 'fileSn') {
                         if (currentFile.name && currentFile.atchFileId && currentFile.fileSn) {
-                            // 실제 다운로드 링크는 javascript 함수를 직접 호출할 수 없으므로,
-                            // 다운로드에 필요한 파라미터를 조합하여 URL을 만듭니다.
                             const downloadUrl = `https://srobot.sen.hs.kr/dggb/board/boardFile/downFile.do?atchFileId=${currentFile.atchFileId}&fileSn=${currentFile.fileSn}`;
-                            
-                            detailData.files.push({
-                                name: currentFile.name,
-                                link: downloadUrl
-                            });
+                            detailData.files.push({ name: currentFile.name, link: downloadUrl });
                         }
-                        currentFile = {}; // 다음 파일을 위해 객체 초기화
+                        currentFile = {};
                     }
                 }
             }
         });
 
+        // 3. 크롤링 성공 시 캐시 저장
+        detailCache.set(nttId, { data: detailData, timestamp: Date.now() });
         res.json({ success: true, detail: detailData });
 
     } catch (error) {
         console.error('[Puppeteer] 상세 내용 크롤링 오류:', error.message);
         res.status(500).json({ success: false, message: '상세 내용을 가져오는 데 실패했습니다.' });
     } finally {
-        if (browser) await browser.close();
+        if (page) await page.close(); // 브라우저는 닫지 않고 페이지만 닫음
     }
 });
-
 
 export default router;

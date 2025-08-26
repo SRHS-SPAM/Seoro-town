@@ -1,65 +1,12 @@
-2025-08-25 19:32:23.838 | 
-2025-08-25 19:32:23.838 | > auth-backend@1.0.0 start
-2025-08-25 19:32:23.838 | > node server.js
-2025-08-25 19:32:23.838 | 
-2025-08-25 19:32:28.446 | [dotenv@17.2.0] injecting env (0) from .env (tip: 🔐 encrypt with dotenvx: https://dotenvx.com)
-2025-08-25 19:32:29.314 | MongoDB Connected: mongo
-2025-08-25 19:32:29.321 | Server is running on http://localhost:3001
-2025-08-25 19:32:50.573 | [Puppeteer] 목록 크롤링 오류: Could not find Chrome (ver. 139.0.7258.68). This can occur if either
-2025-08-25 19:32:50.573 |  1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome`) or
-2025-08-25 19:32:50.573 |  2. your cache path is incorrectly configured (which is: /root/.cache/puppeteer).
-2025-08-25 19:32:50.573 | For (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.
-====================================================================================================================================
-2025-08-25 19:31:37.034 | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
-2025-08-25 19:31:37.034 | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
-2025-08-25 19:31:37.051 | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
-2025-08-25 19:31:37.129 | 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
-2025-08-25 19:31:37.207 | 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
-2025-08-25 19:31:37.208 | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
-2025-08-25 19:31:37.208 | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
-2025-08-25 19:31:37.221 | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
-2025-08-25 19:31:37.229 | /docker-entrypoint.sh: Configuration complete; ready for start up
-2025-08-25 19:31:37.260 | 2025/08/25 10:31:37 [notice] 1#1: using the "epoll" event method
-2025-08-25 19:31:37.260 | 2025/08/25 10:31:37 [notice] 1#1: nginx/1.29.1
-2025-08-25 19:31:37.260 | 2025/08/25 10:31:37 [notice] 1#1: built by gcc 14.2.0 (Alpine 14.2.0) 
-2025-08-25 19:31:37.260 | 2025/08/25 10:31:37 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
-2025-08-25 19:31:37.260 | 2025/08/25 10:31:37 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
-2025-08-25 19:31:37.264 | 2025/08/25 10:31:37 [notice] 1#1: start worker processes
-2025-08-25 19:31:37.265 | 2025/08/25 10:31:37 [notice] 1#1: start worker process 29
-2025-08-25 19:31:37.266 | 2025/08/25 10:31:37 [notice] 1#1: start worker process 30
-2025-08-25 19:31:37.269 | 2025/08/25 10:31:37 [notice] 1#1: start worker process 31
-2025-08-25 19:31:37.271 | 2025/08/25 10:31:37 [notice] 1#1: start worker process 32
-2025-08-25 19:31:37.273 | 2025/08/25 10:31:37 [notice] 1#1: start worker process 33
-2025-08-25 19:31:37.275 | 2025/08/25 10:31:37 [notice] 1#1: start worker process 34
-2025-08-25 19:31:37.277 | 2025/08/25 10:31:37 [notice] 1#1: start worker process 35
-2025-08-25 19:31:37.280 | 2025/08/25 10:31:37 [notice] 1#1: start worker process 36
-2025-08-25 19:31:37.282 | 2025/08/25 10:31:37 [notice] 1#1: start worker process 37
-2025-08-25 19:31:37.285 | 2025/08/25 10:31:37 [notice] 1#1: start worker process 38
-2025-08-25 19:31:37.287 | 2025/08/25 10:31:37 [notice] 1#1: start worker process 39
-2025-08-25 19:31:37.291 | 2025/08/25 10:31:37 [notice] 1#1: start worker process 40
-2025-08-25 19:31:55.510 | 172.18.0.1 - - [25/Aug/2025:10:31:55 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:31:55.827 | 172.18.0.1 - - [25/Aug/2025:10:31:55 +0000] "GET /static/css/main.77928305.css HTTP/1.1" 304 0 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:31:55.827 | 172.18.0.1 - - [25/Aug/2025:10:31:55 +0000] "GET /static/js/main.14df3f40.js HTTP/1.1" 304 0 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:31:56.002 | 172.18.0.1 - - [25/Aug/2025:10:31:56 +0000] "GET /favicon.ico HTTP/1.1" 304 0 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:31:56.011 | 172.18.0.1 - - [25/Aug/2025:10:31:56 +0000] "GET /manifest.json HTTP/1.1" 304 0 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:31:58.567 | 172.18.0.1 - - [25/Aug/2025:10:31:58 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:31:58.585 | 172.18.0.1 - - [25/Aug/2025:10:31:58 +0000] "GET /api/users/me HTTP/1.1" 499 0 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:31:58.692 | 172.18.0.1 - - [25/Aug/2025:10:31:58 +0000] "GET /RobotLogo.png HTTP/1.1" 304 0 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:31:58.702 | 172.18.0.1 - - [25/Aug/2025:10:31:58 +0000] "GET /pngwing.com.png HTTP/1.1" 304 0 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:31:58.759 | 172.18.0.1 - - [25/Aug/2025:10:31:58 +0000] "GET /static/media/RiaSans-Regular.f3c31d8648331a2a6b63.ttf HTTP/1.1" 304 0 "http://localhost:3000/static/css/main.77928305.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:31:58.759 | 172.18.0.1 - - [25/Aug/2025:10:31:58 +0000] "GET /static/media/LINESeedKR-Bd.4276a6ce27c98030c214.ttf HTTP/1.1" 304 0 "http://localhost:3000/static/css/main.77928305.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:32:02.616 | 2025/08/25 10:32:02 [error] 33#33: *6 backend could not be resolved (3: Host not found), client: 172.18.0.1, server: , request: "GET /api/posts HTTP/1.1", host: "localhost:3000", referrer: "http://localhost:3000/"
-2025-08-25 19:32:02.642 | 172.18.0.1 - - [25/Aug/2025:10:32:02 +0000] "GET /api/posts HTTP/1.1" 502 497 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:32:27.949 | 2025/08/25 10:32:27 [error] 34#34: *8 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET /api/posts HTTP/1.1", upstream: "http://172.18.0.4:3001/api/posts", host: "localhost:3000", referrer: "http://localhost:3000/"
-2025-08-25 19:32:27.949 | 172.18.0.1 - - [25/Aug/2025:10:32:27 +0000] "GET /api/posts HTTP/1.1" 502 497 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:32:28.457 | 2025/08/25 10:32:28 [error] 34#34: *8 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET /api/posts HTTP/1.1", upstream: "http://172.18.0.4:3001/api/posts", host: "localhost:3000", referrer: "http://localhost:3000/"
-2025-08-25 19:32:28.457 | 172.18.0.1 - - [25/Aug/2025:10:32:28 +0000] "GET /api/posts HTTP/1.1" 502 497 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:32:29.134 | 172.18.0.1 - - [25/Aug/2025:10:32:29 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:32:29.232 | 2025/08/25 10:32:29 [error] 34#34: *8 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET /api/posts HTTP/1.1", upstream: "http://172.18.0.4:3001/api/posts", host: "localhost:3000", referrer: "http://localhost:3000/"
-2025-08-25 19:32:29.233 | 172.18.0.1 - - [25/Aug/2025:10:32:29 +0000] "GET /api/posts HTTP/1.1" 502 497 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:32:29.598 | 172.18.0.1 - - [25/Aug/2025:10:32:29 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:32:29.736 | 172.18.0.1 - - [25/Aug/2025:10:32:29 +0000] "GET /api/posts HTTP/1.1" 200 646 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:32:50.574 | 172.18.0.1 - - [25/Aug/2025:10:32:50 +0000] "GET /api/com?page=1 HTTP/1.1" 500 92 "http://localhost:3000/Com" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:33:06.298 | 172.18.0.1 - - [25/Aug/2025:10:33:06 +0000] "POST /api/auth/login HTTP/1.1" 200 763 "http://localhost:3000/Login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:33:06.816 | 172.18.0.1 - - [25/Aug/2025:10:33:06 +0000] "GET /api/posts HTTP/1.1" 304 0 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
-2025-08-25 19:33:09.120 | 172.18.0.1 - - [25/Aug/2025:10:33:09 +0000] "GET /api/users/me/schedule HTTP/1.1" 404 160 "http://localhost:3000/Schedule" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "-"
+2025-08-26 17:16:41.134 | 
+2025-08-26 17:16:41.135 | > auth-backend@1.0.0 start
+2025-08-26 17:16:41.135 | > node server.js
+2025-08-26 17:16:41.135 | 
+2025-08-26 17:16:41.760 | [dotenv@17.2.0] injecting env (0) from .env (tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit)
+2025-08-26 17:16:42.020 | MongoDB Connected: mongo
+2025-08-26 17:16:42.026 | Server is running on http://localhost:3001
+2025-08-26 17:17:16.155 | [Puppeteer] 목록 크롤링 오류: Browser was not found at the configured executablePath (/usr/bin/chromium-browser)
+2025-08-26 17:17:16.562 | [Puppeteer] 목록 크롤링 오류: Browser was not found at the configured executablePath (/usr/bin/chromium-browser)
+2025-08-26 17:17:16.999 | [Puppeteer] 목록 크롤링 오류: Browser was not found at the configured executablePath (/usr/bin/chromium-browser)
+2025-08-26 17:17:17.939 | [Puppeteer] 목록 크롤링 오류: Browser was not found at the configured executablePath (/usr/bin/chromium-browser)
+2025-08-26 17:17:18.204 | [Puppeteer] 목록 크롤링 오류: Browser was not found at the configured executablePath (/usr/bin/chromium-browser)

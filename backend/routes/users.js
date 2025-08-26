@@ -64,14 +64,34 @@ router.get('/me', authenticateToken, async (req, res) => {
 // 시간표 정보 가져오기
 router.get('/me/schedule', authenticateToken, async (req, res) => {
     try {
-        const user = await User.findOne({ id: req.user.id });
-        if (!user) {
-            return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
-        }
-        res.json({ success: true, schedule: user.schedule });
+        // The 'user' object is already available from the authenticateToken middleware.
+        // No need to query the database again.
+        res.json({ success: true, schedule: req.user.schedule });
     } catch (error) {
         console.error('GET /api/users/me/schedule 오류:', error);
         res.status(500).json({ success: false, message: '시간표를 불러오는데 실패했습니다.' });
+    }
+});
+
+// 시간표 정보 저장
+router.post('/me/schedule', authenticateToken, async (req, res) => {
+    try {
+        const { schedule } = req.body;
+
+        // Basic validation
+        if (!schedule || !Array.isArray(schedule)) {
+            return res.status(400).json({ success: false, message: '유효하지 않은 시간표 데이터입니다.' });
+        }
+
+        // The user object is already on req from the middleware
+        req.user.schedule = schedule;
+        await req.user.save();
+
+        res.json({ success: true, message: '시간표가 성공적으로 저장되었습니다.' });
+
+    } catch (error) {
+        console.error('POST /api/users/me/schedule 오류:', error);
+        res.status(500).json({ success: false, message: '시간표 저장 중 서버 오류가 발생했습니다.' });
     }
 });
 
