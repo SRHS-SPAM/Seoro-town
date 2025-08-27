@@ -122,7 +122,10 @@ function MarketWriteModal({ isOpen, onClose, onSuccess, productToEdit }) {
                                 </div>
                             ))}
                         </div>
-                        <button className="SubmitButton" disabled={!category} onClick={() => setStep(2)}>다음</button>
+                        <div className="PopupButtonContainer">
+                            <button type="button" className="SecondaryButton" onClick={handleClose}>취소</button>
+                            <button className="PrimaryButton" disabled={!category} onClick={() => setStep(2)}>다음</button>
+                        </div>
                     </div>
                 ) : (
                     <div className="PopupContent">

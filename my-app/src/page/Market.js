@@ -24,7 +24,7 @@ const ProductItem = ({ product }) => {
             onClick={handleClick}
         >
             <div className="ProductImageContainer">
-                <img src={product.imageUrl ? `http://localhost:3001${product.imageUrl}` : '/placeholder.png'} alt={product.title} />
+                <img src={product.imageUrl ? `http://localhost:5000${product.imageUrl}` : '/placeholder.png'} alt={product.title} />
             </div>
             <div className="ProductInfo">
                 <h4 className="ProductTitle">{product.title}</h4>
@@ -98,7 +98,7 @@ function Market() {
                          />
                          <button className="SearchButton"><Search size={22} /></button>
                     </div>
-                    {isLoggedIn && <button className="WriteButton" onClick={() => setIsModalOpen(true)}>글쓰기</button>}
+                    {isLoggedIn && <button className="WriteButton" onClick={() => setIsModalOpen(true)}>상품등록</button>}
                 </div>
 
                 <div className="CategoryFilter">

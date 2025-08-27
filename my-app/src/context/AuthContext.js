@@ -51,6 +51,16 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
+    const updateUserProfileImage = (newImageUrl) => {
+        setUser(prevUser => {
+            if (prevUser) {
+                // 기존 사용자 정보는 유지하면서 프로필 이미지만 업데이트
+                return { ...prevUser, profileImage: newImageUrl };
+            }
+            return null;
+        });
+    };
+
     const authContextValue = {
         user,
         token,
@@ -58,6 +68,7 @@ export const AuthProvider = ({ children }) => {
         isLoading,
         login,
         logout,
+        updateUserProfileImage,
     };
 
     return (

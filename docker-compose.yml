@@ -17,6 +17,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5000:3001"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
     environment:
       - NODE_ENV=development
       - DB_HOST=mongo

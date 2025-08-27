@@ -82,35 +82,51 @@
     font-weight: bold;
 }
 
-.SubmitButton {
-    width: 100%;
-    padding: 0.8rem;
+.PopupButtonContainer {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 0.75rem; /* Space between buttons */
+    margin-top: 2rem; /* Space above the buttons */
+}
+
+.PrimaryButton,
+.SecondaryButton {
+    padding: 0.8rem 1.5rem;
     font-size: 1rem;
     font-weight: bold;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.2s; /* transition 대상을 all로 변경 */
-    border: 1px solid #ccc;
-    background-color: white;
-    color: #aaa; /* 기본 글자색은 연하게 */
+    transition: all 0.2s;
+    flex-grow: 1; /* Allow buttons to grow */
+    max-width: 150px; /* Limit max width */
 }
 
-/* ✨ 변경점: 비활성화가 아닐 때의 스타일을 명확히 정의 */
-.SubmitButton:not(:disabled) {
-    border-color: #333;
-    color: #333; /* 글자색을 진하게 */
-    cursor: pointer;
+.PrimaryButton {
+    border: 1px solid #333;
+    background-color: #333;
+    color: white;
 }
 
-/* ✨ 변경점: 마우스를 올렸을 때의 스타일 추가 */
-.SubmitButton:not(:disabled):hover {
+.PrimaryButton:hover:not(:disabled) {
     background-color: rgb(255, 58, 58);
+    border-color: rgb(255, 58, 58);
 }
 
-.SubmitButton:disabled {
+.PrimaryButton:disabled {
     border-color: #ccc;
+    background-color: #f0f0f0;
     color: #aaa;
     cursor: not-allowed;
+}
+
+.SecondaryButton {
+    border: 1px solid #ccc;
+    background-color: white;
+    color: #666;
+}
+
+.SecondaryButton:hover:not(:disabled) {
+    background-color: #f0f0f0;
 }
 
 /* 2단계 폼 스타일 */

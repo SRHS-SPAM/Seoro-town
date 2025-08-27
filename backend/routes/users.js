@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import express from 'express';
-import multer from 'multer';
-import path from 'path'; 
+import path from 'path';
 import fs from 'fs/promises';
 import User from '../models/User.js';
 import Post from '../models/Post.js';
@@ -10,36 +9,85 @@ import Product from '../models/Product.js';
 import ChatRoom from '../models/ChatRoom.js';
 import ChatMessage from '../models/ChatMessage.js';
 import { authenticateToken, isAdmin } from '../middleware/auth.js';
-
-const router = express.Router();
+import { upload } from '../utils/upload.js';
 
 import { fileURLToPath } from 'url';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => { cb(null, 'uploads/'); },
-    filename: (req, file, cb) => {
-        const ext = path.extname(file.originalname);
-        cb(null, `${Date.now()}${ext}`);
-    },
-});
-const upload = multer({ storage: storage });
+const router = express.Router();
 
 // 프로필 이미지 업로드
 router.post('/me/profile-image', authenticateToken, upload.single('profileImage'), async (req, res) => {
     try {
-        if (!req.file) return res.status(400).json({ success: false, message: '이미지 파일이 필요합니다.' });
-        const user = await User.findOne({ id: req.user.id });
-        if (!user) return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
+        // auth 미들웨어에서 전달된 사용자 ID를 사용합니다.
+        const user = await User.findById(req.user.id);
 
-        // ... 이미지 삭제 및 저장 로직 ...
-        const newImageUrl = `/uploads/${req.file.filename}`;
-        user.profileImage = newImageUrl;
+        if (!user) {
+            // 이 경우는 거의 발생하지 않지만, 안전을 위해 유지합니다.
+            return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+        }
+
+        // 이미지 파일 경로 업데이트
+        user.profileImage = `/uploads/${req.file.filename}`;
         await user.save();
-        res.json({ success: true, message: '프로필 이미지가 성공적으로 변경되었습니다.', profileImage: newImageUrl });
+
+        res.json({ success: true, message: '프로필 사진이 성공적으로 업데이트되었습니다.', profileImage: user.profileImage });
     } catch (error) {
-        res.status(500).json({ success: false, message: '서버 오류' });
+        console.error('프로필 이미지 업로드 오류:', error);
+        res.status(500).json({ message: '서버 오류가 발생했습니다.' });
+    }
+});
+
+// 관리자: 특정 사용자 프로필 이미지 업데이트
+router.patch('/:userId/profile-image', authenticateToken, isAdmin, upload.single('profileImage'), async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const userToUpdate = await User.findById(userId);
+
+        if (!userToUpdate) {
+            return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
+        }
+
+        if (!req.file) {
+            return res.status(400).json({ success: false, message: '이미지 파일이 필요합니다.' });
+        }
+
+        userToUpdate.profileImage = `/uploads/${req.file.filename}`;
+        await userToUpdate.save();
+
+        res.json({ success: true, message: '사용자 프로필 사진이 성공적으로 업데이트되었습니다.', profileImage: userToUpdate.profileImage });
+    } catch (error) {
+        console.error('관리자 프로필 이미지 업데이트 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류가 발생했습니다.' });
+    }
+});
+
+// 관리자: 특정 사용자 삭제
+router.delete('/:userId', authenticateToken, isAdmin, async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const userToDelete = await User.findById(userId);
+
+        if (!userToDelete) {
+            return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
+        }
+
+        // 사용자 삭제
+        await User.findByIdAndDelete(userId);
+
+        // 사용자와 관련된 모든 데이터 삭제 (게시글, 댓글, 팔로우, 제품, 채팅방, 채팅 메시지)
+        await Post.deleteMany({ userId: userId });
+        await Post.updateMany({}, { $pull: { comments: { authorId: userId } } }); // 댓글 삭제
+        await Follow.deleteMany({ $or: [{ followerId: userId }, { followingId: userId }] });
+        await Product.deleteMany({ authorId: userId });
+        await ChatRoom.deleteMany({ $or: [{ participant1: userId }, { participant2: userId }] });
+        await ChatMessage.deleteMany({ sender: userId });
+
+        res.json({ success: true, message: '사용자가 성공적으로 삭제되었습니다.' });
+    } catch (error) {
+        console.error('관리자 사용자 삭제 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류가 발생했습니다.' });
     }
 });
 

@@ -69,7 +69,7 @@ function ChatRoomPage() {
         };
         fetchMessages();
 
-        const socket = io(process.env.REACT_APP_API_URL || 'http://localhost:3001');
+        const socket = io(process.env.REACT_APP_API_URL || 'http://localhost:5000');
         socketRef.current = socket;
 
         socket.on('connect', () => {

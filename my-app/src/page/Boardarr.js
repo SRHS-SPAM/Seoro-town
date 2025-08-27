@@ -137,7 +137,7 @@ function Boardarr() {
                             {isNew(post.createdAt) && <span className="NewBadge">N</span>}
                         </div>
                         <div className="PostInfo">
-                            <span className="PostAuthor">작성자: {post.authorName}</span>
+                            <span className="PostAuthor">작성자: {post.userId.username}</span>
                             <span className="PostDate">{new Date(post.createdAt).toLocaleDateString('ko-KR')}</span>
                         </div>
                     </div>

@@ -96,7 +96,7 @@ function ChatListPage() {
                             <div key={room.id} className="ChatRoomItem" onClick={() => navigate(`/chat/${room.id}`)}>
                                 <div className="OpponentAvatar">
                                     {opponent?.profileImage ? (
-                                        <img src={`http://localhost:3001${opponent.profileImage}`} alt={opponent.username} />
+                                        <img src={`http://localhost:5000${opponent.profileImage}`} alt={opponent.username} />
                                     ) : <User size={32} />}
                                 </div>
                                 <div className="ChatRoomInfo">

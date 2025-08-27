@@ -3,6 +3,7 @@
 import './MarketDetail.css';
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 import { AuthContext } from '../context/AuthContext';
 import MarketWriteModal from './MarketWriteModal';
@@ -43,6 +44,7 @@ function MarketDetail() {
 
     const handleMarkAsSold = async () => {
         if (!window.confirm('이 상품을 판매 완료 처리하시겠습니까? 3일 후에 자동으로 삭제됩니다.')) return;
+        const toastId = toast.loading('처리 중...');
         try {
             const response = await fetch(`/api/market/${productId}/sold`, {
                 method: 'PATCH',
@@ -50,13 +52,13 @@ function MarketDetail() {
             });
             const data = await response.json();
             if (data.success) {
-                alert('판매 완료 처리되었습니다.');
+                toast.success('판매 완료 처리되었습니다.', { id: toastId });
                 setProduct(data.product);
             } else {
                 throw new Error(data.message);
             }
         } catch (err) {
-            alert(`처리 실패: ${err.message}`);
+            toast.error(`처리 실패: ${err.message}`, { id: toastId });
         }
     };
 
@@ -71,10 +73,11 @@ function MarketDetail() {
 
     const handleChatStart = async () => {
         if (!token) {
-            alert('로그인이 필요합니다.');
+            toast.error('로그인이 필요합니다.');
             navigate('/login');
             return;
         }
+        const toastId = toast.loading('채팅방 생성 중...');
         try {
             const response = await fetch('/api/chat/start', {
                 method: 'POST',
@@ -84,6 +87,7 @@ function MarketDetail() {
             const data = await response.json();
             if (data.success) {
                 if (data.roomId) {
+                    toast.success('채팅방으로 이동합니다.', { id: toastId });
                     navigate(`/chat/${data.roomId}`);
                 } else {
                     throw new Error('채팅방 ID를 받지 못했습니다.');
@@ -92,12 +96,13 @@ function MarketDetail() {
                 throw new Error(data.message);
             }
         } catch (err) {
-            alert(`채팅 시작 실패: ${err.message}`);
+            toast.error(`채팅 시작 실패: ${err.message}`, { id: toastId });
         }
     };
 
     const handleDelete = async () => {
         if (!window.confirm('정말로 이 상품을 삭제하시겠습니까?')) return;
+        const toastId = toast.loading('삭제 중...');
         try {
             const response = await fetch(`/api/market/${productId}`, {
                 method: 'DELETE',
@@ -105,13 +110,13 @@ function MarketDetail() {
             });
             const data = await response.json();
             if (data.success) {
-                alert('상품이 삭제되었습니다.');
+                toast.success('상품이 삭제되었습니다.', { id: toastId });
                 navigate('/market');
             } else {
                 throw new Error(data.message);
             }
         } catch (err) {
-            alert(`삭제 실패: ${err.message}`);
+            toast.error(`삭제 실패: ${err.message}`, { id: toastId });
         }
     };
     
@@ -141,7 +146,7 @@ function MarketDetail() {
             </div>
             <div className="DetailContainer">
                 <div className="ProductImageLarge">
-                    <img src={`http://localhost:3001${product.imageUrl}`} alt={product.title} />
+                    <img src={`http://localhost:5000${product.imageUrl}`} alt={product.title} />
                     {product.status === 'sold' && <div className="ProductStatus">판매 완료</div>}
                 </div>
                 <div className="ProductDetails">
@@ -167,7 +172,7 @@ function MarketDetail() {
                     <div className="SellerInfo" onClick={handleSellerClick} style={{ cursor: 'pointer' }}>
                         <div className="SellerAvatar">
                             {product.authorProfileImage ? (
-                                <img src={`http://localhost:3001${product.authorProfileImage}`} alt={product.authorName} />
+                                <img src={`http://localhost:5000${product.authorProfileImage}`} alt={product.authorName} />
                             ) : (
                                 <User size={32} />
                             )}

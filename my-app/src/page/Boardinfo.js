@@ -70,7 +70,7 @@ function Boardinfo() {
     }
 
     const isAdmin = () => user?.username === '관리자' || user?.email === 'DBADMIN@dba.com';
-    const isAuthor = () => post && user?.id === post.authorId;
+    const isAuthor = () => post && user?.id === post.userId._id;
     const canDelete = () => isAuthor() || isAdmin();
     const handleBackClick = () => navigate(-1);
 
@@ -167,7 +167,7 @@ function Boardinfo() {
                             <div className="AuthorInfo" onClick={() => goToUserProfile(post.userId?.id)} style={{cursor: 'pointer'}}>
                                 <div className="AuthorAvatar">
                                     {post.userId?.profileImage ? (
-                                        <img src={`http://localhost:3001${post.userId.profileImage}`} alt={post.userId.username} />
+                                        <img src={`http://localhost:5000${post.userId.profileImage}`} alt={post.userId.username} />
                                     ) : (
                                         <span>{getInitial(post.userId?.username)}</span>
                                     )}
@@ -202,7 +202,7 @@ function Boardinfo() {
                             <div className="CommentWriteBox">
                                 <div className="CommentAuthorAvatar">
                                     {user?.profileImage ? (
-                                        <img src={`http://localhost:3001${user.profileImage}`} alt={user.username} />
+                                        <img src={`http://localhost:5000${user.profileImage}`} alt={user.username} />
                                     ) : (
                                         <span>{getInitial(user?.username)}</span>
                                     )}
@@ -223,7 +223,7 @@ function Boardinfo() {
                                 <div className="CommentHeader" onClick={() => goToUserProfile(comment.authorId)} style={{cursor: 'pointer'}}>
                                     <div className="CommentAuthorAvatar">
                                         {comment.authorProfileImage ? (
-                                            <img src={`http://localhost:3001${comment.authorProfileImage}`} alt={comment.authorName} />
+                                            <img src={`http://localhost:5000${comment.authorProfileImage}`} alt={comment.authorName} />
                                         ) : (
                                             <span>{getInitial(comment.authorName)}</span>
                                         )}
