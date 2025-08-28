@@ -24,7 +24,7 @@ const ProductItem = ({ product }) => {
             onClick={handleClick}
         >
             <div className="ProductImageContainer">
-                <img src={product.imageUrl ? `http://localhost:5000${product.imageUrl}` : '/placeholder.png'} alt={product.title} />
+                <img src={product.imageUrl ? `${process.env.REACT_APP_API_URL}${product.imageUrl}` : '/placeholder.png'} alt={product.title} />
             </div>
             <div className="ProductInfo">
                 <h4 className="ProductTitle">{product.title}</h4>

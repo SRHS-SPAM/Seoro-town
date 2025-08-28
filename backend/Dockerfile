@@ -3,6 +3,7 @@ FROM node:20-slim
 
 # Install dependencies for Puppeteer and Chromium
 RUN apt-get update && apt-get install -y \
+    chromium-browser \
     ca-certificates \
     fonts-liberation \
     libasound2 \

@@ -167,7 +167,7 @@ function Boardinfo() {
                             <div className="AuthorInfo" onClick={() => goToUserProfile(post.userId?.id)} style={{cursor: 'pointer'}}>
                                 <div className="AuthorAvatar">
                                     {post.userId?.profileImage ? (
-                                        <img src={`http://localhost:5000${post.userId.profileImage}`} alt={post.userId.username} />
+                                        <img src={`${process.env.REACT_APP_API_URL}${post.userId.profileImage}`} alt={post.userId.username} />
                                     ) : (
                                         <span>{getInitial(post.userId?.username)}</span>
                                     )}
@@ -202,7 +202,7 @@ function Boardinfo() {
                             <div className="CommentWriteBox">
                                 <div className="CommentAuthorAvatar">
                                     {user?.profileImage ? (
-                                        <img src={`http://localhost:5000${user.profileImage}`} alt={user.username} />
+                                        <img src={`${process.env.REACT_APP_API_URL}${user.profileImage}`} alt={user.username} />
                                     ) : (
                                         <span>{getInitial(user?.username)}</span>
                                     )}
@@ -223,7 +223,7 @@ function Boardinfo() {
                                 <div className="CommentHeader" onClick={() => goToUserProfile(comment.authorId)} style={{cursor: 'pointer'}}>
                                     <div className="CommentAuthorAvatar">
                                         {comment.authorProfileImage ? (
-                                            <img src={`http://localhost:5000${comment.authorProfileImage}`} alt={comment.authorName} />
+                                            <img src={`${process.env.REACT_APP_API_URL}${comment.authorProfileImage}`} alt={comment.authorName} />
                                         ) : (
                                             <span>{getInitial(comment.authorName)}</span>
                                         )}

@@ -1,0 +1,56 @@
+2025-08-28T07:52:41.140944049Z #10 3.009 npm warn deprecated gauge@4.0.4: This package is no longer supported.
+2025-08-28T07:52:54.780890157Z #10 16.75 
+2025-08-28T07:52:54.780941698Z #10 16.75 added 404 packages, and audited 406 packages in 17s
+2025-08-28T07:52:54.780947958Z #10 16.75 
+2025-08-28T07:52:54.780952948Z #10 16.75 56 packages are looking for funding
+2025-08-28T07:52:54.780956598Z #10 16.75   run `npm fund` for details
+2025-08-28T07:52:54.931822534Z #10 16.75 
+2025-08-28T07:52:54.931841264Z #10 16.75 6 vulnerabilities (1 low, 4 high, 1 critical)
+2025-08-28T07:52:54.931845634Z #10 16.75 
+2025-08-28T07:52:54.931849604Z #10 16.75 To address issues that do not require attention, run:
+2025-08-28T07:52:54.931853864Z #10 16.75   npm audit fix
+2025-08-28T07:52:54.931857624Z #10 16.75 
+2025-08-28T07:52:54.931862084Z #10 16.75 To address all issues (including breaking changes), run:
+2025-08-28T07:52:54.931866375Z #10 16.75   npm audit fix --force
+2025-08-28T07:52:54.931870065Z #10 16.75 
+2025-08-28T07:52:54.931873685Z #10 16.75 Run `npm audit` for details.
+2025-08-28T07:52:54.931877745Z #10 16.75 npm notice
+2025-08-28T07:52:54.931881485Z #10 16.75 npm notice New major version of npm available! 10.8.2 -> 11.5.2
+2025-08-28T07:52:54.931885305Z #10 16.75 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.5.2
+2025-08-28T07:52:54.931889365Z #10 16.75 npm notice To update run: npm install -g npm@11.5.2
+2025-08-28T07:52:54.931893685Z #10 16.75 npm notice
+2025-08-28T07:52:59.123098255Z #10 DONE 21.1s
+2025-08-28T07:52:59.273362808Z 
+2025-08-28T07:52:59.273384399Z #11 [6/6] COPY . .
+2025-08-28T07:52:59.423975169Z #11 DONE 0.2s
+2025-08-28T07:52:59.423995079Z 
+2025-08-28T07:52:59.424000569Z #12 exporting to docker image format
+2025-08-28T07:52:59.424005519Z #12 exporting layers
+2025-08-28T07:53:25.224195924Z #12 exporting layers 25.9s done
+2025-08-28T07:53:25.224215945Z #12 exporting manifest sha256:27359892f64941f31125448f6c4fa259e6d9464be39d9378bc7d81ab802208ba done
+2025-08-28T07:53:25.224220265Z #12 exporting config sha256:315b3af4bf43fd834ded51a2ce010c783a3c86edf7bc6178b09f755b3bb6f603 done
+2025-08-28T07:53:30.456328918Z #12 DONE 31.0s
+2025-08-28T07:53:30.456351268Z 
+2025-08-28T07:53:30.456356408Z #13 exporting cache to client directory
+2025-08-28T07:53:30.456360208Z #13 preparing build cache for export
+2025-08-28T07:53:35.839142582Z #13 writing cache manifest sha256:62d3a12148e1e7ebd689e7376e8e5d70039a8cca73363654d7b1920b1a8eb60b done
+2025-08-28T07:53:35.839165483Z #13 DONE 5.5s
+2025-08-28T07:53:39.577672851Z Pushing image to registry...
+2025-08-28T07:53:52.538184043Z Upload succeeded
+2025-08-28T07:53:57.442759149Z ==> Deploying...
+2025-08-28T07:57:32.530323152Z ==> No open ports detected, continuing to scan...
+2025-08-28T07:57:32.634050355Z 
+2025-08-28T07:57:32.634092056Z > auth-backend@1.0.0 start
+2025-08-28T07:57:32.634096566Z > node server.js
+2025-08-28T07:57:32.634174797Z 
+2025-08-28T07:57:32.910752659Z ==> Docs on specifying a port: https://render.com/docs/web-services#port-binding
+2025-08-28T07:57:39.432909426Z [dotenv@17.2.0] injecting env (0) from .env (tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit)
+2025-08-28T07:57:40.935685742Z [Puppeteer] Initializing new browser instance...
+2025-08-28T07:58:11.132658333Z Error: getaddrinfo ENOTFOUND undefined
+2025-08-28T07:58:11.134174052Z [Puppeteer] Closing browser instance on app exit.
+2025-08-28T07:58:15.721730516Z ==> Exited with status 1
+2025-08-28T07:58:15.8858128Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+2025-08-28T07:58:19.143714272Z 
+2025-08-28T07:58:19.143741642Z > auth-backend@1.0.0 start
+2025-08-28T07:58:19.143745722Z > node server.js
+2025-08-28T07:58:19.143762093Z 

@@ -146,7 +146,7 @@ function MarketDetail() {
             </div>
             <div className="DetailContainer">
                 <div className="ProductImageLarge">
-                    <img src={`http://localhost:5000${product.imageUrl}`} alt={product.title} />
+                    <img src={`${process.env.REACT_APP_API_URL}${product.imageUrl}`} alt={product.title} />
                     {product.status === 'sold' && <div className="ProductStatus">판매 완료</div>}
                 </div>
                 <div className="ProductDetails">
@@ -172,7 +172,7 @@ function MarketDetail() {
                     <div className="SellerInfo" onClick={handleSellerClick} style={{ cursor: 'pointer' }}>
                         <div className="SellerAvatar">
                             {product.authorProfileImage ? (
-                                <img src={`http://localhost:5000${product.authorProfileImage}`} alt={product.authorName} />
+                                <img src={`${process.env.REACT_APP_API_URL}${product.authorProfileImage}`} alt={product.authorName} />
                             ) : (
                                 <User size={32} />
                             )}

@@ -12,7 +12,7 @@ const ProfileSection = ({ user, stats, isMyProfile, isFollowing, onFollowToggle,
         <div className="ProfileHeader">
             <div className={`ProfileAvatar ${isMyProfile ? 'editable' : ''}`} onClick={onAvatarClick}>
                 {user?.profileImage ? (
-                    <img src={`http://localhost:5000${user.profileImage}`} alt={user.username} />
+                    <img src={`${process.env.REACT_APP_API_URL}${user.profileImage}`} alt={user.username} />
                 ) : (
                     <User size={64} />
                 )}
@@ -64,7 +64,7 @@ const SearchSection = ({ query, onQueryChange, isSearching, results, onResultCli
                     <div key={user.id} className="SearchResultItem" onClick={() => onResultClick(user.id)}>
                         <div className="SearchResultAvatar">
                              {user.profileImage ? (
-                                <img src={`http://localhost:5000${user.profileImage}`} alt={user.username} />
+                                <img src={`${process.env.REACT_APP_API_URL}${user.profileImage}`} alt={user.username} />
                             ) : (
                                 <User size={24} />
                             )}
@@ -130,7 +130,7 @@ const UserItem = ({ user, onClick }) => (
     <div className="UserItem" onClick={() => onClick(user.id)}>
         <div className="UserAvatar">
             {user.profileImage ? (
-                <img src={`http://localhost:5000${user.profileImage}`} alt={user.username} />
+                <img src={`${process.env.REACT_APP_API_URL}${user.profileImage}`} alt={user.username} />
             ) : (
                 <User size={32} />
             )}
