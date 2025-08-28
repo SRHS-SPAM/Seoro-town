@@ -1,191 +1,166 @@
-                                                   docker build -t seoro-town-frontend --build-arg REACT_APP_API_URL=https://seoro-town-backend.onrender.com ./my-appUsers\dyqaz\OneDrive\문서\GitHub\Seoro-town>
-[+] Building 77.5s (11/15)                                                                                                                docker:desktop-linux
-[+] Building 77.6s (11/15)                                                                                                                docker:desktop-linux
-[+] Building 77.8s (11/15)                                                                                                                docker:desktop-linux
-[+] Building 77.9s (11/15)                                                                                                                docker:desktop-linux
-[+] Building 78.1s (11/15)                                                                                                                docker:desktop-linux
-[+] Building 78.2s (11/15)                                                                                                                docker:desktop-linux
-[+] Building 78.4s (11/15)                                                                                                                docker:desktop-linux
-[+] Building 78.5s (11/15)                                                                                                                docker:desktop-linux
-[+] Building 78.7s (11/15)                                                                                                                docker:desktop-linux
-[+] Building 78.7s (11/15)                                                                                                                docker:desktop-linux
-[+] Building 78.9s (11/15)                                                                                                                docker:desktop-linux
-[+] Building 79.0s (11/15)                                                                                                                docker:desktop-linux
-[+] Building 79.2s (11/15)                                                                                                                docker:desktop-linux
-[+] Building 79.3s (11/15)                                                                                                                docker:desktop-linux
-[+] Building 79.5s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 79.6s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 79.8s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 79.9s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 80.1s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 80.2s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 80.4s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 80.5s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 80.7s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 80.7s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 80.9s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 81.0s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 81.2s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 81.3s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 81.5s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 81.6s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 81.8s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 81.9s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 82.1s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 82.3s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 82.4s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 82.5s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 82.7s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 82.8s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 83.0s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 83.1s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 83.3s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 83.4s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 83.6s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 83.7s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 83.9s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 84.0s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 84.2s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 84.3s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 84.5s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 84.6s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 84.8s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 84.9s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 85.1s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 85.2s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 85.4s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 85.5s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 85.7s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 85.8s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 86.0s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 86.1s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 86.3s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 86.4s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 86.6s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 86.7s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 86.9s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 87.0s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 87.2s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 87.3s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 87.5s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 87.6s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 87.8s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 87.9s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 88.1s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 88.2s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 88.4s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 88.5s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 88.7s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 88.8s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 89.0s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 89.1s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 89.3s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 89.4s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 89.6s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 89.7s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 89.9s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 90.0s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 90.2s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 90.3s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 90.5s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 90.6s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 90.8s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 90.9s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 91.1s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 91.2s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 91.4s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 91.5s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 91.7s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 91.8s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 92.0s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 92.1s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 92.3s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 92.4s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 92.6s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 92.7s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 92.9s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 93.0s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 93.2s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 93.3s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 93.5s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 93.6s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 93.8s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 93.9s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 94.1s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 94.2s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 94.4s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 94.5s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 94.7s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 94.8s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 95.0s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 95.1s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 95.3s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 95.4s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 95.6s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 95.7s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 95.9s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 96.0s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 96.1s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 96.3s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 96.4s (11/15)                                                                                                                docker:desktop-linux.
-[+] Building 96.4s (12/15)                                                                                                                docker:desktop-linux.
-[+] Building 96.6s (12/15)                                                                                                                docker:desktop-linux.
-[+] Building 96.7s (12/15)                                                                                                                docker:desktop-linux.
-[+] Building 96.9s (12/15)                                                                                                                docker:desktop-linux.
-[+] Building 97.0s (12/15)                                                                                                                docker:desktop-linux.
-[+] Building 97.2s (12/15)                                                                                                                docker:desktop-linux.
-[+] Building 97.3s (12/15)                                                                                                                docker:desktop-linux.
-[+] Building 97.5s (12/15)                                                                                                                docker:desktop-linux.
-[+] Building 97.6s (12/15)                                                                                                                docker:desktop-linux
-[+] Building 97.8s (12/15)                                                                                                                docker:desktop-linux
-[+] Building 97.9s (12/15)                                                                                                                docker:desktop-linux
-[+] Building 98.1s (12/15)                                                                                                                docker:desktop-linux
-[+] Building 98.2s (12/15)                                                                                                                docker:desktop-linux
-[+] Building 98.4s (12/15)                                                                                                                docker:desktop-linux
-[+] Building 98.5s (13/15)                                                                                                                docker:desktop-linux.
-[+] Building 98.6s (14/15)                                                                                                                docker:desktop-linux.
-[+] Building 98.8s (14/15)                                                                                                                docker:desktop-linux.
-[+] Building 98.9s (15/15)                                                                                                                docker:desktop-linux.
-[+] Building 99.0s (15/16)                                                                                                                docker:desktop-linux.
-[+] Building 99.2s (15/16)                                                                                                                docker:desktop-linux.
-[+] Building 99.3s (15/16)                                                                                                                docker:desktop-linux.
-[+] Building 99.5s (15/16)                                                                                                                docker:desktop-linux.
-[+] Building 99.6s (15/16)                                                                                                                docker:desktop-linux.
-[+] Building 99.8s (15/16)                                                                                                                docker:desktop-linux.
-[+] Building 99.9s (15/16)                                                                                                                docker:desktop-linux.
-[+] Building 100.0s (15/16)                                                                                                               docker:desktop-linux.
-[+] Building 100.1s (15/16)                                                                                                               docker:desktop-linux.
-[+] Building 100.3s (16/16)                                                                                                               docker:desktop-linux.
-[+] Building 100.5s (16/16)                                                                                                               docker:desktop-linux.
-[+] Building 100.6s (16/16)                                                                                                               docker:desktop-linux.
-[+] Building 100.7s (16/16) FINISHED                                                                                                      docker:desktop-linux.
- => [internal] load build definition from Dockerfile                                                                                                      0.1s.
- => => transferring dockerfile: 841B                                                                                                                      0.0s.
- => [internal] load metadata for docker.io/library/node:20-slim                                                                                           2.1s
- => [internal] load metadata for docker.io/library/nginx:alpine                                                                                           1.9s
- => [internal] load .dockerignore                                                                                                                         0.0s
- => => transferring context: 2B                                                                                                                           0.0s
- => [internal] load build context                                                                                                                        11.5s
- => => transferring context: 3.65MB                                                                                                                      10.7s
- => [builder 1/6] FROM docker.io/library/node:20-slim@sha256:6db5e436948af8f0244488a1f658c2c8e55a3ae51ca2e1686ed042be8f25f70a                             0.1s
- => => resolve docker.io/library/node:20-slim@sha256:6db5e436948af8f0244488a1f658c2c8e55a3ae51ca2e1686ed042be8f25f70a                                     0.1s
- => [stage-1 1/4] FROM docker.io/library/nginx:alpine@sha256:42a516af16b852e33b7682d5ef8acbd5d13fe08fecadc7ed98605ba5e3b26ab8                             0.1s
- => => resolve docker.io/library/nginx:alpine@sha256:42a516af16b852e33b7682d5ef8acbd5d13fe08fecadc7ed98605ba5e3b26ab8                                     0.1s
- => CACHED [builder 2/6] WORKDIR /app                                                                                                                     0.0s
- => CACHED [builder 3/6] COPY package.json package-lock.json ./                                                                                           0.0s
- => [builder 4/6] RUN npm install                                                                                                                        27.4s
- => [builder 5/6] COPY . .                                                                                                                               35.8s 
- => [builder 6/6] RUN npm run build # React 앱 빌드                                                                                                         19.1s
- => CACHED [stage-1 2/4] RUN rm /etc/nginx/conf.d/default.conf                                                                                            0.0s 
- => CACHED [stage-1 3/4] COPY nginx.conf /etc/nginx/conf.d/default.conf                                                                                   0.0s 
- => [stage-1 4/4] COPY --from=builder /app/build /usr/share/nginx/html                                                                                    0.4s 
- => exporting to image                                                                                                                                    1.3s 
- => => exporting layers                                                                                                                                   0.7s 
- => => exporting manifest sha256:ccb089b8ba65ccbe6ecadb5dc04a6cbb67612cd4483eb3e0feb89d36832b47b7                                                         0.0s 
- => => exporting config sha256:db19c989a9caa41e775133d996c5e0051fa0717ed831f639cb84acfe56398c32                                                           0.0s 
- => => exporting attestation manifest sha256:b436f6b6afdebf03a4b141e2a261ca0e83d8268cde10d84bb91407c682dd830f                                             0.1s 
- => => exporting manifest list sha256:d7570b304174debe33820b00e42b0f07407491b500b668019c2b8a55eedf19f2                                                    0.0s 
- => => naming to docker.io/library/seoro-town-frontend:latest                                                                                             0.0s 
- => => unpacking to docker.io/library/seoro-town-frontend:latest                                                                                          0.2s 
-
- 1 warning found (use docker --debug to expand):
+2025-08-28T10:55:44.202733027Z /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+2025-08-28T10:55:44.20525061Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+2025-08-28T10:55:44.217243289Z 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+2025-08-28T10:55:44.342315974Z 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
+2025-08-28T10:55:44.342672723Z /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+2025-08-28T10:55:44.343509494Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+2025-08-28T10:55:44.396692659Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+2025-08-28T10:55:44.398054493Z /docker-entrypoint.sh: Configuration complete; ready for start up
+2025-08-28T10:55:44.414271776Z 2025/08/28 10:55:44 [notice] 1#1: using the "epoll" event method
+2025-08-28T10:55:44.414301127Z 2025/08/28 10:55:44 [notice] 1#1: nginx/1.29.1
+2025-08-28T10:55:44.414305768Z 2025/08/28 10:55:44 [notice] 1#1: built by gcc 14.2.0 (Alpine 14.2.0) 
+2025-08-28T10:55:44.414308877Z 2025/08/28 10:55:44 [notice] 1#1: OS: Linux 6.8.0-1035-aws
+2025-08-28T10:55:44.414312108Z 2025/08/28 10:55:44 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2025-08-28T10:55:44.417282742Z 2025/08/28 10:55:44 [notice] 1#1: start worker processes
+2025-08-28T10:55:44.417510087Z 2025/08/28 10:55:44 [notice] 1#1: start worker process 29
+2025-08-28T10:55:44.417760443Z 2025/08/28 10:55:44 [notice] 1#1: start worker process 30
+2025-08-28T10:55:44.418047851Z 2025/08/28 10:55:44 [notice] 1#1: start worker process 31
+2025-08-28T10:55:44.418347188Z 2025/08/28 10:55:44 [notice] 1#1: start worker process 32
+2025-08-28T10:55:44.418580374Z 2025/08/28 10:55:44 [notice] 1#1: start worker process 33
+2025-08-28T10:55:44.419010885Z 2025/08/28 10:55:44 [notice] 1#1: start worker process 34
+2025-08-28T10:55:44.419069636Z 2025/08/28 10:55:44 [notice] 1#1: start worker process 35
+2025-08-28T10:55:44.419339453Z 2025/08/28 10:55:44 [notice] 1#1: start worker process 36
+2025-08-28T10:55:49.552591093Z 127.0.0.1 - - [28/Aug/2025:10:55:49 +0000] "HEAD / HTTP/1.1" 200 0 "-" "Go-http-client/1.1" "-"
+2025-08-28T10:56:27.819682752Z ==> New primary port detected: 80. Restarting deploy to update network configuration...
+2025-08-28T10:56:28.226642183Z ==> Docs on specifying a port: https://render.com/docs/web-services#port-binding
+2025-08-28T10:56:30.276903897Z /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+2025-08-28T10:56:30.276924288Z /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+2025-08-28T10:56:30.278690982Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+2025-08-28T10:56:30.288996283Z 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+2025-08-28T10:56:30.385514791Z 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
+2025-08-28T10:56:30.385700453Z /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+2025-08-28T10:56:30.385867304Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+2025-08-28T10:56:30.388810053Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+2025-08-28T10:56:30.390151689Z /docker-entrypoint.sh: Configuration complete; ready for start up
+2025-08-28T10:56:30.46787183Z 2025/08/28 10:56:30 [notice] 1#1: using the "epoll" event method
+2025-08-28T10:56:30.467887171Z 2025/08/28 10:56:30 [notice] 1#1: nginx/1.29.1
+2025-08-28T10:56:30.467890981Z 2025/08/28 10:56:30 [notice] 1#1: built by gcc 14.2.0 (Alpine 14.2.0) 
+2025-08-28T10:56:30.467893592Z 2025/08/28 10:56:30 [notice] 1#1: OS: Linux 6.8.0-1036-aws
+2025-08-28T10:56:30.467896112Z 2025/08/28 10:56:30 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2025-08-28T10:56:30.469521546Z 2025/08/28 10:56:30 [notice] 1#1: start worker processes
+2025-08-28T10:56:30.469703198Z 2025/08/28 10:56:30 [notice] 1#1: start worker process 29
+2025-08-28T10:56:30.46988676Z 2025/08/28 10:56:30 [notice] 1#1: start worker process 30
+2025-08-28T10:56:30.470088542Z 2025/08/28 10:56:30 [notice] 1#1: start worker process 31
+2025-08-28T10:56:30.470290025Z 2025/08/28 10:56:30 [notice] 1#1: start worker process 32
+2025-08-28T10:56:30.47052663Z 2025/08/28 10:56:30 [notice] 1#1: start worker process 33
+2025-08-28T10:56:30.470763846Z 2025/08/28 10:56:30 [notice] 1#1: start worker process 34
+2025-08-28T10:56:30.47098457Z 2025/08/28 10:56:30 [notice] 1#1: start worker process 35
+2025-08-28T10:56:30.471250257Z 2025/08/28 10:56:30 [notice] 1#1: start worker process 36
+2025-08-28T10:56:35.19924765Z 127.0.0.1 - - [28/Aug/2025:10:56:35 +0000] "HEAD / HTTP/1.1" 200 0 "-" "Go-http-client/1.1" "-"
+2025-08-28T10:56:39.336051788Z ==> Your service is live 🎉
+2025-08-28T10:56:39.511781296Z ==> 
+2025-08-28T10:56:39.685840194Z ==> ///////////////////////////////////////////////////////////
+2025-08-28T10:56:39.858691563Z ==> 
+2025-08-28T10:56:40.033998321Z ==> Available at your primary URL https://seoro-town.onrender.com
+2025-08-28T10:56:40.20704195Z ==> 
+2025-08-28T10:56:40.380125329Z ==> ///////////////////////////////////////////////////////////
+2025-08-28T10:56:39.033127386Z 2025/08/28 10:56:39 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2025-08-28T10:56:39.033188598Z 2025/08/28 10:56:39 [notice] 32#32: gracefully shutting down
+2025-08-28T10:56:39.033195528Z 2025/08/28 10:56:39 [notice] 32#32: exiting
+2025-08-28T10:56:39.033200098Z 2025/08/28 10:56:39 [notice] 34#34: gracefully shutting down
+2025-08-28T10:56:39.033204198Z 2025/08/28 10:56:39 [notice] 34#34: exiting
+2025-08-28T10:56:39.033208258Z 2025/08/28 10:56:39 [notice] 30#30: gracefully shutting down
+2025-08-28T10:56:39.033212338Z 2025/08/28 10:56:39 [notice] 30#30: exiting
+2025-08-28T10:56:39.033216158Z 2025/08/28 10:56:39 [notice] 33#33: gracefully shutting down
+2025-08-28T10:56:39.033220178Z 2025/08/28 10:56:39 [notice] 33#33: exiting
+2025-08-28T10:56:39.033224129Z 2025/08/28 10:56:39 [notice] 36#36: gracefully shutting down
+2025-08-28T10:56:39.033228079Z 2025/08/28 10:56:39 [notice] 36#36: exiting
+2025-08-28T10:56:39.033231969Z 2025/08/28 10:56:39 [notice] 29#29: gracefully shutting down
+2025-08-28T10:56:39.033236679Z 2025/08/28 10:56:39 [notice] 29#29: exiting
+2025-08-28T10:56:39.033240669Z 2025/08/28 10:56:39 [notice] 32#32: exit
+2025-08-28T10:56:39.033244499Z 2025/08/28 10:56:39 [notice] 34#34: exit
+2025-08-28T10:56:39.033322851Z 2025/08/28 10:56:39 [notice] 30#30: exit
+2025-08-28T10:56:39.033453384Z 2025/08/28 10:56:39 [notice] 31#31: gracefully shutting down
+2025-08-28T10:56:39.033456695Z 2025/08/28 10:56:39 [notice] 36#36: exit
+2025-08-28T10:56:39.033459164Z 2025/08/28 10:56:39 [notice] 31#31: exiting
+2025-08-28T10:56:39.033461325Z 2025/08/28 10:56:39 [notice] 35#35: gracefully shutting down
+2025-08-28T10:56:39.033463515Z 2025/08/28 10:56:39 [notice] 35#35: exiting
+2025-08-28T10:56:39.033465845Z 2025/08/28 10:56:39 [notice] 31#31: exit
+2025-08-28T10:56:39.033586778Z 2025/08/28 10:56:39 [notice] 33#33: exit
+2025-08-28T10:56:39.096197347Z 2025/08/28 10:56:39 [notice] 35#35: exit
+2025-08-28T10:56:39.097395387Z 2025/08/28 10:56:39 [notice] 1#1: signal 17 (SIGCHLD) received from 34
+2025-08-28T10:56:39.097411298Z 2025/08/28 10:56:39 [notice] 1#1: worker process 33 exited with code 0
+2025-08-28T10:56:39.097416428Z 2025/08/28 10:56:39 [notice] 1#1: worker process 34 exited with code 0
+2025-08-28T10:56:39.097421318Z 2025/08/28 10:56:39 [notice] 29#29: exit
+2025-08-28T10:56:39.097425868Z 2025/08/28 10:56:39 [notice] 1#1: worker process 36 exited with code 0
+2025-08-28T10:56:39.097442689Z 2025/08/28 10:56:39 [notice] 1#1: signal 29 (SIGIO) received
+2025-08-28T10:56:39.097818038Z 2025/08/28 10:56:39 [notice] 1#1: signal 17 (SIGCHLD) received from 32
+2025-08-28T10:56:39.097957391Z 2025/08/28 10:56:39 [notice] 1#1: worker process 32 exited with code 0
+2025-08-28T10:56:39.098038563Z 2025/08/28 10:56:39 [notice] 1#1: signal 29 (SIGIO) received
+2025-08-28T10:56:39.121791855Z 2025/08/28 10:56:39 [notice] 1#1: signal 17 (SIGCHLD) received from 35
+2025-08-28T10:56:39.121882497Z 2025/08/28 10:56:39 [notice] 1#1: worker process 35 exited with code 0
+2025-08-28T10:56:39.122252816Z 2025/08/28 10:56:39 [notice] 1#1: signal 29 (SIGIO) received
+2025-08-28T10:56:39.12960993Z 2025/08/28 10:56:39 [notice] 1#1: signal 17 (SIGCHLD) received from 29
+2025-08-28T10:56:39.129732823Z 2025/08/28 10:56:39 [notice] 1#1: worker process 29 exited with code 0
+2025-08-28T10:56:39.129745103Z 2025/08/28 10:56:39 [notice] 1#1: signal 29 (SIGIO) received
+2025-08-28T10:56:39.13362808Z 2025/08/28 10:56:39 [notice] 1#1: signal 17 (SIGCHLD) received from 30
+2025-08-28T10:56:39.13364072Z 2025/08/28 10:56:39 [notice] 1#1: worker process 30 exited with code 0
+2025-08-28T10:56:39.133646211Z 2025/08/28 10:56:39 [notice] 1#1: signal 29 (SIGIO) received
+2025-08-28T10:56:39.148339746Z 2025/08/28 10:56:39 [notice] 1#1: signal 17 (SIGCHLD) received from 31
+2025-08-28T10:56:39.148363647Z 2025/08/28 10:56:39 [notice] 1#1: worker process 31 exited with code 0
+2025-08-28T10:56:39.148369287Z 2025/08/28 10:56:39 [notice] 1#1: exit
+2025-08-28T10:56:41.812417237Z 127.0.0.1 - - [28/Aug/2025:10:56:41 +0000] "GET / HTTP/1.1" 200 644 "-" "Go-http-client/2.0" "35.230.74.10, 162.158.162.97, 10.210.120.100"
+2025-08-28T10:56:54.652963076Z 127.0.0.1 - - [28/Aug/2025:10:56:54 +0000] "GET / HTTP/1.1" 200 644 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "61.74.92.100, 172.71.124.185, 10.210.243.52"
+2025-08-28T10:56:54.782599094Z 127.0.0.1 - - [28/Aug/2025:10:56:54 +0000] "GET /static/js/main.9c6045b7.js HTTP/1.1" 200 343168 "https://seoro-town.onrender.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "61.74.92.100, 172.71.124.197, 10.210.243.52"
+2025-08-28T10:56:54.804117886Z 127.0.0.1 - - [28/Aug/2025:10:56:54 +0000] "GET /static/css/main.f5cd9223.css HTTP/1.1" 200 53439 "https://seoro-town.onrender.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "61.74.92.100, 172.71.81.196, 10.210.57.31"
+2025-08-28T10:56:55.013245053Z 127.0.0.1 - - [28/Aug/2025:10:56:55 +0000] "GET /pngwing.com.png HTTP/1.1" 200 23352 "https://seoro-town.onrender.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "61.74.92.100, 172.71.124.232, 10.210.120.100"
+2025-08-28T10:56:55.016888927Z 127.0.0.1 - - [28/Aug/2025:10:56:55 +0000] "GET /RobotLogo.png HTTP/1.1" 200 1199 "https://seoro-town.onrender.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "61.74.92.100, 172.71.152.88, 10.210.253.228"
+2025-08-28T10:56:55.088429261Z 127.0.0.1 - - [28/Aug/2025:10:56:55 +0000] "GET /static/media/RiaSans-Regular.f3c31d8648331a2a6b63.ttf HTTP/1.1" 200 903060 "https://seoro-town.onrender.com/static/css/main.f5cd9223.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "61.74.92.100, 172.71.124.232, 10.210.120.100"
+2025-08-28T10:56:55.097207136Z 127.0.0.1 - - [28/Aug/2025:10:56:55 +0000] "GET /static/media/LINESeedKR-Bd.4276a6ce27c98030c214.ttf HTTP/1.1" 200 3421604 "https://seoro-town.onrender.com/static/css/main.f5cd9223.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "61.74.92.100, 172.71.82.56, 10.210.253.228"
+2025-08-28T10:56:55.100272784Z 2025/08/28 10:56:55 [error] 36#36: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:56:55.100286784Z 2025/08/28 10:56:55 [error] 36#36: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:56:55.109407111Z 127.0.0.1 - - [28/Aug/2025:10:56:55 +0000] "GET /favicon.ico HTTP/1.1" 200 644 "https://seoro-town.onrender.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "61.74.92.100, 172.68.242.89, 10.210.120.100"
+2025-08-28T10:56:55.354655866Z 127.0.0.1 - - [28/Aug/2025:10:56:55 +0000] "GET /manifest.json HTTP/1.1" 200 644 "https://seoro-town.onrender.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "61.74.92.100, 172.71.110.168, 10.210.120.100"
+2025-08-28T10:57:00.105135643Z 2025/08/28 10:57:00 [error] 36#36: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:05.110434283Z 2025/08/28 10:57:05 [error] 36#36: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:10.114587881Z 2025/08/28 10:57:10 [error] 36#36: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:13.666470726Z 127.0.0.1 - - [28/Aug/2025:10:57:13 +0000] "GET /favicon.ico HTTP/1.1" 304 0 "https://seoro-town.onrender.com/Schedule" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "61.74.92.100, 172.71.124.247, 10.210.243.52"
+2025-08-28T10:57:14.128740228Z 2025/08/28 10:57:14 [error] 32#32: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:14.128758579Z 2025/08/28 10:57:14 [error] 32#32: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:15.119646252Z 2025/08/28 10:57:15 [error] 36#36: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:15.970624932Z 2025/08/28 10:57:15 [error] 29#29: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:15.970650523Z 2025/08/28 10:57:15 [error] 29#29: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:16.82702205Z 127.0.0.1 - - [28/Aug/2025:10:57:16 +0000] "GET /SPAM.jpg HTTP/1.1" 200 17889 "https://seoro-town.onrender.com/Club" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "61.74.92.100, 172.71.124.183, 10.210.120.100"
+2025-08-28T10:57:18.83336459Z 127.0.0.1 - - [28/Aug/2025:10:57:18 +0000] "GET /RobotMap.png HTTP/1.1" 200 75686 "https://seoro-town.onrender.com/Guide" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "61.74.92.100, 172.71.124.221, 10.210.243.52"
+2025-08-28T10:57:19.133636958Z 2025/08/28 10:57:19 [error] 32#32: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:20.124540286Z 2025/08/28 10:57:20 [error] 36#36: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:20.973547285Z 2025/08/28 10:57:20 [error] 29#29: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:24.13853898Z 2025/08/28 10:57:24 [error] 32#32: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:25.104584324Z 2025/08/28 10:57:25 [error] 36#36: *8 backend could not be resolved (110: Operation timed out), client: 127.0.0.1, server: , request: "GET /api/posts HTTP/1.1", host: "seoro-town.onrender.com", referrer: "https://seoro-town.onrender.com/"
+2025-08-28T10:57:25.104752695Z 127.0.0.1 - - [28/Aug/2025:10:57:25 +0000] "GET /api/posts HTTP/1.1" 502 497 "https://seoro-town.onrender.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "61.74.92.100, 172.71.82.87, 10.210.253.228"
+2025-08-28T10:57:25.41107268Z 2025/08/28 10:57:25 [error] 36#36: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:25.411097751Z 2025/08/28 10:57:25 [error] 36#36: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:25.975131564Z 2025/08/28 10:57:25 [error] 29#29: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:29.143576764Z 2025/08/28 10:57:29 [error] 32#32: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:30.415581513Z 2025/08/28 10:57:30 [error] 36#36: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:30.977540129Z 2025/08/28 10:57:30 [error] 29#29: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:33.821604891Z ==> Detected a new open port HTTP:80
+2025-08-28T10:57:34.148557648Z 2025/08/28 10:57:34 [error] 32#32: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:35.41774515Z 2025/08/28 10:57:35 [error] 36#36: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:35.980579309Z 2025/08/28 10:57:35 [error] 29#29: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:39.153542786Z 2025/08/28 10:57:39 [error] 32#32: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:40.422527097Z 2025/08/28 10:57:40 [error] 36#36: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:40.981548379Z 2025/08/28 10:57:40 [error] 29#29: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:44.133439504Z 2025/08/28 10:57:44 [error] 32#32: *4 backend could not be resolved (110: Operation timed out), client: 127.0.0.1, server: , request: "GET /api/com?page=1 HTTP/1.1", host: "seoro-town.onrender.com", referrer: "https://seoro-town.onrender.com/Com"
+2025-08-28T10:57:44.133656288Z 127.0.0.1 - - [28/Aug/2025:10:57:44 +0000] "GET /api/com?page=1 HTTP/1.1" 502 497 "https://seoro-town.onrender.com/Com" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "61.74.92.100, 172.71.124.247, 10.210.243.52"
+2025-08-28T10:57:45.427569346Z 2025/08/28 10:57:45 [error] 36#36: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:45.429440556Z 127.0.0.1 - - [28/Aug/2025:10:57:45 +0000] "GET / HTTP/1.1" 200 644 "-" "node" "61.74.92.100, 172.71.124.229, 10.210.243.52"
+2025-08-28T10:57:45.973477721Z 2025/08/28 10:57:45 [error] 29#29: *11 backend could not be resolved (110: Operation timed out), client: 127.0.0.1, server: , request: "GET /api/market?search=&category=%EC%A0%84%EC%B2%B4 HTTP/1.1", host: "seoro-town.onrender.com", referrer: "https://seoro-town.onrender.com/Market"
+2025-08-28T10:57:45.973609599Z 127.0.0.1 - - [28/Aug/2025:10:57:45 +0000] "GET /api/market?search=&category=%EC%A0%84%EC%B2%B4 HTTP/1.1" 502 497 "https://seoro-town.onrender.com/Market" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "61.74.92.100, 172.68.242.89, 10.210.120.100"
+2025-08-28T10:57:45.981761084Z 2025/08/28 10:57:45 [error] 29#29: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:50.432532453Z 2025/08/28 10:57:50 [error] 36#36: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:50.983348641Z 2025/08/28 10:57:50 [error] 29#29: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:57:55.415505369Z 2025/08/28 10:57:55 [error] 36#36: *8 backend could not be resolved (110: Operation timed out), client: 127.0.0.1, server: , request: "GET /api/posts HTTP/1.1", host: "seoro-town.onrender.com", referrer: "https://seoro-town.onrender.com/"
+2025-08-28T10:57:55.415657719Z 127.0.0.1 - - [28/Aug/2025:10:57:55 +0000] "GET /api/posts HTTP/1.1" 502 497 "https://seoro-town.onrender.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "61.74.92.100, 141.101.84.13, 10.210.120.100"
+2025-08-28T10:57:55.985598474Z 2025/08/28 10:57:55 [error] 29#29: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:58:00.988526394Z 2025/08/28 10:58:00 [error] 29#29: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:58:05.991616579Z 2025/08/28 10:58:05 [error] 29#29: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:58:08.433424926Z 2025/08/28 10:58:08 [error] 29#29: *25 backend could not be resolved (110: Operation timed out), client: 127.0.0.1, server: , request: "GET /api/market?search=&category=%EC%A0%84%EC%B2%B4 HTTP/1.1", host: "seoro-town.onrender.com", referrer: "https://seoro-town.onrender.com/Market"
+2025-08-28T10:58:08.433617309Z 127.0.0.1 - - [28/Aug/2025:10:58:08 +0000] "GET /api/market?search=&category=%EC%A0%84%EC%B2%B4 HTTP/1.1" 502 497 "https://seoro-town.onrender.com/Market" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" "61.74.92.100, 141.101.84.12, 10.210.243.52"
+2025-08-28T10:58:37.374444015Z ==> Detected a new open port HTTP:80
+2025-08-28T10:58:55.945360056Z 2025/08/28 10:58:55 [error] 30#30: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:58:55.945398718Z 2025/08/28 10:58:55 [error] 30#30: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:59:00.947539479Z 2025/08/28 10:59:00 [error] 30#30: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:59:05.951457928Z 2025/08/28 10:59:05 [error] 30#30: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:59:10.956565198Z 2025/08/28 10:59:10 [error] 30#30: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
+2025-08-28T10:59:15.961592697Z 2025/08/28 10:59:15 [error] 30#30: send() failed (111: Connection refused) while resolving, resolver: 127.0.0.11:53
