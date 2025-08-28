@@ -20,8 +20,8 @@
         "multer": "^2.0.1",
         "node-cache": "^5.1.2",
         
-        "puppeteer-core": "^22.13.0",
         "seoro-town": "file:..",
+        "socket.io": "^4.8.1",
         "sqlite3": "^5.1.7"
     },
     "devDependencies": {
@@ -39,5 +39,8 @@
     "jwt"
     ],
     "author": "Your Name",
+    "license": "MIT"
+}
+  "author": "Your Name",
     "license": "MIT"
 }
