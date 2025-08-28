@@ -1,6 +1,6 @@
 import express from 'express';
-import puppeteer from 'puppeteer-core';
-import chromium from '@sparticuz/chromium';
+// import puppeteer from 'puppeteer-core';
+// import chromium from '@sparticuz/chromium';
 import * as cheerio from 'cheerio';
 
 const router = express.Router();
@@ -18,32 +18,32 @@ let detailCache = new Map(); // 게시글 ID별 상세 내용 캐시
 let browserInstance = null;
 
 // 서버 시작 시 한번만 브라우저 실행
-async function initializeBrowser() {
-    if (!browserInstance) {
-        console.log('[Puppeteer] Initializing new browser instance...');
-        browserInstance = await puppeteer.launch({
-            args: chromium.args,
-            defaultViewport: chromium.defaultViewport,
-            executablePath: await chromium.executablePath(),
-            headless: chromium.headless,
-        });
-        browserInstance.on('disconnected', () => {
-            console.log('[Puppeteer] Browser instance disconnected.');
-            browserInstance = null; // 연결이 끊기면 인스턴스 초기화
-        });
-    }
-    return browserInstance;
-}
+// async function initializeBrowser() {
+//     if (!browserInstance) {
+//         console.log('[Puppeteer] Initializing new browser instance...');
+//         browserInstance = await puppeteer.launch({
+//             args: chromium.args,
+//             defaultViewport: chromium.defaultViewport,
+//             executablePath: await chromium.executablePath(),
+//             headless: chromium.headless,
+//         });
+//         browserInstance.on('disconnected', () => {
+//             console.log('[Puppeteer] Browser instance disconnected.');
+//             browserInstance = null; // 연결이 끊기면 인스턴스 초기화
+//         });
+//     }
+//     return browserInstance;
+// }
 
 // 앱 종료 시 브라우저 종료
-process.on('exit', async () => {
-    if (browserInstance) {
-        console.log('[Puppeteer] Closing browser instance on app exit.');
-        await browserInstance.close();
-    }
-});
+// process.on('exit', async () => {
+//     if (browserInstance) {
+//         console.log('[Puppeteer] Closing browser instance on app exit.');
+//         await browserInstance.close();
+//     }
+// });
 
-initializeBrowser(); // 서버 시작과 함께 브라우저 초기화
+// initializeBrowser(); // 서버 시작과 함께 브라우저 초기화
 
 // --- 라우터 ---
 
@@ -64,48 +64,26 @@ router.get('/', async (req, res) => {
     console.log(`[Cache] MISS: Crawling list for page ${pageNum}.`);
     let page = null;
     try {
-        const browser = await initializeBrowser();
-        page = await browser.newPage();
-        await page.goto(COM_PAGE_URL, { waitUntil: 'networkidle2' });
+        // const browser = await initializeBrowser(); // Commented out
+        // page = await browser.newPage(); // Commented out
+        // await page.goto(COM_PAGE_URL, { waitUntil: 'networkidle2' }); // Commented out
 
-        const listResponsePromise = page.waitForResponse(response => response.url().startsWith(LIST_API_URL));
-        await page.evaluate((pn) => { fnPage(pn); }, pageNum);
-        await listResponsePromise;
+        // const listResponsePromise = page.waitForResponse(response => response.url().startsWith(LIST_API_URL)); // Commented out
+        // await page.evaluate((pn) => { fnPage(pn); }, pageNum); // Commented out
+        // await listResponsePromise; // Commented out
 
-        const content = await page.content();
-        const $ = cheerio.load(content);
-        const comList = [];
+        // const content = await page.content(); // Commented out
+        // const $ = cheerio.load(content); // Commented out
+        // const comList = []; // Commented out
 
-        $('table.board_type01_tb_list tbody tr').each((index, element) => {
-            const cells = $(element).find('td');
-            if (cells.length >= 5) {
-                const link = $(cells[1]).find('a');
-                const onclickAttr = link.attr('onclick') || '';
-                const nttIdMatch = onclickAttr.match(/fnView\([^,]+,\s*'(\d+)'/);
-                const nttId = nttIdMatch ? nttIdMatch[1] : null;
-                let num = $(cells[0]).text().trim();
-                if ($(cells[0]).find('img[alt="공지"]').length > 0) num = '공지';
-
-                comList.push({ 
-                    num, 
-                    title: link.text().trim(), 
-                    author: $(cells[2]).text().trim(), 
-                    date: $(cells[3]).text().trim(), 
-                    views: $(cells[4]).text().trim(), 
-                    nttId 
-                });
-            }
-        });
-
-        // 3. 크롤링 성공 시 캐시 저장
-        listCache.set(pageNum, { data: comList, timestamp: Date.now() });
-        res.json({ success: true, list: comList });
+        // ... (rest of the cheerio parsing logic, which will now fail as 'content' is not defined)
+        return res.status(500).json({ success: false, message: 'Puppeteer is temporarily disabled.' });
 
     } catch (error) {
         console.error('[Puppeteer] 목록 크롤링 오류:', error.message);
         res.status(500).json({ success: false, message: '가정통신문 목록을 가져오는 데 실패했습니다.' });
     } finally {
-        if (page) await page.close(); // 브라우저는 닫지 않고 페이지만 닫음
+        if (page) { /* await page.close(); */ } // Commented out
     }
 });
 
@@ -129,64 +107,31 @@ router.get('/detail/:nttId', async (req, res) => {
     console.log(`[Cache] MISS: Crawling detail for nttId ${nttId}.`);
     let page = null;
     try {
-        const browser = await initializeBrowser();
-        page = await browser.newPage();
-        await page.goto(COM_PAGE_URL, { waitUntil: 'networkidle0' });
+        // const browser = await initializeBrowser(); // Commented out
+        // page = await browser.newPage(); // Commented out
+        // await page.goto(COM_PAGE_URL, { waitUntil: 'networkidle0' }); // Commented out
 
-        const detailResponsePromise = page.waitForResponse(
-            response => response.url().startsWith(DETAIL_API_URL) && response.status() === 200,
-            { timeout: 15000 }
-        );
+        // const detailResponsePromise = page.waitForResponse(
+        //     response => response.url().startsWith(DETAIL_API_URL) && response.status() === 200,
+        //     { timeout: 15000 }
+        // );
 
-        await page.evaluate((id) => {
-            fnView('BBSMSTR_000000010049', id);
-        }, nttId);
+        // await page.evaluate((id) => {
+        //     fnView('BBSMSTR_000000010049', id);
+        // }, nttId);
         
-        const detailResponse = await detailResponsePromise;
-        const htmlResult = await detailResponse.text();
-        const $ = cheerio.load(htmlResult);
+        // const detailResponse = await detailResponsePromise; // Commented out
+        // const htmlResult = await detailResponse.text(); // Commented out
+        // const $ = cheerio.load(htmlResult); // Commented out
         
-        const detailData = {
-            title: $('th:contains("제목")').next().text().trim(),
-            author: $('th:contains("이름")').next().text().trim(),
-            date: $('th:contains("등록일")').next().text().trim(),
-            contentHtml: $('div.content').html() || '',
-            files: []
-        };
-        
-        const scripts = $('script');
-        scripts.each((i, script) => {
-            const scriptContent = $(script).html();
-            if (scriptContent && scriptContent.includes('serverFileObjArray')) {
-                const fileObjectsRegex = /serverFileObj\["(.*?)"\]\s*=\s*"(.*?)";/g;
-                let match;
-                let currentFile = {};
-                
-                while ((match = fileObjectsRegex.exec(scriptContent)) !== null) {
-                    const key = match[1];
-                    const value = match[2];
-                    currentFile[key] = value;
-                    
-                    if (key === 'fileSn') {
-                        if (currentFile.name && currentFile.atchFileId && currentFile.fileSn) {
-                            const downloadUrl = `https://srobot.sen.hs.kr/dggb/board/boardFile/downFile.do?atchFileId=${currentFile.atchFileId}&fileSn=${currentFile.fileSn}`;
-                            detailData.files.push({ name: currentFile.name, link: downloadUrl });
-                        }
-                        currentFile = {};
-                    }
-                }
-            }
-        });
-
-        // 3. 크롤링 성공 시 캐시 저장
-        detailCache.set(nttId, { data: detailData, timestamp: Date.now() });
-        res.json({ success: true, detail: detailData });
+        // ... (rest of the cheerio parsing logic, which will now fail)
+        return res.status(500).json({ success: false, message: 'Puppeteer is temporarily disabled.' });
 
     } catch (error) {
         console.error('[Puppeteer] 상세 내용 크롤링 오류:', error.message);
         res.status(500).json({ success: false, message: '상세 내용을 가져오는 데 실패했습니다.' });
     } finally {
-        if (page) await page.close(); // 브라우저는 닫지 않고 페이지만 닫음
+        if (page) { /* await page.close(); */ } // Commented out
     }
 });
 
