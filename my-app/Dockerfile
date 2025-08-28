@@ -5,6 +5,11 @@ FROM node:20-slim as builder
 
 WORKDIR /app
 
+# 빌드 시 주입할 환경 변수를 선언합니다.
+ARG REACT_APP_API_URL
+# 빌드 과정에서 사용할 환경 변수로 설정합니다.
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+
 COPY package.json package-lock.json ./
 RUN npm install
 
