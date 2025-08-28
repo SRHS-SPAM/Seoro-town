@@ -62,4 +62,4 @@ COPY . .
 EXPOSE 3001
 
 # Start the application
-CMD ["npm", "start"]
+CMD ["sh", "-c", "ls -l /usr/bin/chromium && ldd /usr/bin/chromium && npm start"]
