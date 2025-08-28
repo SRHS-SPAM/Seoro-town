@@ -22,7 +22,7 @@ async function initializeBrowser() {
         console.log('[Puppeteer] Initializing new browser instance...');
         browserInstance = await puppeteer.launch({
             headless: true,
-            executablePath: '/usr/bin/chromium-browser',
+            executablePath: '/usr/bin/chromium',
             args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
         });
         browserInstance.on('disconnected', () => {
