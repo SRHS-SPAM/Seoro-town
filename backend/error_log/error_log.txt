@@ -1,3 +1,15 @@
+Manifest: Line: 1, column: 1, Syntax error.이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/auth/login:1  Failed to load resource: the server responded with a status of 502 ()이 오류 이해하기
 Login.js:43 로그인 오류: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-https://seoro-town.onrender.com/api/auth/login 502 (Bad Gateway)
-https://seoro-town.onrender.com/api/posts net::ERR_TOO_MANY_REDIRECTS
+onSubmit @ Login.js:43이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
