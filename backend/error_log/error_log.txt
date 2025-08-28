@@ -1,50 +1,58 @@
-2025-08-28T09:49:58.695767865Z #10 2.551 npm warn deprecated npmlog@6.0.2: This package is no longer supported.
-2025-08-28T09:49:58.695772745Z #10 2.585 npm warn deprecated are-we-there-yet@3.0.1: This package is no longer supported.
-2025-08-28T09:49:58.965499509Z #10 2.855 npm warn deprecated gauge@4.0.4: This package is no longer supported.
-2025-08-28T09:50:00.145393199Z #10 4.035 
-2025-08-28T09:50:00.14541814Z #10 4.035 added 316 packages, and audited 318 packages in 4s
-2025-08-28T09:50:00.14542402Z #10 4.035 
-2025-08-28T09:50:00.14545848Z #10 4.035 49 packages are looking for funding
-2025-08-28T09:50:00.145462501Z #10 4.035   run `npm fund` for details
-2025-08-28T09:50:00.295586068Z #10 4.040 
-2025-08-28T09:50:00.295607719Z #10 4.040 6 vulnerabilities (1 low, 4 high, 1 critical)
-2025-08-28T09:50:00.295611859Z #10 4.040 
-2025-08-28T09:50:00.295615499Z #10 4.040 To address issues that do not require attention, run:
-2025-08-28T09:50:00.295619679Z #10 4.040   npm audit fix
-2025-08-28T09:50:00.295623139Z #10 4.040 
-2025-08-28T09:50:00.295627019Z #10 4.040 To address all issues (including breaking changes), run:
-2025-08-28T09:50:00.295630859Z #10 4.040   npm audit fix --force
-2025-08-28T09:50:00.295634189Z #10 4.040 
-2025-08-28T09:50:00.295637729Z #10 4.040 Run `npm audit` for details.
-2025-08-28T09:50:00.295642049Z #10 4.041 npm notice
-2025-08-28T09:50:00.2956455Z #10 4.041 npm notice New major version of npm available! 10.8.2 -> 11.5.2
-2025-08-28T09:50:00.29566488Z #10 4.041 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.5.2
-2025-08-28T09:50:00.29566884Z #10 4.041 npm notice To update run: npm install -g npm@11.5.2
-2025-08-28T09:50:00.29567229Z #10 4.041 npm notice
-2025-08-28T09:50:01.608424468Z #10 DONE 5.5s
-2025-08-28T09:50:01.759170617Z 
-2025-08-28T09:50:01.759200188Z #11 [6/6] COPY . .
-2025-08-28T09:50:02.060161145Z #11 DONE 0.3s
-2025-08-28T09:50:02.060182486Z 
-2025-08-28T09:50:02.060187856Z #12 exporting to docker image format
-2025-08-28T09:50:02.060193016Z #12 exporting layers
-2025-08-28T09:50:25.345889575Z #12 exporting layers 23.4s done
-2025-08-28T09:50:25.345914205Z #12 exporting manifest sha256:eedd2230e990618afc70fc445f8bdae111c70422c34353ca6ba46c992250c7af done
-2025-08-28T09:50:25.345921385Z #12 exporting config sha256:f64567878fed1e4b31b987f18f90cfa0512d710511d900c24bf9bd7c920296c2
-2025-08-28T09:50:25.496214006Z #12 exporting config sha256:f64567878fed1e4b31b987f18f90cfa0512d710511d900c24bf9bd7c920296c2 done
-2025-08-28T09:50:29.539912791Z #12 DONE 27.5s
-2025-08-28T09:50:29.539929201Z 
-2025-08-28T09:50:29.539933971Z #13 exporting cache to client directory
-2025-08-28T09:50:29.539937831Z #13 preparing build cache for export
-2025-08-28T09:50:43.775969072Z #13 writing cache manifest sha256:e9292899cd8abc67506826de37cafe9ace2d3211c20c55f909bf563847fd821e
-2025-08-28T09:50:43.926400375Z #13 writing cache manifest sha256:e9292899cd8abc67506826de37cafe9ace2d3211c20c55f909bf563847fd821e 0.2s done
-2025-08-28T09:50:43.926420805Z #13 DONE 14.3s
-2025-08-28T09:50:45.399623165Z Pushing image to registry...
-2025-08-28T09:50:55.75354934Z Upload succeeded
-2025-08-28T09:50:59.12990351Z ==> Deploying...
-2025-08-28T09:51:14.508722882Z -rwxr-xr-x 1 root root 5066 Aug 26 21:38 /usr/bin/chromium
-2025-08-28T09:51:14.544852772Z 	not a dynamic executable
-2025-08-28T09:51:21.980112846Z -rwxr-xr-x 1 root root 5066 Aug 26 21:38 /usr/bin/chromium
-2025-08-28T09:51:21.986248328Z 	not a dynamic executable
-2025-08-28T09:51:23.188988239Z ==> Exited with status 1
-2025-08-28T09:51:23.353881874Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+2025-08-28T09:56:41.013850439Z 
+2025-08-28T09:56:41.01385485Z #10 [5/6] RUN npm install --omit=dev
+2025-08-28T09:56:44.491168931Z #10 3.479 npm warn deprecated @npmcli/move-file@1.1.2: This functionality has been moved to @npmcli/fs
+2025-08-28T09:56:44.641529892Z #10 3.645 npm warn deprecated are-we-there-yet@3.0.1: This package is no longer supported.
+2025-08-28T09:56:44.641557163Z #10 3.645 npm warn deprecated npmlog@6.0.2: This package is no longer supported.
+2025-08-28T09:56:44.901196761Z #10 3.962 npm warn deprecated gauge@4.0.4: This package is no longer supported.
+2025-08-28T09:56:47.60707828Z #10 6.610 
+2025-08-28T09:56:47.607096581Z #10 6.610 added 364 packages, and audited 366 packages in 6s
+2025-08-28T09:56:47.607100071Z #10 6.610 
+2025-08-28T09:56:47.607105751Z #10 6.610 49 packages are looking for funding
+2025-08-28T09:56:47.607108661Z #10 6.611   run `npm fund` for details
+2025-08-28T09:56:47.607111971Z #10 6.613 
+2025-08-28T09:56:47.607116671Z #10 6.613 3 vulnerabilities (1 low, 1 high, 1 critical)
+2025-08-28T09:56:47.607121321Z #10 6.613 
+2025-08-28T09:56:47.607125902Z #10 6.613 To address all issues, run:
+2025-08-28T09:56:47.607130762Z #10 6.613   npm audit fix
+2025-08-28T09:56:47.607135052Z #10 6.613 
+2025-08-28T09:56:47.607139682Z #10 6.613 Run `npm audit` for details.
+2025-08-28T09:56:47.607143272Z #10 6.614 npm notice
+2025-08-28T09:56:47.607146622Z #10 6.614 npm notice New major version of npm available! 10.8.2 -> 11.5.2
+2025-08-28T09:56:47.607149712Z #10 6.614 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.5.2
+2025-08-28T09:56:47.607152432Z #10 6.614 npm notice To update run: npm install -g npm@11.5.2
+2025-08-28T09:56:47.607155122Z #10 6.614 npm notice
+2025-08-28T09:56:49.525144273Z #10 DONE 8.6s
+2025-08-28T09:56:49.675907894Z 
+2025-08-28T09:56:49.675929935Z #11 [6/6] COPY . .
+2025-08-28T09:56:50.126974867Z #11 DONE 0.5s
+2025-08-28T09:56:50.127040918Z 
+2025-08-28T09:56:50.127047278Z #12 exporting to docker image format
+2025-08-28T09:56:50.127052329Z #12 exporting layers
+2025-08-28T09:57:00.512133648Z #12 exporting layers 10.4s done
+2025-08-28T09:57:00.512158859Z #12 exporting manifest sha256:f9bd904f66f403c7905fb01db495ef892988baa77e3cc2f21ff5cf516a756ebd
+2025-08-28T09:57:00.769614931Z #12 exporting manifest sha256:f9bd904f66f403c7905fb01db495ef892988baa77e3cc2f21ff5cf516a756ebd 0.4s done
+2025-08-28T09:57:00.769638532Z #12 exporting config sha256:687486bd7a211d7e9fb648b4adbeacd62bbd64350a788032ac4efed1cab2dfdd
+2025-08-28T09:57:00.92029275Z #12 exporting config sha256:687486bd7a211d7e9fb648b4adbeacd62bbd64350a788032ac4efed1cab2dfdd 0.0s done
+2025-08-28T09:57:04.3048133Z #12 DONE 14.3s
+2025-08-28T09:57:04.455892619Z 
+2025-08-28T09:57:04.455934981Z #13 exporting cache to client directory
+2025-08-28T09:57:04.455962991Z #13 preparing build cache for export
+2025-08-28T09:57:19.484842544Z #13 writing cache manifest sha256:16fdf8cad282bbe96b3c4e423f21b334b28f90152ad166576dce082adda70583 0.1s done
+2025-08-28T09:57:19.484891015Z #13 DONE 15.2s
+2025-08-28T09:57:21.356010323Z Pushing image to registry...
+2025-08-28T09:57:28.494488551Z Upload succeeded
+2025-08-28T09:58:03.905600916Z ==> Deploying...
+2025-08-28T09:58:14.327885013Z 
+2025-08-28T09:58:14.327931454Z > auth-backend@1.0.0 start
+2025-08-28T09:58:14.327987145Z > node server.js
+2025-08-28T09:58:14.327990405Z 
+2025-08-28T09:58:18.223656458Z [dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' })
+2025-08-28T09:58:19.510640987Z Error: bad auth : authentication failed
+2025-08-28T09:58:21.358648289Z ==> Exited with status 1
+2025-08-28T09:58:21.523176043Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+2025-08-28T09:58:22.037161372Z 
+2025-08-28T09:58:22.037202523Z > auth-backend@1.0.0 start
+2025-08-28T09:58:22.037208683Z > node server.js
+2025-08-28T09:58:22.037211853Z 
+2025-08-28T09:58:25.74095515Z [dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  override existing env vars with { override: true })
+2025-08-28T09:58:27.012956306Z Error: bad auth : authentication failed

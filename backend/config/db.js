@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-dotenv.config();
+// Production 환경이 아닐 때만 .env 파일을 사용합니다.
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config();
+}
 
 const connectDB = async () => {
   try {
