@@ -5,7 +5,9 @@ FROM node:20-slim
 
 # Install minimal dependencies for @sparticuz/chromium
 RUN apt-get update && apt-get install -y \
+    chromium \
     ca-certificates \
+
     fonts-liberation \
     libasound2 \
     libatk-bridge2.0-0 \
