@@ -1,1 +1,63 @@
-Boardpage.js:107  GET https://seoro-town.onrender.com/api/posts net::ERR_TOO_MANY_REDIRECTS
+2025-08-28T11:23:11.659541342Z #16 19.21 
+2025-08-28T11:23:11.659543032Z #16 19.21 File sizes after gzip:
+2025-08-28T11:23:11.659544672Z #16 19.21 
+2025-08-28T11:23:11.659546532Z #16 19.23   101.66 kB  build/static/js/main.9c6045b7.js
+2025-08-28T11:23:11.659548272Z #16 19.23   9.66 kB    build/static/css/main.f5cd9223.css
+2025-08-28T11:23:11.659549972Z #16 19.23   1.77 kB    build/static/js/453.ed3810f9.chunk.js
+2025-08-28T11:23:11.659551602Z #16 19.23 
+2025-08-28T11:23:11.659553222Z #16 19.23 The project was built assuming it is hosted at /.
+2025-08-28T11:23:11.659554912Z #16 19.23 You can control this with the homepage field in your package.json.
+2025-08-28T11:23:11.659556572Z #16 19.23 
+2025-08-28T11:23:11.659558192Z #16 19.23 The build folder is ready to be deployed.
+2025-08-28T11:23:11.659559902Z #16 19.23 You may serve it with a static server:
+2025-08-28T11:23:11.659570423Z #16 19.23 
+2025-08-28T11:23:11.659572413Z #16 19.23   npm install -g serve
+2025-08-28T11:23:11.659574093Z #16 19.23   serve -s build
+2025-08-28T11:23:11.659575723Z #16 19.23 
+2025-08-28T11:23:11.659577403Z #16 19.23 Find out more about deployment here:
+2025-08-28T11:23:11.659579043Z #16 19.23 
+2025-08-28T11:23:11.659580683Z #16 19.23   https://cra.link/deployment
+2025-08-28T11:23:11.659582373Z #16 19.23 
+2025-08-28T11:23:28.041335855Z #16 DONE 35.5s
+2025-08-28T11:23:28.94325888Z 
+2025-08-28T11:23:28.943287341Z #17 [stage-1 4/4] COPY --from=builder /app/build /usr/share/nginx/html
+2025-08-28T11:23:33.60236073Z #17 DONE 4.7s
+2025-08-28T11:23:33.602378471Z 
+2025-08-28T11:23:33.602382941Z #18 exporting to docker image format
+2025-08-28T11:23:33.602386471Z #18 exporting layers
+2025-08-28T11:23:34.203578989Z #18 exporting layers 0.6s done
+2025-08-28T11:23:34.20361186Z #18 exporting manifest sha256:82e06e5b5f065bb73864cafebfbfbc6b63e0535853a25205f592b23f799c7171 done
+2025-08-28T11:23:34.20361548Z #18 exporting config sha256:8196979363874bbe2692afdb1b67bcf4dfb0da87bd2c7ac67e97a68ba4b83650 done
+2025-08-28T11:23:34.503907486Z #18 DONE 0.9s
+2025-08-28T11:23:34.503925737Z 
+2025-08-28T11:23:34.503931187Z #19 exporting cache to client directory
+2025-08-28T11:23:34.503935717Z #19 preparing build cache for export
+2025-08-28T11:24:12.884530935Z #19 writing cache manifest sha256:ab74d3137a5553e9883eafee3996aa0aa7b85642f291d0b3cfe9dd3b02034b1d done
+2025-08-28T11:24:12.884555096Z #19 DONE 38.4s
+2025-08-28T11:24:16.72882617Z Pushing image to registry...
+2025-08-28T11:24:18.617560994Z Upload succeeded
+2025-08-28T11:24:27.540070576Z ==> Deploying...
+2025-08-28T11:24:32.854278134Z /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+2025-08-28T11:24:32.854300625Z /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+2025-08-28T11:24:32.856673975Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+2025-08-28T11:24:32.937208144Z 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+2025-08-28T11:24:33.030942332Z 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
+2025-08-28T11:24:33.031224494Z /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+2025-08-28T11:24:33.031442595Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+2025-08-28T11:24:33.034267335Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+2025-08-28T11:24:33.035537294Z /docker-entrypoint.sh: Configuration complete; ready for start up
+2025-08-28T11:24:33.043460379Z 2025/08/28 11:24:33 [emerg] 1#1: host not found in upstream "seoro-town-backend" in /etc/nginx/conf.d/default.conf:15
+2025-08-28T11:24:33.04347233Z nginx: [emerg] host not found in upstream "seoro-town-backend" in /etc/nginx/conf.d/default.conf:15
+2025-08-28T11:24:34.642934862Z ==> Exited with status 1
+2025-08-28T11:24:34.807515798Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+2025-08-28T11:24:34.303757822Z /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+2025-08-28T11:24:34.304066476Z /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+2025-08-28T11:24:34.304770729Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+2025-08-28T11:24:34.340023526Z 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+2025-08-28T11:24:34.348812162Z 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
+2025-08-28T11:24:34.349032113Z /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+2025-08-28T11:24:34.34920555Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+2025-08-28T11:24:34.437137751Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+2025-08-28T11:24:34.437160192Z /docker-entrypoint.sh: Configuration complete; ready for start up
+2025-08-28T11:24:34.441411428Z 2025/08/28 11:24:34 [emerg] 1#1: host not found in upstream "seoro-town-backend" in /etc/nginx/conf.d/default.conf:15
+2025-08-28T11:24:34.441952703Z nginx: [emerg] host not found in upstream "seoro-town-backend" in /etc/nginx/conf.d/default.conf:15
