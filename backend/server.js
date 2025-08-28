@@ -9,13 +9,6 @@ import { fileURLToPath } from 'url';
 import 'dotenv/config';
 
 import connectDB from './config/db.js';
-import authRoutes from './routes/auth.js';
-import userRoutes from './routes/users.js';
-import postRoutes from './routes/posts.js';
-import mealRoutes from './routes/meal.js';
-import comRoutes from './routes/com.js';
-import marketRoutes from './routes/market.js';
-import chatRoutes from './routes/chat.js';
 import ChatMessage from './models/ChatMessage.js';
 
 const startServer = async () => {
@@ -41,10 +34,19 @@ const startServer = async () => {
         app.use(express.json());
         app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-        app.use('/api/meal', mealRoutes);
+        // Dynamically import routes
+        const authRoutes = (await import('./routes/auth.js')).default;
+        const userRoutes = (await import('./routes/users.js')).default;
+        const postRoutes = (await import('./routes/posts.js')).default;
+        const mealRoutes = (await import('./routes/meal.js')).default;
+        const comRoutes = (await import('./routes/com.js')).default;
+        const marketRoutes = (await import('./routes/market.js')).default;
+        const chatRoutes = (await import('./routes/chat.js')).default;
+
         app.use('/api/auth', authRoutes);
         app.use('/api/users', userRoutes);
         app.use('/api/posts', postRoutes);
+        app.use('/api/meal', mealRoutes);
         app.use('/api/com', comRoutes);
         app.use('/api/market', marketRoutes);
         app.use('/api/chat', chatRoutes);
