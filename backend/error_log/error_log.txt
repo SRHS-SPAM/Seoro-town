@@ -1,15 +1,50 @@
-Manifest: Line: 1, column: 1, Syntax error.이 오류 이해하기
-/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-/api/auth/login:1  Failed to load resource: the server responded with a status of 502 ()이 오류 이해하기
-Login.js:43 로그인 오류: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-onSubmit @ Login.js:43이 오류 이해하기
-/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+2025-08-28T12:03:30.871410136Z #16 17.06   npm install -g serve
+2025-08-28T12:03:30.871411746Z #16 17.06   serve -s build
+2025-08-28T12:03:30.871413396Z #16 17.06 
+2025-08-28T12:03:30.871415046Z #16 17.06 Find out more about deployment here:
+2025-08-28T12:03:30.871416686Z #16 17.06 
+2025-08-28T12:03:30.871418326Z #16 17.06   https://cra.link/deployment
+2025-08-28T12:03:30.871419986Z #16 17.06 
+2025-08-28T12:03:32.646142444Z #16 DONE 19.0s
+2025-08-28T12:03:33.547909633Z 
+2025-08-28T12:03:33.547931494Z #17 [stage-1 4/4] COPY --from=builder /app/build /usr/share/nginx/html
+2025-08-28T12:03:33.698941273Z #17 DONE 0.1s
+2025-08-28T12:03:33.698957903Z 
+2025-08-28T12:03:33.698964344Z #18 exporting to docker image format
+2025-08-28T12:03:33.698968053Z #18 exporting layers
+2025-08-28T12:03:34.163773006Z #18 exporting layers 0.5s done
+2025-08-28T12:03:34.163829318Z #18 exporting manifest sha256:160f002bf901b8e31086849ebababeb7cf339f11b10c13f3c54a6fa4ccebd35f done
+2025-08-28T12:03:34.163840918Z #18 exporting config sha256:2d9ed667d798ff19c6ebaa7b53db4b8f751dd07919f48afb911c4205fe8196a0 done
+2025-08-28T12:03:34.513880343Z #18 DONE 0.8s
+2025-08-28T12:03:34.513899143Z 
+2025-08-28T12:03:34.513904223Z #19 exporting cache to client directory
+2025-08-28T12:03:34.513907993Z #19 preparing build cache for export
+2025-08-28T12:03:49.07929463Z #19 writing cache manifest sha256:01fee1366080dee13843a05df2ff7a56a41809b761f77a1625d9e860028b29df done
+2025-08-28T12:03:49.07931447Z #19 DONE 14.6s
+2025-08-28T12:03:50.184160363Z Pushing image to registry...
+2025-08-28T12:03:52.592972067Z Upload succeeded
+2025-08-28T12:03:56.422553194Z ==> Deploying...
+2025-08-28T12:03:59.575262685Z /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+2025-08-28T12:03:59.575287435Z /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+2025-08-28T12:03:59.577410619Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+2025-08-28T12:03:59.601844337Z 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+2025-08-28T12:03:59.703537948Z 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
+2025-08-28T12:03:59.703809494Z /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+2025-08-28T12:03:59.703952017Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+2025-08-28T12:03:59.70655232Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+2025-08-28T12:03:59.707834066Z /docker-entrypoint.sh: Configuration complete; ready for start up
+2025-08-28T12:03:59.714575923Z 2025/08/28 12:03:59 [emerg] 1#1: host not found in upstream "seoro-town-backend:10000" in /etc/nginx/conf.d/default.conf:3
+2025-08-28T12:03:59.714591174Z nginx: [emerg] host not found in upstream "seoro-town-backend:10000" in /etc/nginx/conf.d/default.conf:3
+2025-08-28T12:04:01.034097616Z /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+2025-08-28T12:04:01.034124917Z /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+2025-08-28T12:04:01.035076706Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+2025-08-28T12:04:01.042005548Z 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+2025-08-28T12:04:01.079844278Z 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
+2025-08-28T12:04:01.080040892Z /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+2025-08-28T12:04:01.080174565Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+2025-08-28T12:04:01.082622385Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+2025-08-28T12:04:01.174488696Z /docker-entrypoint.sh: Configuration complete; ready for start up
+2025-08-28T12:04:01.179417617Z 2025/08/28 12:04:01 [emerg] 1#1: host not found in upstream "seoro-town-backend:10000" in /etc/nginx/conf.d/default.conf:3
+2025-08-28T12:04:01.179482288Z nginx: [emerg] host not found in upstream "seoro-town-backend:10000" in /etc/nginx/conf.d/default.conf:3
+2025-08-28T12:04:01.441394478Z ==> Exited with status 1
+2025-08-28T12:04:01.602752134Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
