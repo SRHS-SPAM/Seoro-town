@@ -9,6 +9,7 @@
         "dev": "nodemon server.js"
     },
     "dependencies": {
+        "@sparticuz/chromium": "^123.0.1",
         "axios": "^1.10.0",
         "bcryptjs": "^2.4.3",
         "cheerio": "^1.1.0",
@@ -19,6 +20,7 @@
         "mongoose": "^8.17.2",
         "multer": "^2.0.1",
         "node-cache": "^5.1.2",
+        "puppeteer-core": "^22.13.0",
         "seoro-town": "file:..",
         "socket.io": "^4.8.1",
         "sqlite3": "^5.1.7"

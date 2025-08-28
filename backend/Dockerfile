@@ -1,13 +1,10 @@
 # Base image
 FROM node:20-slim
 
-
-
-# Install minimal dependencies for @sparticuz/chromium
+# Install dependencies for @sparticuz/chromium
+# See: https://github.com/Sparticuz/chromium/blob/main/examples/docker/Dockerfile
 RUN apt-get update && apt-get install -y \
-    chromium \
     ca-certificates \
-
     fonts-liberation \
     libasound2 \
     libatk-bridge2.0-0 \
@@ -23,7 +20,7 @@ RUN apt-get update && apt-get install -y \
     libgdk-pixbuf2.0-0 \
     libglib2.0-0 \
     libgtk-3-0 \
-    libnspr4 \ 
+    libnspr4 \
     libnss3 \
     libpango-1.0-0 \
     libpangocairo-1.0-0 \
@@ -48,12 +45,12 @@ RUN apt-get update && apt-get install -y \
     rm -rf /var/lib/apt/lists/*
 
 # Set working directory
-
 WORKDIR /app
 
 # Copy package files and install dependencies
-COPY package.json package-lock.json ./ 
-RUN npm install
+# Important: Copy package-lock.json first to leverage Docker cache
+COPY package.json package-lock.json ./
+RUN npm install --omit=dev
 
 # Copy application source
 COPY . .
@@ -62,4 +59,4 @@ COPY . .
 EXPOSE 3001
 
 # Start the application
-CMD ["sh", "-c", "ls -l /usr/bin/chromium && ldd /usr/bin/chromium && npm start"]
+CMD [ "npm", "start" ]

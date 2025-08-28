@@ -1,5 +1,6 @@
 import express from 'express';
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
+import chromium from '@sparticuz/chromium';
 import * as cheerio from 'cheerio';
 
 const router = express.Router();
@@ -21,9 +22,10 @@ async function initializeBrowser() {
     if (!browserInstance) {
         console.log('[Puppeteer] Initializing new browser instance...');
         browserInstance = await puppeteer.launch({
-            headless: true,
-            executablePath: '/usr/bin/chromium',
-            args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath(),
+            headless: chromium.headless,
         });
         browserInstance.on('disconnected', () => {
             console.log('[Puppeteer] Browser instance disconnected.');
@@ -188,8 +190,4 @@ router.get('/detail/:nttId', async (req, res) => {
     }
 });
 
-export default router;t router;ge.close(); // 브라우저는 닫지 않고 페이지만 닫음
-    }
-});
-
-export default router;t router;
+export default router;
