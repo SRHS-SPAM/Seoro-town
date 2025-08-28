@@ -97,4 +97,4 @@
 2025-08-28T09:42:46.322785204Z   57 |     
 2025-08-28T09:42:46.322790994Z   58 |     # Copy application source
 2025-08-28T09:42:46.322795945Z --------------------
-2025-08-28T09:42:46.322802275Z error: failed to solve: process "/bin/sh -c npm install" did not complete successfully: exit code: 1
+2025-08-28T09:42:46.322802275Z error: failed to solve: process "/bin/sh -c npm install" did not complete successfully: exit code: 1 
