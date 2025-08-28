@@ -8,6 +8,11 @@ if (process.env.NODE_ENV !== 'production') {
 
 const connectDB = async () => {
   try {
+    // --- 진단용 로그 추가 시작 ---
+    console.log(`[DEBUG] NODE_ENV: ${process.env.NODE_ENV}`);
+    console.log(`[DEBUG] MONGO_URI (first 15 chars): ${process.env.MONGO_URI ? process.env.MONGO_URI.substring(0, 15) + '...' : 'undefined'}`);
+    // --- 진단용 로그 추가 끝 ---
+
     // MongoDB Atlas 연결 문자열(MONGO_URI)을 환경 변수에서 가져옵니다.
     const mongoURI = process.env.MONGO_URI;
     if (!mongoURI) {
