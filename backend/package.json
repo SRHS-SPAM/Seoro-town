@@ -19,9 +19,9 @@
         "mongoose": "^8.17.2",
         "multer": "^2.0.1",
         "node-cache": "^5.1.2",
-        "puppeteer": "^24.16.2",
+        
+        "puppeteer-core": "^22.13.0",
         "seoro-town": "file:..",
-        "socket.io": "^4.8.1",
         "sqlite3": "^5.1.7"
     },
     "devDependencies": {
@@ -32,6 +32,11 @@
         "express",
         "auth",
         "jwt"
+    ],
+    "author": "Your Name",
+    "license": "MIT"
+}
+    "jwt"
     ],
     "author": "Your Name",
     "license": "MIT"

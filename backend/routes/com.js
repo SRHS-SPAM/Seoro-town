@@ -19,10 +19,12 @@ let browserInstance = null;
 // 서버 시작 시 한번만 브라우저 실행
 async function initializeBrowser() {
     if (!browserInstance) {
-        console.log('[Puppeteer] Initializing new browser instance...');
+        console.log('[Puppeteer] Initializing new browser instance with @sparticuz/chromium...');
         browserInstance = await puppeteer.launch({
-            headless: true,
-            args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath(),
+            headless: chromium.headless,
         });
         browserInstance.on('disconnected', () => {
             console.log('[Puppeteer] Browser instance disconnected.');
@@ -187,4 +189,4 @@ router.get('/detail/:nttId', async (req, res) => {
     }
 });
 
-export default router;
+export default router;t router;
