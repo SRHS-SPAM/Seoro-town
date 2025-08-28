@@ -1,50 +1,63 @@
-2025-08-28T11:27:32.565156603Z #16 16.61   npm install -g serve
-2025-08-28T11:27:32.565158993Z #16 16.61   serve -s build
-2025-08-28T11:27:32.565161403Z #16 16.62 
-2025-08-28T11:27:32.565163743Z #16 16.62 Find out more about deployment here:
-2025-08-28T11:27:32.565166193Z #16 16.62 
-2025-08-28T11:27:32.565168503Z #16 16.62   https://cra.link/deployment
-2025-08-28T11:27:32.565170763Z #16 16.62 
-2025-08-28T11:27:32.716091081Z #16 DONE 16.8s
-2025-08-28T11:27:33.453485852Z 
-2025-08-28T11:27:33.453506072Z #17 [stage-1 4/4] COPY --from=builder /app/build /usr/share/nginx/html
-2025-08-28T11:27:33.603827389Z #17 DONE 0.1s
-2025-08-28T11:27:33.603851019Z 
-2025-08-28T11:27:33.603857609Z #18 exporting to docker image format
-2025-08-28T11:27:33.603863469Z #18 exporting layers
-2025-08-28T11:27:34.055388239Z #18 exporting layers 0.5s done
-2025-08-28T11:27:34.05541002Z #18 exporting manifest sha256:72bc52db935f48ce96b137f8ef3457ec5d38ac434b3ac525ff8fe0895b6260ce done
-2025-08-28T11:27:34.05541682Z #18 exporting config sha256:94e8c4f115f9d168a8310418b4f8746ed144f100f94f32d91dc719348a544a64 done
-2025-08-28T11:27:34.355841029Z #18 DONE 0.8s
-2025-08-28T11:27:34.355857849Z 
-2025-08-28T11:27:34.355863649Z #19 exporting cache to client directory
-2025-08-28T11:27:34.355868079Z #19 preparing build cache for export
-2025-08-28T11:27:51.654465633Z #19 writing cache manifest sha256:a96fc54d5a4b36f479c0875cee00f8245571d4c20ab629c54597810f3090a639 done
-2025-08-28T11:27:51.654499583Z #19 DONE 17.3s
-2025-08-28T11:27:52.334332837Z Pushing image to registry...
-2025-08-28T11:27:54.476622639Z Upload succeeded
-2025-08-28T11:27:58.585326848Z ==> Deploying...
-2025-08-28T11:28:03.929111149Z /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
-2025-08-28T11:28:03.929151861Z /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
-2025-08-28T11:28:03.931307336Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
-2025-08-28T11:28:03.948002199Z 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
-2025-08-28T11:28:04.042802205Z 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
-2025-08-28T11:28:04.043184613Z /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
-2025-08-28T11:28:04.043365837Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
-2025-08-28T11:28:04.120911348Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
-2025-08-28T11:28:04.122564603Z /docker-entrypoint.sh: Configuration complete; ready for start up
-2025-08-28T11:28:04.130257326Z 2025/08/28 11:28:04 [emerg] 1#1: host not found in upstream "seoro-town-backend" in /etc/nginx/conf.d/default.conf:16
-2025-08-28T11:28:04.130278876Z nginx: [emerg] host not found in upstream "seoro-town-backend" in /etc/nginx/conf.d/default.conf:16
-2025-08-28T11:28:05.398633323Z /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
-2025-08-28T11:28:05.399072692Z /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
-2025-08-28T11:28:05.399851659Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
-2025-08-28T11:28:05.449904978Z 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
-2025-08-28T11:28:05.55063605Z 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
-2025-08-28T11:28:05.550941486Z /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
-2025-08-28T11:28:05.551095579Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
-2025-08-28T11:28:05.554156954Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
-2025-08-28T11:28:05.555533513Z /docker-entrypoint.sh: Configuration complete; ready for start up
-2025-08-28T11:28:05.560032148Z 2025/08/28 11:28:05 [emerg] 1#1: host not found in upstream "seoro-town-backend" in /etc/nginx/conf.d/default.conf:16
-2025-08-28T11:28:05.560046929Z nginx: [emerg] host not found in upstream "seoro-town-backend" in /etc/nginx/conf.d/default.conf:16
-2025-08-28T11:28:05.719570341Z ==> Exited with status 1
-2025-08-28T11:28:05.885374506Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+2025-08-28T11:30:42.215639678Z #16 15.37 
+2025-08-28T11:30:42.215643118Z #16 15.37 File sizes after gzip:
+2025-08-28T11:30:42.215646558Z #16 15.37 
+2025-08-28T11:30:42.215650558Z #16 15.39   101.66 kB  build/static/js/main.9c6045b7.js
+2025-08-28T11:30:42.215654088Z #16 15.39   9.66 kB    build/static/css/main.f5cd9223.css
+2025-08-28T11:30:42.215667958Z #16 15.39   1.77 kB    build/static/js/453.ed3810f9.chunk.js
+2025-08-28T11:30:42.215670399Z #16 15.39 
+2025-08-28T11:30:42.215672588Z #16 15.39 The project was built assuming it is hosted at /.
+2025-08-28T11:30:42.215674688Z #16 15.39 You can control this with the homepage field in your package.json.
+2025-08-28T11:30:42.215676788Z #16 15.39 
+2025-08-28T11:30:42.215678869Z #16 15.39 The build folder is ready to be deployed.
+2025-08-28T11:30:42.215680949Z #16 15.39 You may serve it with a static server:
+2025-08-28T11:30:42.215683059Z #16 15.39 
+2025-08-28T11:30:42.215685109Z #16 15.39   npm install -g serve
+2025-08-28T11:30:42.215687169Z #16 15.39   serve -s build
+2025-08-28T11:30:42.215689259Z #16 15.39 
+2025-08-28T11:30:42.215691309Z #16 15.39 Find out more about deployment here:
+2025-08-28T11:30:42.215693379Z #16 15.39 
+2025-08-28T11:30:42.215695449Z #16 15.39   https://cra.link/deployment
+2025-08-28T11:30:42.215697539Z #16 15.39 
+2025-08-28T11:30:42.350528431Z #16 DONE 15.6s
+2025-08-28T11:30:43.211579884Z 
+2025-08-28T11:30:43.211605084Z #17 [stage-1 4/4] COPY --from=builder /app/build /usr/share/nginx/html
+2025-08-28T11:30:43.211611874Z #17 DONE 0.1s
+2025-08-28T11:30:43.361812299Z 
+2025-08-28T11:30:43.36183739Z #18 exporting to docker image format
+2025-08-28T11:30:43.36184461Z #18 exporting layers
+2025-08-28T11:30:43.852425967Z #18 exporting layers 0.4s done
+2025-08-28T11:30:43.852451898Z #18 exporting manifest sha256:29323c3eec7ad993a4832a53bd423276315db429ce2c9fb26afea1fbb6a170f0 done
+2025-08-28T11:30:43.852456678Z #18 exporting config sha256:e6d2aff2828a5840f5bf01d1cf10a788e255cc189e09c94038d8b10aec073d11 done
+2025-08-28T11:30:43.956172796Z #18 DONE 0.7s
+2025-08-28T11:30:44.106634086Z 
+2025-08-28T11:30:44.106659376Z #19 exporting cache to client directory
+2025-08-28T11:30:44.106664226Z #19 preparing build cache for export
+2025-08-28T11:30:57.681331023Z #19 writing cache manifest sha256:7c82b26d095dc50672981512fd2df4feb3ac353060ad85d5b992b771a5bde087 done
+2025-08-28T11:30:57.681355203Z #19 DONE 13.7s
+2025-08-28T11:30:58.520002299Z Pushing image to registry...
+2025-08-28T11:31:00.268315867Z Upload succeeded
+2025-08-28T11:31:03.945641803Z ==> Deploying...
+2025-08-28T11:31:08.52314203Z /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+2025-08-28T11:31:08.523218651Z /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+2025-08-28T11:31:08.524195832Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+2025-08-28T11:31:08.536264958Z 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+2025-08-28T11:31:08.626259701Z 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
+2025-08-28T11:31:08.626649649Z /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+2025-08-28T11:31:08.627530958Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+2025-08-28T11:31:08.631301857Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+2025-08-28T11:31:08.632756608Z /docker-entrypoint.sh: Configuration complete; ready for start up
+2025-08-28T11:31:08.72407697Z 2025/08/28 11:31:08 [emerg] 1#1: host not found in upstream "seoro-town-backend" in /etc/nginx/conf.d/default.conf:16
+2025-08-28T11:31:08.72409613Z nginx: [emerg] host not found in upstream "seoro-town-backend" in /etc/nginx/conf.d/default.conf:16
+2025-08-28T11:31:10.865370845Z ==> Exited with status 1
+2025-08-28T11:31:11.03109346Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+2025-08-28T11:31:09.896562569Z /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+2025-08-28T11:31:09.896589369Z /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+2025-08-28T11:31:09.901462952Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+2025-08-28T11:31:09.914857016Z 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+2025-08-28T11:31:09.962205277Z 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
+2025-08-28T11:31:09.962226227Z /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+2025-08-28T11:31:10.041518155Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+2025-08-28T11:31:10.044539588Z /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+2025-08-28T11:31:10.046857828Z /docker-entrypoint.sh: Configuration complete; ready for start up
+2025-08-28T11:31:10.053950727Z 2025/08/28 11:31:10 [emerg] 1#1: host not found in upstream "seoro-town-backend" in /etc/nginx/conf.d/default.conf:16
+2025-08-28T11:31:10.053968158Z nginx: [emerg] host not found in upstream "seoro-town-backend" in /etc/nginx/conf.d/default.conf:16
