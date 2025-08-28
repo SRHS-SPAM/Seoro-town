@@ -19,7 +19,6 @@
         "mongoose": "^8.17.2",
         "multer": "^2.0.1",
         "node-cache": "^5.1.2",
-        
         "seoro-town": "file:..",
         "socket.io": "^4.8.1",
         "sqlite3": "^5.1.7"
@@ -34,13 +33,5 @@
         "jwt"
     ],
     "author": "Your Name",
-    "license": "MIT"
-}
-    "jwt"
-    ],
-    "author": "Your Name",
-    "license": "MIT"
-}
-  "author": "Your Name",
     "license": "MIT"
 }
