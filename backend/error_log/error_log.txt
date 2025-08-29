@@ -1,4 +1,4 @@
-Manifest: Line: 1, column: 1, Syntax error.이 오류 이해하기
+/manifest.json:1 Manifest: Line: 1, column: 1, Syntax error.이 오류 이해하기
 /api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
 /api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
 /api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
@@ -28,4 +28,8 @@ onSubmit @ Login.js:43이 오류 이해하기
 /api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
 /api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
 /api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-Boardpage.js:107  GET https://seoro-town.onrender.com/api/posts net::ERR_TOO_MANY_REDIRECTS
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/com?page=1:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS
