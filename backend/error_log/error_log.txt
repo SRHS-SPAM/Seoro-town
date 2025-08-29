@@ -1,50 +1,26 @@
-2025-08-29T11:20:19.531187115Z 
-2025-08-29T11:20:19.531207465Z #11 [6/6] COPY . .
-2025-08-29T11:20:19.68208849Z #11 DONE 0.2s
-2025-08-29T11:20:19.68210142Z 
-2025-08-29T11:20:19.68210652Z #12 exporting to docker image format
-2025-08-29T11:20:19.68211052Z #12 exporting layers
-2025-08-29T11:20:26.256002553Z #12 exporting layers 6.7s done
-2025-08-29T11:20:26.256037334Z #12 exporting manifest sha256:49a314d461a8b43f031908bb656bfdba2972ec33cb4bd25abceebb03a0e6dbe0 done
-2025-08-29T11:20:26.256045794Z #12 exporting config sha256:b78a32038e630c7e80087f8f1fca687fe6c89faea4c4a220f47cb5d1eec1f238
-2025-08-29T11:20:26.441894688Z #12 exporting config sha256:b78a32038e630c7e80087f8f1fca687fe6c89faea4c4a220f47cb5d1eec1f238 done
-2025-08-29T11:20:29.770695725Z #12 DONE 10.2s
-2025-08-29T11:20:29.921848137Z 
-2025-08-29T11:20:29.921879638Z #13 exporting cache to client directory
-2025-08-29T11:20:29.921885948Z #13 preparing build cache for export
-2025-08-29T11:20:32.970395556Z #13 writing cache manifest sha256:92c6c8139100381fad04c55d61cdc83df883af50d41668ce0d312f46e5d2ffb7 done
-2025-08-29T11:20:32.970412376Z #13 DONE 3.2s
-2025-08-29T11:20:38.644427598Z Pushing image to registry...
-2025-08-29T11:20:47.420416896Z Upload succeeded
-2025-08-29T11:20:51.419089403Z ==> Deploying...
-2025-08-29T11:21:03.877226182Z 
-2025-08-29T11:21:03.877269664Z > auth-backend@1.0.0 start
-2025-08-29T11:21:03.877273984Z > node server.js
-2025-08-29T11:21:03.877276544Z 
-2025-08-29T11:21:07.475414983Z [DEBUG] NODE_ENV: production
-2025-08-29T11:21:07.475864165Z [DEBUG] MONGO_URI (first 15 chars): mongodb+srv://j...
-2025-08-29T11:21:08.728699992Z MongoDB Connected: ac-vkpmney-shard-00-00.pn9opws.mongodb.net
-2025-08-29T11:21:11.669663716Z Server is running on http://localhost:10000
-2025-08-29T11:21:12.607790376Z --- Incoming Request ---
-2025-08-29T11:21:12.608048773Z [2025-08-29T11:21:12.607Z]
-2025-08-29T11:21:12.608061223Z Method: HEAD
-2025-08-29T11:21:12.608105255Z URL: /
-2025-08-29T11:21:12.608113715Z Host Header: seoro-town-backend.onrender.com
-2025-08-29T11:21:12.608551857Z X-Forwarded-For: undefined
-2025-08-29T11:21:12.608702292Z X-Forwarded-Proto: undefined
-2025-08-29T11:21:12.608717492Z ----------------------
-2025-08-29T11:21:22.149852037Z ==> Your service is live 🎉
-2025-08-29T11:21:22.812109379Z ==> 
-2025-08-29T11:21:22.986317368Z ==> ///////////////////////////////////////////////////////////
-2025-08-29T11:21:23.158526627Z ==> 
-2025-08-29T11:21:23.330903337Z ==> Available at your primary URL https://seoro-town-backend.onrender.com
-2025-08-29T11:21:23.502803546Z ==> 
-2025-08-29T11:21:23.674726546Z ==> ///////////////////////////////////////////////////////////
-2025-08-29T11:21:25.608523822Z --- Incoming Request ---
-2025-08-29T11:21:25.608553332Z [2025-08-29T11:21:25.608Z]
-2025-08-29T11:21:25.608690796Z Method: GET
-2025-08-29T11:21:25.608706547Z URL: /
-2025-08-29T11:21:25.608748698Z Host Header: seoro-town-backend.onrender.com
-2025-08-29T11:21:25.60880295Z X-Forwarded-For: 35.197.97.226, 172.71.124.23, 10.210.229.104
-2025-08-29T11:21:25.608920883Z X-Forwarded-Proto: https
-2025-08-29T11:21:25.608932313Z ----------------------
+Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/manifest.json:1 Manifest: Line: 1, column: 1, Syntax error.이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/com?page=1:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/com?page=1:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS
