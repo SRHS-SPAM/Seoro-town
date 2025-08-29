@@ -1,69 +1,31 @@
-manifest.json:1 Manifest: Line: 1, column: 1, Syntax error.이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/auth/login:1  Failed to load resource: the server responded with a status of 502 ()이 오류 이해하기
+Manifest: Line: 1, column: 1, Syntax error.이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/auth/login:1  Failed to load resource: the server responded with a status of 502 ()이 오류 이해하기
 Login.js:43 로그인 오류: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
 onSubmit @ Login.js:43이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-api/com?page=1:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
-Boardpage.js:107  GET https://seoro-town.onrender.com/api/posts net::ERR_TOO_MANY_REDIRECTS
-p @ Boardpage.js:107
-(익명) @ Boardpage.js:100
-ol @ react-dom-client.production.js:8292
-ql @ react-dom-client.production.js:9771
-Hl @ react-dom-client.production.js:9746
-ql @ react-dom-client.production.js:9878
-Hl @ react-dom-client.production.js:9746
-ql @ react-dom-client.production.js:9765
-Hl @ react-dom-client.production.js:9746
-ql @ react-dom-client.production.js:9765
-Hl @ react-dom-client.production.js:9746
-ql @ react-dom-client.production.js:9878
-Hl @ react-dom-client.production.js:9746
-ql @ react-dom-client.production.js:9878
-Hl @ react-dom-client.production.js:9746
-ql @ react-dom-client.production.js:9878
-Hl @ react-dom-client.production.js:9746
-ql @ react-dom-client.production.js:9765
-Hl @ react-dom-client.production.js:9746
-ql @ react-dom-client.production.js:9765
-Hl @ react-dom-client.production.js:9746
-ql @ react-dom-client.production.js:9765
-Hl @ react-dom-client.production.js:9746
-ql @ react-dom-client.production.js:9878
-Hl @ react-dom-client.production.js:9746
-ql @ react-dom-client.production.js:9765
-Hl @ react-dom-client.production.js:9746
-ql @ react-dom-client.production.js:9765
-Hl @ react-dom-client.production.js:9746
-ql @ react-dom-client.production.js:9878
-Hl @ react-dom-client.production.js:9746
-ql @ react-dom-client.production.js:9782
-cu @ react-dom-client.production.js:11313
-lu @ react-dom-client.production.js:11289
-su @ react-dom-client.production.js:11268
-ru @ react-dom-client.production.js:11071
-Bc @ react-dom-client.production.js:10490
-Fc @ react-dom-client.production.js:10419
-Pu @ react-dom-client.production.js:11634
-ju @ react-dom-client.production.js:11505
-Nu @ react-dom-client.production.js:11539
-(익명) @ react-dom-client.production.js:11643이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/com?page=1:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
+/api/posts:1  Failed to load resource: net::ERR_TOO_MANY_REDIRECTS이 오류 이해하기
 Boardpage.js:107  GET https://seoro-town.onrender.com/api/posts net::ERR_TOO_MANY_REDIRECTS
