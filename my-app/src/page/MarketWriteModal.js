@@ -71,9 +71,10 @@ function MarketWriteModal({ isOpen, onClose, onSuccess, productToEdit }) {
             formData.append('image', imageFile);
         }
 
+        const baseUrl = process.env.REACT_APP_API_URL || '';
         const url = isEditMode 
-            ? `/api/market/${productToEdit._id}` // Use _id for API calls
-            : '/api/market';
+            ? `${baseUrl}/api/market/${productToEdit._id}`
+            : `${baseUrl}/api/market`;
         const method = isEditMode ? 'PUT' : 'POST';
 
         try {

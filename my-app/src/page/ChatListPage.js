@@ -19,7 +19,7 @@ function ChatListPage() {
                 return;
             }
             try {
-                const response = await fetch('/api/chat', {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/chat`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (!response.ok) {

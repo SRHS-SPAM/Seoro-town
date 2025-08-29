@@ -20,7 +20,7 @@ function ComDetail() {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch(`/api/com/detail/${nttId}`);
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/com/detail/${nttId}`);
             if (!response.ok) {
                 const errorData = await response.json().catch(() => null);
                 throw new Error(errorData?.message || `서버 응답 오류: ${response.status}`);

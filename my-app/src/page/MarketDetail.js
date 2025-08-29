@@ -23,7 +23,7 @@ function MarketDetail() {
 
     const fetchProduct = async () => {
         try {
-            const response = await fetch(`/api/market/${productId}`);
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/market/${productId}`);
             if (!response.ok) throw new Error('상품 정보를 불러오지 못했습니다.');
             const data = await response.json();
             if (data.success) {
@@ -46,7 +46,7 @@ function MarketDetail() {
         if (!window.confirm('이 상품을 판매 완료 처리하시겠습니까? 3일 후에 자동으로 삭제됩니다.')) return;
         const toastId = toast.loading('처리 중...');
         try {
-            const response = await fetch(`/api/market/${productId}/sold`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/market/${productId}/sold`, {
                 method: 'PATCH',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -79,7 +79,7 @@ function MarketDetail() {
         }
         const toastId = toast.loading('채팅방 생성 중...');
         try {
-            const response = await fetch('/api/chat/start', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/chat/start`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ productId: product.id })
@@ -104,7 +104,7 @@ function MarketDetail() {
         if (!window.confirm('정말로 이 상품을 삭제하시겠습니까?')) return;
         const toastId = toast.loading('삭제 중...');
         try {
-            const response = await fetch(`/api/market/${productId}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/market/${productId}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });

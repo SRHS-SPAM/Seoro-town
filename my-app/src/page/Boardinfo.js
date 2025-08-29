@@ -25,7 +25,7 @@ function Boardinfo() {
         }
 
         try {
-            const response = await fetch(`/api/posts/${id}`);
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/posts/${id}`);
             const data = await response.json();
 
             if (data.success && data.post) {
@@ -94,7 +94,7 @@ function Boardinfo() {
         if (!isLoggedIn) return alert('로그인 후 이용해주세요.');
         setIsSubmitting(true);
         try {
-            const response = await fetch(`/api/posts/${id}/comments`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/posts/${id}/comments`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ content: newComment.trim() })
@@ -122,7 +122,7 @@ function Boardinfo() {
 
         setIsDeleting(true);
         try {
-            const response = await fetch(`/api/posts/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/posts/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });

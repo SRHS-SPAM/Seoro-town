@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
             setToken(storedToken);
             const verifyStoredToken = async () => {
                 try {
-                    const response = await fetch('/api/users/me', {
+                    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/me`, {
                         headers: { 'Authorization': `Bearer ${storedToken}` },
                     });
                     const data = await response.json();

@@ -33,7 +33,7 @@ function Schedule() {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch('/api/users/me/schedule', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/me/schedule`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (!response.ok) throw new Error(`시간표 불러오기 실패: ${response.status}`);
@@ -74,7 +74,7 @@ function Schedule() {
         const toastId = toast.loading('저장 중...'); // 로딩 토스트
 
         try {
-            const response = await fetch('/api/users/me/schedule', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/me/schedule`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

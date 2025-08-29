@@ -16,7 +16,7 @@ function Com() {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch(`/api/com?page=${pageNum}`);
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/com?page=${pageNum}`);
             if (!response.ok) throw new Error(`서버 응답 오류: ${response.status}`);
             const data = await response.json();
             if (data.success && Array.isArray(data.list)) {

@@ -166,7 +166,8 @@ function Mypage() {
     const [searchResults, setSearchResults] = useState([]);
     
     const fetchAPI = useCallback(async (url) => {
-        const response = await fetch(url, { headers: { 'Authorization': `Bearer ${token}` } });
+        const baseUrl = process.env.REACT_APP_API_URL || '';
+        const response = await fetch(`${baseUrl}${url}`, { headers: { 'Authorization': `Bearer ${token}` } });
         if (!response.ok) throw new Error(`API 요청 실패: ${response.status}`);
         return response.json();
     }, [token]);
@@ -232,7 +233,7 @@ function Mypage() {
         const formData = new FormData();
         formData.append('profileImage', file);
         try {
-            const response = await fetch('/api/users/me/profile-image', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/me/profile-image`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` },
                 body: formData,
@@ -257,7 +258,7 @@ function Mypage() {
         if (isMyProfile) return;
         const endpoint = profileData.isFollowing ? 'unfollow' : 'follow';
         try {
-            const response = await fetch(`/api/users/${profileUserId}/${endpoint}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/${profileUserId}/${endpoint}`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
