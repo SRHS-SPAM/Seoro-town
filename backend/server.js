@@ -22,13 +22,13 @@ const startServer = async () => {
         const server = http.createServer(app);
         const io = new Server(server, {
             cors: {
-                origin: "http://localhost:3000",
+                origin: ["http://localhost:3000", "https://seoro-town.onrender.com"],
                 methods: ["GET", "POST"]
             }
         });
 
         app.use(cors({
-            origin: ['http://localhost:3000', 'http://localhost:3001'],
+            origin: ['http://localhost:3000', 'http://localhost:3001', 'https://seoro-town.onrender.com'],
             credentials: true
         }));
         app.use(express.json());
