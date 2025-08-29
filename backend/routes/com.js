@@ -49,29 +49,54 @@ initializeBrowser(); // 서버 시작과 함께 브라우저 초기화
 
 router.get('/', async (req, res) => {
     const pageNum = req.query.page || 1;
-    console.log(`[Debug] Attempting to crawl list for page ${pageNum}.`);
+    const now = Date.now();
+
+    // 1. 캐시 확인
+    if (listCache.has(pageNum)) {
+        const cached = listCache.get(pageNum);
+        if (now - cached.timestamp < CACHE_DURATION) {
+            console.log(`[Cache] HIT: Serving list for page ${pageNum} from cache.`);
+            return res.json({ success: true, list: cached.data });
+        }
+    }
+
+    // 2. 캐시 없으면 크롤링
+    console.log(`[Cache] MISS: Crawling list for page ${pageNum}.`);
     let page = null;
     try {
         const browser = await initializeBrowser();
         page = await browser.newPage();
         await page.goto(COM_PAGE_URL, { waitUntil: 'networkidle2' });
-        console.log(`[Debug] Current page URL: ${page.url()}`);
 
         const listResponsePromise = page.waitForResponse(response => response.url().startsWith(LIST_API_URL));
         await page.evaluate((pn) => { fnPage(pn); }, pageNum);
-        const listResponse = await listResponsePromise;
-        console.log(`[Debug] List API Response Status: ${listResponse.status()}`);
+        await listResponsePromise;
 
         const content = await page.content();
-        console.log('--- Fetched HTML Content (Snippet) ---');
-        console.log(content.substring(0, 1000)); // Log only first 1000 chars
-        console.log('--- End of HTML Content (Snippet) ---');
-        
-        res.status(500).json({ success: false, message: 'HTML logged for debugging. Please check server logs.' });
+        const $ = cheerio.load(content);
+        const comList = [];
+
+        $('table.board-table tr').each((i, elem) => {
+            const tds = $(elem).find('td');
+            const num = tds.eq(0).text().trim();
+            if (num === '공지') return;
+
+            comList.push({
+                num: num,
+                title: tds.eq(1).find('a').text().trim(),
+                nttId: tds.eq(1).find('a').attr('onclick')?.match(/\d+/)?.[0] || null,
+                author: tds.eq(2).text().trim(),
+                date: tds.eq(3).text().trim(),
+                views: tds.eq(4).text().trim(),
+            });
+        });
+
+        listCache.set(pageNum, { timestamp: now, data: comList });
+        res.json({ success: true, list: comList });
 
     } catch (error) {
-        console.error('[Puppeteer] HTML 로깅 중 오류:', error.message);
-        res.status(500).json({ success: false, message: '디버깅 중 오류가 발생했습니다.' });
+        console.error('[Puppeteer] 목록 크롤링 오류:', error.message);
+        res.status(500).json({ success: false, message: '가정통신문 목록을 가져오는 데 실패했습니다.' });
     } finally {
         if (page) { await page.close(); } 
     }
