@@ -55,15 +55,17 @@ router.get('/', async (req, res) => {
         const browser = await initializeBrowser();
         page = await browser.newPage();
         await page.goto(COM_PAGE_URL, { waitUntil: 'networkidle2' });
+        console.log(`[Debug] Current page URL: ${page.url()}`);
 
         const listResponsePromise = page.waitForResponse(response => response.url().startsWith(LIST_API_URL));
         await page.evaluate((pn) => { fnPage(pn); }, pageNum);
-        await listResponsePromise;
+        const listResponse = await listResponsePromise;
+        console.log(`[Debug] List API Response Status: ${listResponse.status()}`);
 
         const content = await page.content();
-        console.log('--- Fetched HTML Content ---');
-        console.log(content);
-        console.log('--- End of HTML Content ---');
+        console.log('--- Fetched HTML Content (Snippet) ---');
+        console.log(content.substring(0, 1000)); // Log only first 1000 chars
+        console.log('--- End of HTML Content (Snippet) ---');
         
         res.status(500).json({ success: false, message: 'HTML logged for debugging. Please check server logs.' });
 
