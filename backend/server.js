@@ -32,6 +32,19 @@ const startServer = async () => {
             credentials: true
         }));
         app.use(express.json());
+
+        // 상세 로깅 미들웨어
+        app.use((req, res, next) => {
+          console.log('--- Incoming Request ---');
+          console.log(`[${new Date().toISOString()}]`);
+          console.log('Method:', req.method);
+          console.log('URL:', req.originalUrl);
+          console.log('Host Header:', req.headers['host']);
+          console.log('X-Forwarded-For:', req.headers['x-forwarded-for']);
+          console.log('X-Forwarded-Proto:', req.headers['x-forwarded-proto']);
+          console.log('----------------------');
+          next();
+        });
         app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
         // Dynamically import routes
