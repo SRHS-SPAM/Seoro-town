@@ -138,7 +138,10 @@ function MarketWriteModal({ isOpen, onClose, onSuccess, productToEdit }) {
                                 <label>{isEditMode ? "새 이미지로 변경 (선택): " : "이미지 첨부: "}</label>
                                 <input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files[0])} />
                             </div>
-                            <button type="submit" className="SubmitButton" disabled={isSubmitting}>{isSubmitting ? '처리 중...' : (isEditMode ? '수정 완료' : '등록')}</button>
+                            <div className="PopupButtonContainer">
+                                <button type="button" className="SecondaryButton" onClick={handleClose} disabled={isSubmitting}>취소</button>
+                                <button type="submit" className="PrimaryButton" disabled={isSubmitting}>{isSubmitting ? '처리 중...' : (isEditMode ? '수정 완료' : '등록')}</button>
+                            </div>
                         </form>
                     </div>
                 )}
