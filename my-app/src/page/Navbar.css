@@ -1,0 +1,168 @@
+/* Consolidated Navbar Styles */
+
+.NavBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    font-family: 'LINESeedKR-Bd';
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    z-index: 1001; /* Ensure navbar is on top of other content */
+}
+
+.NavLeft {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.RobotLogo {
+    width: 40px;
+    height: auto;
+    display: block;
+}
+
+.BrandName {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.NavMenuContainer {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.NavCenter {
+    display: flex;
+    justify-content: center;
+    gap: 2vh;
+    flex-grow: 1;
+}
+
+.NavItem {
+    position: relative;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    margin: 0 15px; /* Adjusted margin */
+    padding: 5px 0;
+}
+
+.NavItem::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 2px;
+    background-color: red;
+    transition: width 0.3s ease;
+}
+
+.NavItem:hover {
+    color: red;
+}
+
+.NavItem:hover::after {
+    width: 100%;
+}
+
+.NavItem.active {
+    color: red;
+}
+
+.NavItem.active::after {
+    width: 100%;
+}
+
+.NavRight {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+button.NavItem {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+/* --- Responsive Styles --- */
+
+.MobileMenuToggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+@media (max-width: 992px) {
+    .MobileMenuToggle {
+        display: block;
+    }
+
+    .NavMenuContainer {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    .NavMenuContainer.mobile-open {
+        display: flex;
+    }
+
+    .NavCenter,
+    .NavRight {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 0;
+    }
+
+    .NavRight {
+        border-top: 1px solid #f0f0f0;
+        margin-top: 10px;
+        padding-top: 10px;
+    }
+
+    .NavItem {
+        margin: 0;
+        padding: 12px 0;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .NavItem:last-child {
+        border-bottom: none;
+    }
+
+    .NavRight .NavItem:first-child {
+        border-top: 1px solid #f0f0f0;
+    }
+
+    .NavItem::after {
+        display: none;
+    }
+}
