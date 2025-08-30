@@ -67,6 +67,7 @@ router.get('/', async (req, res) => {
     try {
         const browser = await initializeBrowser();
         page = await browser.newPage();
+        await page.setExtraHTTPHeaders({'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7'});
         await page.goto(COM_PAGE_URL, { waitUntil: 'networkidle2' });
         console.log(`[Puppeteer] Navigated to ${COM_PAGE_URL}`);
 
@@ -76,7 +77,6 @@ router.get('/', async (req, res) => {
         console.log(`[Puppeteer] List API response received from ${LIST_API_URL}`);
 
         const content = await page.content();
-        console.log(`[Puppeteer] Full page content: ${content}`); // 임시 로그 추가
         console.log(`[Puppeteer] Page content length: ${content.length}`);
         // console.log(`[Puppeteer] Page content snippet: ${content.substring(0, 500)}...`); // Log a snippet for debugging
         const $ = cheerio.load(content);
@@ -136,6 +136,7 @@ router.get('/detail/:nttId', async (req, res) => {
     try {
         const browser = await initializeBrowser();
         page = await browser.newPage();
+        await page.setExtraHTTPHeaders({'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7'});
         await page.goto(COM_PAGE_URL, { waitUntil: 'networkidle0' });
 
         const detailResponsePromise = page.waitForResponse(
