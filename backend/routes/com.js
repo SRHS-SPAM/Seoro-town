@@ -68,19 +68,28 @@ router.get('/', async (req, res) => {
         const browser = await initializeBrowser();
         page = await browser.newPage();
         await page.goto(COM_PAGE_URL, { waitUntil: 'networkidle2' });
+        console.log(`[Puppeteer] Navigated to ${COM_PAGE_URL}`);
 
         const listResponsePromise = page.waitForResponse(response => response.url().startsWith(LIST_API_URL));
         await page.evaluate((pn) => { fnPage(pn); }, pageNum);
         await listResponsePromise;
+        console.log(`[Puppeteer] List API response received from ${LIST_API_URL}`);
 
         const content = await page.content();
+        console.log(`[Puppeteer] Page content length: ${content.length}`);
+        // console.log(`[Puppeteer] Page content snippet: ${content.substring(0, 500)}...`); // Log a snippet for debugging
         const $ = cheerio.load(content);
         const comList = [];
 
-        $('table.board-table tr').each((i, elem) => {
+        const tableRows = $('table.board-table tr');
+        console.log(`[Puppeteer] Found ${tableRows.length} table rows.`);
+
+        tableRows.each((i, elem) => {
             const tds = $(elem).find('td');
             const num = tds.eq(0).text().trim();
             if (num === '공지') return;
+
+            // console.log(`[Puppeteer] Processing row ${i}: Num=${num}, Title=${tds.eq(1).find('a').text().trim()}`); // Log each row being processed
 
             comList.push({
                 num: num,
@@ -91,6 +100,7 @@ router.get('/', async (req, res) => {
                 views: tds.eq(4).text().trim(),
             });
         });
+        console.log(`[Puppeteer] Extracted ${comList.length} items.`);
 
         listCache.set(pageNum, { timestamp: now, data: comList });
         res.json({ success: true, list: comList });
