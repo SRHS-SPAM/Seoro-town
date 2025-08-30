@@ -292,3 +292,4 @@ function ComDetail() {
 }
 
 export default ComDetail;
+
