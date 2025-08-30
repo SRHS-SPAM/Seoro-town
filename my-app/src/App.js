@@ -36,7 +36,7 @@ function AppContent() {
 
   return (
     <Router>
-      {/* 2. Toaster 컴포넌트 추가 */}
+      {/* 2. Toaster 컴포넌트 추가 2*/}
       <Toaster 
         position="top-right"
         toastOptions={{
