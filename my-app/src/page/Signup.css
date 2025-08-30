@@ -1,227 +1,159 @@
-    /* Signup.css */
+/* Signup.css */
 
-    .SignupContainer {
-    max-width: 420px;
+.SignupContainer {
+    max-width: 450px; /* Increased width for new elements */
     margin: 60px auto;
     padding: 40px;
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    border-radius: 20px;
-    box-shadow: 
-        0 20px 40px rgba(220, 53, 69, 0.1),
-        0 8px 16px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(220, 53, 69, 0.1);
-    position: relative;
-    overflow: hidden;
-    }
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+}
 
-    .SignupContainer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #dc3545, #e74c3c, #c0392b);
-    }
-
-    .SignupContainer h2 {
+.SignupContainer h2 {
     text-align: center;
     margin-bottom: 30px;
     color: #2c3e50;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
-    letter-spacing: -0.5px;
-    position: relative;
-    }
+}
 
-    .SignupContainer h2::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 3px;
-    background: linear-gradient(90deg, #dc3545, #e74c3c);
-    border-radius: 2px;
-    }
+.FormGroup {
+    margin-bottom: 22px;
+}
 
-    .FormGroup {
-    margin-bottom: 20px;
-    position: relative;
-    }
-
-    .FormGroup label {
+.FormGroup label {
     display: block;
     margin-bottom: 8px;
     color: #495057;
     font-weight: 600;
     font-size: 14px;
-    letter-spacing: 0.3px;
-    }
+}
 
-    .FormGroup input {
+.FormGroup input {
     width: 100%;
-    padding: 14px 18px;
-    border: 2px solid #e9ecef;
-    border-radius: 12px;
+    padding: 12px 16px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
     font-size: 15px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    background-color: #ffffff;
-    color: #495057;
+    transition: all 0.2s ease-in-out;
     box-sizing: border-box;
-    }
+}
 
-    .FormGroup input:focus {
+.FormGroup input:focus {
     outline: none;
-    border-color: #dc3545;
-    box-shadow: 
-        0 0 0 3px rgba(220, 53, 69, 0.1),
-        0 4px 12px rgba(220, 53, 69, 0.15);
-    transform: translateY(-2px);
-    }
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
 
-    .FormGroup input::placeholder {
-    color: #adb5bd;
-    font-weight: 400;
-    }
+.FormGroup input:disabled {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
 
-    .FormGroup input:hover {
-    border-color: #dee2e6;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    }
+/* New styles for input and button side-by-side */
+.InputWithButton {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative; /* For timer positioning */
+}
 
-    /* 이메일 입력 필드 특별 스타일 */
-    .FormGroup input[type="email"]:valid {
-    border-color: #28a745;
-    }
+.InputWithButton input {
+    flex-grow: 1;
+}
 
-    .FormGroup input[type="email"]:invalid:not(:placeholder-shown) {
-    border-color: #dc3545;
-    }
-
-    /* 비밀번호 확인 필드 */
-    .FormGroup:nth-child(5) input:valid {
-    border-color: #28a745;
-    }
-
-    .SignupButton {
-    width: 100%;
-    padding: 16px;
-    background: linear-gradient(135deg, #dc3545 0%, #c0392b 100%);
+.ActionButton {
+    flex-shrink: 0;
+    padding: 12px 16px;
+    background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.ActionButton:hover {
+    background-color: #0056b3;
+}
+
+.ActionButton:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Main signup button */
+.SignupButton {
+    width: 100%;
+    padding: 14px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    margin-top: 8px;
-    margin-bottom: 20px;
-    }
+    transition: background-color 0.2s ease;
+    margin-top: 10px;
+}
 
-    .SignupButton:hover {
-    transform: translateY(-3px);
-    box-shadow: 
-        0 8px 25px rgba(220, 53, 69, 0.3),
-        0 4px 12px rgba(0, 0, 0, 0.15);
-    }
+.SignupButton:hover {
+    background: #218838;
+}
 
-    .SignupButton:active {
-    transform: translateY(-1px);
-    }
+.SignupButton:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
 
-    .LoginLink {
+/* Timer style */
+.Timer {
+    position: absolute;
+    right: 120px; /* Adjust based on ActionButton width */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #dc3545;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Resend button style */
+.ResendButton {
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: -10px;
+}
+
+.ResendButton:hover {
+    background: #007bff;
+    color: white;
+}
+
+.LoginLink {
     text-align: center;
     color: #6c757d;
     font-size: 14px;
     margin-top: 20px;
-    }
+}
 
-    .LoginLink span {
-    color: #dc3545;
+.LoginLink span {
+    color: #007bff;
     font-weight: 600;
     cursor: pointer;
     margin-left: 5px;
-    transition: all 0.3s ease;
+}
+
+.LoginLink span:hover {
     text-decoration: underline;
-    text-decoration-color: transparent;
-    }
-
-    .LoginLink span:hover {
-    color: #c0392b;
-    text-decoration-color: #c0392b;
-    transform: translateY(-1px);
-    }
-
-    /* 반응형 디자인 */
-    @media (max-width: 480px) {
-    .SignupContainer {
-        margin: 30px 20px;
-        padding: 30px 24px;
-    }
-    
-    .SignupContainer h2 {
-        font-size: 24px;
-    }
-    
-    .FormGroup input,
-    .SignupButton {
-        padding: 12px 16px;
-        font-size: 14px;
-    }
-    
-    .FormGroup {
-        margin-bottom: 18px;
-    }
-    }
-
-    /* 애니메이션 효과 */
-    @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    }
-
-    .SignupContainer {
-    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* 포커스 링 스타일링 */
-    .FormGroup input:focus-visible {
-    outline: 2px solid #dc3545;
-    outline-offset: 2px;
-    }
-
-    .SignupButton:focus-visible {
-    outline: 2px solid #dc3545;
-    outline-offset: 2px;
-    }
-
-    /* 폼 검증 스타일 */
-    .FormGroup input:valid:not(:placeholder-shown) {
-    border-color: #28a745;
-    }
-
-    .FormGroup input:invalid:not(:placeholder-shown) {
-    border-color: #dc3545;
-    }
-
-    /* 비밀번호 강도 표시 (선택사항) */
-    .FormGroup input[type="password"]:focus + .password-strength {
-    display: block;
-    }
-
-    .password-strength {
-    display: none;
-    font-size: 12px;
-    margin-top: 5px;
-    color: #6c757d;
-    }
+}
