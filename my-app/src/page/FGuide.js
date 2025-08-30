@@ -39,7 +39,7 @@ function FGuide() {
                         </div>
                         <div className="FacilityItem">
                             {/* 도서관 이미지를 여기에 넣으세요 */}
-                            <img src="/dormitory.png" alt="예성관" className="FacilityImage" />
+                            <img src="/dormitory.jpg" alt="예성관" className="FacilityImage" />
                             <h4>예성관</h4>
                         </div>
                     </div>

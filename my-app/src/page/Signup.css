@@ -30,6 +30,13 @@
     font-size: 14px;
 }
 
+.VerifiedLabel {
+    color: #28a745; /* Green color for success */
+    font-size: 13px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
 .FormGroup input {
     width: 100%;
     padding: 12px 16px;
