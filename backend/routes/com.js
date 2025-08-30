@@ -76,12 +76,13 @@ router.get('/', async (req, res) => {
         console.log(`[Puppeteer] List API response received from ${LIST_API_URL}`);
 
         const content = await page.content();
+        console.log(`[Puppeteer] Full page content: ${content}`); // 임시 로그 추가
         console.log(`[Puppeteer] Page content length: ${content.length}`);
         // console.log(`[Puppeteer] Page content snippet: ${content.substring(0, 500)}...`); // Log a snippet for debugging
         const $ = cheerio.load(content);
         const comList = [];
 
-        const tableRows = $('table.board-table tr');
+        const tableRows = $('tbody tr');
         console.log(`[Puppeteer] Found ${tableRows.length} table rows.`);
 
         tableRows.each((i, elem) => {
