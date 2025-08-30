@@ -7,7 +7,7 @@ function Club() {
 
     const clubs = [
         { id: 1, name: 'DoubleM', popupImage: '/DoubleM.jpg', description: '' },
-        { id: 2, name: '신청하세요', popupImage: '/club2.jpg', description: '' },
+        { id: 2, name: 'CreRobot', popupImage: '/CreRobot.jpg', description: '' },
         { id: 3, name: 'SPAM', popupImage: '/SPAM.jpg', description: '' },
         { id: 4, name: '신청하세요', popupImage: '/club4.jpg', description: '' },
         { id: 5, name: '신청하세요', popupImage: '/club5.jpg', description: '' },
