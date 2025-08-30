@@ -1,4 +1,5 @@
 import express from 'express';
+import axios from 'axios';
 import puppeteer from 'puppeteer-core';
 import chromium from '@sparticuz/chromium';
 import * as cheerio from 'cheerio';
@@ -162,6 +163,35 @@ router.get('/detail/:nttId', async (req, res) => {
         res.status(500).json({ success: false, message: '상세 내용을 가져오는 데 실패했습니다.' });
     } finally {
         if (page) { await page.close(); }
+    }
+});
+
+router.get('/com_detail_debug', async (req, res) => {
+    try {
+        const url = req.query.url;
+        if (!url) {
+            return res.status(400).send('URL parameter is required.');
+        }
+
+        const response = await axios.get(url);
+        const $ = cheerio.load(response.data);
+
+        // Extract title
+        const title = $('meta[property="og:title"]').attr('content') || $('title').text();
+
+        // Extract description
+        const description = $('meta[property="og:description"]').attr('content') || $('meta[name="description"]').attr('content');
+
+        // Extract image
+        const image = $('meta[property="og:image"]').attr('content');
+
+        // Extract URL
+        const finalUrl = $('meta[property="og:url"]').attr('content') || url;
+
+        res.json({ title, description, image, url: finalUrl });
+    } catch (error) {
+        console.error('Error during crawling:', error);
+        res.status(500).send('Error during crawling: ' + error.message);
     }
 });
 

@@ -1,0 +1,294 @@
+// backend/routes/com.js (전체 코드)
+
+import express from 'express';
+import axios from 'axios'; // 웹 페이지를 가져오기 위한 라이브러리
+import cheerio from 'cheerio'; // 가져온 웹 페이지를 분석하기 위한 라이브러리
+
+const router = express.Router();
+
+// 크롤링할 목표 URL (실제 학교 홈페이지 주소로 되어있을 겁니다)
+const TARGET_URL = 'https://school.gyo6.net/seoro/na/ntt/selectNttList.do?mi=9618&bbsId=1285';
+
+// GET /api/com - 가정통신문 목록 가져오기
+router.get('/', async (req, res) => {
+    try {
+        const response = await axios.get(TARGET_URL);
+        const html = response.data;
+        const $ = cheerio.load(html);
+
+        const list = [];
+        // 학교 홈페이지의 HTML 구조에 맞춰서 데이터를 추출
+        // (아래 선택자는 예시이며, 실제 학교 홈페이지 구조에 따라 다릅니다)
+        $('tbody tr').each((index, element) => {
+            const num = $(element).find('td').eq(0).text().trim();
+            const title = $(element).find('td.ta_l a').text().trim();
+            const author = $(element).find('td').eq(2).text().trim();
+            const date = $(element).find('td').eq(3).text().trim();
+            const views = $(element).find('td').eq(4).text().trim();
+
+            // 상세 페이지로 가는 링크(nttId)를 추출
+            const link = $(element).find('td.ta_l a').attr('href');
+            const nttIdMatch = link ? link.match(/nttId=(\d+)/) : null;
+            const nttId = nttIdMatch ? nttIdMatch[1] : null;
+
+            if (num && title) { // 번호와 제목이 있는 유효한 행만 추가
+                list.push({ num, title, author, date, views, nttId });
+            }
+        });
+        
+        res.status(200).json({ success: true, list: list });
+
+    } catch (error) {
+        console.error("가정통신문 크롤링 오류:", error);
+        res.status(500).json({ success: false, message: '가정통신문 목록을 불러오는 중 오류가 발생했습니다.' });
+    }
+});
+
+
+// GET /api/com/detail/:nttId - 가정통신문 상세 내용 가져오기
+router.get('/detail/:nttId', async (req, res) => {
+    const { nttId } = req.params;
+    const DETAIL_URL = `https://school.gyo6.net/seoro/na/ntt/selectNttInfo.do?mi=9618&nttId=${nttId}&bbsId=1285`;
+
+    try {
+        const response = await axios.get(DETAIL_URL);
+        const html = response.data;
+        const $ = cheerio.load(html);
+
+        // 상세 페이지의 HTML 구조에 맞춰 데이터 추출
+        const title = $('.ntt_view_title').text().trim();
+        const author = $('.ntt_info_left dd').eq(0).text().trim();
+        const date = $('.ntt_info_left dd').eq(2).text().trim();
+        
+        // 첨부파일 추출
+        const files = [];
+        $('.file_list a').each((index, element) => {
+            const name = $(element).text().trim();
+            const link = $(element).attr('href');
+            if (name && link) {
+                files.push({ name, link: `https://school.gyo6.net${link}` });
+            }
+        });
+        
+        // 본문 내용 추출 (이미지 경로 등은 실제 서버 주소에 맞게 수정 필요)
+        const contentHtml = $('.ntt_view_con').html();
+
+        const detail = { title, author, date, files, contentHtml };
+
+        res.status(200).json({ success: true, detail: detail });
+
+    } catch (error) {
+        console.error("가정통신문 상세 크롤링 오류:", error);
+        res.status(500).json({ success: false, message: '상세 내용을 불러오는 중 오류가 발생했습니다.' });
+    }
+});
+
+
+export default router;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// src/page/Com.js (전체 코드)
+
+import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Navbar from './Navbar';
+import './Com.css';
+import { Settings, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+
+function Com() {
+    const [comList, setComList] = useState([]);
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [isLastPage, setIsLastPage] = useState(false);
+    const navigate = useNavigate();
+
+    const fetchComData = useCallback(async (pageNum) => {
+        setLoading(true);
+        setError(null);
+        try {
+            // 백엔드 API에 요청 (실제로는 페이지네이션 기능이 백엔드에 없으므로 pageNum은 의미 없음)
+            const response = await fetch(`http://localhost:3001/api/com?page=${pageNum}`);
+            if (!response.ok) throw new Error(`서버 응답 오류: ${response.status}`);
+            const data = await response.json();
+            if (data.success && Array.isArray(data.list)) {
+                setComList(data.list);
+                if (data.list.length < 10) setIsLastPage(true);
+                else setIsLastPage(false);
+            } else {
+                throw new Error(data.message || '데이터를 받아오지 못했습니다.');
+            }
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        fetchComData(page);
+    }, [page, fetchComData]);
+
+    const handlePrevPage = () => setPage(p => Math.max(1, p - 1));
+    const handleNextPage = () => { if (!isLastPage) setPage(p => p + 1); };
+
+    const handleTitleClick = (nttId) => {
+        if (nttId) {
+            navigate(`/com-detail/${nttId}`);
+        } else {
+            alert('상세보기를 지원하지 않는 게시글입니다.');
+        }
+    };
+
+    return (
+        <div>
+            <Navbar />
+            <div className="ComContainer">
+                <div className="ComHeader"><h2>가정통신문</h2></div>
+                <div className="ComContent">
+                    {loading ? (
+                        <div className="StatusContainer"><Settings size={32} /><span>로딩 중...</span></div>
+                    ) : error ? (
+                        <div className="StatusContainer error"><AlertCircle size={32} /><span>오류: {error}</span></div>
+                    ) : (
+                        <>
+                            <table className="ComTable">
+                                <thead>
+                                    <tr>
+                                        <th className="num">번호</th>
+                                        <th className="title">제목</th>
+                                        <th className="author">작성자</th>
+                                        <th className="date">등록일</th>
+                                        <th className="views">조회수</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {comList.length > 0 ? comList.map((item, index) => (
+                                        <tr key={item.nttId || index}>
+                                            <td className="num">{item.num}</td>
+                                            <td className="title" onClick={() => handleTitleClick(item.nttId)} style={{ cursor: item.nttId ? 'pointer' : 'default' }}>
+                                                {item.title}
+                                            </td>
+                                            <td className="author">{item.author}</td>
+                                            <td className="date">{item.date}</td>
+                                            <td className="views">{item.views}</td>
+                                        </tr>
+                                    )) : (
+                                        <tr><td colSpan="5">게시글이 없습니다.</td></tr>
+                                    )}
+                                </tbody>
+                            </table>
+                            {/* 백엔드에 페이지네이션 기능이 없으므로, 이 버튼들은 실제로는 한 페이지 내에서만 동작합니다 */}
+                            <div className="Pagination">
+                                <button onClick={handlePrevPage} disabled={page === 1}><ChevronLeft size={20} /> 이전</button>
+                                <span>{page}</span>
+                                <button onClick={handleNextPage} disabled={isLastPage}>다음 <ChevronRight size={20} /></button>
+                            </div>
+                        </>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default Com;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// src/page/ComDetail.js (전체 코드)
+
+import React, { useState, useEffect, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import Navbar from './Navbar';
+import './ComDetail.css';
+import { Settings, AlertCircle, ArrowLeft, Paperclip } from 'lucide-react';
+
+function ComDetail() {
+    const { nttId } = useParams();
+    const navigate = useNavigate();
+    const [detail, setDetail] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const fetchDetail = useCallback(async () => {
+        if (!nttId) {
+            setError('게시글 ID가 없어 내용을 불러올 수 없습니다.');
+            setLoading(false);
+            return;
+        }
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await fetch(`http://localhost:3001/api/com/detail/${nttId}`);
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => null);
+                throw new Error(errorData?.message || `서버 응답 오류: ${response.status}`);
+            }
+            const data = await response.json();
+            if (data.success) {
+                setDetail(data.detail);
+            } else {
+                throw new Error(data.message || '상세 내용을 가져오지 못했습니다.');
+            }
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    }, [nttId]);
+
+    useEffect(() => {
+        fetchDetail();
+    }, [fetchDetail]);
+
+    return (
+        <div>
+            <Navbar />
+            <div className="ComDetailContainer">
+                <div className="DetailHeaderNav">
+                    <button className="BackButton" onClick={() => navigate(-1)}>
+                        <ArrowLeft size={20} /> 목록으로
+                    </button>
+                </div>
+                
+                {loading && (
+                    <div className="StatusContainer"><Settings size={32} /><span>상세 내용을 불러오는 중입니다...</span></div>
+                )}
+
+                {error && (
+                     <div className="StatusContainer error"><AlertCircle size={32} /><span>오류가 발생했습니다: {error}</span></div>
+                )}
+                
+                {!loading && !error && detail && (
+                    <div className="DetailContentBox">
+                        <div className="DetailHeader">
+                            <h1>{detail.title}</h1>
+                            <div className="DetailInfo">
+                                <span><strong>작성자:</strong> {detail.author}</span>
+                                <span><strong>등록일:</strong> {detail.date}</span>
+                            </div>
+                        </div>
+                        
+                        {detail.files && detail.files.length > 0 && (
+                            <div className="FileAttachmentSection">
+                                <h4><Paperclip size={16} /> 첨부파일</h4>
+                                <ul>
+                                    {detail.files.map((file, index) => (
+                                        <li key={index}>
+                                            <a href={file.link} target="_blank" rel="noopener noreferrer">{file.name}</a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+
+                        <div 
+                            className="DetailBody"
+                            dangerouslySetInnerHTML={{ __html: detail.contentHtml }}
+                        />
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}
+
+export default ComDetail;
