@@ -24,6 +24,7 @@ import FGuide from './page/FGuide';
 import MBGuide from './page/MBGuide';
 import ChatListPage from './page/ChatListPage';
 import ChatRoomPage from './page/ChatRoomPage';
+import EmailVerificationPage from './page/EmailVerificationPage';
 
 // AppContent component to use the AuthContext
 function AppContent() {
