@@ -555,3 +555,57 @@ form {
     top: 50%; 
     transform: translateY(-50%); 
 }
+
+/* --- 반응형 디자인을 위한 미디어 쿼리 --- */
+
+@media (max-width: 768px) {
+  .Title {
+    margin-top: 8vh;
+    font-size: 24px; /* 제목 폰트 크기 조정 */
+  }
+
+  .SearchBox {
+    width: 90%; /* 검색창 너비 조정 */
+    height: 45px;
+  }
+
+  .BoardContainer {
+    flex-direction: column; /* 게시판 컨테이너를 세로로 쌓음 */
+    width: 95%; /* 컨테이너 너비 조정 */
+    margin-top: 4vh;
+  }
+
+  .NoticeBoard1, .NoticeBoard2 {
+    padding: 15px; /* 게시판 내부 여백 조정 */
+  }
+
+  .BoardTitle {
+    font-size: 16px; /* 게시판 제목 폰트 크기 조정 */
+  }
+
+  .PostTitle {
+    font-size: 15px; /* 게시글 제목 폰트 크기 조정 */
+  }
+
+  .PostInfo {
+    font-size: 11px; /* 게시글 정보 폰트 크기 조정 */
+  }
+
+  .FloatingWriteButton {
+    width: 50px; /* 글쓰기 버튼 크기 조정 */
+    height: 50px;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  /* 팝업창 스타일 조정 */
+  .WritePopup {
+    width: 95%;
+    height: 90vh;
+    max-height: none;
+  }
+
+  .ContentTextarea {
+    height: 200px; /* 텍스트 입력 영역 높이 조정 */
+  }
+}
