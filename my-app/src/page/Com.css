@@ -115,3 +115,30 @@
 .Pagination span {
     font-weight: bold;
 }
+
+@media (max-width: 768px) {
+  .ComContainer {
+    padding: 1rem;
+  }
+  .ComHeader h2 {
+    font-size: 1.5rem;
+  }
+  .ComContent {
+    padding: 1rem;
+  }
+
+  /* Add horizontal scroll to the table wrapper */
+  .TableWrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .ComTable {
+    min-width: 600px; /* Set a minimum width for the table to ensure scrolling */
+  }
+
+  .ComTable th, .ComTable td {
+    font-size: 0.9rem;
+    padding: 10px 8px;
+  }
+}

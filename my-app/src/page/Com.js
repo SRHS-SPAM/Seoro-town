@@ -61,6 +61,7 @@ function Com() {
                         <div className="StatusContainer error"><AlertCircle size={32} /><span>오류: {error}</span></div>
                     ) : (
                         <>
+                            <div className="TableWrapper">
                             <table className="ComTable">
                                 <thead>
                                     <tr>
@@ -92,6 +93,7 @@ function Com() {
                                 <span>{page}</span>
                                 <button onClick={handleNextPage} disabled={isLastPage}>다음 <ChevronRight size={20} /></button>
                             </div>
+                        </div>
                         </>
                     )}
                 </div>
