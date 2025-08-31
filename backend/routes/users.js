@@ -153,8 +153,7 @@ router.get('/:userId', async (req, res) => {
         if (!user) {
             return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
         }
-        const postCount = await Post.countDocuments({ author: userId });
-        console.log('Sending user data for :userId with postCount:', { ...user.toObject(), postCount });
+        const postCount = await Post.countDocuments({ userId: userId });
         res.json({ success: true, user: { ...user.toObject(), postCount } });
     } catch (error) {
         console.error('GET /api/users/:userId 오류:', error);
