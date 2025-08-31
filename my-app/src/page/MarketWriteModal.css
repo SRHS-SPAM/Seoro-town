@@ -178,3 +178,60 @@
 .CategoryText {
     font-size: 0.9rem;
 }
+
+@media (max-width: 768px) {
+  .WritePopup {
+    width: 95%; /* 모달 너비를 화면에 더 맞게 조정 */
+    max-width: none; /* 최대 너비 제한 해제 */
+    padding: 1rem; /* 내부 여백 줄이기 */
+  }
+
+  .PopupHeader h2 {
+    font-size: 1.2rem; /* 헤더 폰트 크기 줄이기 */
+  }
+
+  .PopupContent {
+    padding: 1rem; /* 팝업 내용 여백 줄이기 */
+  }
+
+  .CategoryGrid {
+    grid-template-columns: repeat(2, 1fr); /* 카테고리 그리드를 2열로 변경 */
+    gap: 0.8rem; /* 간격 줄이기 */
+  }
+
+  .CategoryBox {
+    padding: 0.8rem; /* 카테고리 박스 패딩 줄이기 */
+  }
+
+  .CategoryIcon {
+    width: 40px; /* 아이콘 크기 줄이기 */
+    height: 40px;
+  }
+
+  .CategoryText {
+    font-size: 0.8rem; /* 카테고리 텍스트 폰트 크기 줄이기 */
+  }
+
+  .WriteForm {
+    gap: 1rem; /* 폼 요소 간 간격 줄이기 */
+  }
+
+  .FormInput,
+  .FormTextarea {
+    padding: 0.6rem; /* 입력 필드 패딩 줄이기 */
+    font-size: 0.9rem; /* 폰트 크기 줄이기 */
+  }
+
+  .PopupButtonContainer {
+    flex-direction: column; /* 버튼을 세로로 쌓기 */
+    gap: 0.5rem; /* 버튼 간 간격 줄이기 */
+  }
+
+  .PrimaryButton,
+  .SecondaryButton {
+    width: 100%; /* 버튼 너비 100%로 설정 */
+    max-width: none; /* 최대 너비 제한 해제 */
+    padding: 0.8rem; /* 버튼 패딩 조정 */
+    font-size: 0.9rem; /* 폰트 크기 조정 */
+  }
+}

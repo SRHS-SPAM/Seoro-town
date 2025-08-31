@@ -29,7 +29,7 @@
   border-color: red;
   box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.1);
 }
-.SearchPrefix { font-weight: bold; color: #333; font-size: 16px; }
+.SearchPrefix { font-weight: bold; color: #333; font-size: 16px; line-height: 48px; }
 .SearchDivider { height: 60%; width: 1px; background-color: #ccc; margin: 0 10px; }
 .SearchInput { flex: 1; border: none; outline: none; font-size: 15px; background: transparent; }
 .SearchButton { background: none; border: none; cursor: pointer; padding: 8px; color: #666; }
@@ -203,10 +203,24 @@
   .SearchBox {
     margin-right: 0;
   }
+  
+  /* '검색:' 글자가 튀어나오는 문제 해결 */
+  .SearchPrefix {
+    font-size: 14px; 
+  }
+
+  .SearchDivider {
+    margin: 0 8px; /* 구분선 여백 조정 */
+  }
+
+  /* '상품 등록' 버튼이 아래로 오도록 너비 조정 */
+  .WriteButton {
+    width: 100%; 
+    padding: 12px;
+  }
 
   .ProductGrid {
     gap: 1rem; /* 상품 간의 간격을 줄입니다. */
-    /* auto-fill과 minmax를 사용한 기존 그리드는 이미 훌륭하므로 유지합니다. */
   }
 
   .ProductInfo {
