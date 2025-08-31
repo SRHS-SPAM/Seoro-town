@@ -101,7 +101,6 @@ router.get('/me', authenticateToken, async (req, res) => {
             return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
         }
             const postCount = await Post.countDocuments({ author: req.user._id });
-    console.log('Sending user data with postCount:', { ...user.toObject(), postCount });
     res.json({ ...user.toObject(), postCount });
   } catch (error) {
         console.error('GET /api/users/me 오류:', error);
@@ -154,7 +153,9 @@ router.get('/:userId', async (req, res) => {
         if (!user) {
             return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
         }
-        res.json({ success: true, user });
+        const postCount = await Post.countDocuments({ author: userId });
+        console.log('Sending user data for :userId with postCount:', { ...user.toObject(), postCount });
+        res.json({ success: true, user: { ...user.toObject(), postCount } });
     } catch (error) {
         console.error('GET /api/users/:userId 오류:', error);
         res.status(500).json({ success: false, message: '서버 오류' });

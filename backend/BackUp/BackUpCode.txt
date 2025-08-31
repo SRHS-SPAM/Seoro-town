@@ -1,674 +1,98 @@
-<tbody>
-		
-		<!-- 공지목록 -->
-		
-
-		<!-- 공지항목 예약일 -->
-		
-		
-			<tr>
-				
-					
-									
-			    <td>
-					
-				
-					<span class="flag_notice">공지</span>
-			    </td>
-			   
-				<td class="subject">										
-					
-					
-						
-					
-					
-					<a href="javascript:void(0);" class="samu" onclick="fnView('BBSMSTR_000000007872', '25793186');" title="2025학년도 교외체험학습 안내(창의체험지원부)">
-						
-						2025학년도 교외체험학습 안내(창의체험지원부)	
-					</a>
-				</td>
-				<td>
-					
-					이봉숙
-				</td>
-				<td>2025-03-06</td>
-				<td>204</td>
-			</tr>
-			
-		
-		
-		
-
-		<!-- 공지항목 예약일 -->
-		
-		
-			<tr>
-				
-					
-									
-			    <td>
-					
-				
-					<span class="flag_notice">공지</span>
-			    </td>
-			   
-				<td class="subject">										
-					
-					
-						
-					
-					
-					<a href="javascript:void(0);" class="samu" onclick="fnView('BBSMSTR_000000007872', '24702719');" title="2024학년도 교장 취임식 인사말">
-						
-						2024학년도 교장 취임식 인사말	
-					</a>
-				</td>
-				<td>
-					
-					이봉숙
-				</td>
-				<td>2024-03-12</td>
-				<td>152</td>
-			</tr>
-			
-		
-		
-		
-		
-		
-			 
-
-			
-			
-				<!-- 일반 예약일 -->
-							
-						  
-					<tr>  
-						 
-						
-						<td>
-						    		711
-						</td>
-							   
-						<td class="subject">										
-									
-									
-										  
-									
-									
-									
-										
-										
-										
-										
-										
-										
-											
-										
-											
-												
-													<a href="javascript:void(0);" class="samu" onclick="fnView('BBSMSTR_000000007872', '26393193');"> 2025년 9월 기숙사 학생 급식비 수납 안내(예체능교육부) </a>
-												
-												
-											
-										
-										
-										
-										
-										
-											<span class="new"><img src="/design/module/contents/contents/images/skyblue001/flag_new.gif" alt="NEW"></span>
-										
-										
-										
-											
-												&nbsp;<img src="/images/dggb/mngr/sub/ico03.gif" alt="첨부파일" title="첨부파일">
-											
-										
-									
-									
-									
-								</td>
-								<td>
-									
-									이봉숙
-								</td>
-								<td>2025-08-29</td>
-								<td>7</td>
-							</tr>
-				
-				
-				
-		
-			
-				<!-- 일반 예약일 -->
-							
-						  
-					<tr>  
-						 
-						
-						<td>
-						    		710
-						</td>
-							   
-						<td class="subject">										
-									
-									
-										  
-									
-									
-									
-										
-										
-										
-										
-										
-										
-											
-										
-											
-												
-													<a href="javascript:void(0);" class="samu" onclick="fnView('BBSMSTR_000000007872', '26392471');"> 2025년 9월 학교급식 안내(예체능교육부) </a>
-												
-												
-											
-										
-										
-										
-										
-										
-											<span class="new"><img src="/design/module/contents/contents/images/skyblue001/flag_new.gif" alt="NEW"></span>
-										
-										
-										
-											
-												&nbsp;<img src="/images/dggb/mngr/sub/ico03.gif" alt="첨부파일" title="첨부파일">
-											
-										
-									
-									
-									
-								</td>
-								<td>
-									
-									이봉숙
-								</td>
-								<td>2025-08-29</td>
-								<td>2</td>
-							</tr>
-				
-				
-				
-		
-			
-				<!-- 일반 예약일 -->
-							
-						  
-					<tr>  
-						 
-						
-						<td>
-						    		709
-						</td>
-							   
-						<td class="subject">										
-									
-									
-										  
-									
-									
-									
-										
-										
-										
-										
-										
-										
-											
-										
-											
-												
-													<a href="javascript:void(0);" class="samu" onclick="fnView('BBSMSTR_000000007872', '26379936');"> 2025학년도 학교평가 안내(학부모 학생)연수자료-(연구기획부) </a>
-												
-												
-											
-										
-										
-										
-										
-										
-											<span class="new"><img src="/design/module/contents/contents/images/skyblue001/flag_new.gif" alt="NEW"></span>
-										
-										
-										
-											
-												&nbsp;<img src="/images/dggb/mngr/sub/ico03.gif" alt="첨부파일" title="첨부파일">
-											
-										
-									
-									
-									
-								</td>
-								<td>
-									
-									이봉숙
-								</td>
-								<td>2025-08-27</td>
-								<td>8</td>
-							</tr>
-				
-				
-				
-		
-			
-				<!-- 일반 예약일 -->
-							
-						  
-					<tr>  
-						 
-						
-						<td>
-						    		708
-						</td>
-							   
-						<td class="subject">										
-									
-									
-										  
-									
-									
-									
-										
-										
-										
-										
-										
-										
-											
-										
-											
-												
-													<a href="javascript:void(0);" class="samu" onclick="fnView('BBSMSTR_000000007872', '26379929');"> 2025년 강남구 아동급식지원 신청 안내(행정실) </a>
-												
-												
-											
-										
-										
-										
-										
-										
-											<span class="new"><img src="/design/module/contents/contents/images/skyblue001/flag_new.gif" alt="NEW"></span>
-										
-										
-										
-											
-												&nbsp;<img src="/images/dggb/mngr/sub/ico03.gif" alt="첨부파일" title="첨부파일">
-											
-										
-									
-									
-									
-								</td>
-								<td>
-									
-									이봉숙
-								</td>
-								<td>2025-08-27</td>
-								<td>4</td>
-							</tr>
-				
-				
-				
-		
-			
-				<!-- 일반 예약일 -->
-							
-						  
-					<tr>  
-						 
-						
-						<td>
-						    		707
-						</td>
-							   
-						<td class="subject">										
-									
-									
-										  
-									
-									
-									
-										
-										
-										
-										
-										
-										
-											
-										
-											
-												
-													<a href="javascript:void(0);" class="samu" onclick="fnView('BBSMSTR_000000007872', '26369501');"> 2025년도 군 특성화 과정 예비반 나라사랑 인성캠프 안내(로봇정보통신부) </a>
-												
-												
-											
-										
-										
-										
-										
-										
-										
-										
-											
-												&nbsp;<img src="/images/dggb/mngr/sub/ico03.gif" alt="첨부파일" title="첨부파일">
-											
-										
-									
-									
-									
-								</td>
-								<td>
-									
-									이봉숙
-								</td>
-								<td>2025-08-25</td>
-								<td>32</td>
-							</tr>
-				
-				
-				
-		
-			
-				<!-- 일반 예약일 -->
-							
-						  
-					<tr>  
-						 
-						
-						<td>
-						    		706
-						</td>
-							   
-						<td class="subject">										
-									
-									
-										  
-									
-									
-									
-										
-										
-										
-										
-										
-										
-											
-										
-											
-												
-													<a href="javascript:void(0);" class="samu" onclick="fnView('BBSMSTR_000000007872', '26369430');"> 2025년 군 특성화 과정 철원 병영체험 수련활동 안내(로봇정보통신부) </a>
-												
-												
-											
-										
-										
-										
-										
-										
-										
-										
-											
-												&nbsp;<img src="/images/dggb/mngr/sub/ico03.gif" alt="첨부파일" title="첨부파일">
-											
-										
-									
-									
-									
-								</td>
-								<td>
-									
-									이봉숙
-								</td>
-								<td>2025-08-25</td>
-								<td>18</td>
-							</tr>
-				
-				
-				
-		
-			
-				<!-- 일반 예약일 -->
-							
-						  
-					<tr>  
-						 
-						
-						<td>
-						    		705
-						</td>
-							   
-						<td class="subject">										
-									
-									
-										  
-									
-									
-									
-										
-										
-										
-										
-										
-										
-											
-										
-											
-												
-													<a href="javascript:void(0);" class="samu" onclick="fnView('BBSMSTR_000000007872', '26363655');"> 2025년도 헌혈 안내(예체능교육부) </a>
-												
-												
-											
-										
-										
-										
-										
-										
-										
-										
-											
-												&nbsp;<img src="/images/dggb/mngr/sub/ico03.gif" alt="첨부파일" title="첨부파일">
-											
-										
-									
-									
-									
-								</td>
-								<td>
-									
-									이봉숙
-								</td>
-								<td>2025-08-22</td>
-								<td>18</td>
-							</tr>
-				
-				
-				
-		
-			
-				<!-- 일반 예약일 -->
-							
-						  
-					<tr>  
-						 
-						
-						<td>
-						    		704
-						</td>
-							   
-						<td class="subject">										
-									
-									
-										  
-									
-									
-									
-										
-										
-										
-										
-										
-										
-											
-										
-											
-												
-													<a href="javascript:void(0);" class="samu" onclick="fnView('BBSMSTR_000000007872', '26363645');"> 2025학년도 방과후학교 3기 수강신청 안내(창의체험지원부) </a>
-												
-												
-											
-										
-										
-										
-										
-										
-										
-										
-											
-												&nbsp;<img src="/images/dggb/mngr/sub/ico03.gif" alt="첨부파일" title="첨부파일">
-											
-										
-									
-									
-									
-								</td>
-								<td>
-									
-									이봉숙
-								</td>
-								<td>2025-08-22</td>
-								<td>21</td>
-							</tr>
-				
-				
-				
-		
-			
-				<!-- 일반 예약일 -->
-							
-						  
-					<tr>  
-						 
-						
-						<td>
-						    		703
-						</td>
-							   
-						<td class="subject">										
-									
-									
-										  
-									
-									
-									
-										
-										
-										
-										
-										
-										
-											
-										
-											
-												
-													<a href="javascript:void(0);" class="samu" onclick="fnView('BBSMSTR_000000007872', '26352019');"> 2025년 저소득층 학생 학기중 평일(비급식일) 중식 지원 안내(행정실) </a>
-												
-												
-											
-										
-										
-										
-										
-										
-										
-										
-											
-												&nbsp;<img src="/images/dggb/mngr/sub/ico03.gif" alt="첨부파일" title="첨부파일">
-											
-										
-									
-									
-									
-								</td>
-								<td>
-									
-									이봉숙
-								</td>
-								<td>2025-08-20</td>
-								<td>28</td>
-							</tr>
-				
-				
-				
-		
-			
-				<!-- 일반 예약일 -->
-							
-						  
-					<tr>  
-						 
-						
-						<td>
-						    		702
-						</td>
-							   
-						<td class="subject">										
-									
-									
-										  
-									
-									
-									
-										
-										
-										
-										
-										
-										
-											
-										
-											
-												
-													<a href="javascript:void(0);" class="samu" onclick="fnView('BBSMSTR_000000007872', '26341084');"> 2025년 8월 기숙사 학생 급식(조,석식) 안내(예체능교육부) </a>
-												
-												
-											
-										
-										
-										
-										
-										
-										
-										
-											
-												&nbsp;<img src="/images/dggb/mngr/sub/ico03.gif" alt="첨부파일" title="첨부파일">
-											
-										
-									
-									
-									
-								</td>
-								<td>
-									
-									이봉숙
-								</td>
-								<td>2025-08-14</td>
-								<td>68</td>
-							</tr>
-				
-				
-				
-		
-		
-		
-		
-		
-	</tbody>
+2025-08-31T12:13:28.573741432Z X-Forwarded-Proto: https
+2025-08-31T12:13:28.573744123Z ----------------------
+2025-08-31T12:13:29.331299753Z --- Incoming Request ---
+2025-08-31T12:13:29.331332396Z [2025-08-31T12:13:29.331Z]
+2025-08-31T12:13:29.331357278Z Method: GET
+2025-08-31T12:13:29.331364398Z URL: /api/posts
+2025-08-31T12:13:29.33139223Z Host Header: seoro-town-backend.onrender.com
+2025-08-31T12:13:29.331412151Z X-Forwarded-For: 61.74.92.100, 172.71.124.212, 10.210.110.228
+2025-08-31T12:13:29.331438964Z X-Forwarded-Proto: https
+2025-08-31T12:13:29.331500538Z ----------------------
+2025-08-31T12:13:30.882398257Z --- Incoming Request ---
+2025-08-31T12:13:30.882502355Z [2025-08-31T12:13:30.882Z]
+2025-08-31T12:13:30.882515596Z Method: GET
+2025-08-31T12:13:30.882520166Z URL: /api/users/68b2cb81b822d720d0c44599/following
+2025-08-31T12:13:30.882562619Z Host Header: seoro-town-backend.onrender.com
+2025-08-31T12:13:30.882635914Z X-Forwarded-For: 61.74.92.100, 141.101.84.6, 10.210.49.73
+2025-08-31T12:13:30.882645905Z X-Forwarded-Proto: https
+2025-08-31T12:13:30.882679358Z ----------------------
+2025-08-31T12:13:30.897655321Z --- Incoming Request ---
+2025-08-31T12:13:30.898302079Z [2025-08-31T12:13:30.897Z]
+2025-08-31T12:13:30.89830752Z Method: GET
+2025-08-31T12:13:30.89831102Z URL: /api/users/68b2cb81b822d720d0c44599/followers
+2025-08-31T12:13:30.8983144Z Host Header: seoro-town-backend.onrender.com
+2025-08-31T12:13:30.89831705Z X-Forwarded-For: 61.74.92.100, 172.71.124.96, 10.210.253.103
+2025-08-31T12:13:30.89832026Z X-Forwarded-Proto: https
+2025-08-31T12:13:30.89832287Z ----------------------
+2025-08-31T12:13:30.900178077Z --- Incoming Request ---
+2025-08-31T12:13:30.900197309Z [2025-08-31T12:13:30.900Z]
+2025-08-31T12:13:30.900206129Z Method: GET
+2025-08-31T12:13:30.900238512Z URL: /api/users/68b2cb81b822d720d0c44599
+2025-08-31T12:13:30.900250013Z Host Header: seoro-town-backend.onrender.com
+2025-08-31T12:13:30.900271744Z X-Forwarded-For: 61.74.92.100, 172.71.124.7, 10.210.253.103
+2025-08-31T12:13:30.900320288Z X-Forwarded-Proto: https
+2025-08-31T12:13:30.900324878Z ----------------------
+2025-08-31T12:13:31.13332068Z --- Incoming Request ---
+2025-08-31T12:13:31.133347731Z [2025-08-31T12:13:31.133Z]
+2025-08-31T12:13:31.133388494Z Method: GET
+2025-08-31T12:13:31.133393395Z URL: /api/users/68b2cb81b822d720d0c44599/posts
+2025-08-31T12:13:31.133396315Z Host Header: seoro-town-backend.onrender.com
+2025-08-31T12:13:31.133402856Z X-Forwarded-For: 61.74.92.100, 141.101.84.6, 10.210.49.73
+2025-08-31T12:13:31.133417697Z X-Forwarded-Proto: https
+2025-08-31T12:13:31.133526995Z ----------------------
+2025-08-31T12:13:31.136706969Z --- Incoming Request ---
+2025-08-31T12:13:31.13671791Z [2025-08-31T12:13:31.136Z]
+2025-08-31T12:13:31.136729471Z Method: GET
+2025-08-31T12:13:31.136735711Z URL: /api/users/68b2cb81b822d720d0c44599/comments
+2025-08-31T12:13:31.136795616Z Host Header: seoro-town-backend.onrender.com
+2025-08-31T12:13:31.136801546Z X-Forwarded-For: 61.74.92.100, 172.71.124.96, 10.210.253.103
+2025-08-31T12:13:31.136820698Z X-Forwarded-Proto: https
+2025-08-31T12:13:31.136827938Z ----------------------
+2025-08-31T12:14:00.396396065Z --- Incoming Request ---
+2025-08-31T12:14:00.396433398Z [2025-08-31T12:14:00.396Z]
+2025-08-31T12:14:00.396479371Z Method: GET
+2025-08-31T12:14:00.396504093Z URL: /api/chat
+2025-08-31T12:14:00.396531895Z Host Header: seoro-town-backend.onrender.com
+2025-08-31T12:14:00.396539476Z X-Forwarded-For: 61.74.92.100, 172.71.124.39, 10.210.131.94
+2025-08-31T12:14:00.396561457Z X-Forwarded-Proto: https
+2025-08-31T12:14:00.396563587Z ----------------------
+2025-08-31T12:14:01.212583837Z --- Incoming Request ---
+2025-08-31T12:14:01.212616349Z [2025-08-31T12:14:01.212Z]
+2025-08-31T12:14:01.212633721Z Method: GET
+2025-08-31T12:14:01.212670293Z URL: /api/users/68b2cb81b822d720d0c44599/comments
+2025-08-31T12:14:01.212676654Z Host Header: seoro-town-backend.onrender.com
+2025-08-31T12:14:01.212708926Z X-Forwarded-For: 61.74.92.100, 141.101.84.6, 10.210.49.73
+2025-08-31T12:14:01.212723587Z X-Forwarded-Proto: https
+2025-08-31T12:14:01.212729608Z ----------------------
+2025-08-31T12:14:01.214845414Z --- Incoming Request ---
+2025-08-31T12:14:01.214884176Z [2025-08-31T12:14:01.214Z]
+2025-08-31T12:14:01.214896208Z Method: GET
+2025-08-31T12:14:01.21492927Z URL: /api/users/68b2cb81b822d720d0c44599/followers
+2025-08-31T12:14:01.214958752Z Host Header: seoro-town-backend.onrender.com
+2025-08-31T12:14:01.214962102Z X-Forwarded-For: 61.74.92.100, 141.101.84.6, 10.210.49.73
+2025-08-31T12:14:01.214983604Z X-Forwarded-Proto: https
+2025-08-31T12:14:01.214985744Z ----------------------
+2025-08-31T12:14:01.223459939Z --- Incoming Request ---
+2025-08-31T12:14:01.223509132Z [2025-08-31T12:14:01.223Z]
+2025-08-31T12:14:01.223512112Z Method: GET
+2025-08-31T12:14:01.223555386Z URL: /api/users/68b2cb81b822d720d0c44599/posts
+2025-08-31T12:14:01.223559946Z Host Header: seoro-town-backend.onrender.com
+2025-08-31T12:14:01.223592208Z X-Forwarded-For: 61.74.92.100, 172.71.124.86, 10.210.49.73
+2025-08-31T12:14:01.223594818Z X-Forwarded-Proto: https
+2025-08-31T12:14:01.223602889Z ----------------------
+2025-08-31T12:14:01.22850594Z --- Incoming Request ---
+2025-08-31T12:14:01.228522782Z [2025-08-31T12:14:01.228Z]
+2025-08-31T12:14:01.228549334Z Method: GET
+2025-08-31T12:14:01.228552624Z URL: /api/users/68b2cb81b822d720d0c44599/following
+2025-08-31T12:14:01.228602598Z Host Header: seoro-town-backend.onrender.com
+2025-08-31T12:14:01.228606648Z X-Forwarded-For: 61.74.92.100, 141.101.84.6, 10.210.49.73
+2025-08-31T12:14:01.228619169Z X-Forwarded-Proto: https
+2025-08-31T12:14:01.22863584Z ----------------------
+2025-08-31T12:14:01.446986192Z --- Incoming Request ---
+2025-08-31T12:14:01.447019175Z [2025-08-31T12:14:01.446Z]
+2025-08-31T12:14:01.447029315Z Method: GET
+2025-08-31T12:14:01.447069388Z URL: /api/users/68b2cb81b822d720d0c44599
+2025-08-31T12:14:01.447156275Z Host Header: seoro-town-backend.onrender.com
+2025-08-31T12:14:01.447161825Z X-Forwarded-For: 61.74.92.100, 141.101.84.6, 10.210.131.94
+2025-08-31T12:14:01.447164815Z X-Forwarded-Proto: https
+2025-08-31T12:14:01.447167486Z ----------------------
