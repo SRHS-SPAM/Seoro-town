@@ -101,6 +101,7 @@ router.get('/me', authenticateToken, async (req, res) => {
             return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
         }
             const postCount = await Post.countDocuments({ author: req.user._id });
+    console.log('Sending user data with postCount:', { ...user.toObject(), postCount });
     res.json({ ...user.toObject(), postCount });
   } catch (error) {
         console.error('GET /api/users/me 오류:', error);
