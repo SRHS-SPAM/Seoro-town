@@ -187,3 +187,37 @@
   background-color: #c0392b;
   transform: scale(1.1);
 }
+
+/* --- 반응형 디자인 --- */
+@media (max-width: 768px) {
+  .MarketContainer {
+    padding: 0 1rem; /* 전체적인 좌우 여백을 조정합니다. */
+  }
+
+  .HeaderActions {
+    flex-direction: column; /* 헤더(검색, 글쓰기 버튼)를 세로로 배열합니다. */
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .SearchBox {
+    margin-right: 0;
+  }
+
+  .ProductGrid {
+    gap: 1rem; /* 상품 간의 간격을 줄입니다. */
+    /* auto-fill과 minmax를 사용한 기존 그리드는 이미 훌륭하므로 유지합니다. */
+  }
+
+  .ProductInfo {
+    padding: 0.8rem; /* 상품 정보 영역의 여백을 줄입니다. */
+  }
+
+  .ProductTitle {
+    font-size: 0.9rem;
+  }
+
+  .ProductPrice {
+    font-size: 1rem;
+  }
+}
