@@ -25,6 +25,13 @@ const decodeHtmlEntities = (text) => {
     });
 };
 
+// KST (UTC+9) 기준 현재 날짜를 가져오는 함수
+const getKSTDate = () => {
+    const now = new Date();
+    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    return new Date(utc + (9 * 3600000));
+};
+
 router.get('/', async (req, res) => {
     try {
         const response = await axios.get(MEAL_URL);
@@ -37,7 +44,8 @@ router.get('/', async (req, res) => {
             dinner: []
         };
 
-        const today = new Date().getDate().toString();
+        const kstNow = getKSTDate();
+        const today = kstNow.getDate().toString();
         let foundToday = false;
 
         $('.box-body table tbody > tr').each((index, element) => {
