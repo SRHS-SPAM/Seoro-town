@@ -1,61 +1,314 @@
-2025-09-01T10:53:22.684718234Z #10 5.888 
-2025-09-01T10:53:22.684723834Z #10 5.888 49 packages are looking for funding
-2025-09-01T10:53:22.684727414Z #10 5.888   run `npm fund` for details
-2025-09-01T10:53:22.684730834Z #10 5.891 
-2025-09-01T10:53:22.684734194Z #10 5.891 3 vulnerabilities (1 low, 1 high, 1 critical)
-2025-09-01T10:53:22.684737524Z #10 5.891 
-2025-09-01T10:53:22.684741315Z #10 5.891 To address all issues, run:
-2025-09-01T10:53:22.684746245Z #10 5.891   npm audit fix
-2025-09-01T10:53:22.684749705Z #10 5.891 
-2025-09-01T10:53:22.684753135Z #10 5.891 Run `npm audit` for details.
-2025-09-01T10:53:22.684757155Z #10 5.892 npm notice
-2025-09-01T10:53:22.684762295Z #10 5.892 npm notice New major version of npm available! 10.8.2 -> 11.5.2
-2025-09-01T10:53:22.684765795Z #10 5.892 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.5.2
-2025-09-01T10:53:22.684769235Z #10 5.892 npm notice To update run: npm install -g npm@11.5.2
-2025-09-01T10:53:22.684772745Z #10 5.892 npm notice
-2025-09-01T10:53:27.468768299Z #10 DONE 10.7s
-2025-09-01T10:53:27.61934509Z 
-2025-09-01T10:53:27.61936856Z #11 [6/6] COPY . .
-2025-09-01T10:53:54.97709596Z #11 DONE 27.4s
-2025-09-01T10:53:54.97711508Z 
-2025-09-01T10:53:54.97711897Z #12 exporting to docker image format
-2025-09-01T10:53:54.977122761Z #12 exporting layers
-2025-09-01T10:54:09.404377805Z #12 exporting layers 14.4s done
-2025-09-01T10:54:09.404399906Z #12 exporting manifest sha256:b4c184902a585a910dd8788bb4e4a3a934a107959b8cc43d9d7f9ff5843110b0
-2025-09-01T10:54:09.705205462Z #12 exporting manifest sha256:b4c184902a585a910dd8788bb4e4a3a934a107959b8cc43d9d7f9ff5843110b0 0.3s done
-2025-09-01T10:54:09.705227672Z #12 exporting config sha256:8f1f65346030e82cc38a655aba6596adf627376564309a107329168c8e7006a9
-2025-09-01T10:54:10.164631283Z #12 exporting config sha256:8f1f65346030e82cc38a655aba6596adf627376564309a107329168c8e7006a9 0.4s done
-2025-09-01T10:54:15.090629674Z #12 DONE 20.2s
-2025-09-01T10:54:15.241105098Z 
-2025-09-01T10:54:15.241124149Z #13 exporting cache to client directory
-2025-09-01T10:54:15.241128659Z #13 preparing build cache for export
-2025-09-01T10:54:38.225897321Z #13 writing cache manifest sha256:8a2ec6dfa778cb4658b1b68a95eedd1ac4272d91d6569c9c4bde5be2cc4ae4a4
-2025-09-01T10:54:38.376073347Z #13 writing cache manifest sha256:8a2ec6dfa778cb4658b1b68a95eedd1ac4272d91d6569c9c4bde5be2cc4ae4a4 0.2s done
-2025-09-01T10:54:38.376088907Z #13 DONE 23.1s
-2025-09-01T10:54:51.434283531Z Pushing image to registry...
-2025-09-01T10:55:00.459124073Z Upload succeeded
-2025-09-01T10:55:18.199065458Z ==> Deploying...
-2025-09-01T10:55:29.078311086Z 
-2025-09-01T10:55:29.078358999Z > auth-backend@1.0.0 start
-2025-09-01T10:55:29.078363359Z > node server.js
-2025-09-01T10:55:29.078365389Z 
-2025-09-01T10:55:32.589133747Z [DEBUG] NODE_ENV: production
-2025-09-01T10:55:32.589691106Z [DEBUG] MONGO_URI (first 15 chars): mongodb+srv://j...
-2025-09-01T10:55:33.837067504Z MongoDB Connected: ac-vkpmney-shard-00-00.pn9opws.mongodb.net
-2025-09-01T10:55:34.679319139Z Failed to start server: SyntaxError: Unexpected token '}'
-2025-09-01T10:55:34.67934921Z     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
-2025-09-01T10:55:34.67935273Z     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
-2025-09-01T10:55:34.679355041Z     at #translate (node:internal/modules/esm/loader:431:12)
-2025-09-01T10:55:34.679357221Z     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:478:27)
-2025-09-01T10:55:34.679359461Z     at async ModuleJob._link (node:internal/modules/esm/module_job:110:19)
-2025-09-01T10:55:39.896858704Z ==> Exited with status 1
-2025-09-01T10:55:40.063596398Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
-2025-09-01T10:55:40.472875629Z 
-2025-09-01T10:55:40.472917331Z > auth-backend@1.0.0 start
-2025-09-01T10:55:40.472923422Z > node server.js
-2025-09-01T10:55:40.472926072Z 
-2025-09-01T10:55:42.674214215Z npm error path /app
-2025-09-01T10:55:42.674719842Z npm error command failed
-2025-09-01T10:55:42.674731112Z npm error signal SIGTERM
-2025-09-01T10:55:42.674735762Z npm error command sh -c node server.js
-2025-09-01T10:55:42.67622661Z npm error A complete log of this run can be found in: /root/.npm/_logs/2025-09-01T10_55_39_977Z-debug-0.log
+import mongoose from 'mongoose';
+import express from 'express';
+import path from 'path';
+import fs from 'fs/promises';
+import User from '../models/User.js';
+import Post from '../models/Post.js';
+import Follow from '../models/Follow.js';
+import Product from '../models/Product.js';
+import ChatRoom from '../models/ChatRoom.js';
+import ChatMessage from '../models/ChatMessage.js';
+import { authenticateToken, isAdmin } from '../middleware/auth.js';
+import { upload } from '../utils/upload.js';
+
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const router = express.Router();
+
+// 프로필 이미지 업로드
+router.post('/me/profile-image', authenticateToken, upload.single('profileImage'), async (req, res) => {
+    try {
+        // auth 미들웨어에서 전달된 사용자 ID를 사용합니다.
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            // 이 경우는 거의 발생하지 않지만, 안전을 위해 유지합니다.
+            return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+        }
+
+        // 이미지 파일 경로 업데이트
+        user.profileImage = `/uploads/${req.file.filename}`;
+        await user.save();
+
+        res.json({ success: true, message: '프로필 사진이 성공적으로 업데이트되었습니다.', profileImage: user.profileImage });
+    } catch (error) {
+        console.error('프로필 이미지 업로드 오류:', error);
+        res.status(500).json({ message: '서버 오류가 발생했습니다.' });
+    }
+});
+
+// 관리자: 특정 사용자 프로필 이미지 업데이트
+router.patch('/:userId/profile-image', authenticateToken, isAdmin, upload.single('profileImage'), async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const userToUpdate = await User.findById(userId);
+
+        if (!userToUpdate) {
+            return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
+        }
+
+        if (!req.file) {
+            return res.status(400).json({ success: false, message: '이미지 파일이 필요합니다.' });
+        }
+
+        userToUpdate.profileImage = `/uploads/${req.file.filename}`;
+        await userToUpdate.save();
+
+        res.json({ success: true, message: '사용자 프로필 사진이 성공적으로 업데이트되었습니다.', profileImage: userToUpdate.profileImage });
+    } catch (error) {
+        console.error('관리자 프로필 이미지 업데이트 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류가 발생했습니다.' });
+    }
+});
+
+// 관리자: 특정 사용자 삭제
+router.delete('/:userId', authenticateToken, isAdmin, async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const userToDelete = await User.findById(userId);
+
+        if (!userToDelete) {
+            return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
+        }
+
+        // 사용자 삭제
+        await User.findByIdAndDelete(userId);
+
+        // 사용자와 관련된 모든 데이터 삭제 (게시글, 댓글, 팔로우, 제품, 채팅방, 채팅 메시지)
+        await Post.deleteMany({ userId: userId });
+        await Post.updateMany({}, { $pull: { comments: { authorId: userId } } }); // 댓글 삭제
+        await Follow.deleteMany({ $or: [{ followerId: userId }, { followingId: userId }] });
+        await Product.deleteMany({ authorId: userId });
+        await ChatRoom.deleteMany({ $or: [{ participant1: userId }, { participant2: userId }] });
+        await ChatMessage.deleteMany({ sender: userId });
+
+        res.json({ success: true, message: '사용자가 성공적으로 삭제되었습니다.' });
+    } catch (error) {
+        console.error('관리자 사용자 삭제 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류가 발생했습니다.' });
+    }
+});
+
+// 💥💥💥 바로 이 코드가 마이페이지 이동 실패의 원인입니다 💥💥💥
+router.get('/me', authenticateToken, async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).select('-password');
+        if (!user) {
+            return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
+        }
+
+        const postCount = await Post.countDocuments({ userId: req.user._id });
+        const followerCount = await Follow.countDocuments({ followingId: req.user._id });
+        const followingCount = await Follow.countDocuments({ followerId: req.user._id });
+
+        res.json({ 
+            ...user.toObject(), 
+            postCount,
+            followerCount,
+            followingCount
+        });
+    } catch (error) {
+        console.error('GET /api/users/me 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류' });
+    }
+});
+        console.error('GET /api/users/me 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류' });
+    }
+});
+
+
+// ... (이하 다른 users.js 라우터들은 수동 id를 기준으로 작성되어 있음) ...
+
+// 시간표 정보 가져오기
+router.get('/me/schedule', authenticateToken, async (req, res) => {
+    try {
+        // The 'user' object is already available from the authenticateToken middleware.
+        // No need to query the database again.
+        res.json({ success: true, schedule: req.user.schedule });
+    } catch (error) {
+        console.error('GET /api/users/me/schedule 오류:', error);
+        res.status(500).json({ success: false, message: '시간표를 불러오는데 실패했습니다.' });
+    }
+});
+
+// 시간표 정보 저장
+router.post('/me/schedule', authenticateToken, async (req, res) => {
+    try {
+        const { schedule } = req.body;
+
+        // Basic validation
+        if (!schedule || !Array.isArray(schedule)) {
+            return res.status(400).json({ success: false, message: '유효하지 않은 시간표 데이터입니다.' });
+        }
+
+        // The user object is already on req from the middleware
+        req.user.schedule = schedule;
+        await req.user.save();
+
+        res.json({ success: true, message: '시간표가 성공적으로 저장되었습니다.' });
+
+    } catch (error) {
+        console.error('POST /api/users/me/schedule 오류:', error);
+        res.status(500).json({ success: false, message: '시간표 저장 중 서버 오류가 발생했습니다.' });
+    }
+});
+
+// 특정 사용자 프로필 조회 (Mypage에서 사용)
+router.get('/:userId', async (req, res) => {
+    try {
+        const { userId } = req.params;
+        // Convert userId param to mongoose ObjectId to ensure type consistency
+        const userObjectId = new mongoose.Types.ObjectId(userId);
+
+        const user = await User.findById(userObjectId).select('-password'); // 비밀번호 제외
+        if (!user) {
+            return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
+        }
+        
+        const postCount = await Post.countDocuments({ userId: userObjectId });
+        const followerCount = await Follow.countDocuments({ followingId: userObjectId });
+        const followingCount = await Follow.countDocuments({ followerId: userObjectId });
+
+        res.json({ 
+            success: true, 
+            user: { 
+                ...user.toObject(), 
+                postCount, 
+                followerCount, 
+                followingCount 
+            }
+        });
+    } catch (error) {
+        console.error('GET /api/users/:userId 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류' });
+    }
+});
+
+// 특정 사용자의 게시글 조회
+router.get('/:userId/posts', async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const posts = await Post.find({ userId: userId }).sort({ createdAt: -1 });
+        res.json({ success: true, posts });
+    } catch (error) {
+        console.error('GET /api/users/:userId/posts 오류:', error);
+        res.status(500).json({ success: false, message: '게시글을 불러오는 데 실패했습니다.' });
+    }
+});
+
+// 특정 사용자의 댓글 조회
+router.get('/:userId/comments', async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const comments = await Post.aggregate([
+            { $match: { 'comments.authorId': new mongoose.Types.ObjectId(userId) } },
+            { $unwind: '$comments' },
+            { $match: { 'comments.authorId': new mongoose.Types.ObjectId(userId) } },
+            { $project: {
+                _id: '$comments._id',
+                content: '$comments.content',
+                createdAt: '$comments.createdAt',
+                postId: '$_id',
+                postTitle: '$title',
+                authorId: '$comments.authorId',
+                authorName: '$comments.authorName'
+            }},
+            { $sort: { createdAt: -1 } }
+        ]);
+        res.json({ success: true, comments });
+    } catch (error) {
+        console.error('GET /api/users/:userId/comments 오류:', error);
+        res.status(500).json({ success: false, message: '댓글을 불러오는 데 실패했습니다.' });
+    }
+});
+
+// 특정 사용자의 팔로워 목록 조회
+router.get('/:userId/followers', async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const followers = await Follow.find({ followingId: userId }).populate('followerId', 'username profileImage');
+        res.json({ success: true, followers: followers.map(f => f.followerId) });
+    } catch (error) {
+        console.error('GET /api/users/:userId/followers 오류:', error);
+        res.status(500).json({ success: false, message: '팔로워 목록을 불러오는 데 실패했습니다.' });
+    }
+});
+
+// 특정 사용자가 팔로우하는 목록 조회
+router.get('/:userId/following', async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const following = await Follow.find({ followerId: userId }).populate('followingId', 'username profileImage');
+        res.json({ success: true, following: following.map(f => f.followingId) });
+    } catch (error) {
+        console.error('GET /api/users/:userId/following 오류:', error);
+        res.status(500).json({ success: false, message: '팔로잉 목록을 불러오는 데 실패했습니다.' });
+    }
+});
+
+// 팔로우 상태 확인
+router.get('/:userId/follow-status', authenticateToken, async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const currentUserId = req.user._id; // 현재 로그인한 사용자 ID
+
+        if (currentUserId.equals(userId)) {
+            return res.json({ success: true, isFollowing: false }); // 자기 자신은 팔로우 상태가 아님
+        }
+
+        const follow = await Follow.findOne({ followerId: currentUserId, followingId: userId });
+        res.json({ success: true, isFollowing: !!follow });
+    } catch (error) {
+        console.error('GET /api/users/:userId/follow-status 오류:', error);
+        res.status(500).json({ success: false, message: '팔로우 상태를 불러오는 데 실패했습니다.' });
+    }
+});
+
+// 팔로우
+router.post('/:userId/follow', authenticateToken, async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const currentUserId = req.user._id;
+
+        if (currentUserId.equals(userId)) {
+            return res.status(400).json({ success: false, message: '자기 자신을 팔로우할 수 없습니다.' });
+        }
+
+        const existingFollow = await Follow.findOne({ followerId: currentUserId, followingId: userId });
+        if (existingFollow) {
+            return res.status(400).json({ success: false, message: '이미 팔로우하고 있습니다.' });
+        }
+
+        const newFollow = new Follow({ followerId: currentUserId, followingId: userId });
+        await newFollow.save();
+
+        res.status(201).json({ success: true, message: '팔로우 성공' });
+    } catch (error) {
+        console.error('팔로우 오류:', error);
+        res.status(500).json({ success: false, message: '팔로우 처리 중 오류 발생' });
+    }
+});
+
+// 언팔로우
+router.post('/:userId/unfollow', authenticateToken, async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const currentUserId = req.user._id;
+
+        const result = await Follow.deleteOne({ followerId: currentUserId, followingId: userId });
+
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ success: false, message: '팔로우 관계를 찾을 수 없습니다.' });
+        }
+
+        res.status(200).json({ success: true, message: '언팔로우 성공' });
+    } catch (error) {
+        console.error('언팔로우 오류:', error);
+        res.status(500).json({ success: false, message: '언팔로우 처리 중 오류 발생' });
+    }
+});
+
+export default router;
