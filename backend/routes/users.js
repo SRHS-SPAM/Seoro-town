@@ -94,12 +94,11 @@ router.delete('/:userId', authenticateToken, isAdmin, async (req, res) => {
 // 💥💥💥 바로 이 코드가 마이페이지 이동 실패의 원인입니다 💥💥💥
 router.get('/me', authenticateToken, async (req, res) => {
     try {
-        // req.user 객체가 있음에도 불구하고, _id를 사용해서 다시 DB를 조회하려고 시도합니다.
-        // 하지만 토큰에는 수동 id가 들어있어서 req.user._id가 원하는 값이 아닐 수 있습니다.
         const user = await User.findById(req.user._id).select('-password');
         if (!user) {
             return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
         }
+
         const postCount = await Post.countDocuments({ userId: req.user._id });
         const followerCount = await Follow.countDocuments({ followingId: req.user._id });
         const followingCount = await Follow.countDocuments({ followerId: req.user._id });
@@ -111,6 +110,10 @@ router.get('/me', authenticateToken, async (req, res) => {
             followingCount
         });
     } catch (error) {
+        console.error('GET /api/users/me 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류' });
+    }
+});
         console.error('GET /api/users/me 오류:', error);
         res.status(500).json({ success: false, message: '서버 오류' });
     }
@@ -161,8 +164,20 @@ router.get('/:userId', async (req, res) => {
         if (!user) {
             return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
         }
+        
         const postCount = await Post.countDocuments({ userId: userId });
-        res.json({ success: true, user: { ...user.toObject(), postCount } });
+        const followerCount = await Follow.countDocuments({ followingId: userId });
+        const followingCount = await Follow.countDocuments({ followerId: userId });
+
+        res.json({ 
+            success: true, 
+            user: { 
+                ...user.toObject(), 
+                postCount, 
+                followerCount, 
+                followingCount 
+            }
+        });
     } catch (error) {
         console.error('GET /api/users/:userId 오류:', error);
         res.status(500).json({ success: false, message: '서버 오류' });
@@ -173,7 +188,7 @@ router.get('/:userId', async (req, res) => {
 router.get('/:userId/posts', async (req, res) => {
     try {
         const { userId } = req.params;
-        const posts = await Post.find({ authorId: userId }).sort({ createdAt: -1 });
+        const posts = await Post.find({ userId: userId }).sort({ createdAt: -1 });
         res.json({ success: true, posts });
     } catch (error) {
         console.error('GET /api/users/:userId/posts 오류:', error);
