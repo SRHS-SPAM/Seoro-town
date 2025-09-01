@@ -64,7 +64,7 @@ function AppContent() {
             <Route path="/infoboard/:id" element={<Boardinfo />} /> 
             <Route path="/Boardarr" element={<Boardarr/>}/>
             <Route path="/Guide" element={<Guide />} />
-            <Route path="/com-detail/:nttId" element={<ComDetail />} />
+            <Route path="/com-detail/:bbsId/:nttId" element={<ComDetail />} />
             <Route path="/guide/facility" element={<FGuide />} />
             <Route path="/guide/main-building" element={<MBGuide />} />
             <Route path="/chats" element={<ChatListPage />} />
