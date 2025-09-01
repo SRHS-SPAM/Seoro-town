@@ -172,6 +172,8 @@ router.get('/detail/:bbsId/:nttId', async (req, res) => {
             });
         });
 
+        console.log("--- DEBUG: Scraped Detail Object ---", detail);
+
         detailCache.set(cacheKey, { timestamp: now, data: detail });
         res.json({ success: true, detail: detail });
 
