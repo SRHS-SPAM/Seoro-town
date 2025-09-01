@@ -160,14 +160,17 @@ router.post('/me/schedule', authenticateToken, async (req, res) => {
 router.get('/:userId', async (req, res) => {
     try {
         const { userId } = req.params;
-        const user = await User.findById(userId).select('-password'); // 비밀번호 제외
+        // Convert userId param to mongoose ObjectId to ensure type consistency
+        const userObjectId = new mongoose.Types.ObjectId(userId);
+
+        const user = await User.findById(userObjectId).select('-password'); // 비밀번호 제외
         if (!user) {
             return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
         }
         
-        const postCount = await Post.countDocuments({ userId: userId });
-        const followerCount = await Follow.countDocuments({ followingId: userId });
-        const followingCount = await Follow.countDocuments({ followerId: userId });
+        const postCount = await Post.countDocuments({ userId: userObjectId });
+        const followerCount = await Follow.countDocuments({ followingId: userObjectId });
+        const followingCount = await Follow.countDocuments({ followerId: userObjectId });
 
         res.json({ 
             success: true, 
