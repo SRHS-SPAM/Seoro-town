@@ -20,6 +20,10 @@ router.post('/', authenticateToken, async (req, res) => {
         const { title, content, category } = req.body;
         if (!title || !content) return res.status(400).json({ message: '제목과 내용을 입력해주세요.' });
 
+        console.log("--- POST CREATION CHECK ---");
+        console.log("Time:", new Date().toISOString());
+        console.log("Saving with userId:", req.user._id);
+
         const newPost = new Post({
             title: title.trim(),
             content: content.trim(),
