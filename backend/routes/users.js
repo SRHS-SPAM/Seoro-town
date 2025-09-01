@@ -100,9 +100,17 @@ router.get('/me', authenticateToken, async (req, res) => {
         if (!user) {
             return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
         }
-            const postCount = await Post.countDocuments({ author: req.user._id });
-    res.json({ ...user.toObject(), postCount });
-  } catch (error) {
+        const postCount = await Post.countDocuments({ userId: req.user._id });
+        const followerCount = await Follow.countDocuments({ followingId: req.user._id });
+        const followingCount = await Follow.countDocuments({ followerId: req.user._id });
+
+        res.json({ 
+            ...user.toObject(), 
+            postCount,
+            followerCount,
+            followingCount
+        });
+    } catch (error) {
         console.error('GET /api/users/me 오류:', error);
         res.status(500).json({ success: false, message: '서버 오류' });
     }
