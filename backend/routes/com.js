@@ -92,10 +92,14 @@ router.get('/', async (req, res) => {
 
             // console.log(`[Puppeteer] Processing row ${i}: Num=${num}, Title=${tds.eq(1).find('a').text().trim()}`); // Log each row being processed
 
+            const onclickAttr = tds.eq(1).find('a').attr('onclick');
+            const match = onclickAttr ? onclickAttr.match(/fnView\('([^\']+)',\s*'([^\']+)'\)/) : null;
+
             comList.push({
                 num: num,
                 title: tds.eq(1).find('a').text().trim(),
-                nttId: tds.eq(1).find('a').attr('onclick')?.match(/\d+/)?.[0] || null,
+                bbsId: match ? match[1] : null,
+                nttId: match ? match[2] : null,
                 author: tds.eq(2).text().trim(),
                 date: tds.eq(3).text().trim(),
                 views: tds.eq(4).text().trim(),
@@ -114,39 +118,40 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/detail/:nttId', async (req, res) => {
-    const { nttId } = req.params;
+router.get('/detail/:bbsId/:nttId', async (req, res) => {
+    const { bbsId, nttId } = req.params;
     const now = Date.now();
+    const cacheKey = `${bbsId}-${nttId}`;
 
-    if (!nttId || !/^\d+$/.test(nttId)) {
-        return res.status(400).json({ success: false, message: '유효하지 않은 게시글 ID입니다.' });
+    if (!nttId || !/^\d+$/.test(nttId) || !bbsId) {
+        return res.status(400).json({ success: false, message: '유효하지 않은 게시글 또는 게시판 ID입니다.' });
     }
 
     // 1. 캐시 확인
-    if (detailCache.has(nttId)) {
-        const cached = detailCache.get(nttId);
+    if (detailCache.has(cacheKey)) {
+        const cached = detailCache.get(cacheKey);
         if (now - cached.timestamp < CACHE_DURATION) {
-            console.log(`[Cache] HIT: Serving detail for nttId ${nttId} from cache.`);
+            console.log(`[Cache] HIT: Serving detail for ${cacheKey} from cache.`);
             return res.json({ success: true, detail: cached.data });
         }
     }
     
-    console.log(`[Cache] MISS: Crawling detail for nttId ${nttId}.`);
+    console.log(`[Cache] MISS: Crawling detail for ${cacheKey}.`);
     let page = null;
     try {
         const browser = await initializeBrowser();
         page = await browser.newPage();
         await page.setExtraHTTPHeaders({'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7'});
-        await page.goto(COM_PAGE_URL, { waitUntil: 'networkidle0' });
+        await page.goto(COM_PAGE_URL, { waitUntil: 'networkidle2' });
 
         const detailResponsePromise = page.waitForResponse(
             response => response.url().startsWith(DETAIL_API_URL) && response.status() === 200,
             { timeout: 15000 }
         );
 
-        await page.evaluate((id) => {
-            fnView('BBSMSTR_000000010049', id);
-        }, nttId);
+        await page.evaluate((bbsId, nttId) => {
+            fnView(bbsId, nttId);
+        }, bbsId, nttId);
         
         const detailResponse = await detailResponsePromise;
         const htmlResult = await detailResponse.text();
@@ -167,7 +172,7 @@ router.get('/detail/:nttId', async (req, res) => {
             });
         });
 
-        detailCache.set(nttId, { timestamp: now, data: detail });
+        detailCache.set(cacheKey, { timestamp: now, data: detail });
         res.json({ success: true, detail: detail });
 
     } catch (error) {

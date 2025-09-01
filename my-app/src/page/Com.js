@@ -41,9 +41,9 @@ function Com() {
     const handleNextPage = () => { if (!isLastPage) setPage(p => p + 1); };
 
     // ✨ 상세 페이지로 이동하는 핸들러
-    const handleTitleClick = (nttId) => {
-        if (nttId) {
-            navigate(`/com-detail/${nttId}`);
+    const handleTitleClick = (bbsId, nttId) => {
+        if (bbsId && nttId) {
+            navigate(`/com-detail/${bbsId}/${nttId}`);
         } else {
             alert('상세보기를 지원하지 않는 게시글입니다.');
         }
@@ -76,7 +76,7 @@ function Com() {
                                     {comList.length > 0 ? comList.map((item, index) => (
                                         <tr key={item.nttId || index}>
                                             <td className="num">{item.num}</td>
-                                            <td className="title" onClick={() => handleTitleClick(item.nttId)} style={{ cursor: item.nttId ? 'pointer' : 'default' }}>
+                                            <td className="title" onClick={() => handleTitleClick(item.bbsId, item.nttId)} style={{ cursor: item.nttId ? 'pointer' : 'default' }}>
                                                 {item.title}
                                             </td>
                                             <td className="author">{item.author}</td>

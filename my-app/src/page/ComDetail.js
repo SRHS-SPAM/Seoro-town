@@ -5,14 +5,14 @@ import './ComDetail.css'; // 상세 페이지용 CSS (아래 제공)
 import { Settings, AlertCircle, ArrowLeft, Paperclip } from 'lucide-react';
 
 function ComDetail() {
-    const { nttId } = useParams();
+    const { bbsId, nttId } = useParams();
     const navigate = useNavigate();
     const [detail, setDetail] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     const fetchDetail = useCallback(async () => {
-        if (!nttId) {
+        if (!bbsId || !nttId) {
             setError('게시글 ID가 없어 내용을 불러올 수 없습니다.');
             setLoading(false);
             return;
@@ -20,7 +20,7 @@ function ComDetail() {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/com/detail/${nttId}`);
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/com/detail/${bbsId}/${nttId}`);
             if (!response.ok) {
                 const errorData = await response.json().catch(() => null);
                 throw new Error(errorData?.message || `서버 응답 오류: ${response.status}`);
@@ -36,7 +36,7 @@ function ComDetail() {
         } finally {
             setLoading(false);
         }
-    }, [nttId]);
+    }, [bbsId, nttId]);
 
     useEffect(() => {
         fetchDetail();
