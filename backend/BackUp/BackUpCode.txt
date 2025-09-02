@@ -1,315 +1,172 @@
-import mongoose from 'mongoose';
-import express from 'express';
-import path from 'path';
-import fs from 'fs/promises';
-import User from '../models/User.js';
-import Post from '../models/Post.js';
-import Follow from '../models/Follow.js';
-import Product from '../models/Product.js';
-import ChatRoom from '../models/ChatRoom.js';
-import ChatMessage from '../models/ChatMessage.js';
-import { authenticateToken, isAdmin } from '../middleware/auth.js';
-import { upload } from '../utils/upload.js';
-
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const router = express.Router();
-
-// 프로필 이미지 업로드
-router.post('/me/profile-image', authenticateToken, upload.single('profileImage'), async (req, res) => {
-    try {
-        // auth 미들웨어에서 전달된 사용자 ID를 사용합니다.
-        const user = await User.findById(req.user.id);
-
-        if (!user) {
-            // 이 경우는 거의 발생하지 않지만, 안전을 위해 유지합니다.
-            return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
-        }
-
-        // 이미지 파일 경로 업데이트
-        user.profileImage = `/uploads/${req.file.filename}`;
-        await user.save();
-
-        res.json({ success: true, message: '프로필 사진이 성공적으로 업데이트되었습니다.', profileImage: user.profileImage });
-    } catch (error) {
-        console.error('프로필 이미지 업로드 오류:', error);
-        res.status(500).json({ message: '서버 오류가 발생했습니다.' });
-    }
-});
-
-// 관리자: 특정 사용자 프로필 이미지 업데이트
-router.patch('/:userId/profile-image', authenticateToken, isAdmin, upload.single('profileImage'), async (req, res) => {
-    try {
-        const { userId } = req.params;
-        const userToUpdate = await User.findById(userId);
-
-        if (!userToUpdate) {
-            return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
-        }
-
-        if (!req.file) {
-            return res.status(400).json({ success: false, message: '이미지 파일이 필요합니다.' });
-        }
-
-        userToUpdate.profileImage = `/uploads/${req.file.filename}`;
-        await userToUpdate.save();
-
-        res.json({ success: true, message: '사용자 프로필 사진이 성공적으로 업데이트되었습니다.', profileImage: userToUpdate.profileImage });
-    } catch (error) {
-        console.error('관리자 프로필 이미지 업데이트 오류:', error);
-        res.status(500).json({ success: false, message: '서버 오류가 발생했습니다.' });
-    }
-});
-
-// 관리자: 특정 사용자 삭제
-router.delete('/:userId', authenticateToken, isAdmin, async (req, res) => {
-    try {
-        const { userId } = req.params;
-        const userToDelete = await User.findById(userId);
-
-        if (!userToDelete) {
-            return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
-        }
-
-        // 사용자 삭제
-        await User.findByIdAndDelete(userId);
-
-        // 사용자와 관련된 모든 데이터 삭제 (게시글, 댓글, 팔로우, 제품, 채팅방, 채팅 메시지)
-        await Post.deleteMany({ userId: userId });
-        await Post.updateMany({}, { $pull: { comments: { authorId: userId } } }); // 댓글 삭제
-        await Follow.deleteMany({ $or: [{ followerId: userId }, { followingId: userId }] });
-        await Product.deleteMany({ authorId: userId });
-        await ChatRoom.deleteMany({ $or: [{ participant1: userId }, { participant2: userId }] });
-        await ChatMessage.deleteMany({ sender: userId });
-
-        res.json({ success: true, message: '사용자가 성공적으로 삭제되었습니다.' });
-    } catch (error) {
-        console.error('관리자 사용자 삭제 오류:', error);
-        res.status(500).json({ success: false, message: '서버 오류가 발생했습니다.' });
-    }
-});
-
-// 💥💥💥 바로 이 코드가 마이페이지 이동 실패의 원인입니다 💥💥💥
-router.get('/me', authenticateToken, async (req, res) => {
-    try {
-        const user = await User.findById(req.user._id).select('-password');
-        if (!user) {
-            return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
-        }
-
-        const postCount = await Post.countDocuments({ userId: req.user._id });
-        const followerCount = await Follow.countDocuments({ followingId: req.user._id });
-        const followingCount = await Follow.countDocuments({ followerId: req.user._id });
-
-        res.json({ 
-            ...user.toObject(), 
-            postCount,
-            followerCount,
-            followingCount
-        });
-    } catch (error) {
-        console.error('GET /api/users/me 오류:', error);
-        res.status(500).json({ success: false, message: '서버 오류' });
-    }
-});
-        console.error('GET /api/users/me 오류:', error);
-        res.status(500).json({ success: false, message: '서버 오류' });
-    }
-});
-
-
-// ... (이하 다른 users.js 라우터들은 수동 id를 기준으로 작성되어 있음) ...
-
-// 시간표 정보 가져오기
-router.get('/me/schedule', authenticateToken, async (req, res) => {
-    try {
-        // The 'user' object is already available from the authenticateToken middleware.
-        // No need to query the database again.
-        res.json({ success: true, schedule: req.user.schedule });
-    } catch (error) {
-        console.error('GET /api/users/me/schedule 오류:', error);
-        res.status(500).json({ success: false, message: '시간표를 불러오는데 실패했습니다.' });
-    }
-});
-
-// 시간표 정보 저장
-router.post('/me/schedule', authenticateToken, async (req, res) => {
-    try {
-        const { schedule } = req.body;
-
-        // Basic validation
-        if (!schedule || !Array.isArray(schedule)) {
-            return res.status(400).json({ success: false, message: '유효하지 않은 시간표 데이터입니다.' });
-        }
-
-        // The user object is already on req from the middleware
-        req.user.schedule = schedule;
-        await req.user.save();
-
-        res.json({ success: true, message: '시간표가 성공적으로 저장되었습니다.' });
-
-    } catch (error) {
-        console.error('POST /api/users/me/schedule 오류:', error);
-        res.status(500).json({ success: false, message: '시간표 저장 중 서버 오류가 발생했습니다.' });
-    }
-});
-
-// 특정 사용자 프로필 조회 (Mypage에서 사용)
-router.get('/:userId', async (req, res) => {
-    try {
-        const { userId } = req.params;
-        // Convert userId param to mongoose ObjectId to ensure type consistency
-        const userObjectId = new mongoose.Types.ObjectId(userId);
-
-        const user = await User.findById(userObjectId).select('-password'); // 비밀번호 제외
-        if (!user) {
-            return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
-        }
-        
-        const postCount = await Post.countDocuments({ userId: userObjectId });
-        const followerCount = await Follow.countDocuments({ followingId: userObjectId });
-        const followingCount = await Follow.countDocuments({ followerId: userObjectId });
-
-        res.json({ 
-            success: true, 
-            user: { 
-                ...user.toObject(), 
-                postCount, 
-                followerCount, 
-                followingCount 
-            }
-        });
-    } catch (error) {
-        console.error('GET /api/users/:userId 오류:', error);
-        res.status(500).json({ success: false, message: '서버 오류' });
-    }
-});
-
-// 특정 사용자의 게시글 조회
-router.get('/:userId/posts', async (req, res) => {
-    try {
-        const { userId } = req.params;
-        const posts = await Post.find({ userId: userId }).sort({ createdAt: -1 });
-        res.json({ success: true, posts });
-    } catch (error) {
-        console.error('GET /api/users/:userId/posts 오류:', error);
-        res.status(500).json({ success: false, message: '게시글을 불러오는 데 실패했습니다.' });
-    }
-});
-
-// 특정 사용자의 댓글 조회
-router.get('/:userId/comments', async (req, res) => {
-    try {
-        const { userId } = req.params;
-        const comments = await Post.aggregate([
-            { $match: { 'comments.authorId': new mongoose.Types.ObjectId(userId) } },
-            { $unwind: '$comments' },
-            { $match: { 'comments.authorId': new mongoose.Types.ObjectId(userId) } },
-            { $project: {
-                _id: '$comments._id',
-                content: '$comments.content',
-                createdAt: '$comments.createdAt',
-                postId: '$_id',
-                postTitle: '$title',
-                authorId: '$comments.authorId',
-                authorName: '$comments.authorName'
-            }},
-            { $sort: { createdAt: -1 } }
-        ]);
-        res.json({ success: true, comments });
-    } catch (error) {
-        console.error('GET /api/users/:userId/comments 오류:', error);
-        res.status(500).json({ success: false, message: '댓글을 불러오는 데 실패했습니다.' });
-    }
-});
-
-// 특정 사용자의 팔로워 목록 조회
-router.get('/:userId/followers', async (req, res) => {
-    try {
-        const { userId } = req.params;
-        const followers = await Follow.find({ followingId: userId }).populate('followerId', 'username profileImage');
-        res.json({ success: true, followers: followers.map(f => f.followerId) });
-    } catch (error) {
-        console.error('GET /api/users/:userId/followers 오류:', error);
-        res.status(500).json({ success: false, message: '팔로워 목록을 불러오는 데 실패했습니다.' });
-    }
-});
-
-// 특정 사용자가 팔로우하는 목록 조회
-router.get('/:userId/following', async (req, res) => {
-    try {
-        const { userId } = req.params;
-        const following = await Follow.find({ followerId: userId }).populate('followingId', 'username profileImage');
-        res.json({ success: true, following: following.map(f => f.followingId) });
-    } catch (error) {
-        console.error('GET /api/users/:userId/following 오류:', error);
-        res.status(500).json({ success: false, message: '팔로잉 목록을 불러오는 데 실패했습니다.' });
-    }
-});
-
-// 팔로우 상태 확인
-router.get('/:userId/follow-status', authenticateToken, async (req, res) => {
-    try {
-        const { userId } = req.params;
-        const currentUserId = req.user._id; // 현재 로그인한 사용자 ID
-
-        if (currentUserId.equals(userId)) {
-            return res.json({ success: true, isFollowing: false }); // 자기 자신은 팔로우 상태가 아님
-        }
-
-        const follow = await Follow.findOne({ followerId: currentUserId, followingId: userId });
-        res.json({ success: true, isFollowing: !!follow });
-    } catch (error) {
-        console.error('GET /api/users/:userId/follow-status 오류:', error);
-        res.status(500).json({ success: false, message: '팔로우 상태를 불러오는 데 실패했습니다.' });
-    }
-});
-
-// 팔로우
-router.post('/:userId/follow', authenticateToken, async (req, res) => {
-    try {
-        const { userId } = req.params;
-        const currentUserId = req.user._id;
-
-        if (currentUserId.equals(userId)) {
-            return res.status(400).json({ success: false, message: '자기 자신을 팔로우할 수 없습니다.' });
-        }
-
-        const existingFollow = await Follow.findOne({ followerId: currentUserId, followingId: userId });
-        if (existingFollow) {
-            return res.status(400).json({ success: false, message: '이미 팔로우하고 있습니다.' });
-        }
-
-        const newFollow = new Follow({ followerId: currentUserId, followingId: userId });
-        await newFollow.save();
-
-        res.status(201).json({ success: true, message: '팔로우 성공' });
-    } catch (error) {
-        console.error('팔로우 오류:', error);
-        res.status(500).json({ success: false, message: '팔로우 처리 중 오류 발생' });
-    }
-});
-
-// 언팔로우
-router.post('/:userId/unfollow', authenticateToken, async (req, res) => {
-    try {
-        const { userId } = req.params;
-        const currentUserId = req.user._id;
-
-        const result = await Follow.deleteOne({ followerId: currentUserId, followingId: userId });
-
-        if (result.deletedCount === 0) {
-            return res.status(404).json({ success: false, message: '팔로우 관계를 찾을 수 없습니다.' });
-        }
-
-        res.status(200).json({ success: true, message: '언팔로우 성공' });
-    } catch (error) {
-        console.error('언팔로우 오류:', error);
-        res.status(500).json({ success: false, message: '언팔로우 처리 중 오류 발생' });
-    }
-});
-
-export default router;
-
+2025-09-01T12:13:42.566529093Z Host Header: seoro-town-backend.onrender.com
+2025-09-01T12:13:42.566533354Z X-Forwarded-For: undefined
+2025-09-01T12:13:42.566537444Z X-Forwarded-Proto: undefined
+2025-09-01T12:13:42.566542094Z ----------------------
+2025-09-01T12:13:47.486684939Z ==> Your service is live 🎉
+2025-09-01T12:13:47.665482738Z ==> 
+2025-09-01T12:13:47.839548358Z ==> ///////////////////////////////////////////////////////////
+2025-09-01T12:13:48.018686307Z ==> 
+2025-09-01T12:13:48.196734936Z ==> Available at your primary URL https://seoro-town-backend.onrender.com
+2025-09-01T12:13:48.373562035Z ==> 
+2025-09-01T12:13:48.554003294Z ==> ///////////////////////////////////////////////////////////
+2025-09-01T12:13:50.962542365Z --- Incoming Request ---
+2025-09-01T12:13:50.962568687Z [2025-09-01T12:13:50.962Z]
+2025-09-01T12:13:50.96263185Z Method: GET
+2025-09-01T12:13:50.962657581Z URL: /
+2025-09-01T12:13:50.962664502Z Host Header: seoro-town-backend.onrender.com
+2025-09-01T12:13:50.962669652Z X-Forwarded-For: 35.227.183.65, 108.162.246.40, 10.210.87.196
+2025-09-01T12:13:50.962673992Z X-Forwarded-Proto: https
+2025-09-01T12:13:50.962678182Z ----------------------
+2025-09-01T12:13:59.086547719Z --- Incoming Request ---
+2025-09-01T12:13:59.086585601Z [2025-09-01T12:13:59.084Z]
+2025-09-01T12:13:59.086591551Z Method: GET
+2025-09-01T12:13:59.086595931Z URL: /api/posts
+2025-09-01T12:13:59.086600922Z Host Header: seoro-town-backend.onrender.com
+2025-09-01T12:13:59.086605972Z X-Forwarded-For: 61.74.92.100, 172.71.111.19, 10.210.87.196
+2025-09-01T12:13:59.086610342Z X-Forwarded-Proto: https
+2025-09-01T12:13:59.086614503Z ----------------------
+2025-09-01T12:14:00.492703654Z --- Incoming Request ---
+2025-09-01T12:14:00.492720255Z [2025-09-01T12:14:00.485Z]
+2025-09-01T12:14:00.492724935Z Method: GET
+2025-09-01T12:14:00.492729486Z URL: /api/com?page=1
+2025-09-01T12:14:00.492734066Z Host Header: seoro-town-backend.onrender.com
+2025-09-01T12:14:00.492738986Z X-Forwarded-For: 61.74.92.100, 172.69.165.22, 10.210.253.103
+2025-09-01T12:14:00.492743706Z X-Forwarded-Proto: https
+2025-09-01T12:14:00.492836401Z ----------------------
+2025-09-01T12:14:00.492842772Z [Cache] MISS: Crawling list for page 1.
+2025-09-01T12:14:09.163253698Z [Puppeteer] Navigated to https://srobot.sen.hs.kr/67182/subMenu.do
+2025-09-01T12:14:10.461656931Z [Puppeteer] List API response received from https://srobot.sen.hs.kr/dggb/module/board/selectBoardListAjax.do
+2025-09-01T12:14:12.565506688Z [Puppeteer] Page content length: 1358223
+2025-09-01T12:14:21.062141121Z [Puppeteer] Found 12 table rows.
+2025-09-01T12:14:21.161153797Z [Puppeteer] Extracted 10 items.
+2025-09-01T12:14:23.162819952Z --- Incoming Request ---
+2025-09-01T12:14:23.163436194Z [2025-09-01T12:14:23.162Z]
+2025-09-01T12:14:23.163450235Z Method: GET
+2025-09-01T12:14:23.163455345Z URL: /api/com/detail/BBSMSTR_000000007872/26392471
+2025-09-01T12:14:23.163459686Z Host Header: seoro-town-backend.onrender.com
+2025-09-01T12:14:23.163463496Z X-Forwarded-For: 61.74.92.100, 172.69.165.22, 10.210.253.103
+2025-09-01T12:14:23.165439279Z X-Forwarded-Proto: https
+2025-09-01T12:14:23.16545308Z ----------------------
+2025-09-01T12:14:23.167520618Z [Cache] MISS: Crawling detail for BBSMSTR_000000007872-26392471.
+2025-09-01T12:19:06.505300466Z ==> Detected service running on port 10000
+2025-09-01T12:19:06.938425335Z ==> Docs on specifying a port: https://render.com/docs/web-services#port-binding
+2025-09-02T09:41:48.316921841Z     at param (/app/node_modules/express/lib/router/index.js:365:14)
+2025-09-02T09:41:48.316925021Z     at param (/app/node_modules/express/lib/router/index.js:376:14)
+2025-09-02T09:41:48.316927661Z     at Function.process_params (/app/node_modules/express/lib/router/index.js:421:3)
+2025-09-02T09:41:49.638172722Z --- Incoming Request ---
+2025-09-02T09:41:49.638219543Z [2025-09-02T09:41:49.638Z]
+2025-09-02T09:41:49.638226293Z Method: GET
+2025-09-02T09:41:49.638232843Z URL: /api/users/search?query=%EC%A4%80%EC%98%81
+2025-09-02T09:41:49.638238154Z Host Header: seoro-town-backend.onrender.com
+2025-09-02T09:41:49.638246064Z X-Forwarded-For: 49.164.41.196, 172.71.124.117, 10.210.131.94
+2025-09-02T09:41:49.638250084Z X-Forwarded-Proto: https
+2025-09-02T09:41:49.638254784Z ----------------------
+2025-09-02T09:41:49.638572842Z GET /api/users/:userId 오류: BSONError: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+2025-09-02T09:41:49.638602433Z     at new ObjectId (/app/node_modules/bson/lib/bson.cjs:2538:23)
+2025-09-02T09:41:49.638608653Z     at file:///app/routes/users.js:136:30
+2025-09-02T09:41:49.638614043Z     at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
+2025-09-02T09:41:49.638619333Z     at next (/app/node_modules/express/lib/router/route.js:149:13)
+2025-09-02T09:41:49.638623744Z     at Route.dispatch (/app/node_modules/express/lib/router/route.js:119:3)
+2025-09-02T09:41:49.638628384Z     at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
+2025-09-02T09:41:49.638633664Z     at /app/node_modules/express/lib/router/index.js:284:15
+2025-09-02T09:41:49.638654665Z     at param (/app/node_modules/express/lib/router/index.js:365:14)
+2025-09-02T09:41:49.638657874Z     at param (/app/node_modules/express/lib/router/index.js:376:14)
+2025-09-02T09:41:49.638660894Z     at Function.process_params (/app/node_modules/express/lib/router/index.js:421:3)
+2025-09-02T09:41:52.478490865Z --- Incoming Request ---
+2025-09-02T09:41:52.478525346Z [2025-09-02T09:41:52.478Z]
+2025-09-02T09:41:52.478529516Z Method: GET
+2025-09-02T09:41:52.478569227Z URL: /api/posts
+2025-09-02T09:41:52.478579738Z Host Header: seoro-town-backend.onrender.com
+2025-09-02T09:41:52.478583218Z X-Forwarded-For: 49.164.41.196, 141.101.84.7, 10.210.253.103
+2025-09-02T09:41:52.478594928Z X-Forwarded-Proto: https
+2025-09-02T09:41:52.478607328Z ----------------------
+2025-09-02T09:41:55.391891746Z --- Incoming Request ---
+2025-09-02T09:41:55.391935187Z [2025-09-02T09:41:55.391Z]
+2025-09-02T09:41:55.391941948Z Method: GET
+2025-09-02T09:41:55.391947648Z URL: /api/posts
+2025-09-02T09:41:55.391970708Z Host Header: seoro-town-backend.onrender.com
+2025-09-02T09:41:55.391979829Z X-Forwarded-For: 49.164.41.196, 172.71.124.8, 10.210.110.228
+2025-09-02T09:41:55.391983519Z X-Forwarded-Proto: https
+2025-09-02T09:41:55.391987039Z ----------------------
+2025-09-02T09:42:06.32220602Z --- Incoming Request ---
+2025-09-02T09:42:06.322241791Z [2025-09-02T09:42:06.322Z]
+2025-09-02T09:42:06.322252191Z Method: GET
+2025-09-02T09:42:06.322255911Z URL: /api/users/me
+2025-09-02T09:42:06.322275852Z Host Header: seoro-town-backend.onrender.com
+2025-09-02T09:42:06.322291362Z X-Forwarded-For: 49.164.41.196, 162.158.162.5, 10.210.131.94
+2025-09-02T09:42:06.322300903Z X-Forwarded-Proto: https
+2025-09-02T09:42:06.322305843Z ----------------------
+2025-09-02T09:42:06.831034291Z --- Incoming Request ---
+2025-09-02T09:42:06.831083682Z [2025-09-02T09:42:06.830Z]
+2025-09-02T09:42:06.831696608Z Method: GET
+2025-09-02T09:42:06.831713509Z URL: /api/posts
+2025-09-02T09:42:06.831719469Z Host Header: seoro-town-backend.onrender.com
+2025-09-02T09:42:06.831724579Z X-Forwarded-For: 49.164.41.196, 172.71.124.66, 10.210.110.228
+2025-09-02T09:42:06.831729569Z X-Forwarded-Proto: https
+2025-09-02T09:42:06.831734169Z ----------------------
+2025-09-02T09:42:47.161336904Z --- Incoming Request ---
+2025-09-02T09:42:47.161375285Z [2025-09-02T09:42:47.161Z]
+2025-09-02T09:42:47.161380955Z Method: GET
+2025-09-02T09:42:47.161386425Z URL: /api/market?search=&category=%EC%A0%84%EC%B2%B4
+2025-09-02T09:42:47.161391815Z Host Header: seoro-town-backend.onrender.com
+2025-09-02T09:42:47.161411146Z X-Forwarded-For: 49.164.41.196, 162.158.163.176, 10.210.155.115
+2025-09-02T09:42:47.161505158Z X-Forwarded-Proto: https
+2025-09-02T09:42:47.161511468Z ----------------------
+2025-09-02T09:42:47.554327259Z --- Incoming Request ---
+2025-09-02T09:42:47.55436161Z [2025-09-02T09:42:47.554Z]
+2025-09-02T09:42:47.554415551Z Method: GET
+2025-09-02T09:42:47.554427831Z URL: /uploads/1756725916305-IMG_0158.jpeg
+2025-09-02T09:42:47.554437902Z Host Header: seoro-town-backend.onrender.com
+2025-09-02T09:42:47.554445872Z X-Forwarded-For: 49.164.41.196, 162.158.138.53, 10.210.155.115
+2025-09-02T09:42:47.554453412Z X-Forwarded-Proto: https
+2025-09-02T09:42:47.554526124Z ----------------------
+2025-09-02T09:42:50.945795732Z --- Incoming Request ---
+2025-09-02T09:42:50.945830113Z [2025-09-02T09:42:50.944Z]
+2025-09-02T09:42:50.945835123Z Method: GET
+2025-09-02T09:42:50.945839453Z URL: /api/meal
+2025-09-02T09:42:50.945844133Z Host Header: seoro-town-backend.onrender.com
+2025-09-02T09:42:50.945897514Z X-Forwarded-For: 49.164.41.196, 172.71.124.96, 10.210.110.228
+2025-09-02T09:42:50.945904285Z X-Forwarded-Proto: https
+2025-09-02T09:42:50.945907515Z ----------------------
+2025-09-02T09:42:52.349537092Z --- Incoming Request ---
+2025-09-02T09:42:52.349625114Z [2025-09-02T09:42:52.348Z]
+2025-09-02T09:42:52.349649765Z Method: GET
+2025-09-02T09:42:52.349653575Z URL: /api/com?page=1
+2025-09-02T09:42:52.349656715Z Host Header: seoro-town-backend.onrender.com
+2025-09-02T09:42:52.349659786Z X-Forwarded-For: 49.164.41.196, 162.158.163.88, 10.210.155.115
+2025-09-02T09:42:52.349662135Z X-Forwarded-Proto: https
+2025-09-02T09:42:52.349664535Z ----------------------
+2025-09-02T09:42:52.349680506Z [Cache] HIT: Serving list for page 1 from cache.
+2025-09-02T09:43:12.838534523Z --- Incoming Request ---
+2025-09-02T09:43:12.838570654Z [2025-09-02T09:43:12.838Z]
+2025-09-02T09:43:12.838576294Z Method: GET
+2025-09-02T09:43:12.838587504Z URL: /api/posts
+2025-09-02T09:43:12.838591294Z Host Header: seoro-town-backend.onrender.com
+2025-09-02T09:43:12.838595105Z X-Forwarded-For: 49.164.41.196, 162.158.163.112, 10.210.253.103
+2025-09-02T09:43:12.838600695Z X-Forwarded-Proto: https
+2025-09-02T09:43:12.838603565Z ----------------------
+2025-09-02T11:02:45.543489624Z npm error path /app
+2025-09-02T11:02:45.544320255Z npm error command failed
+2025-09-02T11:02:45.544329925Z npm error signal SIGTERM
+2025-09-02T11:02:45.544335385Z npm error command sh -c node server.js
+2025-09-02T11:02:45.544356366Z npm error A complete log of this run can be found in: /root/.npm/_logs/2025-09-02T09_30_08_453Z-debug-0.log
+2025-09-02T11:37:23.960425132Z 
+2025-09-02T11:37:23.960467173Z > auth-backend@1.0.0 start
+2025-09-02T11:37:23.960471243Z > node server.js
+2025-09-02T11:37:23.960473683Z 
+2025-09-02T11:37:27.543338195Z [DEBUG] NODE_ENV: production
+2025-09-02T11:37:27.543782005Z [DEBUG] MONGO_URI (first 15 chars): mongodb+srv://j...
+2025-09-02T11:37:28.682754842Z MongoDB Connected: ac-vkpmney-shard-00-01.pn9opws.mongodb.net
+2025-09-02T11:37:34.04719482Z [Puppeteer] Initializing new browser instance...
+2025-09-02T11:37:35.440691504Z Server is running on port 10000
+2025-09-02T11:37:38.640368655Z --- Incoming Request ---
+2025-09-02T11:37:38.640733333Z [2025-09-02T11:37:38.640Z]
+2025-09-02T11:37:38.640823735Z Method: GET
+2025-09-02T11:37:38.640938218Z URL: /api/com?page=1
+2025-09-02T11:37:38.640946628Z Host Header: seoro-town-backend.onrender.com
+2025-09-02T11:37:38.640987099Z X-Forwarded-For: 61.74.92.100, 162.158.163.139, 10.210.110.228
+2025-09-02T11:37:38.641026519Z X-Forwarded-Proto: https
+2025-09-02T11:37:38.64103218Z ----------------------
+2025-09-02T11:37:38.739880053Z [Cache] MISS: Crawling list for page 1.
+2025-09-02T11:37:38.739912604Z [Puppeteer] Initializing new browser instance...
+2025-09-02T11:37:39.241006203Z [Puppeteer] 목록 크롤링 오류: spawn ETXTBSY

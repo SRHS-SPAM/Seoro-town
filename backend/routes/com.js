@@ -23,7 +23,7 @@ async function initializeBrowser() {
     if (!browserInstance) {
         console.log('[Puppeteer] Initializing new browser instance...');
         browserInstance = await puppeteer.launch({
-            args: chromium.args,
+            args: [...chromium.args, '--no-sandbox', '--disable-setuid-sandbox'],
             defaultViewport: chromium.defaultViewport,
             executablePath: await chromium.executablePath(),
             headless: chromium.headless,
