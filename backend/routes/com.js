@@ -158,14 +158,14 @@ router.get('/detail/:bbsId/:nttId', async (req, res) => {
         const $ = cheerio.load(htmlResult);
         
         const detail = {
-            title: $('.board-view-info h4').text().trim(),
-            author: $('.board-view-info .info dd').eq(0).text().trim(),
-            date: $('.board-view-info .info dd').eq(1).text().trim(),
-            contentHtml: $('.board-view-con').html(),
+            title: $('div[class*="view-info"] h4').text().trim(),
+            author: $('div[class*="view-info"] .info dd').eq(0).text().trim(),
+            date: $('div[class*="view-info"] .info dd').eq(1).text().trim(),
+            contentHtml: $('div[class*="view-con"]').html(),
             files: [],
         };
 
-        $('.board-view-file ul li a').each((i, elem) => {
+        $('div[class*="view-file"] ul li a').each((i, elem) => {
             detail.files.push({
                 name: $(elem).text().trim(),
                 link: COM_PAGE_URL + $(elem).attr('href'),
