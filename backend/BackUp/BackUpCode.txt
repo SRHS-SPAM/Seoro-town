@@ -1,343 +1,102 @@
-<table class="board_type01_tb_readform" summary="이표는 이름, 등록일, 제목, 내용, 파일첨부로 구성되어 있습니다.">
-	<caption>가정통신문 게시판 상세보기</caption>
-	<colgroup>
-		<col width="10%">
-		<col width="40%">
-		<col width="10%">
-		<col width="40%">
-	</colgroup>
-	<tbody>
-		<tr>
-			<th scope="row">이름</th>
-			<td>
-				<div>
-					
-					이봉숙
-				</div>
-			</td>
-			<th scope="row" class="mid">등록일</th>
-			<td>
-				
-				<div>2024-03-12 13:05:19</div>
-				
-				
-			</td>
-			
-		</tr>
-		<tr>
-			<th scope="row">제목</th>
-			<td colspan="3">
-				<div>2024학년도 교장 취임식 인사말</div>
-			</td>
-		</tr>
-		
-		<tr>
-			<th scope="row">내용</th>
-			<td colspan="3">
-				<div class="content">
-					<p>
-						</p><p><br></p>
-					<p></p>
-				</div>
-			</td>
-		</tr>	
-		
-		
-			
-				
-					
-					
-				
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script type="text/javascript">
-	var serverFileObjArray = new Array();
-	var updateFlag = "N";
-	
-	$(function(){
-		var uploader = $("#multiFileUploader");
-		
-		
-			var serverFileObj = new Object();
-			
-			serverFileObj["name"] = "2024 취임식 인사말 가정통신문.hwp";
-			serverFileObj["size"] = "487936";
-			serverFileObj["atchFileId"] = "FILE_000000011048760";
-			serverFileObj["fileSn"] = "0";
-			serverFileObj["fileCn"] = "";
-			
-			serverFileObjArray.push(serverFileObj);
-		
-		
-		setTimeout(function(){reflashFileInfoList();}, 200);
-
-		$("#uploadBtn").bind("click", function(){
-			uploader.trigger("click");
-		});
-		
-		uploader.bind("change", function(){
-			var fileList = this.files;
-			var fileCount = $("#fileListTable").find("span").find("li").length;
-			var maxUploadCount = Number("2");
-			
-			for(var fileIndex in fileList){
-				if(Object.prototype.toString.call(fileList[fileIndex]) === "[object File]"){
-					if(fileCount < maxUploadCount){
-						// fileObjArray.push(fileList[fileIndex]); 기존 위치 2018.05.28  
-						
-						if(fnMaxFileSize(fileList[fileIndex], "dliv")){
-							/* fileObjArray.push(fileList[fileIndex]); // 위치변경 2018.05.28 임근기
-							addFileInfoList(fileList[fileIndex]); */
-							fileObjArray.push({
-							    file: fileList[fileIndex],
-							    fileCn: ""
-							});
-							addFileInfoList(fileList[fileIndex], fileObjArray.length - 1);
-							fileCount++;
-						}
-					}
-					else{
-						alert("첨부파일은 최대 2까지 업로드 가능합니다.");
-						break;
-					}
-				}
-			}
-			
-			$(this).val("");
-		});
-	});
-	
-	function reflashFileInfoList(){
-		$("#fileListTable").find("span").children("*").remove();
-		$("#multiFileUploader").parent().find("input[name^=file_]").remove();
-
-		for(var index in serverFileObjArray){
-			var serverFileObj = serverFileObjArray[index];
-			
-			if(Object.prototype.toString.call(serverFileObj.atchFileId) != "[object Undefined]" 
-					&& serverFileObj.atchFileId != null 
-					&& serverFileObj.atchFileId != ""){
-						addFileInfoList(serverFileObj);
-			}
-		}
-		
-		for (var i = 0; i < fileObjArray.length; i++) {
-		       var fileObj = fileObjArray[i];
-	           if (fnMaxFileSize(fileObj.file, "dliv")) {
-	               addFileInfoList(fileObj.file, i);
-	           }
-		}
-	}
-	
-	function addFileInfoList(fileObj){
-		var uploader = $("#multiFileUploader");
-		var tbodyElement = $("#fileListTable").find("span");
-		var index = tbodyElement.find("li").length;
-		var trElement = $("<li class='file-row' ></li>");
-		var fileNameExt = fileObj.name.split(".");
-		var fileName = null;
-		var fileExt = fileNameExt[fileNameExt.length-1].toUpperCase();
-		////
-		if(fileExt == "JSP" 
-			|| fileExt == "PHP" || fileExt == "ASP" 
-			|| fileExt == "EXE" || fileExt == "COM" 
-			|| fileExt == "BAT" || fileExt == "HTML" 
-			|| fileExt == "DO" ){
-			alert("첨부할수 없는 파일입니다. 다시 첨부 하세요. \n 반복시 관리자에게 문의하세요.");
-			return false;
-		}		
-		////
-		var sz = fileObj.size;
-		var fileSize = Math.round(sz/1024/1024 * 100)/100;
-		var spanElement = $("<span ></span>");
-		var spanElement2 = $("<span ></span>");
-		
-		var hrefElement = $("<a ></a>");
-		var hrefElement2 = $("<a ></a>");
-
-		var fileCn = fileObj.fileCn;
-		
-		for(var i=0; i<(fileNameExt.length-1); i++){
-			fileName = fileName==null?fileNameExt[i]:fileName+"."+fileNameExt[i];
-		}
-
-		//미리보기(모바일/웹)			   
- 		trElement.append($("<div ></div>").text(++index))
-				   .append($("<div ></div>")
-				   .append($("<div ></div>").text(fileName)
-				   .attr("sr-only", fileCn)
-				   ,(updateFlag === "Y" && index > serverFileObjArray.length && ["jpg", "jpeg", "png","gif"].includes(fileExt.toLowerCase())) 
-					          ? $("<input />")
-								 .attr({
-								   type: "text",
-								   name:  "fileCn",
-								   value: fileCn,
-								   "class": "file-cn-input",
-								   placeholder: "대체텍스트입력",
-								   title: "대체텍스트"
-								 })
-				                 .on("input", function() {
-							        var row = $(this).closest(".file-row");
-							        var index = Number(row.find("div:eq(0)").text()) - 1;
-							
-							        if (index >= serverFileObjArray.length) {
-							            var newIndex = index - serverFileObjArray.length;
-							            fileObjArray[newIndex].fileCn = $(this).val();
-							        }
-								 })
-				          : null 
-					      ) 
-					  )
-				   .append($("<div ></div>").text(fileExt))
-				   .append($("<div ></div>").text(fileSize+"MB"))
-				   .append($("<div ></div>").append(hrefElement)
-				   .append("&nbsp;").append(hrefElement2));
-	
-		if(updateFlag != "Y" && Object.prototype.toString.call(fileObj.atchFileId) === "[object Undefined]"){
-			spanElement.addClass("btn_up").bind("click", function(){
-				alert("업로드 대기 중인 파일입니다.\n수정 버튼을 클릭하여 파일을 업로드 해 주세요.");
-			}).text("업로드 대기 중");
-		}
-		else{
-			hrefElement.attr({"href": "#file"+(updateFlag=="Y"?"Delete":"Down"), "title": fileName+(updateFlag=="Y"?" 파일삭제":" 다운로드")}).addClass(updateFlag=="Y"?"btn_del":"btn_down").bind("click", function(){
-				var trElement = $(this).parent().parent();
-				var currentIndex = Number(trElement.find("div:eq(0)").text())-1;
-
-				if(updateFlag == "Y"){
-					if(currentIndex < serverFileObjArray.length){
-						deleteFileObjArray.push(serverFileObjArray[currentIndex]);
-						serverFileObjArray.splice(currentIndex, 1);
-					}
-					else{
-						fileObjArray.splice((currentIndex-serverFileObjArray.length), 1);
-					}
-					
-					reflashFileInfoList();
-				}
-				else{
-					if(currentIndex < serverFileObjArray.length){
-						var currentFileObj = serverFileObjArray[currentIndex];
-							fn_egov_downFile(currentFileObj.atchFileId, currentFileObj.fileSn);
-					}
-				}
-			}).text(updateFlag=="Y"?"파일삭제":"다운로드");
-			
-			//미리보기(모바일/웹)
-			hrefElement2.attr({"href": "#file"+(updateFlag=="Y"?"":"btn_down2"), "title": fileName+(updateFlag=="Y"?"":" 미리보기 새창 열림")}).addClass(updateFlag=="Y"?"":"btn_down2").bind("click", function(){
-				var trElement = $(this).parent().parent();
-				var currentIndex = Number(trElement.find("div:eq(0)").text())-1; 
-				if(updateFlag == "Y"){
-					if(currentIndex < serverFileObjArray.length){
-						deleteFileObjArray.push(serverFileObjArray[currentIndex]);
-						serverFileObjArray.splice(currentIndex, 1);
-					}
-					else{
-						fileObjArray.splice((currentIndex-serverFileObjArray.length), 1);
-					}
-					
-					reflashFileInfoList();
-				}
-				else{
-					if(currentIndex < serverFileObjArray.length){
-						var currentFileObj = serverFileObjArray[currentIndex];
-						
-						fn_cnvrFileDown(currentFileObj.atchFileId, currentFileObj.fileSn);
-					}
-				}
-			}).text(updateFlag=="Y"?"":"미리보기");
-			
-		}		
-		tbodyElement.append(trElement);
-	}
-
-	function fn_egov_downFile(atchFileId, fileSn){
-		window.open("/dggb/board/boardFile/downFile.do?atchFileId="+atchFileId+"&fileSn="+fileSn+"");
-	}
-
-	function fn_cnvrFileDown(atchFileId, fileSn){
-		window.open("http://viewhosting.ssem.or.kr:8080/SynapDocViewServer/job?fid="+atchFileId+"_"+fileSn+"&filePath=https://srobot.sen.hs.kr:443/dggb/cnvrFileDown.do?atchFileId="+atchFileId+":"+fileSn+"&convertType=0&fileType=URL&sync=true");
-	}
-	
-	function fn_egov_deleteFile(atchFileId, fileSn) {
-		forms = document.getElementsByTagName("form");
-
-		for (var i = 0; i < forms.length; i++) {
-			if (typeof(forms[i].atchFileId) != "undefined" &&
-					typeof(forms[i].fileSn) != "undefined" &&
-					typeof(forms[i].fileListCnt) != "undefined") {
-				form = forms[i];
-			}
-		}
-		
-		form.atchFileId.value = atchFileId;
-		form.fileSn.value = fileSn;
-		
-		$.ajax({
-	        type:'POST'
-	      , url:'/dggb/module/boardFile/deleteBoardFile.do'
-	      , cache : false
-	      , data:$("#boardFrm").serialize()
-	      , success:function (data) {
-				$("#board_area").html(data);
-	      }
-	      , error:function (data) {
-	          alert('오류');
-	      }
-	      , dateType: 'html'
-	 	});  
-		
-	}
-
-</script>
-<tr>
-		<th scope="row">파일첨부 </th>
-		<td colspan="3">
-		
-			<div id="fileListTable" class="file-table">
-				  <ul>
-					    <li class="file-row header">
-					      <div>NO.</div>
-					      <div>파일명</div>
-					      <div>파일형식</div>
-					      <div>파일크기</div>
-					      <div>
-							
-							다운로드
-					      </div>
-					    </li>
-					    <span><li class="file-row"><div>1</div><div><div sr-only="">2024 취임식 인사말 가정통신문</div></div><div>HWP</div><div>0.47MB</div><div><a href="#fileDown" title="2024 취임식 인사말 가정통신문 다운로드" class="btn_down">다운로드</a>&nbsp;<a href="#filebtn_down2" title="2024 취임식 인사말 가정통신문 미리보기 새창 열림" class="btn_down2">미리보기</a></div></li></span>
-				  </ul>
-			</div>					
-			
-			
-		</td>
-	</tr>
-	
-
-
-	<style>
-	  .file-table { max-width: 100%; border: 0px solid #ccc;}	  
-	  .file-table li a { color: #fff;}	  	
-	  .file-table ul { list-style: none; margin: 0; padding: 0;}	
-	  .file-row { display: grid; grid-template-columns: 6% 1fr 15% 15% 25%; border-bottom: 1px solid #ddd; align-items: center;}	
-	  .file-row.header { background-color: #888; font-weight: bold; color: #fff;}	
-	  .file-row div { padding: 10px; border-right: 0px solid #eee; box-sizing: border-box; text-align: center; overflow: visible; text-overflow: initial; white-space: normal;}	
-	  .file-row div:last-child { border-right: none;}	
-	  .btn_del, .btn_down, .btn_down2 { background: #222; color: #fff; padding: 3px 5px; letter-spacing: -0.07em; cursor: pointer; display: inline-block;}
-	</style>
-			
-		
-		
-	</tbody>
-	</table>
+2025-09-03T07:51:57.329403733Z #10 DONE 5.8s
+2025-09-03T07:51:57.479847889Z 
+2025-09-03T07:51:57.479894199Z #11 [6/6] COPY . .
+2025-09-03T07:51:57.629912446Z #11 DONE 0.2s
+2025-09-03T07:51:57.629937067Z 
+2025-09-03T07:51:57.629944487Z #12 exporting to docker image format
+2025-09-03T07:51:57.629950917Z #12 exporting layers
+2025-09-03T07:52:04.903303424Z #12 exporting layers 7.2s done
+2025-09-03T07:52:04.903348184Z #12 exporting manifest sha256:da998a48a29cbf260016f8e88713e296307464bf6f8ba18815060067529c745e done
+2025-09-03T07:52:04.903355225Z #12 exporting config sha256:7211942b72682c925cab1d022b61813bd11f73c01f9822d5651e760c580ff828 done
+2025-09-03T07:52:08.324364048Z #12 DONE 10.8s
+2025-09-03T07:52:08.475057759Z 
+2025-09-03T07:52:08.475083579Z #13 exporting cache to client directory
+2025-09-03T07:52:08.475088239Z #13 preparing build cache for export
+2025-09-03T07:52:12.822114698Z #13 writing cache manifest sha256:3eab54b09086217a05f1b60e32a89e110aa04415d98fb68b88d3b15006d0fd4a done
+2025-09-03T07:52:12.822134589Z #13 DONE 4.5s
+2025-09-03T07:52:13.272101518Z Pushing image to registry...
+2025-09-03T07:52:21.279697423Z Upload succeeded
+2025-09-03T07:52:25.051980336Z ==> Deploying...
+2025-09-03T07:52:39.399257066Z 
+2025-09-03T07:52:39.399301327Z > auth-backend@1.0.0 start
+2025-09-03T07:52:39.399306877Z > node server.js
+2025-09-03T07:52:39.399310207Z 
+2025-09-03T07:52:43.187428645Z [DEBUG] NODE_ENV: production
+2025-09-03T07:52:43.189198944Z [DEBUG] MONGO_URI (first 15 chars): mongodb+srv://j...
+2025-09-03T07:52:44.42413816Z MongoDB Connected: ac-vkpmney-shard-00-01.pn9opws.mongodb.net
+2025-09-03T07:52:48.178796313Z Server is running on port 10000
+2025-09-03T07:52:49.068023086Z --- Incoming Request ---
+2025-09-03T07:52:49.06827856Z [2025-09-03T07:52:49.067Z]
+2025-09-03T07:52:49.068330611Z Method: HEAD
+2025-09-03T07:52:49.068341761Z URL: /
+2025-09-03T07:52:49.068485243Z Host Header: seoro-town-backend.onrender.com
+2025-09-03T07:52:49.068858839Z X-Forwarded-For: undefined
+2025-09-03T07:52:49.068869549Z X-Forwarded-Proto: undefined
+2025-09-03T07:52:49.0689192Z ----------------------
+2025-09-03T07:52:55.719123581Z ==> Your service is live 🎉
+2025-09-03T07:52:55.922520421Z ==> 
+2025-09-03T07:52:56.45736878Z ==> ///////////////////////////////////////////////////////////
+2025-09-03T07:52:56.629665804Z ==> 
+2025-09-03T07:52:57.160538722Z ==> Available at your primary URL https://seoro-town-backend.onrender.com
+2025-09-03T07:52:57.713748109Z ==> 
+2025-09-03T07:52:58.269199405Z ==> ///////////////////////////////////////////////////////////
+2025-09-03T07:53:00.351054344Z --- Incoming Request ---
+2025-09-03T07:53:00.351080815Z [2025-09-03T07:53:00.350Z]
+2025-09-03T07:53:00.351106895Z Method: GET
+2025-09-03T07:53:00.351122045Z URL: /
+2025-09-03T07:53:00.351296488Z Host Header: seoro-town-backend.onrender.com
+2025-09-03T07:53:00.351329149Z X-Forwarded-For: 35.227.183.65, 172.71.124.60, 10.210.184.128
+2025-09-03T07:53:00.351442851Z X-Forwarded-Proto: https
+2025-09-03T07:53:00.351451601Z ----------------------
+2025-09-03T07:53:36.812315024Z --- Incoming Request ---
+2025-09-03T07:53:36.812353225Z [2025-09-03T07:53:36.812Z]
+2025-09-03T07:53:36.812357985Z Method: GET
+2025-09-03T07:53:36.812361775Z URL: /api/com?page=1
+2025-09-03T07:53:36.812367645Z Host Header: seoro-town-backend.onrender.com
+2025-09-03T07:53:36.812372345Z X-Forwarded-For: 61.74.92.100, 162.158.138.6, 10.210.131.94
+2025-09-03T07:53:36.812376356Z X-Forwarded-Proto: https
+2025-09-03T07:53:36.812380536Z ----------------------
+2025-09-03T07:53:36.813015596Z [Axios] FETCH: Fetching list for page 1.
+2025-09-03T07:53:38.934498662Z --- Incoming Request ---
+2025-09-03T07:53:38.934538392Z [2025-09-03T07:53:38.934Z]
+2025-09-03T07:53:38.934544122Z Method: GET
+2025-09-03T07:53:38.934548863Z URL: /api/posts
+2025-09-03T07:53:38.934613033Z Host Header: seoro-town-backend.onrender.com
+2025-09-03T07:53:38.934620714Z X-Forwarded-For: 61.74.92.100, 172.71.124.72, 10.210.110.228
+2025-09-03T07:53:38.934625344Z X-Forwarded-Proto: https
+2025-09-03T07:53:38.934632774Z ----------------------
+2025-09-03T07:53:39.502388507Z --- Incoming Request ---
+2025-09-03T07:53:39.502433328Z [2025-09-03T07:53:39.502Z]
+2025-09-03T07:53:39.502440038Z Method: GET
+2025-09-03T07:53:39.502446098Z URL: /api/com?page=1
+2025-09-03T07:53:39.502452998Z Host Header: seoro-town-backend.onrender.com
+2025-09-03T07:53:39.502464368Z X-Forwarded-For: 61.74.92.100, 162.158.138.6, 10.210.131.94
+2025-09-03T07:53:39.502473808Z X-Forwarded-Proto: https
+2025-09-03T07:53:39.502479499Z ----------------------
+2025-09-03T07:53:39.502654321Z [Cache] HIT: Serving list for page 1 from cache.
+2025-09-03T07:53:47.353252641Z --- Incoming Request ---
+2025-09-03T07:53:47.353304882Z [2025-09-03T07:53:47.353Z]
+2025-09-03T07:53:47.353320952Z Method: GET
+2025-09-03T07:53:47.353326862Z URL: /api/com?page=1
+2025-09-03T07:53:47.353336952Z Host Header: seoro-town-backend.onrender.com
+2025-09-03T07:53:47.353342022Z X-Forwarded-For: 61.74.92.100, 172.71.124.97, 10.210.110.228
+2025-09-03T07:53:47.353346362Z X-Forwarded-Proto: https
+2025-09-03T07:53:47.353351233Z ----------------------
+2025-09-03T07:53:47.353478215Z [Cache] HIT: Serving list for page 1 from cache.
+2025-09-03T07:53:55.1087792Z --- Incoming Request ---
+2025-09-03T07:53:55.108831131Z [2025-09-03T07:53:55.108Z]
+2025-09-03T07:53:55.108842361Z Method: GET
+2025-09-03T07:53:55.108845101Z URL: /api/meal
+2025-09-03T07:53:55.108848771Z Host Header: seoro-town-backend.onrender.com
+2025-09-03T07:53:55.108851661Z X-Forwarded-For: 61.74.92.100, 172.71.110.247, 10.210.253.103
+2025-09-03T07:53:55.108856521Z X-Forwarded-Proto: https
+2025-09-03T07:53:55.108859291Z ----------------------
+2025-09-03T07:53:55.36099194Z --- Incoming Request ---
+2025-09-03T07:53:55.361020071Z [2025-09-03T07:53:55.360Z]
+2025-09-03T07:53:55.361022421Z Method: GET
+2025-09-03T07:53:55.361101852Z URL: /api/com?page=1
+2025-09-03T07:53:55.361109302Z Host Header: seoro-town-backend.onrender.com
+2025-09-03T07:53:55.361113632Z X-Forwarded-For: 61.74.92.100, 172.71.124.72, 10.210.184.128
+2025-09-03T07:53:55.361119472Z X-Forwarded-Proto: https
+2025-09-03T07:53:55.361122172Z ----------------------
+2025-09-03T07:53:55.361288355Z [Cache] HIT: Serving list for page 1 from cache.
