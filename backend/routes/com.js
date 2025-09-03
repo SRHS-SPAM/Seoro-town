@@ -38,7 +38,8 @@ router.get('/', async (req, res) => {
         const response = await axios.post(LIST_API_URL, params, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                'X-Requested-With': 'XMLHttpRequest'
+                'X-Requested-With': 'XMLHttpRequest',
+                'Referer': COM_PAGE_URL
             }
         });
 
@@ -100,7 +101,8 @@ router.get('/detail/:bbsId/:nttId', async (req, res) => {
         const response = await axios.post(DETAIL_API_URL, params, {
              headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                'X-Requested-With': 'XMLHttpRequest'
+                'X-Requested-With': 'XMLHttpRequest',
+                'Referer': COM_PAGE_URL
             }
         });
 
