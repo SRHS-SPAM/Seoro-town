@@ -9,13 +9,13 @@ function Club() {
         { id: 1, name: 'DoubleM', popupImage: '/DoubleM.jpg', description: '' },
         { id: 2, name: 'CreRobot', popupImage: '/CreRobot.jpg', description: '' },
         { id: 3, name: 'SPAM', popupImage: '/SPAM.jpg', description: '' },
-        { id: 4, name: '신청하세요', popupImage: '', description: '' },
-        { id: 5, name: '신청하세요', popupImage: '', description: '' },
-        { id: 6, name: '신청하세요', popupImage: '', description: '' },
-        { id: 7, name: '신청하세요', popupImage: '', description: '' },
-        { id: 8, name: '신청하세요', popupImage: '', description: '' },
-        { id: 9, name: '신청하세요', popupImage: '', description: '' },
-        { id: 10, name: '신청하세요', popupImage: '', description: '' }
+        { id: 4, name: '신청하세요', popupImage: '/white.jpg', description: '' },
+        { id: 5, name: '신청하세요', popupImage: '/white.jpg', description: '' },
+        { id: 6, name: '신청하세요', popupImage: '/white.jpg', description: '' },
+        { id: 7, name: '신청하세요', popupImage: '/white.jpg', description: '' },
+        { id: 8, name: '신청하세요', popupImage: '/white.jpg', description: '' },
+        { id: 9, name: '신청하세요', popupImage: '/white.jpg', description: '' },
+        { id: 10, name: '신청하세요', popupImage: '/white.jpg', description: '' }
     ];
 
     const handleClubClick = (club) => {

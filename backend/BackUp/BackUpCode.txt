@@ -1,112 +1,112 @@
-2025-09-02T11:46:38.067582873Z #7 39.10 Processing triggers for libc-bin (2.36-9+deb12u10) ...
-2025-09-02T11:46:38.218440635Z #7 39.13 Processing triggers for ca-certificates (20230311+deb12u1) ...
-2025-09-02T11:46:38.218463466Z #7 39.13 Updating certificates in /etc/ssl/certs...
-2025-09-02T11:46:38.669475994Z #7 39.62 0 added, 0 removed; done.
-2025-09-02T11:46:38.669497644Z #7 39.62 Running hooks in /etc/ca-certificates/update.d...
-2025-09-02T11:46:38.669502924Z #7 39.62 done.
-2025-09-02T11:46:38.784352039Z #7 DONE 39.7s
-2025-09-02T11:46:38.7843737Z 
-2025-09-02T11:46:38.78437941Z #8 [3/6] WORKDIR /app
-2025-09-02T11:46:38.78438385Z #8 DONE 0.1s
-2025-09-02T11:46:38.934792464Z 
-2025-09-02T11:46:38.934819994Z #9 [4/6] COPY package.json package-lock.json ./
-2025-09-02T11:46:38.934824745Z #9 DONE 0.0s
-2025-09-02T11:46:38.934828435Z 
-2025-09-02T11:46:38.934832125Z #10 [5/6] RUN npm install --omit=dev
-2025-09-02T11:46:41.640996294Z #10 2.736 npm warn deprecated @npmcli/move-file@1.1.2: This functionality has been moved to @npmcli/fs
-2025-09-02T11:46:41.787968102Z #10 2.979 npm warn deprecated are-we-there-yet@3.0.1: This package is no longer supported.
-2025-09-02T11:46:41.93862846Z #10 3.002 npm warn deprecated npmlog@6.0.2: This package is no longer supported.
-2025-09-02T11:46:42.089186547Z #10 3.203 npm warn deprecated gauge@4.0.4: This package is no longer supported.
-2025-09-02T11:46:43.89327775Z #10 5.030 
-2025-09-02T11:46:43.893329091Z #10 5.030 added 365 packages, and audited 367 packages in 5s
-2025-09-02T11:46:43.893334691Z #10 5.030 
-2025-09-02T11:46:43.893339151Z #10 5.030 49 packages are looking for funding
-2025-09-02T11:46:43.893343091Z #10 5.030   run `npm fund` for details
-2025-09-02T11:46:43.893347151Z #10 5.032 
-2025-09-02T11:46:43.893351101Z #10 5.032 3 vulnerabilities (1 low, 1 high, 1 critical)
-2025-09-02T11:46:43.893355121Z #10 5.032 
-2025-09-02T11:46:43.893359331Z #10 5.032 To address all issues, run:
-2025-09-02T11:46:43.893363991Z #10 5.032   npm audit fix
-2025-09-02T11:46:43.893367951Z #10 5.032 
-2025-09-02T11:46:43.893371952Z #10 5.032 Run `npm audit` for details.
-2025-09-02T11:46:43.893386292Z #10 5.033 npm notice
-2025-09-02T11:46:43.893389972Z #10 5.033 npm notice New major version of npm available! 10.8.2 -> 11.5.2
-2025-09-02T11:46:43.893392792Z #10 5.033 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.5.2
-2025-09-02T11:46:43.893395232Z #10 5.033 npm notice To update run: npm install -g npm@11.5.2
-2025-09-02T11:46:43.893397712Z #10 5.033 npm notice
-2025-09-02T11:46:45.513348217Z #10 DONE 6.7s
-2025-09-02T11:46:45.663975835Z 
-2025-09-02T11:46:45.664001965Z #11 [6/6] COPY . .
-2025-09-02T11:46:46.416133517Z #11 DONE 0.8s
-2025-09-02T11:46:46.416156388Z 
-2025-09-02T11:46:46.416161848Z #12 exporting to docker image format
-2025-09-02T11:46:46.416167308Z #12 exporting layers
-2025-09-02T11:46:55.121406581Z #12 exporting layers 8.8s done
-2025-09-02T11:46:55.296085245Z #12 exporting manifest sha256:71e33a810e6f07c9fd96079e66ebf1347acbc56d2fe57d0c350ab59a735f5cd6 0.0s done
-2025-09-02T11:46:55.296109466Z #12 exporting config sha256:f51b36f5780817260ab781ba44399274a49011678ae2b36ad98f9a9e11d22bef 0.0s done
-2025-09-02T11:46:58.897711462Z #12 DONE 12.6s
-2025-09-02T11:46:59.047979142Z 
-2025-09-02T11:46:59.048000153Z #13 exporting cache to client directory
-2025-09-02T11:46:59.048003723Z #13 preparing build cache for export
-2025-09-02T11:47:08.74475862Z #13 writing cache manifest sha256:4c419d958e00b82c84b62cf5557961c75fe4a084967c84a647450968871c66de
-2025-09-02T11:47:09.1963787Z #13 writing cache manifest sha256:4c419d958e00b82c84b62cf5557961c75fe4a084967c84a647450968871c66de 0.4s done
-2025-09-02T11:47:09.196402381Z #13 DONE 10.2s
-2025-09-02T11:47:11.398096813Z Pushing image to registry...
-2025-09-02T11:47:18.030813319Z Upload succeeded
-2025-09-02T11:47:32.251517958Z ==> Deploying...
-2025-09-02T11:47:44.815422137Z 
-2025-09-02T11:47:44.815469299Z > auth-backend@1.0.0 start
-2025-09-02T11:47:44.815476349Z > node server.js
-2025-09-02T11:47:44.815479619Z 
-2025-09-02T11:47:48.2190065Z [DEBUG] NODE_ENV: production
-2025-09-02T11:47:48.219405716Z [DEBUG] MONGO_URI (first 15 chars): mongodb+srv://j...
-2025-09-02T11:47:49.427162229Z MongoDB Connected: ac-vkpmney-shard-00-02.pn9opws.mongodb.net
-2025-09-02T11:47:55.114956246Z [Puppeteer] Initializing new browser instance...
-2025-09-02T11:47:56.515890205Z Server is running on port 10000
-2025-09-02T11:47:56.716974499Z --- Incoming Request ---
-2025-09-02T11:47:56.717180747Z [2025-09-02T11:47:56.716Z]
-2025-09-02T11:47:56.717204418Z Method: HEAD
-2025-09-02T11:47:56.717324643Z URL: /
-2025-09-02T11:47:56.717663747Z Host Header: seoro-town-backend.onrender.com
-2025-09-02T11:47:56.717676337Z X-Forwarded-For: undefined
-2025-09-02T11:47:56.717687577Z X-Forwarded-Proto: undefined
-2025-09-02T11:47:56.717731049Z ----------------------
-2025-09-02T11:48:03.070871445Z ==> Your service is live 🎉
-2025-09-02T11:48:03.259714693Z ==> 
-2025-09-02T11:48:03.44786106Z ==> ///////////////////////////////////////////////////////////
-2025-09-02T11:48:03.655315156Z ==> 
-2025-09-02T11:48:03.841766964Z ==> Available at your primary URL https://seoro-town-backend.onrender.com
-2025-09-02T11:48:04.028259272Z ==> 
-2025-09-02T11:48:04.21554435Z ==> ///////////////////////////////////////////////////////////
-2025-09-02T11:48:29.977599882Z --- Incoming Request ---
-2025-09-02T11:48:29.977624123Z [2025-09-02T11:48:29.977Z]
-2025-09-02T11:48:29.977628803Z Method: GET
-2025-09-02T11:48:29.977633053Z URL: /api/users/me
-2025-09-02T11:48:29.977638213Z Host Header: seoro-town-backend.onrender.com
-2025-09-02T11:48:29.977642863Z X-Forwarded-For: 61.74.92.100, 162.158.162.64, 10.210.253.103
-2025-09-02T11:48:29.977647013Z X-Forwarded-Proto: https
-2025-09-02T11:48:29.977651693Z ----------------------
-2025-09-02T11:48:30.102893972Z --- Incoming Request ---
-2025-09-02T11:48:30.102919593Z [2025-09-02T11:48:30.102Z]
-2025-09-02T11:48:30.102923044Z Method: GET
-2025-09-02T11:48:30.102926004Z URL: /api/com?page=1
-2025-09-02T11:48:30.102929564Z Host Header: seoro-town-backend.onrender.com
-2025-09-02T11:48:30.102932744Z X-Forwarded-For: 61.74.92.100, 162.158.163.163, 10.210.253.103
-2025-09-02T11:48:30.102935514Z X-Forwarded-Proto: https
-2025-09-02T11:48:30.102953455Z ----------------------
-2025-09-02T11:48:30.103415164Z [Cache] MISS: Crawling list for page 1.
-2025-09-02T11:48:37.715245332Z [Puppeteer] Navigated to https://srobot.sen.hs.kr/67182/subMenu.do
-2025-09-02T11:48:39.222073717Z [Puppeteer] List API response received from https://srobot.sen.hs.kr/dggb/module/board/selectBoardListAjax.do
-2025-09-02T11:48:41.617721503Z [Puppeteer] Page content length: 1357958
-2025-09-02T11:48:52.114127683Z [Puppeteer] Found 12 table rows.
-2025-09-02T11:48:52.118486369Z [Puppeteer] Extracted 10 items.
-2025-09-02T11:49:16.106083854Z --- Incoming Request ---
-2025-09-02T11:49:16.106114765Z [2025-09-02T11:49:16.106Z]
-2025-09-02T11:49:16.106119935Z Method: GET
-2025-09-02T11:49:16.106147287Z URL: /api/com/detail/BBSMSTR_000000007872/26393193
-2025-09-02T11:49:16.106160417Z Host Header: seoro-town-backend.onrender.com
-2025-09-02T11:49:16.106170437Z X-Forwarded-For: 61.74.92.100, 172.71.110.139, 10.210.253.103
-2025-09-02T11:49:16.106175717Z X-Forwarded-Proto: https
-2025-09-02T11:49:16.106205409Z ----------------------
-2025-09-02T11:49:16.106908237Z [Cache] MISS: Crawling detail for BBSMSTR_000000007872-26393193.
-2025-09-02T11:49:23.814777568Z --- DEBUG: Scraped Detail Object --- { title: '', author: '', date: '', contentHtml: null, files: [] }
+    2025-09-02T11:46:38.067582873Z #7 39.10 Processing triggers for libc-bin (2.36-9+deb12u10) ...
+    2025-09-02T11:46:38.218440635Z #7 39.13 Processing triggers for ca-certificates (20230311+deb12u1) ...
+    2025-09-02T11:46:38.218463466Z #7 39.13 Updating certificates in /etc/ssl/certs...
+    2025-09-02T11:46:38.669475994Z #7 39.62 0 added, 0 removed; done.
+    2025-09-02T11:46:38.669497644Z #7 39.62 Running hooks in /etc/ca-certificates/update.d...
+    2025-09-02T11:46:38.669502924Z #7 39.62 done.
+    2025-09-02T11:46:38.784352039Z #7 DONE 39.7s
+    2025-09-02T11:46:38.7843737Z 
+    2025-09-02T11:46:38.78437941Z #8 [3/6] WORKDIR /app
+    2025-09-02T11:46:38.78438385Z #8 DONE 0.1s
+    2025-09-02T11:46:38.934792464Z 
+    2025-09-02T11:46:38.934819994Z #9 [4/6] COPY package.json package-lock.json ./
+    2025-09-02T11:46:38.934824745Z #9 DONE 0.0s
+    2025-09-02T11:46:38.934828435Z 
+    2025-09-02T11:46:38.934832125Z #10 [5/6] RUN npm install --omit=dev
+    2025-09-02T11:46:41.640996294Z #10 2.736 npm warn deprecated @npmcli/move-file@1.1.2: This functionality has been moved to @npmcli/fs
+    2025-09-02T11:46:41.787968102Z #10 2.979 npm warn deprecated are-we-there-yet@3.0.1: This package is no longer supported.
+    2025-09-02T11:46:41.93862846Z #10 3.002 npm warn deprecated npmlog@6.0.2: This package is no longer supported.
+    2025-09-02T11:46:42.089186547Z #10 3.203 npm warn deprecated gauge@4.0.4: This package is no longer supported.
+    2025-09-02T11:46:43.89327775Z #10 5.030 
+    2025-09-02T11:46:43.893329091Z #10 5.030 added 365 packages, and audited 367 packages in 5s
+    2025-09-02T11:46:43.893334691Z #10 5.030 
+    2025-09-02T11:46:43.893339151Z #10 5.030 49 packages are looking for funding
+    2025-09-02T11:46:43.893343091Z #10 5.030   run `npm fund` for details
+    2025-09-02T11:46:43.893347151Z #10 5.032 
+    2025-09-02T11:46:43.893351101Z #10 5.032 3 vulnerabilities (1 low, 1 high, 1 critical)
+    2025-09-02T11:46:43.893355121Z #10 5.032 
+    2025-09-02T11:46:43.893359331Z #10 5.032 To address all issues, run:
+    2025-09-02T11:46:43.893363991Z #10 5.032   npm audit fix
+    2025-09-02T11:46:43.893367951Z #10 5.032 
+    2025-09-02T11:46:43.893371952Z #10 5.032 Run `npm audit` for details.
+    2025-09-02T11:46:43.893386292Z #10 5.033 npm notice
+    2025-09-02T11:46:43.893389972Z #10 5.033 npm notice New major version of npm available! 10.8.2 -> 11.5.2
+    2025-09-02T11:46:43.893392792Z #10 5.033 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.5.2
+    2025-09-02T11:46:43.893395232Z #10 5.033 npm notice To update run: npm install -g npm@11.5.2
+    2025-09-02T11:46:43.893397712Z #10 5.033 npm notice
+    2025-09-02T11:46:45.513348217Z #10 DONE 6.7s
+    2025-09-02T11:46:45.663975835Z 
+    2025-09-02T11:46:45.664001965Z #11 [6/6] COPY . .
+    2025-09-02T11:46:46.416133517Z #11 DONE 0.8s
+    2025-09-02T11:46:46.416156388Z 
+    2025-09-02T11:46:46.416161848Z #12 exporting to docker image format
+    2025-09-02T11:46:46.416167308Z #12 exporting layers
+    2025-09-02T11:46:55.121406581Z #12 exporting layers 8.8s done
+    2025-09-02T11:46:55.296085245Z #12 exporting manifest sha256:71e33a810e6f07c9fd96079e66ebf1347acbc56d2fe57d0c350ab59a735f5cd6 0.0s done
+    2025-09-02T11:46:55.296109466Z #12 exporting config sha256:f51b36f5780817260ab781ba44399274a49011678ae2b36ad98f9a9e11d22bef 0.0s done
+    2025-09-02T11:46:58.897711462Z #12 DONE 12.6s
+    2025-09-02T11:46:59.047979142Z 
+    2025-09-02T11:46:59.048000153Z #13 exporting cache to client directory
+    2025-09-02T11:46:59.048003723Z #13 preparing build cache for export
+    2025-09-02T11:47:08.74475862Z #13 writing cache manifest sha256:4c419d958e00b82c84b62cf5557961c75fe4a084967c84a647450968871c66de
+    2025-09-02T11:47:09.1963787Z #13 writing cache manifest sha256:4c419d958e00b82c84b62cf5557961c75fe4a084967c84a647450968871c66de 0.4s done
+    2025-09-02T11:47:09.196402381Z #13 DONE 10.2s
+    2025-09-02T11:47:11.398096813Z Pushing image to registry...
+    2025-09-02T11:47:18.030813319Z Upload succeeded
+    2025-09-02T11:47:32.251517958Z ==> Deploying...
+    2025-09-02T11:47:44.815422137Z 
+    2025-09-02T11:47:44.815469299Z > auth-backend@1.0.0 start
+    2025-09-02T11:47:44.815476349Z > node server.js
+    2025-09-02T11:47:44.815479619Z 
+    2025-09-02T11:47:48.2190065Z [DEBUG] NODE_ENV: production
+    2025-09-02T11:47:48.219405716Z [DEBUG] MONGO_URI (first 15 chars): mongodb+srv://j...
+    2025-09-02T11:47:49.427162229Z MongoDB Connected: ac-vkpmney-shard-00-02.pn9opws.mongodb.net
+    2025-09-02T11:47:55.114956246Z [Puppeteer] Initializing new browser instance...
+    2025-09-02T11:47:56.515890205Z Server is running on port 10000
+    2025-09-02T11:47:56.716974499Z --- Incoming Request ---
+    2025-09-02T11:47:56.717180747Z [2025-09-02T11:47:56.716Z]
+    2025-09-02T11:47:56.717204418Z Method: HEAD
+    2025-09-02T11:47:56.717324643Z URL: /
+    2025-09-02T11:47:56.717663747Z Host Header: seoro-town-backend.onrender.com
+    2025-09-02T11:47:56.717676337Z X-Forwarded-For: undefined
+    2025-09-02T11:47:56.717687577Z X-Forwarded-Proto: undefined
+    2025-09-02T11:47:56.717731049Z ----------------------
+    2025-09-02T11:48:03.070871445Z ==> Your service is live 🎉
+    2025-09-02T11:48:03.259714693Z ==> 
+    2025-09-02T11:48:03.44786106Z ==> ///////////////////////////////////////////////////////////
+    2025-09-02T11:48:03.655315156Z ==> 
+    2025-09-02T11:48:03.841766964Z ==> Available at your primary URL https://seoro-town-backend.onrender.com
+    2025-09-02T11:48:04.028259272Z ==> 
+    2025-09-02T11:48:04.21554435Z ==> ///////////////////////////////////////////////////////////
+    2025-09-02T11:48:29.977599882Z --- Incoming Request ---
+    2025-09-02T11:48:29.977624123Z [2025-09-02T11:48:29.977Z]
+    2025-09-02T11:48:29.977628803Z Method: GET
+    2025-09-02T11:48:29.977633053Z URL: /api/users/me
+    2025-09-02T11:48:29.977638213Z Host Header: seoro-town-backend.onrender.com
+    2025-09-02T11:48:29.977642863Z X-Forwarded-For: 61.74.92.100, 162.158.162.64, 10.210.253.103
+    2025-09-02T11:48:29.977647013Z X-Forwarded-Proto: https
+    2025-09-02T11:48:29.977651693Z ----------------------
+    2025-09-02T11:48:30.102893972Z --- Incoming Request ---
+    2025-09-02T11:48:30.102919593Z [2025-09-02T11:48:30.102Z]
+    2025-09-02T11:48:30.102923044Z Method: GET
+    2025-09-02T11:48:30.102926004Z URL: /api/com?page=1
+    2025-09-02T11:48:30.102929564Z Host Header: seoro-town-backend.onrender.com
+    2025-09-02T11:48:30.102932744Z X-Forwarded-For: 61.74.92.100, 162.158.163.163, 10.210.253.103
+    2025-09-02T11:48:30.102935514Z X-Forwarded-Proto: https
+    2025-09-02T11:48:30.102953455Z ----------------------
+    2025-09-02T11:48:30.103415164Z [Cache] MISS: Crawling list for page 1.
+    2025-09-02T11:48:37.715245332Z [Puppeteer] Navigated to https://srobot.sen.hs.kr/67182/subMenu.do
+    2025-09-02T11:48:39.222073717Z [Puppeteer] List API response received from https://srobot.sen.hs.kr/dggb/module/board/selectBoardListAjax.do
+    2025-09-02T11:48:41.617721503Z [Puppeteer] Page content length: 1357958
+    2025-09-02T11:48:52.114127683Z [Puppeteer] Found 12 table rows.
+    2025-09-02T11:48:52.118486369Z [Puppeteer] Extracted 10 items.
+    2025-09-02T11:49:16.106083854Z --- Incoming Request ---
+    2025-09-02T11:49:16.106114765Z [2025-09-02T11:49:16.106Z]
+    2025-09-02T11:49:16.106119935Z Method: GET
+    2025-09-02T11:49:16.106147287Z URL: /api/com/detail/BBSMSTR_000000007872/26393193
+    2025-09-02T11:49:16.106160417Z Host Header: seoro-town-backend.onrender.com
+    2025-09-02T11:49:16.106170437Z X-Forwarded-For: 61.74.92.100, 172.71.110.139, 10.210.253.103
+    2025-09-02T11:49:16.106175717Z X-Forwarded-Proto: https
+    2025-09-02T11:49:16.106205409Z ----------------------
+    2025-09-02T11:49:16.106908237Z [Cache] MISS: Crawling detail for BBSMSTR_000000007872-26393193.
+    2025-09-02T11:49:23.814777568Z --- DEBUG: Scraped Detail Object --- { title: '', author: '', date: '', contentHtml: null, files: [] }
