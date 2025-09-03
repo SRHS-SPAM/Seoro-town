@@ -8,7 +8,7 @@
 
 .HeaderActions {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* 그룹을 중앙에 배치 */
   align-items: center;
   margin-bottom: 2rem;
 }
@@ -16,8 +16,8 @@
 .SearchBox {
   display: flex;
   align-items: center;
-  flex-grow: 1;
-  margin-right: 2rem;
+  flex-grow: 0; /* 중앙 정렬을 위해 flex-grow 제거 */
+  margin-right: 1rem; /* 버튼과의 간격 추가 */
   max-width: 800px;
   height: 48px;
   border: 1px solid #e0e0e0;
