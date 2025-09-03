@@ -42,8 +42,10 @@ router.get('/', async (req, res) => {
         params.append('bbsTyCode', 'dliv');
         params.append('customRecordCountPerPage', '10');
         params.append('pageIndex', pageNum);
-        params.append('searchCondition', 'searchKeyword');
-        params.append('checkNttId', 'mvmnReturnUrl');
+        params.append('searchCondition', ''); // 수정된 부분
+        params.append('searchKeyword', '');
+        params.append('checkNttId', '');
+        params.append('mvmnReturnUrl', '');
 
         const response = await axios.post(LIST_API_URL, params, { headers: commonHeaders });
 
