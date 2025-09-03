@@ -4,6 +4,8 @@ import * as cheerio from 'cheerio';
 
 const router = express.Router();
 
+const COM_PAGE_URL = 'https://srobot.sen.hs.kr/67182/subMenu.do';
+
 // API URL 정의
 const LIST_API_URL = 'https://srobot.sen.hs.kr/dggb/module/board/selectBoardListAjax.do';
 const DETAIL_API_URL = 'https://srobot.sen.hs.kr/dggb/module/board/selectBoardDetailAjax.do';
