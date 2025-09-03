@@ -158,19 +158,29 @@ router.get('/detail/:bbsId/:nttId', async (req, res) => {
         const $ = cheerio.load(htmlResult);
         
         const detail = {
-            title: $('div[class*="view-info"] h4').text().trim(),
-            author: $('div[class*="view-info"] .info dd').eq(0).text().trim(),
-            date: $('div[class*="view-info"] .info dd').eq(1).text().trim(),
-            contentHtml: $('div[class*="view-con"]').html(),
+            title: $('th:contains("제목")').next('td').find('div').text().trim(),
+            author: $('th:contains("이름")').next('td').find('div').text().trim(),
+            date: $('th:contains("등록일")').next('td').find('div').text().trim(),
+            contentHtml: $('div.content').html(),
             files: [],
         };
 
-        $('div[class*="view-file"] ul li a').each((i, elem) => {
-            detail.files.push({
-                name: $(elem).text().trim(),
-                link: COM_PAGE_URL + $(elem).attr('href'),
-            });
-        });
+        // New file parsing logic
+        try {
+            const scriptContent = $('script:contains("serverFileObjArray")').html();
+            if (scriptContent) {
+                const fileInfoRegex = /serverFileObj\["name"\] = "(.*?)";[\s\S]*?serverFileObj\["atchFileId"\] = "(.*?)";[\s\S]*?serverFileObj\["fileSn"\] = "(.*?)";/g;
+                let match;
+                while ((match = fileInfoRegex.exec(scriptContent)) !== null) {
+                    detail.files.push({
+                        name: match[1],
+                        link: `https://srobot.sen.hs.kr/dggb/board/boardFile/downFile.do?atchFileId=${match[2]}&fileSn=${match[3]}`
+                    });
+                }
+            }
+        } catch (e) {
+            console.error('[Puppeteer] Error parsing file attachments:', e.message);
+        }
 
         console.log("--- DEBUG: Scraped Detail Object ---", detail);
 
