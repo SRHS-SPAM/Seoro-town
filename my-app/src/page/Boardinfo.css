@@ -98,17 +98,17 @@
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: linear-gradient(135deg, red 0%, #e60000 100%);
+    background-color: #e9ecef; /* Changed from gradient to solid color */
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
     font-size: 18px;
     font-family: 'LINESeedKR-Bd', sans-serif;
-    box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Adjusted shadow */
     overflow: hidden;
     flex-shrink: 0;
-    color: white;
+    color: #868e96; /* Changed from white */
 }
 
 .AuthorAvatar img {
@@ -221,7 +221,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: linear-gradient(135deg, red 0%, #e60000 100%);
+    background-color: #e9ecef; /* Changed from gradient to solid color */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -230,7 +230,7 @@
     font-family: 'LINESeedKR-Bd', sans-serif;
     flex-shrink: 0;
     overflow: hidden;
-    color: white;
+    color: #868e96; /* Changed from white */
 }
 
 .CommentAuthorAvatar img {
