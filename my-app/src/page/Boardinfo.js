@@ -1,7 +1,7 @@
 import './Boardinfo.css';
 import { useContext, useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, MessageCircle, Share2, Trash2 } from 'lucide-react'; 
+import { ArrowLeft, MessageCircle, Share2, Trash2, User } from 'lucide-react'; 
 import { AuthContext } from '../context/AuthContext';
 
 
@@ -169,7 +169,7 @@ function Boardinfo() {
                                     {post.userId?.profileImage ? (
                                         <img src={`${process.env.REACT_APP_API_URL}${post.userId.profileImage}`} alt={post.userId.username} />
                                     ) : (
-                                        <span>{getInitial(post.userId?.username)}</span>
+                                        <User size={24} />
                                     )}
                                 </div>
                                 <div className="AuthorDetails">
@@ -204,7 +204,7 @@ function Boardinfo() {
                                     {user?.profileImage ? (
                                         <img src={`${process.env.REACT_APP_API_URL}${user.profileImage}`} alt={user.username} />
                                     ) : (
-                                        <span>{getInitial(user?.username)}</span>
+                                        <User size={24} />
                                     )}
                                 </div>
                                 <textarea className="CommentInput" placeholder="댓글을 입력해주세요..." rows="3"
@@ -225,7 +225,7 @@ function Boardinfo() {
                                         {comment.authorProfileImage ? (
                                             <img src={`${process.env.REACT_APP_API_URL}${comment.authorProfileImage}`} alt={comment.authorName} />
                                         ) : (
-                                            <span>{getInitial(comment.authorName)}</span>
+                                            <User size={24} />
                                         )}
                                     </div>
                                     <div className="CommentInfo">
