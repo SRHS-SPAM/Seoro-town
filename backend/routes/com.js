@@ -35,6 +35,7 @@ router.get('/', async (req, res) => {
     try {
         // application/x-www-form-urlencoded 형식으로 데이터 전송
         const params = new URLSearchParams();
+        params.append('bbsId', 'BBSMSTR_000000010049');
         params.append('pageIndex', pageNum);
 
         const response = await axios.post(LIST_API_URL, params, {
