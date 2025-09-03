@@ -278,4 +278,23 @@ router.post('/:userId/unfollow', authenticateToken, async (req, res) => {
     }
 });
 
+// 사용자 검색
+router.get('/search', async (req, res) => {
+    try {
+        const { query } = req.query;
+        if (!query) {
+            return res.json({ success: true, users: [] });
+        }
+
+        const users = await User.find({
+            username: { $regex: query, $options: 'i' } // 대소문자 구분 없이 검색
+        }).select('_id username profileImage'); // 필요한 정보만 선택
+
+        res.json({ success: true, users });
+    } catch (error) {
+        console.error('사용자 검색 오류:', error);
+        res.status(500).json({ success: false, message: '사용자 검색 중 오류가 발생했습니다.' });
+    }
+});
+
 export default router;

@@ -1,89 +1,51 @@
-2025-09-03T10:05:07.917775573Z #10 5.033 
-2025-09-03T10:05:07.917778953Z #10 5.033 49 packages are looking for funding
-2025-09-03T10:05:07.917781763Z #10 5.033   run `npm fund` for details
-2025-09-03T10:05:07.917784533Z #10 5.036 
-2025-09-03T10:05:07.917787343Z #10 5.036 3 vulnerabilities (1 low, 1 high, 1 critical)
-2025-09-03T10:05:07.917790083Z #10 5.036 
-2025-09-03T10:05:07.917792773Z #10 5.036 To address all issues, run:
-2025-09-03T10:05:07.917795783Z #10 5.036   npm audit fix
-2025-09-03T10:05:07.917798453Z #10 5.036 
-2025-09-03T10:05:07.917801133Z #10 5.036 Run `npm audit` for details.
-2025-09-03T10:05:07.917803933Z #10 5.037 npm notice
-2025-09-03T10:05:07.917806934Z #10 5.037 npm notice New major version of npm available! 10.8.2 -> 11.5.2
-2025-09-03T10:05:07.917809744Z #10 5.037 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.5.2
-2025-09-03T10:05:07.917812454Z #10 5.037 npm notice To update run: npm install -g npm@11.5.2
-2025-09-03T10:05:07.917815194Z #10 5.037 npm notice
-2025-09-03T10:05:09.571687461Z #10 DONE 6.8s
-2025-09-03T10:05:09.571708591Z 
-2025-09-03T10:05:09.571713391Z #11 [6/6] COPY . .
-2025-09-03T10:05:09.838159627Z #11 DONE 0.3s
-2025-09-03T10:05:09.98874918Z 
-2025-09-03T10:05:09.988775711Z #12 exporting to docker image format
-2025-09-03T10:05:09.988781161Z #12 exporting layers
-2025-09-03T10:05:16.752480271Z #12 exporting layers 6.8s done
-2025-09-03T10:05:16.752507001Z #12 exporting manifest sha256:7224727c40ef375476a07dbf6f98bf937dd4547eb15cc5942fc4809a0d7a219b done
-2025-09-03T10:05:16.752512381Z #12 exporting config sha256:608d0e150b7b5218473b63ae0480393f39ec38dff3d7d69f950d02ce46ca922d done
-2025-09-03T10:05:20.382636753Z #12 DONE 10.4s
-2025-09-03T10:05:20.382660763Z 
-2025-09-03T10:05:20.382664744Z #13 exporting cache to client directory
-2025-09-03T10:05:20.382668044Z #13 preparing build cache for export
-2025-09-03T10:05:23.403395225Z #13 writing cache manifest sha256:7ef034aae25750010acaeec56b842f374cdf28c24c5ae1ff5e7faa6ee20618e5 done
-2025-09-03T10:05:23.403418315Z #13 DONE 3.1s
-2025-09-03T10:05:24.372456954Z Pushing image to registry...
-2025-09-03T10:05:31.923611514Z Upload succeeded
-2025-09-03T10:05:35.547975219Z ==> Deploying...
-2025-09-03T10:05:49.168283698Z 
-2025-09-03T10:05:49.16833371Z > auth-backend@1.0.0 start
-2025-09-03T10:05:49.16833939Z > node server.js
-2025-09-03T10:05:49.1683423Z 
-2025-09-03T10:05:53.170821022Z [DEBUG] NODE_ENV: production
-2025-09-03T10:05:53.171314532Z [DEBUG] MONGO_URI (first 15 chars): mongodb+srv://j...
-2025-09-03T10:05:54.467281906Z MongoDB Connected: ac-vkpmney-shard-00-01.pn9opws.mongodb.net
-2025-09-03T10:05:57.966028247Z Server is running on port 10000
-2025-09-03T10:05:58.942702336Z --- Incoming Request ---
-2025-09-03T10:05:58.943257807Z [2025-09-03T10:05:58.942Z]
-2025-09-03T10:05:58.944803887Z Method: HEAD
-2025-09-03T10:05:58.944947209Z URL: /
-2025-09-03T10:05:58.945075272Z Host Header: seoro-town-backend.onrender.com
-2025-09-03T10:05:58.945639793Z X-Forwarded-For: undefined
-2025-09-03T10:05:58.945882837Z X-Forwarded-Proto: undefined
-2025-09-03T10:05:58.945992519Z ----------------------
-2025-09-03T10:06:06.330453584Z ==> Your service is live 🎉
-2025-09-03T10:06:06.505029298Z ==> 
-2025-09-03T10:06:06.675445503Z ==> ///////////////////////////////////////////////////////////
-2025-09-03T10:06:06.845370838Z ==> 
-2025-09-03T10:06:07.013887113Z ==> Available at your primary URL https://seoro-town-backend.onrender.com
-2025-09-03T10:06:06.665952779Z --- Incoming Request ---
-2025-09-03T10:06:06.665990189Z [2025-09-03T10:06:06.665Z]
-2025-09-03T10:06:06.666052861Z Method: GET
-2025-09-03T10:06:06.666078341Z URL: /api/users/me
-2025-09-03T10:06:06.666109592Z Host Header: seoro-town-backend.onrender.com
-2025-09-03T10:06:06.666113802Z X-Forwarded-For: 61.74.92.100, 172.71.124.244, 10.210.184.128
-2025-09-03T10:06:06.666248374Z X-Forwarded-Proto: https
-2025-09-03T10:06:06.666259105Z ----------------------
-2025-09-03T10:06:07.190271727Z --- Incoming Request ---
-2025-09-03T10:06:07.190308108Z [2025-09-03T10:06:07.190Z]
-2025-09-03T10:06:07.190312728Z Method: GET
-2025-09-03T10:06:07.190315828Z URL: /api/posts
-2025-09-03T10:06:07.190322958Z Host Header: seoro-town-backend.onrender.com
-2025-09-03T10:06:07.190392009Z X-Forwarded-For: 61.74.92.100, 172.71.124.244, 10.210.110.228
-2025-09-03T10:06:07.190398979Z X-Forwarded-Proto: https
-2025-09-03T10:06:07.190401919Z ----------------------
-2025-09-03T10:06:07.680117633Z ==> 
-2025-09-03T10:06:07.853673037Z ==> ///////////////////////////////////////////////////////////
-2025-09-03T10:06:08.90273973Z --- Incoming Request ---
-2025-09-03T10:06:08.902785631Z [2025-09-03T10:06:08.902Z]
-2025-09-03T10:06:08.902793971Z Method: GET
-2025-09-03T10:06:08.902798071Z URL: /api/com?page=1
-2025-09-03T10:06:08.902802112Z Host Header: seoro-town-backend.onrender.com
-2025-09-03T10:06:08.902806292Z X-Forwarded-For: 61.74.92.100, 172.71.124.244, 10.210.184.128
-2025-09-03T10:06:08.902814352Z X-Forwarded-Proto: https
-2025-09-03T10:06:08.902816552Z ----------------------
-2025-09-03T10:06:10.023268152Z --- Incoming Request ---
-2025-09-03T10:06:10.023302253Z [2025-09-03T10:06:10.023Z]
-2025-09-03T10:06:10.023305373Z Method: GET
-2025-09-03T10:06:10.023307743Z URL: /
-2025-09-03T10:06:10.023314293Z Host Header: seoro-town-backend.onrender.com
-2025-09-03T10:06:10.023404575Z X-Forwarded-For: 35.197.80.206, 172.71.81.56, 10.210.131.94
-2025-09-03T10:06:10.023411715Z X-Forwarded-Proto: https
-2025-09-03T10:06:10.023414655Z ----------------------
+Mypage.js:170  GET https://seoro-town-backend.onrender.com/api/users/search?query=dd 500 (Internal Server Error)
+(익명) @ Mypage.js:170
+(익명) @ Mypage.js:218
+setTimeout
+(익명) @ Mypage.js:226
+ol @ react-dom-client.production.js:8292
+ql @ react-dom-client.production.js:9771
+Hl @ react-dom-client.production.js:9746
+ql @ react-dom-client.production.js:9878
+Hl @ react-dom-client.production.js:9746
+ql @ react-dom-client.production.js:9765
+Hl @ react-dom-client.production.js:9746
+ql @ react-dom-client.production.js:9765
+Hl @ react-dom-client.production.js:9746
+ql @ react-dom-client.production.js:9878
+Hl @ react-dom-client.production.js:9746
+ql @ react-dom-client.production.js:9878
+Hl @ react-dom-client.production.js:9746
+ql @ react-dom-client.production.js:9878
+Hl @ react-dom-client.production.js:9746
+ql @ react-dom-client.production.js:9765
+Hl @ react-dom-client.production.js:9746
+ql @ react-dom-client.production.js:9765
+Hl @ react-dom-client.production.js:9746
+ql @ react-dom-client.production.js:9765
+Hl @ react-dom-client.production.js:9746
+ql @ react-dom-client.production.js:9878
+Hl @ react-dom-client.production.js:9746
+ql @ react-dom-client.production.js:9765
+Hl @ react-dom-client.production.js:9746
+ql @ react-dom-client.production.js:9765
+Hl @ react-dom-client.production.js:9746
+ql @ react-dom-client.production.js:9878
+Hl @ react-dom-client.production.js:9746
+ql @ react-dom-client.production.js:9782
+cu @ react-dom-client.production.js:11313
+lu @ react-dom-client.production.js:11289
+iu @ react-dom-client.production.js:11268
+ru @ react-dom-client.production.js:11071
+Fc @ react-dom-client.production.js:10490
+Bc @ react-dom-client.production.js:10419
+Pu @ react-dom-client.production.js:11634
+ju @ react-dom-client.production.js:11505
+Uc @ react-dom-client.production.js:10559
+Dt @ react-dom-client.production.js:1478
+Hu @ react-dom-client.production.js:11996
+of @ react-dom-client.production.js:14699
+af @ react-dom-client.production.js:14667이 오류 이해하기
+Mypage.js:221 검색 중 오류 발생: Error: API 요청 실패: 500
+    at Mypage.js:171:33
+    at async Mypage.js:218:23
