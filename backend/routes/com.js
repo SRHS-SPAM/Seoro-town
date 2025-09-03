@@ -1,54 +1,30 @@
 import express from 'express';
-import puppeteer from 'puppeteer-core';
-import chromium from '@sparticuz/chromium';
+import axios from 'axios';
 import * as cheerio from 'cheerio';
 
 const router = express.Router();
 
-const COM_PAGE_URL = 'https://srobot.sen.hs.kr/67182/subMenu.do';
+// API 및 기본 URL 정의
 const LIST_API_URL = 'https://srobot.sen.hs.kr/dggb/module/board/selectBoardListAjax.do';
 const DETAIL_API_URL = 'https://srobot.sen.hs.kr/dggb/module/board/selectBoardDetailAjax.do';
-const BASE_URL = 'https://srobot.sen.hs.kr';
+const COM_PAGE_URL = 'https://srobot.sen.hs.kr/67182/subMenu.do'; // Referer 헤더용
+const BASE_URL = 'https://srobot.sen.hs.kr'; // 첨부파일 링크 구성용
 
-// --- 캐싱 및 브라우저 최적화 ---
+// --- 캐싱 설정 ---
 const CACHE_DURATION = 10 * 60 * 1000; // 10분
 let listCache = new Map();
 let detailCache = new Map();
 
-let browserInstance = null;
-
-async function initializeBrowser() {
-    if (!browserInstance || !browserInstance.isConnected()) {
-        console.log('[Puppeteer] Initializing new browser instance...');
-        try {
-            browserInstance = await puppeteer.launch({
-                args: [...chromium.args, '--no-sandbox', '--disable-setuid-sandbox'],
-                defaultViewport: chromium.defaultViewport,
-                executablePath: await chromium.executablePath(),
-                headless: chromium.headless,
-            });
-            browserInstance.on('disconnected', () => {
-                console.log('[Puppeteer] Browser instance disconnected.');
-                browserInstance = null;
-            });
-        } catch (error) {
-            console.error('[Puppeteer] Failed to launch browser:', error);
-            browserInstance = null; // 실패 시 null로 설정
-        }
-    }
-    return browserInstance;
-}
-
-process.on('exit', async () => {
-    if (browserInstance) {
-        await browserInstance.close();
-    }
-});
-
-initializeBrowser();
+// --- 공통 axios 요청 헤더 ---
+const commonHeaders = {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    'X-Requested-With': 'XMLHttpRequest',
+    'Referer': COM_PAGE_URL
+};
 
 // --- 라우터 ---
 
+// 목록 가져오기 (axios 최종 버전)
 router.get('/', async (req, res) => {
     const pageNum = req.query.page || 1;
     const now = Date.now();
@@ -60,19 +36,18 @@ router.get('/', async (req, res) => {
         }
     }
 
-    let page = null;
     try {
-        const browser = await initializeBrowser();
-        if (!browser) throw new Error('Puppeteer browser is not available.');
-        page = await browser.newPage();
-        await page.goto(COM_PAGE_URL, { waitUntil: 'networkidle2' });
+        const params = new URLSearchParams();
+        params.append('bbsId', 'BBSMSTR_000000007872');
+        params.append('bbsTyCode', 'dliv');
+        params.append('customRecordCountPerPage', '10');
+        params.append('pageIndex', pageNum);
+        params.append('searchCondition', 'searchKeyword');
+        params.append('checkNttId', 'mvmnReturnUrl');
 
-        const listResponsePromise = page.waitForResponse(response => response.url().startsWith(LIST_API_URL));
-        await page.evaluate((pn) => { fnPage(pn); }, pageNum);
-        await listResponsePromise;
+        const response = await axios.post(LIST_API_URL, params, { headers: commonHeaders });
 
-        const content = await page.content();
-        const $ = cheerio.load(content);
+        const $ = cheerio.load(response.data);
         const comList = [];
 
         $('tbody tr').each((i, elem) => {
@@ -81,7 +56,7 @@ router.get('/', async (req, res) => {
             if (num === '공지' || tds.length === 0) return;
 
             const onclickAttr = tds.eq(1).find('a').attr('onclick');
-            const match = onclickAttr ? onclickAttr.match(/fnView\('([^"]+)',\s*'([^"]+)'\)/) : null;
+            const match = onclickAttr ? onclickAttr.match(/fnView\('([^']+)',\s*'([^']+)'\)/) : null;
 
             comList.push({
                 num: num,
@@ -98,13 +73,12 @@ router.get('/', async (req, res) => {
         res.json({ success: true, list: comList });
 
     } catch (error) {
-        console.error('[Puppeteer] 목록 크롤링 오류:', error.message);
+        console.error('[Axios] 목록 요청 오류:', error.message);
         res.status(500).json({ success: false, message: '가정통신문 목록을 가져오는 데 실패했습니다.' });
-    } finally {
-        if (page) await page.close();
     }
 });
 
+// 상세 내용 가져오기 (axios 최종 버전)
 router.get('/detail/:bbsId/:nttId', async (req, res) => {
     const { bbsId, nttId } = req.params;
     const now = Date.now();
@@ -117,19 +91,20 @@ router.get('/detail/:bbsId/:nttId', async (req, res) => {
         }
     }
     
-    let page = null;
     try {
-        const browser = await initializeBrowser();
-        if (!browser) throw new Error('Puppeteer browser is not available.');
-        page = await browser.newPage();
-        await page.goto(COM_PAGE_URL, { waitUntil: 'networkidle2' });
+        const params = new URLSearchParams();
+        params.append('bbsId', bbsId);
+        params.append('nttId', nttId);
+        params.append('bbsTyCode', 'dliv');
+        params.append('customRecordCountPerPage', '10');
+        params.append('pageIndex', '1');
+        params.append('searchCondition', 'searchKeyword');
+        params.append('checkNttId', 'mvmnReturnUrl');
+        params.append('cmntSe', 'N');
 
-        const detailResponsePromise = page.waitForResponse(response => response.url().startsWith(DETAIL_API_URL));
-        await page.evaluate((bbsId, nttId) => { fnView(bbsId, nttId); }, bbsId, nttId);
-        
-        const detailResponse = await detailResponsePromise;
-        const htmlResult = await detailResponse.text();
-        const $ = cheerio.load(htmlResult);
+        const response = await axios.post(DETAIL_API_URL, params, { headers: commonHeaders });
+
+        const $ = cheerio.load(response.data);
         
         const detail = {
             title: $('th:contains("제목")').next('td').find('div').text().trim(),
@@ -141,7 +116,7 @@ router.get('/detail/:bbsId/:nttId', async (req, res) => {
 
         const scriptContent = $('script:contains("serverFileObjArray")').html();
         if (scriptContent) {
-            const fileInfoRegex = /serverFileObj\["name"\] = "(.*?)";[\s\S]*?serverFileObj\["atchFileId"\] = "(.*?)";[\s\S]*?serverFileObj\["fileSn"\] = "(.*?)";/g;
+            const fileInfoRegex = /serverFileObj\["name"\] = \"(.*?)\";[\s\S]*?serverFileObj\["atchFileId"\] = \"(.*?)\";[\s\S]*?serverFileObj\["fileSn"\] = \"(.*?)\";/g;
             let match;
             while ((match = fileInfoRegex.exec(scriptContent)) !== null) {
                 detail.files.push({
@@ -155,10 +130,8 @@ router.get('/detail/:bbsId/:nttId', async (req, res) => {
         res.json({ success: true, detail: detail });
 
     } catch (error) {
-        console.error('[Puppeteer] 상세 내용 크롤링 오류:', error.message);
+        console.error('[Axios] 상세 내용 요청 오류:', error.message);
         res.status(500).json({ success: false, message: '상세 내용을 가져오는 데 실패했습니다.' });
-    } finally {
-        if (page) await page.close();
     }
 });
 
