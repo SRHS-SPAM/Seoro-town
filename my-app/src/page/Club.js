@@ -48,7 +48,7 @@ function Club() {
 
                 {selectedClub && (
                     <div className="PopupOverlay" onClick={closePopup}>
-                        <div className="PopupContent" onClick={(e) => e.stopPropagation()}>
+                        <div className="PopupClub" onClick={(e) => e.stopPropagation()}>
                             <button className="CloseButton" onClick={closePopup}>×</button>
                             <div className="PopupImageContainer">
                                 <img src={selectedClub.popupImage} alt={selectedClub.name} className="PopupImage" />
