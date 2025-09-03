@@ -105,7 +105,6 @@ function MarketWriteModal({ isOpen, onClose, onSuccess, productToEdit }) {
             <div className="WritePopup">
                 <div className="PopupHeader">
                     <h2>{isEditMode ? '게시글 수정' : '판매 상품 등록'}</h2>
-                    <button className="CloseButton" onClick={handleClose}><X size={24} /></button>
                 </div>
 
                 {step === 1 && !isEditMode ? (
