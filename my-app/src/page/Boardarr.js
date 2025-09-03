@@ -81,9 +81,9 @@ function Boardarr() {
         const postCategory = post.category || '재학생';
         const matchesCategory = postCategory === category;
         const matchesSearch = searchTerm === '' || 
-            post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            post.authorName.toLowerCase().includes(searchTerm.toLowerCase());
+            (post.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (post.content || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (post.author || '').toLowerCase().includes(searchTerm.toLowerCase());
         
         return matchesCategory && matchesSearch;
     });
