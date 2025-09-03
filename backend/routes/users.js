@@ -92,10 +92,13 @@ router.get('/me', authenticateToken, async (req, res) => {
         const followingCount = await Follow.countDocuments({ followerId: req.user._id });
 
         res.json({ 
-            ...user.toObject(), 
-            postCount,
-            followerCount,
-            followingCount
+            success: true,
+            user: {
+                ...user.toObject(), 
+                postCount,
+                followerCount,
+                followingCount
+            }
         });
     } catch (error) {
         console.error('GET /api/users/me 오류:', error);
