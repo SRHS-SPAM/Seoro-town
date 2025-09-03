@@ -1,13 +1,15 @@
 import express from 'express';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
+import { CookieJar } from 'tough-cookie';
+import { wrapper } from 'axios-cookiejar-support';
 
 const router = express.Router();
 
 // API 및 기본 URL 정의
 const LIST_API_URL = 'https://srobot.sen.hs.kr/dggb/module/board/selectBoardListAjax.do';
 const DETAIL_API_URL = 'https://srobot.sen.hs.kr/dggb/module/board/selectBoardDetailAjax.do';
-const COM_PAGE_URL = 'https://srobot.sen.hs.kr/67182/subMenu.do'; // Referer 헤더용
+const COM_PAGE_URL = 'https://srobot.sen.hs.kr/67182/subMenu.do'; // Referer 및 쿠키 획득용
 const BASE_URL = 'https://srobot.sen.hs.kr'; // 첨부파일 링크 구성용
 
 // --- 캐싱 설정 ---
@@ -15,7 +17,10 @@ const CACHE_DURATION = 10 * 60 * 1000; // 10분
 let listCache = new Map();
 let detailCache = new Map();
 
-// --- 공통 axios 요청 헤더 ---
+// --- Axios 인스턴스 및 쿠키 설정 ---
+const cookieJar = new CookieJar();
+const client = wrapper(axios.create({ jar: cookieJar }));
+
 const commonHeaders = {
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     'X-Requested-With': 'XMLHttpRequest',
@@ -25,7 +30,7 @@ const commonHeaders = {
 
 // --- 라우터 ---
 
-// 목록 가져오기 (axios 최종 버전)
+// 목록 가져오기 (쿠키 지원 최종 버전)
 router.get('/', async (req, res) => {
     const pageNum = req.query.page || 1;
     const now = Date.now();
@@ -38,31 +43,39 @@ router.get('/', async (req, res) => {
     }
 
     try {
+        // 1. 세션 쿠키를 얻기 위해 메인 페이지에 먼저 접속
+        await client.get(COM_PAGE_URL, { headers: commonHeaders });
+
+        // 2. 실제 데이터 요청
         const params = new URLSearchParams();
         params.append('bbsId', 'BBSMSTR_000000007872');
         params.append('bbsTyCode', 'dliv');
         params.append('customRecordCountPerPage', '10');
         params.append('pageIndex', pageNum);
-        params.append('searchCondition', ''); // 수정된 부분
+        params.append('searchCondition', '');
         params.append('searchKeyword', '');
         params.append('checkNttId', '');
         params.append('mvmnReturnUrl', '');
 
-        const response = await axios.post(LIST_API_URL, params, { headers: commonHeaders });
+        const response = await client.post(LIST_API_URL, params, { headers: commonHeaders });
 
         const $ = cheerio.load(response.data);
         const comList = [];
 
         $('tbody tr').each((i, elem) => {
             const tds = $(elem).find('td');
-            const num = tds.eq(0).text().trim();
-            if (num === '공지' || tds.length === 0) return;
+            const numText = tds.eq(0).text().trim();
+
+            // 공지나 빈 줄은 건너뛰기
+            if (tds.eq(0).find('span.flag_notice').length > 0 || numText === '' || tds.length < 5) {
+                return;
+            }
 
             const onclickAttr = tds.eq(1).find('a').attr('onclick');
             const match = onclickAttr ? onclickAttr.match(/fnView\('([^']+)',\s*'([^']+)'\)/) : null;
 
             comList.push({
-                num: num,
+                num: numText,
                 title: tds.eq(1).find('a').text().trim(),
                 bbsId: match ? match[1] : null,
                 nttId: match ? match[2] : null,
@@ -81,7 +94,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// 상세 내용 가져오기 (axios 최종 버전)
+// 상세 내용 가져오기 (쿠키 지원 최종 버전)
 router.get('/detail/:bbsId/:nttId', async (req, res) => {
     const { bbsId, nttId } = req.params;
     const now = Date.now();
@@ -95,6 +108,10 @@ router.get('/detail/:bbsId/:nttId', async (req, res) => {
     }
     
     try {
+        // 1. 세션 쿠키를 얻기 위해 메인 페이지에 먼저 접속
+        await client.get(COM_PAGE_URL, { headers: commonHeaders });
+
+        // 2. 실제 데이터 요청
         const params = new URLSearchParams();
         params.append('bbsId', bbsId);
         params.append('nttId', nttId);
@@ -105,7 +122,7 @@ router.get('/detail/:bbsId/:nttId', async (req, res) => {
         params.append('checkNttId', 'mvmnReturnUrl');
         params.append('cmntSe', 'N');
 
-        const response = await axios.post(DETAIL_API_URL, params, { headers: commonHeaders });
+        const response = await client.post(DETAIL_API_URL, params, { headers: commonHeaders });
 
         const $ = cheerio.load(response.data);
         

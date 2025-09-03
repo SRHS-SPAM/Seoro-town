@@ -11,6 +11,7 @@
     "dependencies": {
         "@sparticuz/chromium": "^123.0.1",
         "axios": "^1.10.0",
+        "axios-cookiejar-support": "^6.0.4",
         "bcryptjs": "^2.4.3",
         "cheerio": "^1.1.0",
         "cors": "^2.8.5",
@@ -24,7 +25,8 @@
         "puppeteer-core": "^22.13.0",
         "seoro-town": "file:..",
         "socket.io": "^4.8.1",
-        "sqlite3": "^5.1.7"
+        "sqlite3": "^5.1.7",
+        "tough-cookie": "^5.1.2"
     },
     "devDependencies": {
         "nodemon": "^2.0.22"
