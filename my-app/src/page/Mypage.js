@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect, useCallback, useRef } from 'rea
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
-import { User, Users, FileText, MessageCircle, Settings, ArrowLeft, UserPlus, UserMinus, Heart, Search, X, Camera } from 'lucide-react';
+import { User, Users, FileText, MessageCircle, Settings, ArrowLeft, UserPlus, UserMinus, Heart, Camera } from 'lucide-react';
 
 import './Mypage.css';
 
@@ -50,35 +50,7 @@ const StatItem = ({ icon, count, label, onClick }) => (
     </div>
 );
 
-const SearchSection = ({ query, onQueryChange, isSearching, results, onResultClick }) => (
-    <div className="SearchContainer">
-        <div className="SearchInputWrapper">
-            <Search size={20} className="SearchIcon" />
-            <input type="text" placeholder="사용자 검색 (2자 이상)" value={query} onChange={(e) => onQueryChange(e.target.value)} className="SearchInput" />
-            {query && <button onClick={() => onQueryChange('')} className="ClearButton"><X size={16} /></button>}
-        </div>
-        {isSearching && <div className="SearchLoading"><Settings size={16} className="LoadingIcon" /></div>}
-        {results.length > 0 && (
-            <div className="SearchResults">
-                {results.map(user => (
-                    <div key={user.id} className="SearchResultItem" onClick={() => onResultClick(user.id)}>
-                        <div className="SearchResultAvatar">
-                             {user.profileImage ? (
-                                <img src={`${process.env.REACT_APP_API_URL}${user.profileImage}`} alt={user.username} />
-                            ) : (
-                                <User size={24} />
-                            )}
-                        </div>
-                        <div className="SearchResultInfo">
-                            <span className="SearchResultName">{user.username}</span>
-                            <span className="SearchResultEmail">{user.email}</span>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        )}
-    </div>
-);
+
 
 const TabButton = ({ icon, label, name, activeTab, onClick }) => (
     <button className={`TabButton ${activeTab === name ? 'active' : ''}`} onClick={() => onClick(name)}>
@@ -161,9 +133,7 @@ function Mypage() {
     const [isLoading, setIsLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('posts');
 
-    const [searchQuery, setSearchQuery] = useState('');
-    const [isSearching, setIsSearching] = useState(false);
-    const [searchResults, setSearchResults] = useState([]);
+    
     
     const fetchAPI = useCallback(async (url) => {
         const baseUrl = process.env.REACT_APP_API_URL || '';
@@ -207,25 +177,7 @@ function Mypage() {
         }
     }, [profileUserId, isMyProfile, currentUser, isLoggedIn, loadProfile]);
     
-    useEffect(() => {
-        if (searchQuery.trim().length < 2) {
-            setSearchResults([]);
-            return;
-        }
-        const handleSearch = async () => {
-            setIsSearching(true);
-            try {
-                const data = await fetchAPI(`/api/users/search?query=${encodeURIComponent(searchQuery)}`);
-                setSearchResults(data.users || []);
-            } catch (error) {
-                console.error("검색 중 오류 발생:", error);
-            } finally {
-                setIsSearching(false);
-            }
-        };
-        const debounceTimer = setTimeout(handleSearch, 300);
-        return () => clearTimeout(debounceTimer);
-    }, [searchQuery, fetchAPI]);
+    
     
     const handleProfileImageChange = async (e) => {
         const file = e.target.files[0];
@@ -282,14 +234,14 @@ function Mypage() {
     };
 
     const goToUserProfile = (userId) => {
-        setSearchQuery('');
-        setSearchResults([]);
         if (userId === currentUser?._id) { // Use _id
             navigate('/Mypage', { replace: true });
         } else {
             navigate('/Mypage', { state: { userId }, replace: true });
         }
     };
+
+    
 
     const handlePostClick = (post) => navigate(`/infoboard/${post.id}`);
     const handleCommentClick = (comment) => navigate(`/infoboard/${comment.postId}`);
@@ -340,10 +292,7 @@ function Mypage() {
                     isFollowing={profileData.isFollowing} onFollowToggle={handleFollowToggle}
                     onStatClick={setActiveTab} onAvatarClick={handleAvatarClick}
                 />
-                <SearchSection 
-                    query={searchQuery} onQueryChange={setSearchQuery} isSearching={isSearching}
-                    results={searchResults} onResultClick={goToUserProfile}
-                />
+                
                 <div className="ProfileTabs">
                     <TabButton icon={<FileText size={18} />} label="게시글" name="posts" activeTab={activeTab} onClick={setActiveTab} />
                     <TabButton icon={<MessageCircle size={18} />} label="댓글" name="comments" activeTab={activeTab} onClick={setActiveTab} />
