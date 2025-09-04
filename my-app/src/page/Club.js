@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-
+import LinkifiedText from '../components/LinkifiedText';
 import './Club.css';
 
 function Club() {
     const [selectedClub, setSelectedClub] = useState(null);
 
     const clubs = [
-        { id: 1, name: 'DoubleM', popupImage: '/DoubleM.jpg', description: '' },
+        { id: 1, name: 'DoubleM', popupImage: '/DoubleM.jpg', description: '홈페이지: https://www.doublem.org' },
         { id: 2, name: 'CreRobot', popupImage: '/CreRobot.jpg', description: '' },
         { id: 3, name: 'SPAM', popupImage: '/SPAM.jpg', description: '' },
         { id: 4, name: '신청하세요', popupImage: '/white.jpg', description: '' },
@@ -55,7 +55,7 @@ function Club() {
                             </div>
                             <h2 className="PopupTitle">{selectedClub.name}</h2>
                             <div className="PopupDescription">
-                                <p>{selectedClub.description}</p>
+                                <LinkifiedText text={selectedClub.description} />
                             </div>
                         </div>
                     </div>
