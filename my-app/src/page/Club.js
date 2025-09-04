@@ -6,9 +6,9 @@ function Club() {
     const [selectedClub, setSelectedClub] = useState(null);
 
     const clubs = [
-        { id: 1, name: 'DoubleM', popupImage: '/DoubleM.jpg', description: '홈페이지: https://www.doublem.org \n많은 지원 부탁드립니다.' },
+        { id: 1, name: 'DoubleM', popupImage: '/DoubleM.jpg', description: '안녕하세요. 서울로봇고등학교 전공자율동아리 DoubleM입니다. \n  아두이노와 라즈베리파이등을 활용하여 다양한 로봇들을 제작하고 있습니다!\n Notion:https://horn-flame-f50.notion.site/DoubleM-1f047aeeaf0880f3b3d3e79027a79ac5' },
         { id: 2, name: 'CreRobot', popupImage: '/CreRobot.jpg', description: '' },
-        { id: 3, name: 'SPAM', popupImage: '/SPAM.jpg', description: '' },
+        { id: 3, name: 'SPAM', popupImage: '/SPAM.jpg', description: '서울로봇고등학교의 유일한 플랫폼 개발 동아리 입니다.\n WEB, APP, UIUX DESIGN, SERVER, GAME 등의 다양한 분야를 공부하며 자신의 역량을 키울 수 있습니다. \n 또한 컨퍼런스와 각종 대회에 참가하며 많은 발표와 입상을 통해 폭 넓은 동아리활동을 할 수 있습니다. \n Github:https://github.com/SRHS-SPAM' },
         { id: 4, name: '신청하세요', popupImage: '/white.jpg', description: '' },
         { id: 5, name: '신청하세요', popupImage: '/white.jpg', description: '' },
         { id: 6, name: '신청하세요', popupImage: '/white.jpg', description: '' },
