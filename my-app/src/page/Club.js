@@ -6,7 +6,7 @@ function Club() {
     const [selectedClub, setSelectedClub] = useState(null);
 
     const clubs = [
-        { id: 1, name: 'DoubleM', popupImage: '/DoubleM.jpg', description: '홈페이지: https://www.doublem.org' },
+        { id: 1, name: 'DoubleM', popupImage: '/DoubleM.jpg', description: '홈페이지: https://www.doublem.org \n많은 지원 부탁드립니다.' },
         { id: 2, name: 'CreRobot', popupImage: '/CreRobot.jpg', description: '' },
         { id: 3, name: 'SPAM', popupImage: '/SPAM.jpg', description: '' },
         { id: 4, name: '신청하세요', popupImage: '/white.jpg', description: '' },
