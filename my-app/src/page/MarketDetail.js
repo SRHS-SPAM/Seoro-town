@@ -20,7 +20,7 @@ function MarketDetail() {
     const [error, setError] = useState(null);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-    const isMyProduct = product && user && product.authorId === user.id;
+    const isMyProduct = product && user && product.authorId === user._id;
 
     const fetchProduct = async () => {
         try {
