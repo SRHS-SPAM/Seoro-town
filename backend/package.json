@@ -9,6 +9,7 @@
         "dev": "nodemon server.js"
     },
     "dependencies": {
+        "@sendgrid/mail": "^8.1.6",
         "@sparticuz/chromium": "^123.0.1",
         "axios": "^1.10.0",
         "axios-cookiejar-support": "^6.0.4",

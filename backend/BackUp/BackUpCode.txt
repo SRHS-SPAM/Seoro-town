@@ -1,70 +1,746 @@
-2025-09-19T12:02:01.271757246Z #10 5.645   run `npm fund` for details
-2025-09-19T12:02:01.271760055Z #10 5.648 
-2025-09-19T12:02:01.271762806Z #10 5.648 4 vulnerabilities (1 low, 2 high, 1 critical)
-2025-09-19T12:02:01.271765516Z #10 5.648 
-2025-09-19T12:02:01.271768276Z #10 5.648 To address all issues, run:
-2025-09-19T12:02:01.271771596Z #10 5.648   npm audit fix
-2025-09-19T12:02:01.271774406Z #10 5.648 
-2025-09-19T12:02:01.271777106Z #10 5.648 Run `npm audit` for details.
-2025-09-19T12:02:01.271782296Z #10 5.649 npm notice
-2025-09-19T12:02:01.271787586Z #10 5.649 npm notice New major version of npm available! 10.8.2 -> 11.6.0
-2025-09-19T12:02:01.271792376Z #10 5.649 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.6.0
-2025-09-19T12:02:01.271797007Z #10 5.649 npm notice To update run: npm install -g npm@11.6.0
-2025-09-19T12:02:01.271801317Z #10 5.649 npm notice
-2025-09-19T12:02:02.474366045Z #10 DONE 6.9s
-2025-09-19T12:02:02.474384376Z 
-2025-09-19T12:02:02.474388376Z #11 [6/6] COPY . .
-2025-09-19T12:02:03.348177267Z #11 DONE 1.0s
-2025-09-19T12:02:03.498807059Z 
-2025-09-19T12:02:03.498830299Z #12 exporting to docker image format
-2025-09-19T12:02:03.498835119Z #12 exporting layers
-2025-09-19T12:02:10.908918855Z #12 exporting layers 7.4s done
-2025-09-19T12:02:10.908952816Z #12 exporting manifest sha256:46cd61e18c974e5f7339b6668fc615e83788e4c6d99b958895ad364618905886 done
-2025-09-19T12:02:10.909101381Z #12 exporting config sha256:ead8ca93f3ba41157edb524b283d548cbbf21f5a753b9333966052154f69859b done
-2025-09-19T12:02:14.226899162Z #12 DONE 10.9s
-2025-09-19T12:02:14.409034994Z 
-2025-09-19T12:02:14.409066274Z #13 exporting cache to client directory
-2025-09-19T12:02:14.409073515Z #13 preparing build cache for export
-2025-09-19T12:02:17.681878237Z #13 writing cache manifest sha256:82a3c0220a334b0cdc5c6f6e808b8bbda1b43cbcd4ec36dccd72efc7f671b345 done
-2025-09-19T12:02:17.681897407Z #13 DONE 3.3s
-2025-09-19T12:02:25.248501734Z Pushing image to registry...
-2025-09-19T12:02:32.734092221Z Upload succeeded
-2025-09-19T12:02:37.47144304Z ==> Deploying...
-2025-09-19T12:02:47.911699475Z 
-2025-09-19T12:02:47.911734846Z > auth-backend@1.0.0 start
-2025-09-19T12:02:47.911738996Z > node server.js
-2025-09-19T12:02:47.911741216Z 
-2025-09-19T12:02:51.29610171Z [DEBUG] NODE_ENV: production
-2025-09-19T12:02:51.296143421Z [DEBUG] MONGO_URI (first 15 chars): mongodb+srv://j...
-2025-09-19T12:02:52.54717812Z MongoDB Connected: ac-vkpmney-shard-00-01.pn9opws.mongodb.net
-2025-09-19T12:02:53.101197075Z Failed to start server: Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'multer-storage-cloudinary' imported from /app/utils/upload.js
-2025-09-19T12:02:53.101284817Z     at packageResolve (node:internal/modules/esm/resolve:873:9)
-2025-09-19T12:02:53.101290237Z     at moduleResolve (node:internal/modules/esm/resolve:946:18)
-2025-09-19T12:02:53.101293947Z     at defaultResolve (node:internal/modules/esm/resolve:1188:11)
-2025-09-19T12:02:53.101297077Z     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:708:12)
-2025-09-19T12:02:53.101299627Z     at #cachedDefaultResolve (node:internal/modules/esm/loader:657:25)
-2025-09-19T12:02:53.101302147Z     at ModuleLoader.resolve (node:internal/modules/esm/loader:640:38)
-2025-09-19T12:02:53.101305477Z     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:264:38)
-2025-09-19T12:02:53.101308078Z     at ModuleJob._link (node:internal/modules/esm/module_job:168:49) {
-2025-09-19T12:02:53.101311238Z   code: 'ERR_MODULE_NOT_FOUND'
-2025-09-19T12:02:53.101313847Z }
-2025-09-19T12:02:56.60549274Z 
-2025-09-19T12:02:56.605537121Z > auth-backend@1.0.0 start
-2025-09-19T12:02:56.605541901Z > node server.js
-2025-09-19T12:02:56.605544691Z 
-2025-09-19T12:02:57.531914273Z ==> Exited with status 1
-2025-09-19T12:02:57.69378894Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
-2025-09-19T12:03:00.008459018Z [DEBUG] NODE_ENV: production
-2025-09-19T12:03:00.008892868Z [DEBUG] MONGO_URI (first 15 chars): mongodb+srv://j...
-2025-09-19T12:03:01.225312458Z MongoDB Connected: ac-vkpmney-shard-00-01.pn9opws.mongodb.net
-2025-09-19T12:03:01.808509392Z Failed to start server: Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'multer-storage-cloudinary' imported from /app/utils/upload.js
-2025-09-19T12:03:01.808542133Z     at packageResolve (node:internal/modules/esm/resolve:873:9)
-2025-09-19T12:03:01.808547223Z     at moduleResolve (node:internal/modules/esm/resolve:946:18)
-2025-09-19T12:03:01.808550773Z     at defaultResolve (node:internal/modules/esm/resolve:1188:11)
-2025-09-19T12:03:01.808553653Z     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:708:12)
-2025-09-19T12:03:01.808556413Z     at #cachedDefaultResolve (node:internal/modules/esm/loader:657:25)
-2025-09-19T12:03:01.808559443Z     at ModuleLoader.resolve (node:internal/modules/esm/loader:640:38)
-2025-09-19T12:03:01.808562814Z     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:264:38)
-2025-09-19T12:03:01.808565803Z     at ModuleJob._link (node:internal/modules/esm/module_job:168:49) {
-2025-09-19T12:03:01.808569243Z   code: 'ERR_MODULE_NOT_FOUND'
-2025-09-19T12:03:01.808572924Z }
+2025-09-19T13:41:54.421792141Z 
+2025-09-19T13:41:54.421798761Z #11 [6/6] COPY . .
+2025-09-19T13:41:54.722113051Z #11 DONE 0.4s
+2025-09-19T13:41:54.722132492Z 
+2025-09-19T13:41:54.722137252Z #12 exporting to docker image format
+2025-09-19T13:41:54.722141762Z #12 exporting layers
+2025-09-19T13:42:02.488395772Z #12 exporting layers 7.8s done
+2025-09-19T13:42:02.638742472Z #12 exporting manifest sha256:006739748fdaf737c3981c0c3733484a6aea41a047bc0b90cad1e63586d5c016 done
+2025-09-19T13:42:02.638768913Z #12 exporting config sha256:97f3755f5c80c55cf1cc06bcf71ecb4ab01be743ae7e051d646e32e6306c4a40 done
+2025-09-19T13:42:06.288922487Z #12 DONE 11.5s
+2025-09-19T13:42:06.288944917Z 
+2025-09-19T13:42:06.288951488Z #13 exporting cache to client directory
+2025-09-19T13:42:06.288955668Z #13 preparing build cache for export
+2025-09-19T13:42:14.055546286Z #13 writing cache manifest sha256:dff84b09d0cad341fdad9fff53573a41202e44b7d5f0debb6256cf0f2d66d101
+2025-09-19T13:42:14.206166982Z #13 writing cache manifest sha256:dff84b09d0cad341fdad9fff53573a41202e44b7d5f0debb6256cf0f2d66d101 0.1s done
+2025-09-19T13:42:14.206190353Z #13 DONE 8.0s
+2025-09-19T13:42:17.99901207Z Pushing image to registry...
+2025-09-19T13:42:24.101442686Z Upload succeeded
+2025-09-19T13:42:29.855673666Z ==> Deploying...
+2025-09-19T13:42:40.219987141Z 
+2025-09-19T13:42:40.220033474Z > auth-backend@1.0.0 start
+2025-09-19T13:42:40.220038174Z > node server.js
+2025-09-19T13:42:40.220040625Z 
+2025-09-19T13:42:43.909422382Z [DEBUG] NODE_ENV: production
+2025-09-19T13:42:43.911685309Z [DEBUG] MONGO_URI (first 15 chars): mongodb+srv://j...
+2025-09-19T13:42:45.264828234Z MongoDB Connected: ac-vkpmney-shard-00-02.pn9opws.mongodb.net
+2025-09-19T13:42:50.200763803Z Server is running on port 10000
+2025-09-19T13:42:50.26328442Z --- Incoming Request ---
+2025-09-19T13:42:50.263303121Z [2025-09-19T13:42:50.262Z]
+2025-09-19T13:42:50.263307741Z Method: HEAD
+2025-09-19T13:42:50.263312422Z URL: /
+2025-09-19T13:42:50.263317212Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:42:50.263571941Z X-Forwarded-For: undefined
+2025-09-19T13:42:50.263651067Z X-Forwarded-Proto: undefined
+2025-09-19T13:42:50.263681489Z ----------------------
+2025-09-19T13:42:51.232589223Z ==> Your service is live 🎉
+2025-09-19T13:42:52.106662101Z ==> 
+2025-09-19T13:42:52.281884111Z ==> ///////////////////////////////////////////////////////////
+2025-09-19T13:42:52.456077361Z ==> 
+2025-09-19T13:42:52.63577629Z ==> Available at your primary URL https://seoro-town-backend.onrender.com
+2025-09-19T13:42:52.80859342Z ==> 
+2025-09-19T13:42:52.98149522Z ==> ///////////////////////////////////////////////////////////
+2025-09-19T13:42:55.442222955Z --- Incoming Request ---
+2025-09-19T13:42:55.44230483Z [2025-09-19T13:42:55.442Z]
+2025-09-19T13:42:55.442311301Z Method: GET
+2025-09-19T13:42:55.442315771Z URL: /
+2025-09-19T13:42:55.442320562Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:42:55.442338983Z X-Forwarded-For: 34.82.29.197, 162.158.189.82, 10.210.228.71
+2025-09-19T13:42:55.442599482Z X-Forwarded-Proto: https
+2025-09-19T13:42:55.442610833Z ----------------------
+2025-09-19T13:43:50.517629247Z --- Incoming Request ---
+2025-09-19T13:43:50.517700432Z [2025-09-19T13:43:50.517Z]
+2025-09-19T13:43:50.517767867Z Method: GET
+2025-09-19T13:43:50.517841183Z URL: /api/users/me
+2025-09-19T13:43:50.517872135Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:43:50.517881665Z X-Forwarded-For: 222.107.30.13, 172.70.92.152, 10.210.228.71
+2025-09-19T13:43:50.517959871Z X-Forwarded-Proto: https
+2025-09-19T13:43:50.517966672Z ----------------------
+2025-09-19T13:43:51.074841884Z --- Incoming Request ---
+2025-09-19T13:43:51.074953303Z [2025-09-19T13:43:51.074Z]
+2025-09-19T13:43:51.074961133Z Method: GET
+2025-09-19T13:43:51.074965384Z URL: /api/posts
+2025-09-19T13:43:51.074969954Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:43:51.074974294Z X-Forwarded-For: 222.107.30.13, 172.70.92.152, 10.210.228.71
+2025-09-19T13:43:51.074978634Z X-Forwarded-Proto: https
+2025-09-19T13:43:51.074982375Z ----------------------
+2025-09-19T13:44:24.855652334Z --- Incoming Request ---
+2025-09-19T13:44:24.855689917Z [2025-09-19T13:44:24.855Z]
+2025-09-19T13:44:24.855695008Z Method: GET
+2025-09-19T13:44:24.855699618Z URL: /api/market?search=&category=%EC%A0%84%EC%B2%B4
+2025-09-19T13:44:24.85573184Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:44:24.855748052Z X-Forwarded-For: 222.107.30.13, 172.70.92.210, 10.210.228.71
+2025-09-19T13:44:24.855758002Z X-Forwarded-Proto: https
+2025-09-19T13:44:24.855761962Z ----------------------
+2025-09-19T13:46:01.112839037Z --- Incoming Request ---
+2025-09-19T13:46:01.112869819Z [2025-09-19T13:46:01.112Z]
+2025-09-19T13:46:01.112874579Z Method: POST
+2025-09-19T13:46:01.112928214Z URL: /api/market
+2025-09-19T13:46:01.112936554Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:01.112944345Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.107.190
+2025-09-19T13:46:01.112951375Z X-Forwarded-Proto: https
+2025-09-19T13:46:01.112955136Z ----------------------
+2025-09-19T13:46:03.79368734Z --- Incoming Request ---
+2025-09-19T13:46:03.793725013Z [2025-09-19T13:46:03.793Z]
+2025-09-19T13:46:03.793793178Z Method: GET
+2025-09-19T13:46:03.793805429Z URL: /api/market?search=&category=%EC%A0%84%EC%B2%B4
+2025-09-19T13:46:03.79382439Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:03.79382749Z X-Forwarded-For: 222.107.30.13, 172.70.92.205, 10.210.248.232
+2025-09-19T13:46:03.794060397Z X-Forwarded-Proto: https
+2025-09-19T13:46:03.794065418Z ----------------------
+2025-09-19T13:46:05.497974327Z --- Incoming Request ---
+2025-09-19T13:46:05.498000819Z [2025-09-19T13:46:05.497Z]
+2025-09-19T13:46:05.498008689Z Method: GET
+2025-09-19T13:46:05.498044212Z URL: /api/market/68cd5e9b9bce136bec368b2d
+2025-09-19T13:46:05.498048442Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:05.498051853Z X-Forwarded-For: 222.107.30.13, 172.68.164.157, 10.210.228.71
+2025-09-19T13:46:05.498054483Z X-Forwarded-Proto: https
+2025-09-19T13:46:05.498056563Z ----------------------
+2025-09-19T13:46:11.053417848Z --- Incoming Request ---
+2025-09-19T13:46:11.054014722Z [2025-09-19T13:46:11.053Z]
+2025-09-19T13:46:11.054024863Z Method: POST
+2025-09-19T13:46:11.054029443Z URL: /api/chat/start
+2025-09-19T13:46:11.054033873Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:11.054038134Z X-Forwarded-For: 222.107.30.13, 172.70.92.205, 10.210.248.232
+2025-09-19T13:46:11.054041834Z X-Forwarded-Proto: https
+2025-09-19T13:46:11.054045594Z ----------------------
+2025-09-19T13:46:12.763103753Z --- Incoming Request ---
+2025-09-19T13:46:12.763143386Z [2025-09-19T13:46:12.763Z]
+2025-09-19T13:46:12.763175758Z Method: GET
+2025-09-19T13:46:12.763213501Z URL: /api/users/me
+2025-09-19T13:46:12.763270045Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:12.763280876Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.107.190
+2025-09-19T13:46:12.763285316Z X-Forwarded-Proto: https
+2025-09-19T13:46:12.763289007Z ----------------------
+2025-09-19T13:46:13.338870287Z --- Incoming Request ---
+2025-09-19T13:46:13.340520819Z [2025-09-19T13:46:13.338Z]
+2025-09-19T13:46:13.340548071Z Method: GET
+2025-09-19T13:46:13.340555381Z URL: /api/market/68cd5e9b9bce136bec368b2d
+2025-09-19T13:46:13.340559722Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:13.340564322Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.107.190
+2025-09-19T13:46:13.340569172Z X-Forwarded-Proto: https
+2025-09-19T13:46:13.340573252Z ----------------------
+2025-09-19T13:46:15.208414821Z --- Incoming Request ---
+2025-09-19T13:46:15.208505487Z [2025-09-19T13:46:15.208Z]
+2025-09-19T13:46:15.208511908Z Method: GET
+2025-09-19T13:46:15.208515668Z URL: /api/market?search=&category=%EC%A0%84%EC%B2%B4
+2025-09-19T13:46:15.208519498Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:15.208523919Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.107.190
+2025-09-19T13:46:15.208559841Z X-Forwarded-Proto: https
+2025-09-19T13:46:15.208598824Z ----------------------
+2025-09-19T13:46:16.286553941Z --- Incoming Request ---
+2025-09-19T13:46:16.286586694Z [2025-09-19T13:46:16.285Z]
+2025-09-19T13:46:16.286592084Z Method: GET
+2025-09-19T13:46:16.286596484Z URL: /api/users/me
+2025-09-19T13:46:16.286601585Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:16.286606695Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.107.190
+2025-09-19T13:46:16.286610736Z X-Forwarded-Proto: https
+2025-09-19T13:46:16.286614796Z ----------------------
+2025-09-19T13:46:16.852461729Z --- Incoming Request ---
+2025-09-19T13:46:16.852486461Z [2025-09-19T13:46:16.852Z]
+2025-09-19T13:46:16.852491531Z Method: GET
+2025-09-19T13:46:16.852496681Z URL: /api/market?search=&category=%EC%A0%84%EC%B2%B4
+2025-09-19T13:46:16.852502032Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:16.852516833Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.107.190
+2025-09-19T13:46:16.852519653Z X-Forwarded-Proto: https
+2025-09-19T13:46:16.852522223Z ----------------------
+2025-09-19T13:46:18.602110108Z --- Incoming Request ---
+2025-09-19T13:46:18.602139611Z [2025-09-19T13:46:18.602Z]
+2025-09-19T13:46:18.602142891Z Method: GET
+2025-09-19T13:46:18.602149891Z URL: /api/users/68b2cb81b822d720d0c44599/following
+2025-09-19T13:46:18.602156422Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:18.602213276Z X-Forwarded-For: 222.107.30.13, 172.70.92.205, 10.210.248.232
+2025-09-19T13:46:18.602218016Z X-Forwarded-Proto: https
+2025-09-19T13:46:18.602234027Z ----------------------
+2025-09-19T13:46:18.615105516Z --- Incoming Request ---
+2025-09-19T13:46:18.615139528Z [2025-09-19T13:46:18.614Z]
+2025-09-19T13:46:18.615143329Z Method: GET
+2025-09-19T13:46:18.615147169Z URL: /api/users/68b2cb81b822d720d0c44599/followers
+2025-09-19T13:46:18.615150029Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:18.615152779Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.107.190
+2025-09-19T13:46:18.61515573Z X-Forwarded-Proto: https
+2025-09-19T13:46:18.61515852Z ----------------------
+2025-09-19T13:46:18.795412461Z --- Incoming Request ---
+2025-09-19T13:46:18.795439703Z [2025-09-19T13:46:18.795Z]
+2025-09-19T13:46:18.795445484Z Method: GET
+2025-09-19T13:46:18.795449704Z URL: /api/users/68b2cb81b822d720d0c44599
+2025-09-19T13:46:18.795472756Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:18.795476606Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.248.232
+2025-09-19T13:46:18.795480696Z X-Forwarded-Proto: https
+2025-09-19T13:46:18.795519789Z ----------------------
+2025-09-19T13:46:18.80964558Z --- Incoming Request ---
+2025-09-19T13:46:18.809688783Z [2025-09-19T13:46:18.809Z]
+2025-09-19T13:46:18.809694444Z Method: GET
+2025-09-19T13:46:18.809731196Z URL: /api/users/68b2cb81b822d720d0c44599/posts
+2025-09-19T13:46:18.809736007Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:18.809758058Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.248.232
+2025-09-19T13:46:18.8097761Z X-Forwarded-Proto: https
+2025-09-19T13:46:18.809827523Z ----------------------
+2025-09-19T13:46:18.811180433Z --- Incoming Request ---
+2025-09-19T13:46:18.811207615Z [2025-09-19T13:46:18.811Z]
+2025-09-19T13:46:18.811227667Z Method: GET
+2025-09-19T13:46:18.811233097Z URL: /api/users/68b2cb81b822d720d0c44599/comments
+2025-09-19T13:46:18.811235837Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:18.811240247Z X-Forwarded-For: 222.107.30.13, 172.71.111.41, 10.210.228.71
+2025-09-19T13:46:18.811244308Z X-Forwarded-Proto: https
+2025-09-19T13:46:18.811289831Z ----------------------
+2025-09-19T13:46:19.915546506Z --- Incoming Request ---
+2025-09-19T13:46:19.915574678Z [2025-09-19T13:46:19.915Z]
+2025-09-19T13:46:19.915584249Z Method: GET
+2025-09-19T13:46:19.915587779Z URL: /api/market?search=&category=%EC%A0%84%EC%B2%B4
+2025-09-19T13:46:19.91559326Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:19.9155992Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.107.190
+2025-09-19T13:46:19.915626872Z X-Forwarded-Proto: https
+2025-09-19T13:46:19.915634073Z ----------------------
+2025-09-19T13:46:20.507063991Z --- Incoming Request ---
+2025-09-19T13:46:20.507085583Z [2025-09-19T13:46:20.506Z]
+2025-09-19T13:46:20.507096354Z Method: GET
+2025-09-19T13:46:20.507099974Z URL: /api/market/68cd5e9b9bce136bec368b2d
+2025-09-19T13:46:20.507102654Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:20.507116815Z X-Forwarded-For: 222.107.30.13, 172.68.164.20, 10.210.228.71
+2025-09-19T13:46:20.507124156Z X-Forwarded-Proto: https
+2025-09-19T13:46:20.507127226Z ----------------------
+2025-09-19T13:46:22.592458039Z --- Incoming Request ---
+2025-09-19T13:46:22.592485781Z [2025-09-19T13:46:22.592Z]
+2025-09-19T13:46:22.592491432Z Method: POST
+2025-09-19T13:46:22.592499452Z URL: /api/chat/start
+2025-09-19T13:46:22.592593959Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:22.59260777Z X-Forwarded-For: 222.107.30.13, 172.71.111.41, 10.210.228.71
+2025-09-19T13:46:22.592673945Z X-Forwarded-Proto: https
+2025-09-19T13:46:22.592682486Z ----------------------
+2025-09-19T13:46:27.467737664Z --- Incoming Request ---
+2025-09-19T13:46:27.467778127Z [2025-09-19T13:46:27.467Z]
+2025-09-19T13:46:27.467795698Z Method: GET
+2025-09-19T13:46:27.46781367Z URL: /api/users/[object%20Object]/comments
+2025-09-19T13:46:27.46782012Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:27.467825901Z X-Forwarded-For: 222.107.30.13, 172.68.164.89, 10.210.248.232
+2025-09-19T13:46:27.467836381Z X-Forwarded-Proto: https
+2025-09-19T13:46:27.467840052Z ----------------------
+2025-09-19T13:46:27.469341282Z GET /api/users/:userId/comments 오류: BSONError: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+2025-09-19T13:46:27.469356994Z     at new ObjectId (/app/node_modules/bson/lib/bson.cjs:2538:23)
+2025-09-19T13:46:27.469362634Z     at file:///app/routes/users.js:175:30
+2025-09-19T13:46:27.469368574Z     at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
+2025-09-19T13:46:27.469374405Z     at next (/app/node_modules/express/lib/router/route.js:149:13)
+2025-09-19T13:46:27.469379105Z     at Route.dispatch (/app/node_modules/express/lib/router/route.js:119:3)
+2025-09-19T13:46:27.469382785Z     at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
+2025-09-19T13:46:27.469386316Z     at /app/node_modules/express/lib/router/index.js:284:15
+2025-09-19T13:46:27.469389796Z     at param (/app/node_modules/express/lib/router/index.js:365:14)
+2025-09-19T13:46:27.469393446Z     at param (/app/node_modules/express/lib/router/index.js:376:14)
+2025-09-19T13:46:27.469396986Z     at Function.process_params (/app/node_modules/express/lib/router/index.js:421:3)
+2025-09-19T13:46:27.475707881Z --- Incoming Request ---
+2025-09-19T13:46:27.475719032Z [2025-09-19T13:46:27.475Z]
+2025-09-19T13:46:27.475734193Z Method: GET
+2025-09-19T13:46:27.475740974Z URL: /api/users/[object%20Object]/following
+2025-09-19T13:46:27.475774016Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:27.475786587Z X-Forwarded-For: 222.107.30.13, 172.71.111.41, 10.210.228.71
+2025-09-19T13:46:27.475791908Z X-Forwarded-Proto: https
+2025-09-19T13:46:27.475800538Z ----------------------
+2025-09-19T13:46:27.477498773Z GET /api/users/:userId/following 오류: CastError: Cast to ObjectId failed for value "[object Object]" (type string) at path "followerId" for model "Follow"
+2025-09-19T13:46:27.477507164Z     at SchemaObjectId.cast (/app/node_modules/mongoose/lib/schema/objectId.js:251:11)
+2025-09-19T13:46:27.477510274Z     at SchemaType.applySetters (/app/node_modules/mongoose/lib/schemaType.js:1258:12)
+2025-09-19T13:46:27.477513204Z     at SchemaType.castForQuery (/app/node_modules/mongoose/lib/schemaType.js:1682:17)
+2025-09-19T13:46:27.477516275Z     at cast (/app/node_modules/mongoose/lib/cast.js:390:32)
+2025-09-19T13:46:27.477519595Z     at Query.cast (/app/node_modules/mongoose/lib/query.js:5060:12)
+2025-09-19T13:46:27.477522565Z     at Query._castConditions (/app/node_modules/mongoose/lib/query.js:2374:10)
+2025-09-19T13:46:27.477549817Z     at model.Query._find (/app/node_modules/mongoose/lib/query.js:2401:8)
+2025-09-19T13:46:27.477555847Z     at model.Query.exec (/app/node_modules/mongoose/lib/query.js:4627:80)
+2025-09-19T13:46:27.477558818Z     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-09-19T13:46:27.477561308Z     at async file:///app/routes/users.js:214:27 {
+2025-09-19T13:46:27.477564148Z   stringValue: '"[object Object]"',
+2025-09-19T13:46:27.477567328Z   messageFormat: undefined,
+2025-09-19T13:46:27.477570248Z   kind: 'ObjectId',
+2025-09-19T13:46:27.477572949Z   value: '[object Object]',
+2025-09-19T13:46:27.477575439Z   path: 'followerId',
+2025-09-19T13:46:27.477578179Z   reason: BSONError: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+2025-09-19T13:46:27.477581249Z       at new ObjectId (/app/node_modules/bson/lib/bson.cjs:2538:23)
+2025-09-19T13:46:27.47758422Z       at castObjectId (/app/node_modules/mongoose/lib/cast/objectid.js:25:12)
+2025-09-19T13:46:27.47758736Z       at SchemaObjectId.cast (/app/node_modules/mongoose/lib/schema/objectId.js:249:12)
+2025-09-19T13:46:27.47758947Z       at SchemaType.applySetters (/app/node_modules/mongoose/lib/schemaType.js:1258:12)
+2025-09-19T13:46:27.47759119Z       at SchemaType.castForQuery (/app/node_modules/mongoose/lib/schemaType.js:1682:17)
+2025-09-19T13:46:27.47759291Z       at cast (/app/node_modules/mongoose/lib/cast.js:390:32)
+2025-09-19T13:46:27.47759463Z       at Query.cast (/app/node_modules/mongoose/lib/query.js:5060:12)
+2025-09-19T13:46:27.47759663Z       at Query._castConditions (/app/node_modules/mongoose/lib/query.js:2374:10)
+2025-09-19T13:46:27.477598331Z       at model.Query._find (/app/node_modules/mongoose/lib/query.js:2401:8)
+2025-09-19T13:46:27.477600011Z       at model.Query.exec (/app/node_modules/mongoose/lib/query.js:4627:80),
+2025-09-19T13:46:27.477601731Z   valueType: 'string'
+2025-09-19T13:46:27.477603771Z }
+2025-09-19T13:46:27.478094037Z --- Incoming Request ---
+2025-09-19T13:46:27.478104558Z [2025-09-19T13:46:27.478Z]
+2025-09-19T13:46:27.478110248Z Method: GET
+2025-09-19T13:46:27.478115089Z URL: /api/users/[object%20Object]/followers
+2025-09-19T13:46:27.478158682Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:27.478163432Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.248.232
+2025-09-19T13:46:27.478167043Z X-Forwarded-Proto: https
+2025-09-19T13:46:27.478170333Z ----------------------
+2025-09-19T13:46:27.478759176Z GET /api/users/:userId/followers 오류: CastError: Cast to ObjectId failed for value "[object Object]" (type string) at path "followingId" for model "Follow"
+2025-09-19T13:46:27.478768257Z     at SchemaObjectId.cast (/app/node_modules/mongoose/lib/schema/objectId.js:251:11)
+2025-09-19T13:46:27.478771857Z     at SchemaType.applySetters (/app/node_modules/mongoose/lib/schemaType.js:1258:12)
+2025-09-19T13:46:27.478775388Z     at SchemaType.castForQuery (/app/node_modules/mongoose/lib/schemaType.js:1682:17)
+2025-09-19T13:46:27.478779438Z     at cast (/app/node_modules/mongoose/lib/cast.js:390:32)
+2025-09-19T13:46:27.478783388Z     at Query.cast (/app/node_modules/mongoose/lib/query.js:5060:12)
+2025-09-19T13:46:27.478787088Z     at Query._castConditions (/app/node_modules/mongoose/lib/query.js:2374:10)
+2025-09-19T13:46:27.478789409Z     at model.Query._find (/app/node_modules/mongoose/lib/query.js:2401:8)
+2025-09-19T13:46:27.478791469Z     at model.Query.exec (/app/node_modules/mongoose/lib/query.js:4627:80)
+2025-09-19T13:46:27.478793839Z     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-09-19T13:46:27.47880317Z     at async file:///app/routes/users.js:202:27 {
+2025-09-19T13:46:27.47880546Z   stringValue: '"[object Object]"',
+2025-09-19T13:46:27.47880818Z   messageFormat: undefined,
+2025-09-19T13:46:27.47881061Z   kind: 'ObjectId',
+2025-09-19T13:46:27.47881273Z   value: '[object Object]',
+2025-09-19T13:46:27.4788148Z   path: 'followingId',
+2025-09-19T13:46:27.478817231Z   reason: BSONError: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+2025-09-19T13:46:27.478819421Z       at new ObjectId (/app/node_modules/bson/lib/bson.cjs:2538:23)
+2025-09-19T13:46:27.478821481Z       at castObjectId (/app/node_modules/mongoose/lib/cast/objectid.js:25:12)
+2025-09-19T13:46:27.478823611Z       at SchemaObjectId.cast (/app/node_modules/mongoose/lib/schema/objectId.js:249:12)
+2025-09-19T13:46:27.478825711Z       at SchemaType.applySetters (/app/node_modules/mongoose/lib/schemaType.js:1258:12)
+2025-09-19T13:46:27.478828291Z       at SchemaType.castForQuery (/app/node_modules/mongoose/lib/schemaType.js:1682:17)
+2025-09-19T13:46:27.478831881Z       at cast (/app/node_modules/mongoose/lib/cast.js:390:32)
+2025-09-19T13:46:27.478835702Z       at Query.cast (/app/node_modules/mongoose/lib/query.js:5060:12)
+2025-09-19T13:46:27.478839262Z       at Query._castConditions (/app/node_modules/mongoose/lib/query.js:2374:10)
+2025-09-19T13:46:27.478843242Z       at model.Query._find (/app/node_modules/mongoose/lib/query.js:2401:8)
+2025-09-19T13:46:27.478846423Z       at model.Query.exec (/app/node_modules/mongoose/lib/query.js:4627:80),
+2025-09-19T13:46:27.478849663Z   valueType: 'string'
+2025-09-19T13:46:27.478853363Z }
+2025-09-19T13:46:27.483811848Z --- Incoming Request ---
+2025-09-19T13:46:27.483820979Z [2025-09-19T13:46:27.483Z]
+2025-09-19T13:46:27.483845941Z Method: GET
+2025-09-19T13:46:27.483871073Z URL: /api/users/[object%20Object]/follow-status
+2025-09-19T13:46:27.483876673Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:27.483883924Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.107.190
+2025-09-19T13:46:27.483886934Z X-Forwarded-Proto: https
+2025-09-19T13:46:27.483898915Z ----------------------
+2025-09-19T13:46:27.485858969Z --- Incoming Request ---
+2025-09-19T13:46:27.486057874Z [2025-09-19T13:46:27.485Z]
+2025-09-19T13:46:27.486063945Z Method: GET
+2025-09-19T13:46:27.486067335Z URL: /api/users/[object%20Object]/posts
+2025-09-19T13:46:27.486070875Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:27.486074145Z X-Forwarded-For: 222.107.30.13, 172.68.164.157, 10.210.228.71
+2025-09-19T13:46:27.486077335Z X-Forwarded-Proto: https
+2025-09-19T13:46:27.486080406Z ----------------------
+2025-09-19T13:46:27.486868294Z GET /api/users/:userId/posts 오류: CastError: Cast to ObjectId failed for value "[object Object]" (type string) at path "userId" for model "Post"
+2025-09-19T13:46:27.486878754Z     at SchemaObjectId.cast (/app/node_modules/mongoose/lib/schema/objectId.js:251:11)
+2025-09-19T13:46:27.486882005Z     at SchemaType.applySetters (/app/node_modules/mongoose/lib/schemaType.js:1258:12)
+2025-09-19T13:46:27.486884745Z     at SchemaType.castForQuery (/app/node_modules/mongoose/lib/schemaType.js:1682:17)
+2025-09-19T13:46:27.486887685Z     at cast (/app/node_modules/mongoose/lib/cast.js:390:32)
+2025-09-19T13:46:27.486890645Z     at Query.cast (/app/node_modules/mongoose/lib/query.js:5060:12)
+2025-09-19T13:46:27.486893186Z     at Query._castConditions (/app/node_modules/mongoose/lib/query.js:2374:10)
+2025-09-19T13:46:27.486895816Z     at model.Query._find (/app/node_modules/mongoose/lib/query.js:2401:8)
+2025-09-19T13:46:27.486898366Z     at model.Query.exec (/app/node_modules/mongoose/lib/query.js:4627:80)
+2025-09-19T13:46:27.486910217Z     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-09-19T13:46:27.486913497Z     at async file:///app/routes/users.js:163:23 {
+2025-09-19T13:46:27.486916487Z   stringValue: '"[object Object]"',
+2025-09-19T13:46:27.486919808Z   messageFormat: undefined,
+2025-09-19T13:46:27.486922378Z   kind: 'ObjectId',
+2025-09-19T13:46:27.486924698Z   value: '[object Object]',
+2025-09-19T13:46:27.486927148Z   path: 'userId',
+2025-09-19T13:46:27.486929718Z   reason: BSONError: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+2025-09-19T13:46:27.486932378Z       at new ObjectId (/app/node_modules/bson/lib/bson.cjs:2538:23)
+2025-09-19T13:46:27.486934909Z       at castObjectId (/app/node_modules/mongoose/lib/cast/objectid.js:25:12)
+2025-09-19T13:46:27.486937409Z       at SchemaObjectId.cast (/app/node_modules/mongoose/lib/schema/objectId.js:249:12)
+2025-09-19T13:46:27.486939959Z       at SchemaType.applySetters (/app/node_modules/mongoose/lib/schemaType.js:1258:12)
+2025-09-19T13:46:27.486942629Z       at SchemaType.castForQuery (/app/node_modules/mongoose/lib/schemaType.js:1682:17)
+2025-09-19T13:46:27.486945259Z       at cast (/app/node_modules/mongoose/lib/cast.js:390:32)
+2025-09-19T13:46:27.48694773Z       at Query.cast (/app/node_modules/mongoose/lib/query.js:5060:12)
+2025-09-19T13:46:27.48695021Z       at Query._castConditions (/app/node_modules/mongoose/lib/query.js:2374:10)
+2025-09-19T13:46:27.48695288Z       at model.Query._find (/app/node_modules/mongoose/lib/query.js:2401:8)
+2025-09-19T13:46:27.48695561Z       at model.Query.exec (/app/node_modules/mongoose/lib/query.js:4627:80),
+2025-09-19T13:46:27.48695826Z   valueType: 'string'
+2025-09-19T13:46:27.48696094Z }
+2025-09-19T13:46:27.499146578Z --- Incoming Request ---
+2025-09-19T13:46:27.499157089Z [2025-09-19T13:46:27.499Z]
+2025-09-19T13:46:27.49917424Z Method: GET
+2025-09-19T13:46:27.499180941Z URL: /api/users/[object%20Object]
+2025-09-19T13:46:27.499194962Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:27.499201633Z X-Forwarded-For: 222.107.30.13, 172.70.92.189, 10.210.228.71
+2025-09-19T13:46:27.499239985Z X-Forwarded-Proto: https
+2025-09-19T13:46:27.499244146Z ----------------------
+2025-09-19T13:46:27.499475083Z GET /api/users/:userId 오류: BSONError: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+2025-09-19T13:46:27.499479923Z     at new ObjectId (/app/node_modules/bson/lib/bson.cjs:2538:23)
+2025-09-19T13:46:27.499485763Z     at file:///app/routes/users.js:133:30
+2025-09-19T13:46:27.499488704Z     at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
+2025-09-19T13:46:27.499491624Z     at next (/app/node_modules/express/lib/router/route.js:149:13)
+2025-09-19T13:46:27.499494684Z     at Route.dispatch (/app/node_modules/express/lib/router/route.js:119:3)
+2025-09-19T13:46:27.499497354Z     at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
+2025-09-19T13:46:27.499500404Z     at /app/node_modules/express/lib/router/index.js:284:15
+2025-09-19T13:46:27.499502865Z     at param (/app/node_modules/express/lib/router/index.js:365:14)
+2025-09-19T13:46:27.499505305Z     at param (/app/node_modules/express/lib/router/index.js:376:14)
+2025-09-19T13:46:27.499507815Z     at Function.process_params (/app/node_modules/express/lib/router/index.js:421:3)
+2025-09-19T13:46:27.569577668Z GET /api/users/:userId/follow-status 오류: CastError: Cast to ObjectId failed for value "[object Object]" (type string) at path "followingId" for model "Follow"
+2025-09-19T13:46:27.569596229Z     at SchemaObjectId.cast (/app/node_modules/mongoose/lib/schema/objectId.js:251:11)
+2025-09-19T13:46:27.569617611Z     at SchemaType.applySetters (/app/node_modules/mongoose/lib/schemaType.js:1258:12)
+2025-09-19T13:46:27.569620861Z     at SchemaType.castForQuery (/app/node_modules/mongoose/lib/schemaType.js:1682:17)
+2025-09-19T13:46:27.569623622Z     at cast (/app/node_modules/mongoose/lib/cast.js:390:32)
+2025-09-19T13:46:27.569626382Z     at Query.cast (/app/node_modules/mongoose/lib/query.js:5060:12)
+2025-09-19T13:46:27.569628532Z     at Query._castConditions (/app/node_modules/mongoose/lib/query.js:2374:10)
+2025-09-19T13:46:27.569630682Z     at model.Query._findOne (/app/node_modules/mongoose/lib/query.js:2697:8)
+2025-09-19T13:46:27.569632792Z     at model.Query.exec (/app/node_modules/mongoose/lib/query.js:4627:80)
+2025-09-19T13:46:27.569635182Z     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-09-19T13:46:27.569637323Z     at async file:///app/routes/users.js:230:24 {
+2025-09-19T13:46:27.569639933Z   stringValue: '"[object Object]"',
+2025-09-19T13:46:27.569642423Z   messageFormat: undefined,
+2025-09-19T13:46:27.569645263Z   kind: 'ObjectId',
+2025-09-19T13:46:27.569647323Z   value: '[object Object]',
+2025-09-19T13:46:27.569649393Z   path: 'followingId',
+2025-09-19T13:46:27.569651493Z   reason: BSONError: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+2025-09-19T13:46:27.569653594Z       at new ObjectId (/app/node_modules/bson/lib/bson.cjs:2538:23)
+2025-09-19T13:46:27.569655654Z       at castObjectId (/app/node_modules/mongoose/lib/cast/objectid.js:25:12)
+2025-09-19T13:46:27.569657754Z       at SchemaObjectId.cast (/app/node_modules/mongoose/lib/schema/objectId.js:249:12)
+2025-09-19T13:46:27.569659774Z       at SchemaType.applySetters (/app/node_modules/mongoose/lib/schemaType.js:1258:12)
+2025-09-19T13:46:27.569661824Z       at SchemaType.castForQuery (/app/node_modules/mongoose/lib/schemaType.js:1682:17)
+2025-09-19T13:46:27.569663934Z       at cast (/app/node_modules/mongoose/lib/cast.js:390:32)
+2025-09-19T13:46:27.569666085Z       at Query.cast (/app/node_modules/mongoose/lib/query.js:5060:12)
+2025-09-19T13:46:27.569668185Z       at Query._castConditions (/app/node_modules/mongoose/lib/query.js:2374:10)
+2025-09-19T13:46:27.569672185Z       at model.Query._findOne (/app/node_modules/mongoose/lib/query.js:2697:8)
+2025-09-19T13:46:27.569674555Z       at model.Query.exec (/app/node_modules/mongoose/lib/query.js:4627:80),
+2025-09-19T13:46:27.569676715Z   valueType: 'string'
+2025-09-19T13:46:27.569678835Z }
+2025-09-19T13:46:27.605515846Z --- Incoming Request ---
+2025-09-19T13:46:27.60557503Z [2025-09-19T13:46:27.605Z]
+2025-09-19T13:46:27.605582091Z Method: GET
+2025-09-19T13:46:27.605656536Z URL: /api/posts
+2025-09-19T13:46:27.605663887Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:27.605672398Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.248.232
+2025-09-19T13:46:27.605675938Z X-Forwarded-Proto: https
+2025-09-19T13:46:27.605678518Z ----------------------
+2025-09-19T13:46:30.449815692Z --- Incoming Request ---
+2025-09-19T13:46:30.449865426Z [2025-09-19T13:46:30.449Z]
+2025-09-19T13:46:30.449882937Z Method: GET
+2025-09-19T13:46:30.44991919Z URL: /api/users/68b2cb81b822d720d0c44599
+2025-09-19T13:46:30.449927711Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:30.449932611Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.248.232
+2025-09-19T13:46:30.45005881Z X-Forwarded-Proto: https
+2025-09-19T13:46:30.450065711Z ----------------------
+2025-09-19T13:46:30.455960425Z --- Incoming Request ---
+2025-09-19T13:46:30.455973226Z [2025-09-19T13:46:30.455Z]
+2025-09-19T13:46:30.455990047Z Method: GET
+2025-09-19T13:46:30.455993658Z URL: /api/users/68b2cb81b822d720d0c44599/followers
+2025-09-19T13:46:30.455996848Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:30.455999538Z X-Forwarded-For: 222.107.30.13, 172.68.164.19, 10.210.248.232
+2025-09-19T13:46:30.456002608Z X-Forwarded-Proto: https
+2025-09-19T13:46:30.456005148Z ----------------------
+2025-09-19T13:46:30.4674332Z --- Incoming Request ---
+2025-09-19T13:46:30.467450572Z [2025-09-19T13:46:30.467Z]
+2025-09-19T13:46:30.467456212Z Method: GET
+2025-09-19T13:46:30.467496875Z URL: /api/users/68b2cb81b822d720d0c44599/comments
+2025-09-19T13:46:30.467501886Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:30.46756904Z X-Forwarded-For: 222.107.30.13, 172.70.93.3, 10.210.107.190
+2025-09-19T13:46:30.467576721Z X-Forwarded-Proto: https
+2025-09-19T13:46:30.467578621Z ----------------------
+2025-09-19T13:46:30.470988912Z --- Incoming Request ---
+2025-09-19T13:46:30.471012324Z [2025-09-19T13:46:30.470Z]
+2025-09-19T13:46:30.471021215Z Method: GET
+2025-09-19T13:46:30.471078889Z URL: /api/users/68b2cb81b822d720d0c44599/posts
+2025-09-19T13:46:30.471083049Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:30.4710903Z X-Forwarded-For: 222.107.30.13, 172.70.93.54, 10.210.107.190
+2025-09-19T13:46:30.47109392Z X-Forwarded-Proto: https
+2025-09-19T13:46:30.471111392Z ----------------------
+2025-09-19T13:46:30.48194894Z --- Incoming Request ---
+2025-09-19T13:46:30.481980602Z [2025-09-19T13:46:30.481Z]
+2025-09-19T13:46:30.481984413Z Method: GET
+2025-09-19T13:46:30.48221496Z URL: /api/users/68b2cb81b822d720d0c44599/following
+2025-09-19T13:46:30.48222175Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:30.48222495Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.107.190
+2025-09-19T13:46:30.482227751Z X-Forwarded-Proto: https
+2025-09-19T13:46:30.482230381Z ----------------------
+2025-09-19T13:46:31.878830726Z --- Incoming Request ---
+2025-09-19T13:46:31.878858078Z [2025-09-19T13:46:31.878Z]
+2025-09-19T13:46:31.878863849Z Method: GET
+2025-09-19T13:46:31.87888352Z URL: /api/market?search=&category=%EC%A0%84%EC%B2%B4
+2025-09-19T13:46:31.878891251Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:31.878895401Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.248.232
+2025-09-19T13:46:31.878903452Z X-Forwarded-Proto: https
+2025-09-19T13:46:31.878907492Z ----------------------
+2025-09-19T13:46:32.659269941Z --- Incoming Request ---
+2025-09-19T13:46:32.659302034Z [2025-09-19T13:46:32.659Z]
+2025-09-19T13:46:32.659328656Z Method: GET
+2025-09-19T13:46:32.659334036Z URL: /api/market/68cd5e9b9bce136bec368b2d
+2025-09-19T13:46:32.659397531Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:32.659403821Z X-Forwarded-For: 222.107.30.13, 172.68.164.89, 10.210.248.232
+2025-09-19T13:46:32.659413932Z X-Forwarded-Proto: https
+2025-09-19T13:46:32.659418562Z ----------------------
+2025-09-19T13:46:33.478150929Z --- Incoming Request ---
+2025-09-19T13:46:33.478183341Z [2025-09-19T13:46:33.478Z]
+2025-09-19T13:46:33.478189432Z Method: GET
+2025-09-19T13:46:33.478194652Z URL: /api/users/[object%20Object]
+2025-09-19T13:46:33.478202643Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:33.478207963Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.248.232
+2025-09-19T13:46:33.478212603Z X-Forwarded-Proto: https
+2025-09-19T13:46:33.478784746Z ----------------------
+2025-09-19T13:46:33.478787016Z GET /api/users/:userId 오류: BSONError: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+2025-09-19T13:46:33.478823278Z     at new ObjectId (/app/node_modules/bson/lib/bson.cjs:2538:23)
+2025-09-19T13:46:33.478827469Z     at file:///app/routes/users.js:133:30
+2025-09-19T13:46:33.478831599Z     at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
+2025-09-19T13:46:33.478833449Z     at next (/app/node_modules/express/lib/router/route.js:149:13)
+2025-09-19T13:46:33.478835169Z     at Route.dispatch (/app/node_modules/express/lib/router/route.js:119:3)
+2025-09-19T13:46:33.478836849Z     at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
+2025-09-19T13:46:33.478839059Z     at /app/node_modules/express/lib/router/index.js:284:15
+2025-09-19T13:46:33.47884077Z     at param (/app/node_modules/express/lib/router/index.js:365:14)
+2025-09-19T13:46:33.47884251Z     at param (/app/node_modules/express/lib/router/index.js:376:14)
+2025-09-19T13:46:33.47884418Z     at Function.process_params (/app/node_modules/express/lib/router/index.js:421:3)
+2025-09-19T13:46:33.493984726Z --- Incoming Request ---
+2025-09-19T13:46:33.493998596Z [2025-09-19T13:46:33.493Z]
+2025-09-19T13:46:33.494001657Z Method: GET
+2025-09-19T13:46:33.494004607Z URL: /api/users/[object%20Object]/follow-status
+2025-09-19T13:46:33.494096374Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:33.494100604Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.107.190
+2025-09-19T13:46:33.494102734Z X-Forwarded-Proto: https
+2025-09-19T13:46:33.494104834Z ----------------------
+2025-09-19T13:46:33.500063293Z --- Incoming Request ---
+2025-09-19T13:46:33.500074364Z [2025-09-19T13:46:33.500Z]
+2025-09-19T13:46:33.500081615Z Method: GET
+2025-09-19T13:46:33.500084545Z URL: /api/users/[object%20Object]/comments
+2025-09-19T13:46:33.500089185Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:33.5001488Z X-Forwarded-For: 222.107.30.13, 172.70.92.189, 10.210.228.71
+2025-09-19T13:46:33.50015244Z X-Forwarded-Proto: https
+2025-09-19T13:46:33.50015482Z ----------------------
+2025-09-19T13:46:33.500393308Z GET /api/users/:userId/comments 오류: BSONError: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+2025-09-19T13:46:33.500401368Z     at new ObjectId (/app/node_modules/bson/lib/bson.cjs:2538:23)
+2025-09-19T13:46:33.500404519Z     at file:///app/routes/users.js:175:30
+2025-09-19T13:46:33.500408059Z     at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
+2025-09-19T13:46:33.500410669Z     at next (/app/node_modules/express/lib/router/route.js:149:13)
+2025-09-19T13:46:33.500412569Z     at Route.dispatch (/app/node_modules/express/lib/router/route.js:119:3)
+2025-09-19T13:46:33.500414339Z     at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
+2025-09-19T13:46:33.5004168Z     at /app/node_modules/express/lib/router/index.js:284:15
+2025-09-19T13:46:33.50041858Z     at param (/app/node_modules/express/lib/router/index.js:365:14)
+2025-09-19T13:46:33.50042028Z     at param (/app/node_modules/express/lib/router/index.js:376:14)
+2025-09-19T13:46:33.50042207Z     at Function.process_params (/app/node_modules/express/lib/router/index.js:421:3)
+2025-09-19T13:46:33.501207498Z --- Incoming Request ---
+2025-09-19T13:46:33.501342918Z [2025-09-19T13:46:33.501Z]
+2025-09-19T13:46:33.501349588Z Method: GET
+2025-09-19T13:46:33.501352898Z URL: /api/users/[object%20Object]/following
+2025-09-19T13:46:33.501356049Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:33.501359529Z X-Forwarded-For: 222.107.30.13, 172.70.93.3, 10.210.107.190
+2025-09-19T13:46:33.50136737Z X-Forwarded-Proto: https
+2025-09-19T13:46:33.50138092Z ----------------------
+2025-09-19T13:46:33.50219275Z GET /api/users/:userId/following 오류: CastError: Cast to ObjectId failed for value "[object Object]" (type string) at path "followerId" for model "Follow"
+2025-09-19T13:46:33.502203051Z     at SchemaObjectId.cast (/app/node_modules/mongoose/lib/schema/objectId.js:251:11)
+2025-09-19T13:46:33.502205601Z     at SchemaType.applySetters (/app/node_modules/mongoose/lib/schemaType.js:1258:12)
+2025-09-19T13:46:33.502208272Z     at SchemaType.castForQuery (/app/node_modules/mongoose/lib/schemaType.js:1682:17)
+2025-09-19T13:46:33.502210892Z     at cast (/app/node_modules/mongoose/lib/cast.js:390:32)
+2025-09-19T13:46:33.502213482Z     at Query.cast (/app/node_modules/mongoose/lib/query.js:5060:12)
+2025-09-19T13:46:33.502215612Z     at Query._castConditions (/app/node_modules/mongoose/lib/query.js:2374:10)
+2025-09-19T13:46:33.502217732Z     at model.Query._find (/app/node_modules/mongoose/lib/query.js:2401:8)
+2025-09-19T13:46:33.502219832Z     at model.Query.exec (/app/node_modules/mongoose/lib/query.js:4627:80)
+2025-09-19T13:46:33.502221993Z     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-09-19T13:46:33.502224193Z     at async file:///app/routes/users.js:214:27 {
+2025-09-19T13:46:33.502226793Z   stringValue: '"[object Object]"',
+2025-09-19T13:46:33.502229333Z   messageFormat: undefined,
+2025-09-19T13:46:33.502232053Z   kind: 'ObjectId',
+2025-09-19T13:46:33.502234193Z   value: '[object Object]',
+2025-09-19T13:46:33.502236203Z   path: 'followerId',
+2025-09-19T13:46:33.502238434Z   reason: BSONError: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+2025-09-19T13:46:33.502240494Z       at new ObjectId (/app/node_modules/bson/lib/bson.cjs:2538:23)
+2025-09-19T13:46:33.502242634Z       at castObjectId (/app/node_modules/mongoose/lib/cast/objectid.js:25:12)
+2025-09-19T13:46:33.502244774Z       at SchemaObjectId.cast (/app/node_modules/mongoose/lib/schema/objectId.js:249:12)
+2025-09-19T13:46:33.502247004Z       at SchemaType.applySetters (/app/node_modules/mongoose/lib/schemaType.js:1258:12)
+2025-09-19T13:46:33.502249555Z       at SchemaType.castForQuery (/app/node_modules/mongoose/lib/schemaType.js:1682:17)
+2025-09-19T13:46:33.502252385Z       at cast (/app/node_modules/mongoose/lib/cast.js:390:32)
+2025-09-19T13:46:33.502255185Z       at Query.cast (/app/node_modules/mongoose/lib/query.js:5060:12)
+2025-09-19T13:46:33.502258005Z       at Query._castConditions (/app/node_modules/mongoose/lib/query.js:2374:10)
+2025-09-19T13:46:33.502261145Z       at model.Query._find (/app/node_modules/mongoose/lib/query.js:2401:8)
+2025-09-19T13:46:33.502263936Z       at model.Query.exec (/app/node_modules/mongoose/lib/query.js:4627:80),
+2025-09-19T13:46:33.502266586Z   valueType: 'string'
+2025-09-19T13:46:33.502269276Z }
+2025-09-19T13:46:33.50530592Z --- Incoming Request ---
+2025-09-19T13:46:33.505318521Z [2025-09-19T13:46:33.505Z]
+2025-09-19T13:46:33.505328001Z Method: GET
+2025-09-19T13:46:33.505392796Z URL: /api/users/[object%20Object]/followers
+2025-09-19T13:46:33.505397306Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:33.505399767Z X-Forwarded-For: 222.107.30.13, 172.71.111.42, 10.210.248.232
+2025-09-19T13:46:33.505401997Z X-Forwarded-Proto: https
+2025-09-19T13:46:33.505404187Z ----------------------
+2025-09-19T13:46:33.50613111Z GET /api/users/:userId/followers 오류: CastError: Cast to ObjectId failed for value "[object Object]" (type string) at path "followingId" for model "Follow"
+2025-09-19T13:46:33.506140821Z     at SchemaObjectId.cast (/app/node_modules/mongoose/lib/schema/objectId.js:251:11)
+2025-09-19T13:46:33.506143971Z     at SchemaType.applySetters (/app/node_modules/mongoose/lib/schemaType.js:1258:12)
+2025-09-19T13:46:33.506157272Z     at SchemaType.castForQuery (/app/node_modules/mongoose/lib/schemaType.js:1682:17)
+2025-09-19T13:46:33.506160903Z     at cast (/app/node_modules/mongoose/lib/cast.js:390:32)
+2025-09-19T13:46:33.506164273Z     at Query.cast (/app/node_modules/mongoose/lib/query.js:5060:12)
+2025-09-19T13:46:33.506167043Z     at Query._castConditions (/app/node_modules/mongoose/lib/query.js:2374:10)
+2025-09-19T13:46:33.506169513Z     at model.Query._find (/app/node_modules/mongoose/lib/query.js:2401:8)
+2025-09-19T13:46:33.506172153Z     at model.Query.exec (/app/node_modules/mongoose/lib/query.js:4627:80)
+2025-09-19T13:46:33.506174804Z     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-09-19T13:46:33.506177354Z     at async file:///app/routes/users.js:202:27 {
+2025-09-19T13:46:33.506180654Z   stringValue: '"[object Object]"',
+2025-09-19T13:46:33.506184185Z   messageFormat: undefined,
+2025-09-19T13:46:33.506187285Z   kind: 'ObjectId',
+2025-09-19T13:46:33.506189915Z   value: '[object Object]',
+2025-09-19T13:46:33.506192425Z   path: 'followingId',
+2025-09-19T13:46:33.506198415Z   reason: BSONError: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+2025-09-19T13:46:33.506201106Z       at new ObjectId (/app/node_modules/bson/lib/bson.cjs:2538:23)
+2025-09-19T13:46:33.506203586Z       at castObjectId (/app/node_modules/mongoose/lib/cast/objectid.js:25:12)
+2025-09-19T13:46:33.506206376Z       at SchemaObjectId.cast (/app/node_modules/mongoose/lib/schema/objectId.js:249:12)
+2025-09-19T13:46:33.506208866Z       at SchemaType.applySetters (/app/node_modules/mongoose/lib/schemaType.js:1258:12)
+2025-09-19T13:46:33.506211216Z       at SchemaType.castForQuery (/app/node_modules/mongoose/lib/schemaType.js:1682:17)
+2025-09-19T13:46:33.506213837Z       at cast (/app/node_modules/mongoose/lib/cast.js:390:32)
+2025-09-19T13:46:33.506216527Z       at Query.cast (/app/node_modules/mongoose/lib/query.js:5060:12)
+2025-09-19T13:46:33.506219127Z       at Query._castConditions (/app/node_modules/mongoose/lib/query.js:2374:10)
+2025-09-19T13:46:33.506221727Z       at model.Query._find (/app/node_modules/mongoose/lib/query.js:2401:8)
+2025-09-19T13:46:33.506224447Z       at model.Query.exec (/app/node_modules/mongoose/lib/query.js:4627:80),
+2025-09-19T13:46:33.506227037Z   valueType: 'string'
+2025-09-19T13:46:33.506230078Z }
+2025-09-19T13:46:33.553994007Z --- Incoming Request ---
+2025-09-19T13:46:33.554013979Z [2025-09-19T13:46:33.553Z]
+2025-09-19T13:46:33.554024519Z Method: GET
+2025-09-19T13:46:33.55403096Z URL: /api/users/[object%20Object]/posts
+2025-09-19T13:46:33.55403402Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:33.55403786Z X-Forwarded-For: 222.107.30.13, 172.68.164.20, 10.210.228.71
+2025-09-19T13:46:33.554056682Z X-Forwarded-Proto: https
+2025-09-19T13:46:33.554064802Z ----------------------
+2025-09-19T13:46:33.554888203Z GET /api/users/:userId/posts 오류: CastError: Cast to ObjectId failed for value "[object Object]" (type string) at path "userId" for model "Post"
+2025-09-19T13:46:33.554909084Z     at SchemaObjectId.cast (/app/node_modules/mongoose/lib/schema/objectId.js:251:11)
+2025-09-19T13:46:33.554911775Z     at SchemaType.applySetters (/app/node_modules/mongoose/lib/schemaType.js:1258:12)
+2025-09-19T13:46:33.554916735Z     at SchemaType.castForQuery (/app/node_modules/mongoose/lib/schemaType.js:1682:17)
+2025-09-19T13:46:33.554919525Z     at cast (/app/node_modules/mongoose/lib/cast.js:390:32)
+2025-09-19T13:46:33.554922205Z     at Query.cast (/app/node_modules/mongoose/lib/query.js:5060:12)
+2025-09-19T13:46:33.554934837Z     at Query._castConditions (/app/node_modules/mongoose/lib/query.js:2374:10)
+2025-09-19T13:46:33.554939587Z     at model.Query._find (/app/node_modules/mongoose/lib/query.js:2401:8)
+2025-09-19T13:46:33.554941897Z     at model.Query.exec (/app/node_modules/mongoose/lib/query.js:4627:80)
+2025-09-19T13:46:33.554944007Z     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-09-19T13:46:33.554946027Z     at async file:///app/routes/users.js:163:23 {
+2025-09-19T13:46:33.554948747Z   stringValue: '"[object Object]"',
+2025-09-19T13:46:33.554951348Z   messageFormat: undefined,
+2025-09-19T13:46:33.554954258Z   kind: 'ObjectId',
+2025-09-19T13:46:33.554956458Z   value: '[object Object]',
+2025-09-19T13:46:33.554958678Z   path: 'userId',
+2025-09-19T13:46:33.554960758Z   reason: BSONError: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+2025-09-19T13:46:33.554962859Z       at new ObjectId (/app/node_modules/bson/lib/bson.cjs:2538:23)
+2025-09-19T13:46:33.554964899Z       at castObjectId (/app/node_modules/mongoose/lib/cast/objectid.js:25:12)
+2025-09-19T13:46:33.554966969Z       at SchemaObjectId.cast (/app/node_modules/mongoose/lib/schema/objectId.js:249:12)
+2025-09-19T13:46:33.554969239Z       at SchemaType.applySetters (/app/node_modules/mongoose/lib/schemaType.js:1258:12)
+2025-09-19T13:46:33.554971489Z       at SchemaType.castForQuery (/app/node_modules/mongoose/lib/schemaType.js:1682:17)
+2025-09-19T13:46:33.554973579Z       at cast (/app/node_modules/mongoose/lib/cast.js:390:32)
+2025-09-19T13:46:33.5549757Z       at Query.cast (/app/node_modules/mongoose/lib/query.js:5060:12)
+2025-09-19T13:46:33.55497773Z       at Query._castConditions (/app/node_modules/mongoose/lib/query.js:2374:10)
+2025-09-19T13:46:33.55498005Z       at model.Query._find (/app/node_modules/mongoose/lib/query.js:2401:8)
+2025-09-19T13:46:33.55498206Z       at model.Query.exec (/app/node_modules/mongoose/lib/query.js:4627:80),
+2025-09-19T13:46:33.5549841Z   valueType: 'string'
+2025-09-19T13:46:33.55498623Z }
+2025-09-19T13:46:33.581560198Z GET /api/users/:userId/follow-status 오류: CastError: Cast to ObjectId failed for value "[object Object]" (type string) at path "followingId" for model "Follow"
+2025-09-19T13:46:33.58157834Z     at SchemaObjectId.cast (/app/node_modules/mongoose/lib/schema/objectId.js:251:11)
+2025-09-19T13:46:33.58158157Z     at SchemaType.applySetters (/app/node_modules/mongoose/lib/schemaType.js:1258:12)
+2025-09-19T13:46:33.58158413Z     at SchemaType.castForQuery (/app/node_modules/mongoose/lib/schemaType.js:1682:17)
+2025-09-19T13:46:33.58158765Z     at cast (/app/node_modules/mongoose/lib/cast.js:390:32)
+2025-09-19T13:46:33.581590731Z     at Query.cast (/app/node_modules/mongoose/lib/query.js:5060:12)
+2025-09-19T13:46:33.581593381Z     at Query._castConditions (/app/node_modules/mongoose/lib/query.js:2374:10)
+2025-09-19T13:46:33.581596251Z     at model.Query._findOne (/app/node_modules/mongoose/lib/query.js:2697:8)
+2025-09-19T13:46:33.581598961Z     at model.Query.exec (/app/node_modules/mongoose/lib/query.js:4627:80)
+2025-09-19T13:46:33.581601441Z     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-09-19T13:46:33.581604122Z     at async file:///app/routes/users.js:230:24 {
+2025-09-19T13:46:33.581607022Z   stringValue: '"[object Object]"',
+2025-09-19T13:46:33.581609822Z   messageFormat: undefined,
+2025-09-19T13:46:33.581612952Z   kind: 'ObjectId',
+2025-09-19T13:46:33.581615443Z   value: '[object Object]',
+2025-09-19T13:46:33.581618003Z   path: 'followingId',
+2025-09-19T13:46:33.581621053Z   reason: BSONError: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+2025-09-19T13:46:33.581648555Z       at new ObjectId (/app/node_modules/bson/lib/bson.cjs:2538:23)
+2025-09-19T13:46:33.581651725Z       at castObjectId (/app/node_modules/mongoose/lib/cast/objectid.js:25:12)
+2025-09-19T13:46:33.581654525Z       at SchemaObjectId.cast (/app/node_modules/mongoose/lib/schema/objectId.js:249:12)
+2025-09-19T13:46:33.581657306Z       at SchemaType.applySetters (/app/node_modules/mongoose/lib/schemaType.js:1258:12)
+2025-09-19T13:46:33.581660046Z       at SchemaType.castForQuery (/app/node_modules/mongoose/lib/schemaType.js:1682:17)
+2025-09-19T13:46:33.581662956Z       at cast (/app/node_modules/mongoose/lib/cast.js:390:32)
+2025-09-19T13:46:33.581665736Z       at Query.cast (/app/node_modules/mongoose/lib/query.js:5060:12)
+2025-09-19T13:46:33.581668406Z       at Query._castConditions (/app/node_modules/mongoose/lib/query.js:2374:10)
+2025-09-19T13:46:33.581671156Z       at model.Query._findOne (/app/node_modules/mongoose/lib/query.js:2697:8)
+2025-09-19T13:46:33.581673827Z       at model.Query.exec (/app/node_modules/mongoose/lib/query.js:4627:80),
+2025-09-19T13:46:33.581676317Z   valueType: 'string'
+2025-09-19T13:46:33.581678787Z }
+2025-09-19T13:46:33.634152774Z --- Incoming Request ---
+2025-09-19T13:46:33.63424488Z [2025-09-19T13:46:33.634Z]
+2025-09-19T13:46:33.634251591Z Method: GET
+2025-09-19T13:46:33.634254191Z URL: /api/posts
+2025-09-19T13:46:33.634261482Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:46:33.634348938Z X-Forwarded-For: 222.107.30.13, 172.70.93.3, 10.210.107.190
+2025-09-19T13:46:33.634403642Z X-Forwarded-Proto: https
+2025-09-19T13:46:33.634411693Z ----------------------
+2025-09-19T13:47:00.060978367Z --- Incoming Request ---
+2025-09-19T13:47:00.061000119Z [2025-09-19T13:47:00.060Z]
+2025-09-19T13:47:00.061128038Z Method: GET
+2025-09-19T13:47:00.061155401Z URL: /api/market?search=&category=%EC%A0%84%EC%B2%B4
+2025-09-19T13:47:00.061161761Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:47:00.061166721Z X-Forwarded-For: 222.107.30.13, 172.71.111.41, 10.210.228.71
+2025-09-19T13:47:00.061170962Z X-Forwarded-Proto: https
+2025-09-19T13:47:00.061175302Z ----------------------
+2025-09-19T13:47:01.025131119Z --- Incoming Request ---
+2025-09-19T13:47:01.025154491Z [2025-09-19T13:47:01.025Z]
+2025-09-19T13:47:01.025178332Z Method: GET
+2025-09-19T13:47:01.025189693Z URL: /api/market/68cd5e9b9bce136bec368b2d
+2025-09-19T13:47:01.025197654Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:47:01.025206135Z X-Forwarded-For: 222.107.30.13, 172.68.164.75, 10.210.228.71
+2025-09-19T13:47:01.025211245Z X-Forwarded-Proto: https
+2025-09-19T13:47:01.025219926Z ----------------------
+2025-09-19T13:47:04.345697308Z --- Incoming Request ---
+2025-09-19T13:47:04.3457245Z [2025-09-19T13:47:04.345Z]
+2025-09-19T13:47:04.34572975Z Method: GET
+2025-09-19T13:47:04.345811666Z URL: /api/market?search=&category=%EC%A0%84%EC%B2%B4
+2025-09-19T13:47:04.345823217Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:47:04.345886882Z X-Forwarded-For: 222.107.30.13, 172.68.164.75, 10.210.228.71
+2025-09-19T13:47:04.345893763Z X-Forwarded-Proto: https
+2025-09-19T13:47:04.345898303Z ----------------------
+2025-09-19T13:47:44.113331324Z --- Incoming Request ---
+2025-09-19T13:47:44.113362197Z [2025-09-19T13:47:44.113Z]
+2025-09-19T13:47:44.113368377Z Method: POST
+2025-09-19T13:47:44.113373498Z URL: /api/auth/request-code
+2025-09-19T13:47:44.113394709Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:47:44.11339992Z X-Forwarded-For: 222.107.30.13, 172.68.164.143, 10.210.228.71
+2025-09-19T13:47:44.11340298Z X-Forwarded-Proto: https
+2025-09-19T13:47:44.113421511Z ----------------------
+2025-09-19T13:47:50.716218652Z --- Incoming Request ---
+2025-09-19T13:47:50.716258235Z [2025-09-19T13:47:50.716Z]
+2025-09-19T13:47:50.716313219Z Method: POST
+2025-09-19T13:47:50.71631923Z URL: /api/auth/request-code
+2025-09-19T13:47:50.71632375Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:47:50.716332321Z X-Forwarded-For: 222.107.30.13, 172.71.111.87, 10.210.107.190
+2025-09-19T13:47:50.716336981Z X-Forwarded-Proto: https
+2025-09-19T13:47:50.716340671Z ----------------------
+2025-09-19T13:48:00.254048223Z ==> Detected service running on port 10000
+2025-09-19T13:48:00.658138928Z ==> Docs on specifying a port: https://render.com/docs/web-services#port-binding
+2025-09-19T13:48:01.133765414Z --- Incoming Request ---
+2025-09-19T13:48:01.133793786Z [2025-09-19T13:48:01.133Z]
+2025-09-19T13:48:01.133810307Z Method: POST
+2025-09-19T13:48:01.133815688Z URL: /api/auth/request-code
+2025-09-19T13:48:01.133828779Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:48:01.133838019Z X-Forwarded-For: 222.107.30.13, 172.71.111.87, 10.210.107.190
+2025-09-19T13:48:01.133877872Z X-Forwarded-Proto: https
+2025-09-19T13:48:01.133882853Z ----------------------
+2025-09-19T13:48:45.253119665Z --- Incoming Request ---
+2025-09-19T13:48:45.253149267Z [2025-09-19T13:48:45.253Z]
+2025-09-19T13:48:45.253160477Z Method: POST
+2025-09-19T13:48:45.25319626Z URL: /api/auth/request-code
+2025-09-19T13:48:45.253206811Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:48:45.253211771Z X-Forwarded-For: 222.107.30.13, 172.71.111.88, 10.210.248.232
+2025-09-19T13:48:45.253218842Z X-Forwarded-Proto: https
+2025-09-19T13:48:45.253285307Z ----------------------
+2025-09-19T13:49:04.011236676Z --- Incoming Request ---
+2025-09-19T13:49:04.011268149Z [2025-09-19T13:49:04.011Z]
+2025-09-19T13:49:04.011293931Z Method: POST
+2025-09-19T13:49:04.011299561Z URL: /api/auth/request-code
+2025-09-19T13:49:04.011308282Z Host Header: seoro-town-backend.onrender.com
+2025-09-19T13:49:04.011313412Z X-Forwarded-For: 222.107.30.13, 172.71.111.87, 10.210.107.190
+2025-09-19T13:49:04.011328733Z X-Forwarded-Proto: https
+2025-09-19T13:49:04.011333663Z ----------------------
+2025-09-19T13:50:01.918697821Z Error sending verification code email: Error: Connection timeout
+2025-09-19T13:50:01.919410224Z     at SMTPConnection._formatError (/app/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)
+2025-09-19T13:50:01.919419634Z     at SMTPConnection._onError (/app/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+2025-09-19T13:50:01.919425295Z     at Timeout.<anonymous> (/app/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+2025-09-19T13:50:01.919430215Z     at listOnTimeout (node:internal/timers:581:17)
+2025-09-19T13:50:01.919434945Z     at process.processTimers (node:internal/timers:519:7) {
+2025-09-19T13:50:01.919439626Z   code: 'ETIMEDOUT',
+2025-09-19T13:50:01.919444016Z   command: 'CONN'
+2025-09-19T13:50:01.919448696Z }
+2025-09-19T13:50:01.919467518Z Error: 인증 코드 이메일 발송에 실패했습니다.
+2025-09-19T13:50:01.919473898Z     at sendVerificationCodeEmail (file:///app/routes/auth.js:41:15)
+2025-09-19T13:50:01.919478489Z     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-09-19T13:50:01.919483819Z     at async file:///app/routes/auth.js:68:9
+2025-09-19T13:50:45.898487938Z Error sending verification code email: Error: Connection timeout
+2025-09-19T13:50:45.89851215Z     at SMTPConnection._formatError (/app/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)
+2025-09-19T13:50:45.89851957Z     at SMTPConnection._onError (/app/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+2025-09-19T13:50:45.898543192Z     at Timeout.<anonymous> (/app/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+2025-09-19T13:50:45.898564423Z     at listOnTimeout (node:internal/timers:581:17)
+2025-09-19T13:50:45.898567503Z     at process.processTimers (node:internal/timers:519:7) {
+2025-09-19T13:50:45.898572074Z   code: 'ETIMEDOUT',
+2025-09-19T13:50:45.898576174Z   command: 'CONN'
+2025-09-19T13:50:45.898579524Z }
+2025-09-19T13:50:45.898604646Z Error: 인증 코드 이메일 발송에 실패했습니다.
+2025-09-19T13:50:45.898612477Z     at sendVerificationCodeEmail (file:///app/routes/auth.js:41:15)
+2025-09-19T13:50:45.898615677Z     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-09-19T13:50:45.898619297Z     at async file:///app/routes/auth.js:68:9

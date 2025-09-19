@@ -1,25 +1,23 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import nodemailer from 'nodemailer';
+import sgMail from '@sendgrid/mail';
 import User from '../models/User.js';
 import Verification from '../models/Verification.js';
 
 const router = express.Router();
 
-// --- Helper function to send 6-digit verification code --- //
-async function sendVerificationCodeEmail(email, code) {
-    const transporter = nodemailer.createTransport({
-        service: process.env.EMAIL_SERVICE || 'gmail',
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
-        },
-    });
+// Set SendGrid API Key
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-    const mailOptions = {
-        from: `"Seoro-town" <${process.env.EMAIL_USER}>`,
+// --- Helper function to send 6-digit verification code via SendGrid --- //
+async function sendVerificationCodeEmail(email, code) {
+    const msg = {
         to: email,
+        from: {
+            name: 'Seoro-town',
+            email: process.env.SENDGRID_VERIFIED_SENDER, // Important: Must be a verified sender in SendGrid
+        },
         subject: '[Seoro-town] 회원가입 인증 코드 안내',
         html: `
             <div style="font-family: Arial, sans-serif; text-align: center; padding: 20px;">
@@ -34,10 +32,13 @@ async function sendVerificationCodeEmail(email, code) {
     };
 
     try {
-        await transporter.sendMail(mailOptions);
-        console.log(`Verification code email sent to ${email}`);
+        await sgMail.send(msg);
+        console.log(`Verification code email sent to ${email} via SendGrid`);
     } catch (error) {
-        console.error('Error sending verification code email:', error);
+        console.error('Error sending verification code email with SendGrid:', error);
+        if (error.response) {
+            console.error(error.response.body);
+        }
         throw new Error('인증 코드 이메일 발송에 실패했습니다.');
     }
 }
@@ -58,7 +59,6 @@ router.post('/request-code', async (req, res) => {
         const code = Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit code
         const hashedCode = await bcrypt.hash(code, 10);
 
-        // Upsert to handle resend requests gracefully
         await Verification.findOneAndUpdate(
             { email },
             { code: hashedCode },
@@ -93,10 +93,8 @@ router.post('/verify-code', async (req, res) => {
             return res.status(400).json({ success: false, message: '인증 코드가 올바르지 않습니다.' });
         }
 
-        // Issue a short-lived token to proceed to the final registration step
         const registrationToken = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '10m' });
 
-        // Clean up the verification document
         await Verification.deleteOne({ email });
 
         res.status(200).json({ success: true, message: '이메일 인증이 완료되었습니다.', registrationToken });
@@ -125,7 +123,6 @@ router.post('/signup', async (req, res) => {
 
         const { email } = decoded;
 
-        // Double-check user existence right before creation
         const existingUser = await User.findOne({ $or: [{ email }, { username }] });
         if (existingUser) {
             const message = existingUser.email === email ? '이미 사용 중인 이메일입니다.' : '이미 사용 중인 사용자 이름입니다.';
@@ -138,7 +135,7 @@ router.post('/signup', async (req, res) => {
             email,
             password: hashedPassword,
             username,
-            isEmailVerified: true // Verified from the start
+            isEmailVerified: true
         });
         await newUser.save();
 
@@ -151,7 +148,7 @@ router.post('/signup', async (req, res) => {
 });
 
 
-// --- Login Route (largely unchanged) --- //
+// --- Login Route --- //
 router.post('/login', async (req, res) => {
     try {
         const { identifier, password } = req.body;
@@ -160,7 +157,6 @@ router.post('/login', async (req, res) => {
         const user = await User.findOne({ $or: [{ email: identifier }, { username: identifier }] });
         if (!user) return res.status(401).json({ success: false, message: '아이디 또는 비밀번호가 올바르지 않습니다.' });
 
-        // This check is kept as a safeguard, though new users will always be verified.
         if (!user.isEmailVerified) {
             return res.status(401).json({ 
                 success: false, 
