@@ -71,11 +71,21 @@ router.post('/', authenticateToken, upload.single('image'), async (req, res) => 
 router.get('/:productId', async (req, res) => {
     try {
         const { productId } = req.params;
-        const product = await Product.findById(productId);
+        // .populate()를 사용해 'authorId'로 참조된 User 모델에서 사용자 정보를 가져옵니다.
+        const product = await Product.findById(productId).populate('authorId');
+        
         if (!product) {
             return res.status(404).json({ success: false, message: '상품을 찾을 수 없습니다.' });
         }
-        res.json({ success: true, product });
+
+        // 프론트엔드에서 필요한 authorName과 authorProfileImage를 포함한 응답 객체를 생성합니다.
+        const productResponse = {
+            ...product.toObject(),
+            authorName: product.authorId.username,
+            authorProfileImage: product.authorId.profileImage
+        };
+
+        res.json({ success: true, product: productResponse });
     } catch (error) {
         console.error('특정 상품 조회 오류:', error);
         res.status(500).json({ success: false, message: '서버 오류' });
