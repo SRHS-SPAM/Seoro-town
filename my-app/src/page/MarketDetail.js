@@ -20,6 +20,12 @@ function MarketDetail() {
     const [error, setError] = useState(null);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
+    // --- DEBUGGING LOGS ---
+    console.log("Checking author match:");
+    console.log("Product Author ID:", product?.authorId, "Type:", typeof product?.authorId);
+    console.log("Current User ID:", user?._id, "Type:", typeof user?._id);
+    // --- END DEBUGGING ---
+
     const isMyProduct = product && user && product.authorId === user._id;
 
     const fetchProduct = async () => {
