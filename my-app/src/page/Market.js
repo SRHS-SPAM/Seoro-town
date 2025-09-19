@@ -7,6 +7,7 @@ import { AuthContext } from '../context/AuthContext';
 
 import MarketWriteModal from './MarketWriteModal';
 import { Search } from 'lucide-react';
+import getImageUrl from '../utils/imageUrl';
 
 const ProductItem = ({ product, user, token, onDelete }) => {
     const navigate = useNavigate();
@@ -48,7 +49,7 @@ const ProductItem = ({ product, user, token, onDelete }) => {
             onClick={handleClick}
         >
             <div className="ProductImageContainer">
-                <img src={product.imageUrl ? `${process.env.REACT_APP_API_URL}${product.imageUrl}` : '/placeholder.png'} alt={product.title} />
+                <img src={getImageUrl(product.imageUrl)} alt={product.title} />
             </div>
             <div className="ProductInfo">
                 <h4 className="ProductTitle">{product.title}</h4>

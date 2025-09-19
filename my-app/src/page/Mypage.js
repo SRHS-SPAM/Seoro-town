@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { User, Users, FileText, MessageCircle, Settings, ArrowLeft, UserPlus, UserMinus, Heart, Camera } from 'lucide-react';
+import getImageUrl from '../utils/imageUrl';
 
 import './Mypage.css';
 
@@ -12,7 +13,7 @@ const ProfileSection = ({ user, stats, isMyProfile, isFollowing, onFollowToggle,
         <div className="ProfileHeader">
             <div className={`ProfileAvatar ${isMyProfile ? 'editable' : ''}`} onClick={onAvatarClick}>
                 {user?.profileImage ? (
-                    <img src={`${process.env.REACT_APP_API_URL}${user.profileImage}`} alt={user.username} />
+                    <img src={getImageUrl(user.profileImage)} alt={user.username} />
                 ) : (
                     <User size={64} />
                 )}
@@ -102,7 +103,7 @@ const UserItem = ({ user, onClick }) => (
     <div className="UserItem" onClick={() => onClick(user.id)}>
         <div className="UserAvatar">
             {user.profileImage ? (
-                <img src={`${process.env.REACT_APP_API_URL}${user.profileImage}`} alt={user.username} />
+                <img src={getImageUrl(user.profileImage)} alt={user.username} />
             ) : (
                 <User size={32} />
             )}

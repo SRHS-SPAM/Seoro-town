@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import getImageUrl from '../utils/imageUrl';
 
 import './ChatListPage.css';
 import { MessageSquare, User } from 'lucide-react';
@@ -96,7 +97,7 @@ function ChatListPage() {
                             <div key={room.id} className="ChatRoomItem" onClick={() => navigate(`/chat/${room.id}`)}>
                                 <div className="OpponentAvatar">
                                     {opponent?.profileImage ? (
-                                        <img src={`${process.env.REACT_APP_API_URL}${opponent.profileImage}`} alt={opponent.username} />
+                                        <img src={getImageUrl(opponent.profileImage)} alt={opponent.username} />
                                     ) : <User size={32} />}
                                 </div>
                                 <div className="ChatRoomInfo">

@@ -3,6 +3,7 @@ import { useContext, useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, MessageCircle, Share2, Trash2, User } from 'lucide-react'; 
 import { AuthContext } from '../context/AuthContext';
+import getImageUrl from '../utils/imageUrl';
 
 
 function Boardinfo() {
@@ -167,7 +168,7 @@ function Boardinfo() {
                             <div className="AuthorInfo" onClick={() => goToUserProfile(post.userId?.id)} style={{cursor: 'pointer'}}>
                                 <div className="AuthorAvatar">
                                     {post.userId?.profileImage ? (
-                                        <img src={`${process.env.REACT_APP_API_URL}${post.userId.profileImage}`} alt={post.userId.username} />
+                                        <img src={getImageUrl(post.userId.profileImage)} alt={post.userId.username} />
                                     ) : (
                                         <User size={24} />
                                     )}
@@ -202,7 +203,7 @@ function Boardinfo() {
                             <div className="CommentWriteBox">
                                 <div className="CommentAuthorAvatar">
                                     {user?.profileImage ? (
-                                        <img src={`${process.env.REACT_APP_API_URL}${user.profileImage}`} alt={user.username} />
+                                        <img src={getImageUrl(user.profileImage)} alt={user.username} />
                                     ) : (
                                         <User size={24} />
                                     )}
@@ -223,7 +224,7 @@ function Boardinfo() {
                                 <div className="CommentHeader" onClick={() => goToUserProfile(comment.authorId)} style={{cursor: 'pointer'}}>
                                     <div className="CommentAuthorAvatar">
                                         {comment.authorProfileImage ? (
-                                            <img src={`${process.env.REACT_APP_API_URL}${comment.authorProfileImage}`} alt={comment.authorName} />
+                                            <img src={getImageUrl(comment.authorProfileImage)} alt={comment.authorName} />
                                         ) : (
                                             <User size={24} />
                                         )}
