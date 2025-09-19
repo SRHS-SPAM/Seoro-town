@@ -1,24 +1,12 @@
 // backend/routes/market.js (Fixed)
 
 import express from 'express';
-import multer from 'multer';
-import path from 'path'; 
 import fs from 'fs/promises';
 import User from '../models/User.js';         
 import Product from '../models/Product.js';   
 
 import { authenticateToken, isAdmin } from '../middleware/auth.js';
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
-});
-
-const upload = multer({ storage: storage });
+import { upload } from '../utils/upload.js';
 
 const router = express.Router();
 
@@ -54,7 +42,7 @@ router.get('/', async (req, res) => {
 router.post('/', authenticateToken, upload.single('image'), async (req, res) => {
     try {
         const { category, title, price, content } = req.body;
-        const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+        const imageUrl = req.file ? req.file.path : null;
         
         if (!title || !price || !content || !category) {
             return res.status(400).json({ success: false, message: '모든 필수 필드를 입력해주세요.' });
@@ -139,7 +127,7 @@ router.put('/:productId', authenticateToken, upload.single('image'), async (req,
         product.content = content ? content.trim() : product.content;
 
         if (req.file) {
-            product.imageUrl = `/uploads/${req.file.filename}`;
+            product.imageUrl = req.file.path;
         }
 
         await product.save();

@@ -1,18 +1,21 @@
 // backend/utils/upload.js
 
 import multer from 'multer';
-import path from 'path';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import cloudinary from '../config/cloudinary.js'; // 방금 만든 Cloudinary 설정 가져오기
 
-// 파일 저장 위치와 파일명 설정
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // 파일이 저장될 폴더
-    },
-    filename: (req, file, cb) => {
-        // 파일명 중복을 피하기 위해 현재 시간과 원본 파일명을 조합
+// Cloudinary 저장소 설정
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'seorotown', // Cloudinary에 저장될 폴더 이름
+    format: async (req, file) => 'png', // 파일 포맷 (예: png, jpg)
+    public_id: (req, file) => {
+        // 파일명 중복을 피하기 위해 현재 시간과 랜덤 숫자를 조합
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
-    }
+        return 'image-' + uniqueSuffix;
+    },
+  },
 });
 
 // 파일 필터 설정 (이미지 파일만 허용)

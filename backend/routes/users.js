@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 import express from 'express';
-import path from 'path';
-import fs from 'fs/promises';
 import User from '../models/User.js';
 import Post from '../models/Post.js';
 import Follow from '../models/Follow.js';
@@ -11,10 +9,6 @@ import ChatMessage from '../models/ChatMessage.js';
 import { authenticateToken, isAdmin } from '../middleware/auth.js';
 import { upload } from '../utils/upload.js';
 
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const router = express.Router();
 
 // 프로필 이미지 업로드
@@ -24,7 +18,7 @@ router.post('/me/profile-image', authenticateToken, upload.single('profileImage'
         if (!user) {
             return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
         }
-        user.profileImage = `/uploads/${req.file.filename}`;
+        user.profileImage = req.file.path;
         await user.save();
         res.json({ success: true, message: '프로필 사진이 성공적으로 업데이트되었습니다.', profileImage: user.profileImage });
     } catch (error) {
@@ -44,7 +38,7 @@ router.patch('/:userId/profile-image', authenticateToken, isAdmin, upload.single
         if (!req.file) {
             return res.status(400).json({ success: false, message: '이미지 파일이 필요합니다.' });
         }
-        userToUpdate.profileImage = `/uploads/${req.file.filename}`;
+        userToUpdate.profileImage = req.file.path;
         await userToUpdate.save();
         res.json({ success: true, message: '사용자 프로필 사진이 성공적으로 업데이트되었습니다.', profileImage: userToUpdate.profileImage });
     } catch (error) {
