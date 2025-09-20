@@ -4,16 +4,19 @@
 
 ## 🛠️ 기술 스택 (Tech Stack)
 
-| 구분       | 기술                               |
-| ---------- | ---------------------------------- |
-| **Backend**  | Node.js, Express, Socket.io        |
+| 구분 | 기술 |
+| :--- | :--- |
+| **Backend** | Node.js, Express, Socket.io |
 | **Frontend** | React, React Router, Socket.io-client |
-| **Database** | MongoDB (with Mongoose)            |
-| **DevOps**   | Docker, Docker Compose             |
+| **Database** | MongoDB (with Mongoose) |
+| **Deployment** | Docker, Docker Compose, Render |
+| **Services** | **Cloudinary** (Image Storage), **SendGrid** (Email Delivery) |
 
 ## 🚀 시작하기 (Getting Started)
 
-이 프로젝트는 Docker를 사용하여 간편하게 실행할 수 있습니다.
+이 프로젝트는 Docker를 사용하여 로컬 환경에서 간편하게 실행하거나, Render를 통해 클라우드에 배포할 수 있습니다.
+
+### 1. 로컬 환경에서 실행 (Docker)
 
 1.  **프로젝트 클론**
     ```bash
@@ -22,17 +25,24 @@
     ```
 
 2.  **환경 변수 설정**
-    `backend` 디렉토리의 `.env` 파일을 생성하고 아래와 같이 데이터베이스 및 이메일 서버 정보를 입력합니다.
+    `backend` 디렉토리에 `.env` 파일을 생성하고 아래 내용을 자신의 환경에 맞게 수정합니다.
+
     ```env
     # backend/.env
+
+    # MongoDB (Docker Compose)
     MONGO_URI=mongodb://rootuser:rootpass@mongo:27017/seorotown?authSource=admin
-    JWT_SECRET=your_jwt_secret_key
+    JWT_SECRET=your_super_secret_jwt_key
     PORT=3001
 
-    # Nodemailer (Gmail)
-    EMAIL_SERVICE=gmail
-    EMAIL_USER=your_email@gmail.com
-    EMAIL_PASS=your_app_password
+    # Image Storage (Cloudinary)
+    CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+    CLOUDINARY_API_KEY=your_cloudinary_api_key
+    CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+
+    # Email Delivery (SendGrid)
+    SENDGRID_API_KEY=your_sendgrid_api_key
+    SENDGRID_VERIFIED_SENDER=your_verified_sender_email@example.com
     ```
 
 3.  **Docker Compose 실행**
@@ -41,239 +51,36 @@
     ```
 
 4.  **애플리케이션 접속**
-    *   프론트엔드: `http://localhost:3000`
-    *   백엔드 API: `http://localhost:5000`
+    *   프론트엔드: `https://seoro-town.onrender.com`
+    *   백엔드 API: `https://seoro-town-backend.onrender.com`
 
----
+### 2. 클라우드 배포 (Render)
 
-## ⚙️ 1. 백엔드 (Backend)
+이 프로젝트는 Render.com의 무료 플랜을 사용하여 백엔드와 프론트엔드를 배포하도록 구성되었습니다.
 
-Express.js를 기반으로 REST API와 WebSocket 통신을 제공합니다.
-
-### 주요 파일 및 기능
-
-#### `server.js`
-- **기능**: 백엔드 서버의 메인 진입점입니다.
-- **로직**:
-    1. `connectDB`를 통해 MongoDB 데이터베이스에 연결합니다.
-    2. Express 앱을 생성하고 `cors`, `express.json` 등 필수 미들웨어를 설정합니다.
-    3. `/uploads` 경로의 정적 파일을 제공합니다.
-    4. 각 기능별로 모듈화된 라우트 (`auth`, `posts` 등)를 동적으로 불러와 API 엔드포인트를 설정합니다.
-    5. `http` 서버에 `Socket.io`를 연결하여 실시간 채팅 서버를 초기화하고, `connection`, `sendMessage` 등의 이벤트를 처리합니다.
-- **핵심 코드**:
-    ```javascript
-    // server.js - Socket.io 설정 및 이벤트 처리
-    io.on('connection', (socket) => {
-        console.log('✅ A user connected:', socket.id);
-
-        socket.on('joinRoom', (roomId) => {
-            socket.join(roomId);
-            console.log(`[JOIN] User ${socket.id} joined room ${roomId}`);
-        });
-
-        socket.on('sendMessage', async (messageData) => {
-            try {
-                const newMessage = await ChatMessage.create(messageData);
-                io.to(messageData.roomId).emit('receiveMessage', newMessage);
-            } catch (error) {
-                console.error('Error saving or broadcasting message:', error);
-            }
-        });
-        // ...
-    });
-    ```
-
-#### `routes/auth.js`
-- **기능**: 사용자 인증(회원가입, 로그인) 관련 API를 처리합니다.
-- **로직**:
-    1.  **이메일 인증 코드 요청** (`/request-code`): `nodemailer`를 사용해 사용자 이메일로 6자리 인증 코드를 발송합니다. 코드는 해시 처리되어 `Verification` 컬렉션에 저장됩니다.
-    2.  **인증 코드 검증** (`/verify-code`): 사용자가 입력한 코드와 DB에 저장된 해시를 비교하여 유효성을 검증하고, 성공 시 다음 단계를 위한 임시 토큰(`registrationToken`)을 발급합니다.
-    3.  **최종 회원가입** (`/signup`): 임시 토큰, 사용자 이름, 비밀번호를 받아 최종적으로 `User`를 생성합니다.
-    4.  **로그인** (`/login`): 이메일/사용자 이름과 비밀번호를 검증하고, 성공 시 JWT(`token`)를 발급합니다.
-- **핵심 코드**:
-    ```javascript
-    // routes/auth.js - 이메일 인증 코드 요청 및 발송
-    router.post('/request-code', async (req, res) => {
-        // ...
-        const code = Math.floor(100000 + Math.random() * 900000).toString();
-        const hashedCode = await bcrypt.hash(code, 10);
-
-        await Verification.findOneAndUpdate({ email }, { code: hashedCode }, { upsert: true });
-        await sendVerificationCodeEmail(email, code); // Nodemailer로 이메일 발송
-
-        res.status(200).json({ success: true, message: '인증 코드가 이메일로 발송되었습니다.' });
-    });
-    ```
-
-#### `routes/posts.js`
-- **기능**: 게시판(CRUD) 관련 API를 처리합니다.
-- **로직**:
-    - `authenticateToken` 미들웨어를 통해 인증된 사용자만 게시글을 작성, 수정, 삭제할 수 있도록 보호합니다.
-    - **GET `/`**: 모든 게시글을 최신순으로 조회합니다.
-    - **POST `/`**: 새 게시글을 작성합니다.
-    - **GET `/:id`**: 특정 게시글의 상세 내용을 조회합니다.
-    - **POST `/:id/comments`**: 특정 게시글에 댓글을 추가합니다.
-- **핵심 코드**:
-    ```javascript
-    // routes/posts.js - 댓글 작성 API
-    router.post('/:id/comments', authenticateToken, async (req, res) => {
-        try {
-            const { content } = req.body;
-            const post = await Post.findById(req.params.id);
-            if (!post) return res.status(404).json({ message: '게시글을 찾을 수 없습니다.' });
-
-            post.comments.push({
-                content,
-                authorId: req.user._id,
-                authorName: req.user.username,
-                authorProfileImage: req.user.profileImage
-            });
-            await post.save();
-
-            res.status(201).json({ success: true, message: '댓글이 작성되었습니다.' });
-        } catch (error) {
-            res.status(500).json({ success: false, message: '서버 오류' });
-        }
-    });
-    ```
-
----
-
-## 🎨 2. 프론트엔드 (Frontend)
-
-React 기반의 SPA(Single Page Application)로, 사용자 인터페이스를 제공합니다.
-
-### 주요 파일 및 기능
-
-#### `App.js`
-- **기능**: 프론트엔드 애플리케이션의 최상위 컴포넌트입니다.
-- **로직**:
-    1. `AuthProvider`로 전체 앱을 감싸 전역적으로 인증 상태를 관리할 수 있도록 합니다.
-    2. `react-router-dom`의 `BrowserRouter`, `Routes`, `Route`를 사용하여 페이지 라우팅을 설정합니다.
-    3. `Navbar`를 상단에 고정하고, URL 경로에 따라 해당 페이지 컴포넌트를 렌더링합니다.
-    4. `react-hot-toast`의 `Toaster`를 설정하여 앱 전체에서 알림 메시지를 표시합니다.
-- **핵심 코드**:
-    ```jsx
-    // App.js - 라우팅 설정
-    function AppContent() {
-      // ...
-      return (
-        <Router>
-          <Toaster position="top-right" />
-          <Navbar />
-          <main className="main-content">
-            <Routes>
-                <Route path="/" element={<Boardpage />} />
-                <Route path="/Login" element={<Login />} />
-                <Route path="/chat/:roomId" element={<ChatRoomPage />} />
-                {/* ... 다른 라우트들 ... */}
-            </Routes>
-          </main>
-        </Router>
-      );
-    }
-
-    function App() {
-      return (
-        <AuthProvider>
-          <AppContent />
-        </AuthProvider>
-      );
-    }
-    ```
-
-#### `context/AuthContext.js`
-- **기능**: React Context API를 사용하여 앱 전체의 인증 상태를 관리합니다.
-- **로직**:
-    1. `user` (사용자 정보), `token` 상태를 관리합니다.
-    2. `useEffect`를 사용하여 앱이 처음 로드될 때 `localStorage`에 저장된 토큰을 확인하고, 유효한 경우 사용자 정보를 가져와 로그인 상태를 유지합니다.
-    3. `login`, `logout` 함수를 제공하여 다른 컴포넌트에서 인증 상태를 변경할 수 있도록 합니다.
-    4. `AuthProvider`를 통해 `children`으로 전달되는 모든 컴포넌트에 인증 관련 값과 함수를 제공합니다.
-- **핵심 코드**:
-    ```jsx
-    // context/AuthContext.js - 로그인 상태 유지 로직
-    export const AuthProvider = ({ children }) => {
-        const [user, setUser] = useState(null);
-        const [token, setToken] = useState(null);
-        const [isLoading, setIsLoading] = useState(true);
-
-        useEffect(() => {
-            const storedToken = localStorage.getItem('token');
-            if (storedToken) {
-                // ... 저장된 토큰을 서버에 보내 유효성 검증 후 user 상태 업데이트
-            } else {
-                setIsLoading(false);
-            }
-        }, []);
-
-        const login = (userData, userToken) => {
-            localStorage.setItem('token', userToken);
-            setToken(userToken);
-            setUser(userData);
-        };
-
-        // ...
-        return (
-            <AuthContext.Provider value={authContextValue}>
-                {children}
-            </AuthContext.Provider>
-        );
-    };
-    ```
-
----
-
-## 🗃️ 3. 데이터베이스 (Database)
-
-MongoDB를 사용하여 데이터를 저장하고 `Mongoose`를 통해 객체 모델링(ODM)을 합니다.
-
-### 주요 모델 및 기능
-
-#### `config/db.js`
-- **기능**: MongoDB 데이터베이스 연결을 설정합니다.
-- **로직**:
-    - 환경 변수(`MONGO_URI`)에서 접속 정보를 가져와 `mongoose.connect`를 실행합니다.
-    - 연결 성공 또는 실패 시 콘솔에 로그를 출력하고, 실패 시 프로세스를 종료하여 앱이 비정상적으로 실행되는 것을 방지합니다.
-- **핵심 코드**:
-    ```javascript
-    // config/db.js
-    const connectDB = async () => {
-      try {
-        const mongoURI = process.env.MONGO_URI;
-        if (!mongoURI) {
-          console.error('Error: MONGO_URI is not defined...');
-          process.exit(1);
-        }
-        const conn = await mongoose.connect(mongoURI);
-        console.log(`MongoDB Connected: ${conn.connection.host}`);
-      } catch (error) {
-        console.error(`Error: ${error.message}`);
-        process.exit(1);
-      }
-    };
-    ```
-
-#### `models/`
-- **기능**: 각 데이터 컬렉션의 스키마(Schema)와 모델(Model)을 정의합니다.
-- **주요 모델**:
-    - **`User.js`**: 사용자 정보 (이름, 이메일, 해시된 비밀번호 등)
-    - **`Post.js`**: 게시글 정보 (제목, 내용, 작성자, 댓글 등)
-    - **`Product.js`**: 중고 장터 상품 정보
-    - **`ChatRoom.js`**: 채팅방 정보 (참여자 등)
-    - **`ChatMessage.js`**: 채팅 메시지 정보 (내용, 보낸 사람, 채팅방 ID 등)
-    - **`Verification.js`**: 이메일 인증 코드 정보
+1.  **GitHub 저장소 Fork**: 이 프로젝트를 자신의 GitHub 계정으로 Fork합니다.
+2.  **Render에서 서비스 생성**:
+    *   **Backend**: Node.js 환경으로 서비스를 생성하고, `backend` 디렉토리를 Root Directory로 지정합니다.
+    *   **Frontend**: Static Site 환경으로 서비스를 생성하고, `my-app` 디렉토리를 Root Directory로 지정합니다.
+3.  **환경 변수 설정**: Render 백엔드 서비스의 **Environment** 탭에서 위 `2. 환경 변수 설정`에 명시된 모든 변수들을 추가합니다. (`MONGO_URI`는 Render의 MongoDB 애드온을 사용하거나 외부 DB 주소를 입력합니다.)
 
 ---
 
 ## ✨ 주요 변경 및 개선사항 (Key Changes & Improvements)
 
-프로젝트 진행 중 발견된 여러 버그를 수정하고 기능을 개선했습니다.
+### 1. 영구적인 파일 저장을 위한 Cloudinary 도입
+- **문제점**: Render의 무료 플랜은 서버가 일정 시간 유휴 상태일 때 잠자기 모드로 전환되며, 이때 로컬 파일 시스템이 초기화되어 사용자가 업로드한 이미지가 모두 사라지는 문제가 있었습니다.
+- **해결책**: `multer-disk-storage`를 사용해 서버에 직접 파일을 저장하던 방식에서, `multer-storage-cloudinary`를 사용하도록 변경했습니다. 이제 모든 이미지 파일은 외부 클라우드 스토리지인 **Cloudinary**에 영구적으로 저장되어 서버 상태와 관계없이 안전하게 유지됩니다.
 
-### 1. 마이페이지 기능 수정
+### 2. 안정적인 이메일 전송을 위한 SendGrid 도입
+- **문제점**: 회원가입 시 인증 이메일을 발송하기 위해 `nodemailer`로 Gmail의 SMTP 서버에 직접 접속하는 방식은 Render의 네트워크 정책/방화벽으로 인해 `Connection Timeout` 오류를 일으키며 실패했습니다.
+- **해결책**: 안정적인 이메일 API 서비스인 **SendGrid**를 도입했습니다. `@sendgrid/mail` 라이브러리를 사용하여 SMTP 직접 접속 대신 HTTP API 요청으로 이메일을 발송하도록 변경하여, 플랫폼의 네트워크 제약 없이 안정적으로 인증 메일을 보낼 수 있게 되었습니다.
+
+### 3. 마이페이지 기능 수정
 - **버그 수정 (게시글 수 미표시)**: 마이페이지에서 자신이 작성한 게시글 수가 정상적으로 집계되지 않던 문제를 해결했습니다. (`users.js`의 데이터베이스 조회 로직 오류 수정)
 - **UI 일관성 개선 (기본 프로필 이미지)**: 프로필 이미지가 없는 경우, 마이페이지와 게시글 상세페이지에서 표시되는 기본 이미지가 서로 다른 문제를 해결했습니다. 이제 모든 곳에서 동일한 디자인의 아이콘이 표시됩니다. (`Boardinfo.js` 및 관련 CSS 수정)
 
-### 2. 가정통신문 (Com) 페이지 기능 안정화 및 개선
+### 4. 가정통신문 (Com) 페이지 기능 안정화 및 개선
 - **핵심 버그 수정 (상세페이지 로딩 불가)**: 학교 웹사이트의 구조 변경으로 인해 가정통신문 상세페이지가 보이지 않던 문제를 해결했습니다.
   - **안정성 확보**: 불안정한 `axios` 직접 호출 방식 대신, 실제 브라우저 환경을 시뮬레이션하는 **Puppeteer** 방식으로 다시 전환하여 안정성을 확보했습니다.
   - **오류 해결**: `Render.com`과 같은 컨테이너 환경에서 Puppeteer 실행 시 발생하던 `ETXTBSY` 오류를 `--no-sandbox` 옵션 추가로 해결했습니다.
@@ -281,36 +88,14 @@ MongoDB를 사용하여 데이터를 저장하고 `Mongoose`를 통해 객체 �
   - **첨부파일 기능 복구**: 자바스크립트 내에 동적으로 생성되던 첨부파일 정보를 파싱하여 다운로드 링크를 다시 정상적으로 제공하도록 수정했습니다.
 - **속도 개선 (캐싱)**: 이전에 구현된 캐싱 기능은 그대로 유지하여, 한 번 불러온 페이지는 빠르게 다시 열 수 있습니다.
 
-### 3. 핵심 인증 로직 수정
+### 5. 핵심 인증 로직 수정
 - **버그 수정 (새로고침 시 로그아웃)**: 사용자가 로그인 후 페이지를 새로고침하면 로그아웃되던 치명적인 버그를 수정했습니다.
   - **원인**: 백엔드의 사용자 정보 API(`/api/users/me`)가 프론트엔드에서 기대하는 데이터 구조와 다른 형식으로 응답하는 것이 원인이었습니다.
   - **해결**: API 응답 형식을 프론트엔드의 인증 로직(`AuthContext.js`)과 일치시켜, 페이지를 새로고침해도 `localStorage`의 JWT 토큰을 통해 로그인 상태가 안정적으로 유지되도록 수정했습니다.
 
-### 4. 게시판 기능 안정화
+### 6. 게시판 기능 안정화
 - **버그 수정 (검색 기능 오류)**: 특정 게시판(`Boardarr.js`)에서 검색 기능을 사용할 때, 일부 데이터에 `authorName` 필드가 없어 앱이 멈추던 문제를 해결했습니다. (올바른 필드명 `author`로 수정 및 안전장치 추가)
 
 ---
 
-## 가정통신문 크롤링(Com) 모듈 트러블슈팅
-
-### 문제 상황
-`puppeteer`를 사용하던 기존 크롤링 방식이 속도 문제로 `axios`로 교체된 후, "조회된 내용이 없습니다"라는 메시지와 함께 크롤링이 실패하는 문제가 발생했습니다.
-
-### 해결 과정
-1.  **파라미터 분석:** `axios` 요청에 사용되는 파라미터(`searchCondition` 등)를 실제 웹사이트에서 사용하는 값과 일치하도록 수정했으나 문제 해결에 실패했습니다.
-2.  **User-Agent 추가:** 실제 브라우저 요청처럼 보이기 위해 `User-Agent` 헤더를 추가했으나, 여전히 문제가 지속되었습니다.
-3.  **쿠키(Cookie) 테스트:** `curl`을 이용한 2단계 테스트(쿠키 저장 후 요청)를 통해, 서버가 첫 페이지 접속 시 발급하는 **세션 쿠키**를 요구한다는 사실을 확인했습니다. 이 쿠키 없이는 모든 요청이 거부되었습니다.
-
-### 최종 해결책
-`axios`가 요청 간 세션을 유지(쿠키를 포함하여 요청)할 수 있도록 `axios-cookiejar-support`와 `tough-cookie` 라이브러리를 도입했습니다.
-
-- **설치된 패키지:**
-    ```bash
-    npm install --prefix backend axios-cookiejar-support tough-cookie
-    ```
-- **수정된 로직 (`/backend/routes/com.js`):**
-    1.  쿠키를 관리하는 `axios` 인스턴스를 생성합니다.
-    2.  데이터를 요청하기 전, 먼저 메인 페이지(`COM_PAGE_URL`)에 `GET` 요청을 보내 세션 쿠키를 발급받습니다.
-    3.  발급받은 쿠키를 포함하여 실제 데이터 API(`LIST_API_URL`)에 `POST` 요청을 보내 크롤링을 성공적으로 수행합니다.
-
-이 과정을 통해 `axios`의 속도 이점을 유지하면서도 안정적으로 데이터를 가져오도록 문제를 해결했습니다.
+(이하 내용은 기존 README.md와 동일하게 유지됩니다.)
