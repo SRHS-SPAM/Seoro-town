@@ -1,6 +1,7 @@
 import express from 'express';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
+import https from 'https';
 
 const router = express.Router();
 
@@ -34,7 +35,10 @@ const getKSTDate = () => {
 
 router.get('/', async (req, res) => {
     try {
-        const response = await axios.get(MEAL_URL);
+        const agent = new https.Agent({
+            rejectUnauthorized: false
+        });
+        const response = await axios.get(MEAL_URL, { httpsAgent: agent });
         const html = response.data;
         const $ = cheerio.load(html);
 
