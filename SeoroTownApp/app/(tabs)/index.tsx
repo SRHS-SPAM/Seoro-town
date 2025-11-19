@@ -14,6 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Palette } from '@/constants/theme';
 import { useAuth } from '@/contexts/AuthContext';
 import { apiFetch } from '@/lib/api';
+import { useFocusEffect, useRouter } from 'expo-router';
 
 type BoardCategory = '전체' | '재학생' | '졸업생' | '중고장터' | '가정통신문';
 
@@ -74,6 +75,7 @@ const categoryFilters: BoardCategory[] = ['전체', '재학생', '졸업생', '�
 
 export default function BoardHomeScreen() {
   const { user } = useAuth();
+  const router = useRouter();
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
   const [postsError, setPostsError] = useState<string | null>(null);
@@ -208,6 +210,14 @@ export default function BoardHomeScreen() {
   const isActiveMarket = activeCategory === '중고장터';
   const isActiveCom = activeCategory === '가정통신문';
 
+  useFocusEffect(
+    useCallback(() => {
+      if (!isActiveMarket && !isActiveCom && posts.length > 0) {
+        fetchPosts(true);
+      }
+    }, [isActiveMarket, isActiveCom, posts.length, fetchPosts])
+  );
+
   const filteredPosts = useMemo(() => {
     if (activeCategory === '전체') return posts;
     return posts.filter(post => post.category === activeCategory);
@@ -233,12 +243,18 @@ export default function BoardHomeScreen() {
     return pagedMarket.length < marketProducts.length;
   }, [isActiveMarket, marketProducts.length, pagedMarket.length]);
 
-  const renderPost = useCallback(({ item }: { item: Post }) => {
+  const renderPost = useCallback(
+    ({ item }: { item: Post }) => {
     const commentCount = item.comments?.length ?? 0;
     return (
       <TouchableOpacity
         style={styles.postCard}
-        onPress={() => Alert.alert('게시글 준비 중', '상세 페이지는 추후 제공될 예정입니다.')}>
+        onPress={() =>
+          router.push({
+            pathname: '/(stack)/board/[postId]',
+            params: { postId: item._id },
+          })
+        }>
         <View style={styles.postBadge}>
           <Text style={styles.postBadgeText}>{item.category ?? '재학생'}</Text>
         </View>
@@ -258,7 +274,9 @@ export default function BoardHomeScreen() {
         </View>
       </TouchableOpacity>
     );
-  }, []);
+    },
+    [router]
+  );
 
   const renderMarketProduct = useCallback(({ item }: { item: MarketProduct }) => {
     return (
@@ -339,6 +357,15 @@ export default function BoardHomeScreen() {
           </TouchableOpacity>
         ))}
       </View>
+
+      {!isActiveMarket && !isActiveCom && user && (
+        <TouchableOpacity
+          style={styles.writeButton}
+          onPress={() => router.push('/(stack)/board/write')}>
+          <Ionicons name="create-outline" size={20} color="#fff" />
+          <Text style={styles.writeButtonText}>새 글 작성</Text>
+        </TouchableOpacity>
+      )}
 
       {currentError && (
         <View style={styles.errorCard}>
@@ -734,5 +761,21 @@ const styles = StyleSheet.create({
   errorText: {
     color: '#fff',
     fontWeight: '600',
+  },
+  writeButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    backgroundColor: Palette.primary,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    borderRadius: 16,
+    marginBottom: 16,
+  },
+  writeButtonText: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 16,
   },
 });
