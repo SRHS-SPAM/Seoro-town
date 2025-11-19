@@ -19,18 +19,53 @@ const startServer = async () => {
         const __dirname = path.dirname(__filename);
 
         const app = express();
+
+        // 공통 허용 origin 목록 (기본값 + 환경변수)
+        const defaultOrigins = [
+            'http://localhost:3000',
+            'http://localhost:3001',
+            'https://seoro-town.onrender.com',
+        ];
+
+        const extraOrigins = (process.env.CORS_ORIGINS || '')
+            .split(',')
+            .map((o) => o.trim())
+            .filter((o) => o.length > 0);
+
+        const allowedOrigins = [...new Set([...defaultOrigins, ...extraOrigins])];
         const server = http.createServer(app);
+        const isOriginAllowed = (origin = '') => {
+            if (!origin) return true; // 모바일 네이티브(fetch) 등 Origin 헤더가 없는 요청 허용
+            if (allowedOrigins.includes(origin)) return true;
+            if (origin.startsWith('exp://')) return true; // Expo Go
+            return false;
+        };
+
         const io = new Server(server, {
             cors: {
-                origin: ["http://localhost:3000", "https://seoro-town.onrender.com"],
-                methods: ["GET", "POST"]
-            }
+                origin: (origin, callback) => {
+                    if (isOriginAllowed(origin)) {
+                        callback(null, origin);
+                    } else {
+                        callback(new Error('Socket.io CORS blocked'));
+                    }
+                },
+                methods: ['GET', 'POST'],
+            },
         });
 
-        app.use(cors({
-            origin: ['http://localhost:3000', 'http://localhost:3001', 'https://seoro-town.onrender.com'],
-            credentials: true
-        }));
+        app.use(
+            cors({
+                origin: (origin, callback) => {
+                    if (isOriginAllowed(origin)) {
+                        callback(null, origin);
+                    } else {
+                        callback(new Error('HTTP CORS blocked'));
+                    }
+                },
+                credentials: true,
+            })
+        );
         app.use(express.json());
 
         // 상세 로깅 미들웨어

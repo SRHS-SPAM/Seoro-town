@@ -4,3 +4,12 @@
 
 #HttpOnly_srobot.sen.hs.kr	FALSE	/	FALSE	0	JSESSIONID	5F0SCRdfH96VmpsmO9mMwk7F28yt1u6wkbtbpQA5zD9GrC1MlljA1QoKFgWYMO1B.hostingwas2_servlet_engine4
 srobot.sen.hs.kr	FALSE	/	FALSE	1788463241	WMONID	Z8I6hr1tKB6
+
+
+
+
+ WARN  Route "./modal.tsx" is missing the required default export. Ensure a React component is exported as default.
+ WARN  SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/th3rdwave/react-native-safe-area-context
+ ERROR  [Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: number.
+
+Check the render method of `LoginScreen(./index.tsx)`.]
