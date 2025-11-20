@@ -23,6 +23,7 @@ interface Comment {
   _id: string;
   content: string;
   authorName: string;
+  authorId?: string;
   createdAt?: string;
 }
 
@@ -32,6 +33,7 @@ interface PostDetail {
   content: string;
   category?: string;
   author?: string;
+  userId?: string;
   createdAt?: string;
   comments?: Comment[];
 }
@@ -53,6 +55,7 @@ export default function BoardDetailScreen() {
   const [error, setError] = useState<string | null>(null);
   const [commentText, setCommentText] = useState('');
   const [isSubmittingComment, setIsSubmittingComment] = useState(false);
+  const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
 
   const fetchPostDetail = useCallback(
     async (refresh = false) => {
@@ -99,28 +102,134 @@ export default function BoardDetailScreen() {
 
     setIsSubmittingComment(true);
     try {
-      const { data } = await apiFetch<{ success: boolean; message?: string; comment?: Comment }>(
-        `/api/posts/${postId}/comments`,
-        {
-          method: 'POST',
-          token,
-          body: { content: commentText.trim() },
-        }
-      );
+      if (editingCommentId) {
+        // 댓글 수정
+        const { data } = await apiFetch<{ success: boolean; message?: string; comment?: Comment }>(
+          `/api/posts/${postId}/comments/${editingCommentId}`,
+          {
+            method: 'PUT',
+            token,
+            body: { content: commentText.trim() },
+          }
+        );
 
-      if (!data.success) {
-        throw new Error(data.message ?? '댓글 작성에 실패했습니다.');
+        if (!data.success) {
+          throw new Error(data.message ?? '댓글 수정에 실패했습니다.');
+        }
+
+        setEditingCommentId(null);
+      } else {
+        // 댓글 작성
+        const { data } = await apiFetch<{ success: boolean; message?: string; comment?: Comment }>(
+          `/api/posts/${postId}/comments`,
+          {
+            method: 'POST',
+            token,
+            body: { content: commentText.trim() },
+          }
+        );
+
+        if (!data.success) {
+          throw new Error(data.message ?? '댓글 작성에 실패했습니다.');
+        }
       }
 
       setCommentText('');
       await fetchPostDetail(true);
     } catch (err) {
       const apiMessage = (err as any)?.data?.message ?? (err as Error).message;
-      Alert.alert('작성 실패', apiMessage ?? '댓글 작성 중 오류가 발생했습니다.');
+      Alert.alert(editingCommentId ? '수정 실패' : '작성 실패', apiMessage ?? '오류가 발생했습니다.');
     } finally {
       setIsSubmittingComment(false);
     }
-  }, [commentText, token, postId, fetchPostDetail, router]);
+  }, [commentText, token, postId, fetchPostDetail, router, editingCommentId]);
+
+  const handleEditComment = useCallback((comment: Comment) => {
+    setEditingCommentId(comment._id);
+    setCommentText(comment.content);
+  }, []);
+
+  const handleDeleteComment = useCallback(
+    async (commentId: string) => {
+      if (!token) {
+        Alert.alert('인증 오류', '로그인이 필요합니다.');
+        return;
+      }
+
+      Alert.alert('댓글 삭제', '정말 이 댓글을 삭제하시겠어요?', [
+        { text: '취소', style: 'cancel' },
+        {
+          text: '삭제',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              const { data } = await apiFetch<{ success: boolean; message?: string }>(
+                `/api/posts/${postId}/comments/${commentId}`,
+                {
+                  method: 'DELETE',
+                  token,
+                }
+              );
+
+              if (!data.success) {
+                throw new Error(data.message ?? '댓글 삭제에 실패했습니다.');
+              }
+
+              await fetchPostDetail(true);
+            } catch (err) {
+              const apiMessage = (err as any)?.data?.message ?? (err as Error).message;
+              Alert.alert('삭제 실패', apiMessage ?? '댓글 삭제 중 오류가 발생했습니다.');
+            }
+          },
+        },
+      ]);
+    },
+    [token, postId, fetchPostDetail]
+  );
+
+  const handleEditPost = useCallback(() => {
+    router.push(`/(stack)/board/write?postId=${postId}`);
+  }, [router, postId]);
+
+  const handleDeletePost = useCallback(async () => {
+    if (!token) {
+      Alert.alert('인증 오류', '로그인이 필요합니다.');
+      return;
+    }
+
+    Alert.alert('게시글 삭제', '정말 이 게시글을 삭제하시겠어요?', [
+      { text: '취소', style: 'cancel' },
+      {
+        text: '삭제',
+        style: 'destructive',
+        onPress: async () => {
+          try {
+            const { data } = await apiFetch<{ success: boolean; message?: string }>(
+              `/api/posts/${postId}`,
+              {
+                method: 'DELETE',
+                token,
+              }
+            );
+
+            if (!data.success) {
+              throw new Error(data.message ?? '게시글 삭제에 실패했습니다.');
+            }
+
+            Alert.alert('삭제 완료', '게시글이 삭제되었습니다.', [
+              {
+                text: '확인',
+                onPress: () => router.back(),
+              },
+            ]);
+          } catch (err) {
+            const apiMessage = (err as any)?.data?.message ?? (err as Error).message;
+            Alert.alert('삭제 실패', apiMessage ?? '게시글 삭제 중 오류가 발생했습니다.');
+          }
+        },
+      },
+    ]);
+  }, [token, postId, router]);
 
   if (isLoading && !post) {
     return (
@@ -177,6 +286,16 @@ export default function BoardDetailScreen() {
               <Ionicons name="chevron-back" size={22} color={Palette.secondary} />
             </TouchableOpacity>
             <Text style={styles.categoryBadge}>{post.category ?? '게시판'}</Text>
+            {user && post.author === user.username && (
+              <View style={styles.actionButtons}>
+                <TouchableOpacity style={styles.actionButton} onPress={handleEditPost}>
+                  <Ionicons name="create-outline" size={18} color={Palette.secondary} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.actionButton} onPress={handleDeletePost}>
+                  <Ionicons name="trash-outline" size={18} color={Palette.primary} />
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
 
           <Text style={styles.title}>{post.title}</Text>
@@ -202,7 +321,23 @@ export default function BoardDetailScreen() {
               <View key={comment._id} style={styles.commentCard}>
                 <View style={styles.commentTop}>
                   <Text style={styles.commentAuthor}>{comment.authorName}</Text>
-                  <Text style={styles.commentDate}>{formatRelativeTime(comment.createdAt)}</Text>
+                  <View style={styles.commentRight}>
+                    <Text style={styles.commentDate}>{formatRelativeTime(comment.createdAt)}</Text>
+                    {user && comment.authorName === user.username && (
+                      <View style={styles.commentActions}>
+                        <TouchableOpacity
+                          style={styles.commentActionButton}
+                          onPress={() => handleEditComment(comment)}>
+                          <Ionicons name="create-outline" size={14} color={Palette.muted} />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={styles.commentActionButton}
+                          onPress={() => handleDeleteComment(comment._id)}>
+                          <Ionicons name="trash-outline" size={14} color={Palette.primary} />
+                        </TouchableOpacity>
+                      </View>
+                    )}
+                  </View>
                 </View>
                 <Text style={styles.commentContent}>{comment.content}</Text>
               </View>
@@ -212,9 +347,19 @@ export default function BoardDetailScreen() {
 
         {user && (
           <View style={styles.commentInputContainer}>
+            {editingCommentId && (
+              <TouchableOpacity
+                style={styles.cancelButton}
+                onPress={() => {
+                  setEditingCommentId(null);
+                  setCommentText('');
+                }}>
+                <Ionicons name="close" size={18} color={Palette.muted} />
+              </TouchableOpacity>
+            )}
             <TextInput
               style={styles.commentInput}
-              placeholder="댓글을 입력하세요..."
+              placeholder={editingCommentId ? '댓글을 수정하세요...' : '댓글을 입력하세요...'}
               placeholderTextColor={Palette.muted}
               value={commentText}
               onChangeText={setCommentText}
@@ -303,7 +448,22 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     marginBottom: 16,
+  },
+  actionButtons: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  actionButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 8,
+    backgroundColor: Palette.surface,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Palette.border,
   },
   backButton: {
     width: 38,
@@ -384,7 +544,20 @@ const styles = StyleSheet.create({
   commentTop: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 6,
+  },
+  commentRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  commentActions: {
+    flexDirection: 'row',
+    gap: 6,
+  },
+  commentActionButton: {
+    padding: 4,
   },
   commentAuthor: {
     fontWeight: '700',
@@ -407,6 +580,14 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: Palette.border,
     gap: 10,
+  },
+  cancelButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: Palette.background,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   commentInput: {
     flex: 1,

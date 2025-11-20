@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Palette } from '@/constants/theme';
 import { apiFetch } from '@/lib/api';
@@ -21,14 +21,75 @@ import { useAuth } from '@/contexts/AuthContext';
 const CATEGORIES = ['재학생', '졸업생'] as const;
 type Category = (typeof CATEGORIES)[number];
 
+const MARKET_CATEGORIES = ['교과서', '문제집', '의류', '쿠폰', '기계부품', '전자기기', '공구', '기타'] as const;
+type MarketCategory = (typeof MARKET_CATEGORIES)[number];
+
 export default function BoardWriteScreen() {
   const router = useRouter();
+  const { type, postId, productId } = useLocalSearchParams<{
+    type?: string;
+    postId?: string;
+    productId?: string;
+  }>();
   const { token, user } = useAuth();
+
+  const isMarket = type === 'market';
+  const isEdit = !!(postId || productId);
+  const editId = isMarket ? productId : postId;
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [category, setCategory] = useState<Category>('재학생');
+  const [price, setPrice] = useState('');
+  const [category, setCategory] = useState<Category | MarketCategory>(
+    isMarket ? '교과서' : '재학생'
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoadingPost, setIsLoadingPost] = useState(isEdit);
+
+  useEffect(() => {
+    if (isEdit && editId) {
+      const fetchData = async () => {
+        try {
+          setIsLoadingPost(true);
+          if (isMarket) {
+            const { data } = await apiFetch<{ success: boolean; product?: any }>(
+              `/api/market/${editId}`,
+              {
+                token: token ?? undefined,
+              }
+            );
+
+            if (data.success && data.product) {
+              setTitle(data.product.title ?? '');
+              setContent(data.product.content ?? '');
+              setPrice(String(data.product.price ?? ''));
+              setCategory((data.product.category as MarketCategory) || '교과서');
+            }
+          } else {
+            const { data } = await apiFetch<{ success: boolean; post?: any }>(
+              `/api/posts/${editId}`,
+              {
+                token: token ?? undefined,
+              }
+            );
+
+            if (data.success && data.post) {
+              setTitle(data.post.title ?? '');
+              setContent(data.post.content ?? '');
+              setCategory((data.post.category as Category | MarketCategory) || '재학생');
+            }
+          }
+        } catch (error) {
+          Alert.alert('오류', `${isMarket ? '상품' : '게시글'}을 불러오는데 실패했습니다.`);
+          router.back();
+        } finally {
+          setIsLoadingPost(false);
+        }
+      };
+
+      fetchData();
+    }
+  }, [isEdit, editId, isMarket, token, router]);
 
   const handleSubmit = async () => {
     if (!title.trim()) {
@@ -37,6 +98,14 @@ export default function BoardWriteScreen() {
     }
     if (!content.trim()) {
       Alert.alert('입력 오류', '내용을 입력해주세요.');
+      return;
+    }
+    if (isMarket && !price.trim()) {
+      Alert.alert('입력 오류', '가격을 입력해주세요.');
+      return;
+    }
+    if (isMarket && isNaN(Number(price.trim()))) {
+      Alert.alert('입력 오류', '가격은 숫자로 입력해주세요.');
       return;
     }
 
@@ -48,29 +117,116 @@ export default function BoardWriteScreen() {
 
     setIsSubmitting(true);
     try {
-      const { data } = await apiFetch<{ success: boolean; message?: string }>('/api/posts', {
-        method: 'POST',
-        token,
-        body: { title: title.trim(), content: content.trim(), category },
-      });
+      if (isMarket) {
+        if (isEdit && editId) {
+          // 중고장터 상품 수정
+          const { data } = await apiFetch<{ success: boolean; message?: string }>(
+            `/api/market/${editId}`,
+            {
+              method: 'PUT',
+              token,
+              body: {
+                title: title.trim(),
+                content: content.trim(),
+                category,
+                price: Number(price.trim()),
+              },
+            }
+          );
 
-      if (!data.success) {
-        throw new Error(data.message ?? '게시글 작성에 실패했습니다.');
+          if (!data.success) {
+            throw new Error(data.message ?? '상품 수정에 실패했습니다.');
+          }
+
+          Alert.alert('수정 완료', '상품이 성공적으로 수정되었습니다.', [
+            {
+              text: '확인',
+              onPress: () => router.back(),
+            },
+          ]);
+        } else {
+          const { data } = await apiFetch<{ success: boolean; message?: string }>('/api/market', {
+            method: 'POST',
+            token,
+            body: {
+              title: title.trim(),
+              content: content.trim(),
+              category,
+              price: Number(price.trim()),
+            },
+          });
+
+          if (!data.success) {
+            throw new Error(data.message ?? '상품 등록에 실패했습니다.');
+          }
+
+          Alert.alert('등록 완료', '상품이 성공적으로 등록되었습니다.', [
+            {
+              text: '확인',
+              onPress: () => router.back(),
+            },
+          ]);
+        }
+      } else {
+        if (isEdit && postId) {
+          // 게시글 수정 (카테고리는 수정 불가)
+          const { data } = await apiFetch<{ success: boolean; message?: string }>(
+            `/api/posts/${postId}`,
+            {
+              method: 'PUT',
+              token,
+              body: { title: title.trim(), content: content.trim() },
+            }
+          );
+
+          if (!data.success) {
+            throw new Error(data.message ?? '게시글 수정에 실패했습니다.');
+          }
+
+          Alert.alert('수정 완료', '게시글이 성공적으로 수정되었습니다.', [
+            {
+              text: '확인',
+              onPress: () => router.back(),
+            },
+          ]);
+        } else {
+          // 게시글 작성
+          const { data } = await apiFetch<{ success: boolean; message?: string }>('/api/posts', {
+            method: 'POST',
+            token,
+            body: { title: title.trim(), content: content.trim(), category },
+          });
+
+          if (!data.success) {
+            throw new Error(data.message ?? '게시글 작성에 실패했습니다.');
+          }
+
+          Alert.alert('작성 완료', '게시글이 성공적으로 작성되었습니다.', [
+            {
+              text: '확인',
+              onPress: () => router.back(),
+            },
+          ]);
+        }
       }
-
-      Alert.alert('작성 완료', '게시글이 성공적으로 작성되었습니다.', [
-        {
-          text: '확인',
-          onPress: () => router.back(),
-        },
-      ]);
     } catch (error) {
       const apiMessage = (error as any)?.data?.message ?? (error as Error).message;
-      Alert.alert('작성 실패', apiMessage ?? '게시글 작성 중 오류가 발생했습니다.');
+      Alert.alert('작성 실패', apiMessage ?? '작성 중 오류가 발생했습니다.');
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  if (isLoadingPost) {
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color={Palette.primary} />
+          <Text style={styles.loadingText}>게시글을 불러오는 중...</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -82,7 +238,9 @@ export default function BoardWriteScreen() {
           <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
             <Ionicons name="close" size={24} color={Palette.secondary} />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>새 글 작성</Text>
+          <Text style={styles.headerTitle}>
+            {isEdit ? (isMarket ? '상품 수정' : '게시글 수정') : isMarket ? '상품 등록' : '새 글 작성'}
+          </Text>
           <TouchableOpacity
             style={[styles.submitButton, isSubmitting && styles.submitButtonDisabled]}
             onPress={handleSubmit}
@@ -96,36 +254,74 @@ export default function BoardWriteScreen() {
         </View>
 
         <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
-          <View style={styles.categorySection}>
-            <Text style={styles.label}>카테고리</Text>
-            <View style={styles.categoryRow}>
-              {CATEGORIES.map(cat => (
-                <TouchableOpacity
-                  key={cat}
-                  style={[styles.categoryChip, category === cat && styles.categoryChipActive]}
-                  onPress={() => setCategory(cat)}>
-                  <Text
-                    style={[
-                      styles.categoryChipText,
-                      category === cat && styles.categoryChipTextActive,
-                    ]}>
-                    {cat}
-                  </Text>
-                </TouchableOpacity>
-              ))}
+          {!(isEdit && !isMarket) && (
+            <View style={styles.categorySection}>
+              <Text style={styles.label}>카테고리</Text>
+              {isMarket ? (
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={styles.categoryRow}>
+                  {MARKET_CATEGORIES.map(cat => (
+                    <TouchableOpacity
+                      key={cat}
+                      style={[styles.categoryChip, category === cat && styles.categoryChipActive]}
+                      onPress={() => setCategory(cat as MarketCategory)}>
+                      <Text
+                        style={[
+                          styles.categoryChipText,
+                          category === cat && styles.categoryChipTextActive,
+                        ]}>
+                        {cat}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
+              ) : (
+                <View style={styles.categoryRow}>
+                  {CATEGORIES.map(cat => (
+                    <TouchableOpacity
+                      key={cat}
+                      style={[styles.categoryChip, category === cat && styles.categoryChipActive]}
+                      onPress={() => setCategory(cat as Category)}>
+                      <Text
+                        style={[
+                          styles.categoryChipText,
+                          category === cat && styles.categoryChipTextActive,
+                        ]}>
+                        {cat}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              )}
             </View>
-          </View>
+          )}
 
           <View style={styles.inputSection}>
             <TextInput
               style={styles.titleInput}
-              placeholder="제목을 입력하세요"
+              placeholder={isMarket ? '상품명을 입력하세요' : '제목을 입력하세요'}
               placeholderTextColor={Palette.muted}
               value={title}
               onChangeText={setTitle}
               maxLength={100}
             />
           </View>
+
+          {isMarket && (
+            <View style={styles.inputSection}>
+              <TextInput
+                style={styles.priceInput}
+                placeholder="가격을 입력하세요 (원)"
+                placeholderTextColor={Palette.muted}
+                value={price}
+                onChangeText={setPrice}
+                keyboardType="numeric"
+                maxLength={10}
+              />
+            </View>
+          )}
 
           <View style={styles.inputSection}>
             <TextInput
@@ -237,11 +433,29 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: Palette.border,
   },
+  priceInput: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: Palette.secondary,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: Palette.border,
+  },
   contentInput: {
     fontSize: 16,
     color: Palette.secondary,
     minHeight: 300,
     padding: 0,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Palette.background,
+  },
+  loadingText: {
+    marginTop: 12,
+    color: Palette.muted,
   },
 });
 

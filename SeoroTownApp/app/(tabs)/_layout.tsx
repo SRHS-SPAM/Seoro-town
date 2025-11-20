@@ -36,7 +36,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="market"
         options={{
-          title: '장터',
+          title: '서로당근',
           tabBarIcon: ({ color }) => <Ionicons name="pricetags-outline" size={24} color={color} />,
         }}
       />

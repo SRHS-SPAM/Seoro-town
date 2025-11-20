@@ -16,7 +16,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { apiFetch } from '@/lib/api';
 import { useFocusEffect, useRouter } from 'expo-router';
 
-type BoardCategory = '전체' | '재학생' | '졸업생' | '중고장터' | '가정통신문';
+type BoardCategory = '전체' | '재학생' | '졸업생' | '가정통신문';
 
 interface Post {
   _id: string;
@@ -71,7 +71,7 @@ const POSTS_PAGE_SIZE = 10;
 const MARKET_PAGE_SIZE = 10;
 const COM_PAGE_SIZE = 10;
 
-const categoryFilters: BoardCategory[] = ['전체', '재학생', '졸업생', '중고장터', '가정통신문'];
+const categoryFilters: BoardCategory[] = ['전체', '재학생', '졸업생', '가정통신문'];
 
 export default function BoardHomeScreen() {
   const { user } = useAuth();
@@ -184,20 +184,8 @@ export default function BoardHomeScreen() {
   }, [fetchPosts]);
 
   useEffect(() => {
-    if (activeCategory !== '중고장터' && activeCategory !== '가정통신문') {
+    if (activeCategory !== '가정통신문') {
       setPostPage(1);
-    }
-  }, [activeCategory]);
-
-  useEffect(() => {
-    if (activeCategory === '중고장터' && !hasLoadedMarket && !isLoadingMarket) {
-      fetchMarket();
-    }
-  }, [activeCategory, fetchMarket, hasLoadedMarket, isLoadingMarket]);
-
-  useEffect(() => {
-    if (activeCategory === '중고장터') {
-      setMarketPage(1);
     }
   }, [activeCategory]);
 
@@ -207,7 +195,7 @@ export default function BoardHomeScreen() {
     }
   }, [activeCategory, fetchCom, hasLoadedCom, isLoadingCom]);
 
-  const isActiveMarket = activeCategory === '중고장터';
+  const isActiveMarket = false; // 중고장터는 별도 탭에서 관리
   const isActiveCom = activeCategory === '가정통신문';
 
   useFocusEffect(
@@ -333,11 +321,10 @@ export default function BoardHomeScreen() {
           <Text style={styles.heroTitle}>
             {user ? `${user.username}님, 환영합니다!` : '커뮤니티에 로그인해 보세요'}
           </Text>
-          <Text style={styles.heroSubtitle}>실제 게시글이 실시간으로 업데이트됩니다.</Text>
+          <Text style={styles.heroSubtitle}>게시글이 실시간으로 업데이트됩니다.</Text>
         </View>
         <View style={styles.heroBadge}>
-          <Ionicons name="school-outline" size={42} color="#fff" />
-          <Text style={styles.heroBadgeText}>SEORO</Text>
+          <Ionicons name="school-outline" size={58} color="#fff" />
         </View>
       </View>
 
@@ -357,15 +344,6 @@ export default function BoardHomeScreen() {
           </TouchableOpacity>
         ))}
       </View>
-
-      {!isActiveMarket && !isActiveCom && user && (
-        <TouchableOpacity
-          style={styles.writeButton}
-          onPress={() => router.push('/(stack)/board/write')}>
-          <Ionicons name="create-outline" size={20} color="#fff" />
-          <Text style={styles.writeButtonText}>새 글 작성</Text>
-        </TouchableOpacity>
-      )}
 
       {currentError && (
         <View style={styles.errorCard}>
@@ -465,6 +443,17 @@ export default function BoardHomeScreen() {
           }
         />
       )}
+
+      {user && !isActiveCom && (
+        <View style={styles.fabContainer}>
+          <TouchableOpacity
+            style={styles.fab}
+            onPress={() => router.push('/(stack)/board/write?type=post')}>
+            <Ionicons name="create-outline" size={20} color="#fff" />
+            <Text style={styles.fabText}>새 글 작성</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
@@ -557,7 +546,7 @@ const styles = StyleSheet.create({
   heroBadge: {
     backgroundColor: Palette.primary,
     width: 90,
-    height: 110,
+    height: 90,
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
@@ -762,18 +751,29 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '600',
   },
-  writeButton: {
+  fabContainer: {
+    position: 'absolute',
+    bottom: 10,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
+  fab: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
-    backgroundColor: Palette.primary,
-    paddingVertical: 14,
+    gap: 6,
     paddingHorizontal: 20,
-    borderRadius: 16,
-    marginBottom: 16,
+    paddingVertical: 12,
+    borderRadius: 24,
+    backgroundColor: Palette.primary,
+    shadowColor: Palette.shadow,
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 8,
   },
-  writeButtonText: {
+  fabText: {
     color: '#fff',
     fontWeight: '700',
     fontSize: 16,
