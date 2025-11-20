@@ -14,6 +14,8 @@ export default function StackLayout() {
       <Stack.Screen name="board/[postId]" options={{ title: '게시글 상세' }} />
       <Stack.Screen name="board/write" options={{ title: '글 작성' }} />
       <Stack.Screen name="market/[productId]" options={{ title: '상품 상세' }} />
+      <Stack.Screen name="mypage/posts" options={{ title: '내가 쓴 글' }} />
+      <Stack.Screen name="mypage/comments" options={{ title: '내가 쓴 댓글' }} />
     </Stack>
   );
 }

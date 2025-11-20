@@ -1,20 +1,67 @@
-import React from 'react';
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { Palette } from '@/constants/theme';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'expo-router';
+import { apiFetch } from '@/lib/api';
 
-const shortcuts = [
-  { id: 'profile', label: '프로필 수정', icon: 'person-outline' },
-  { id: 'schedule', label: '시간표 관리', icon: 'calendar-outline' },
-  { id: 'follows', label: '팔로우 목록', icon: 'people-outline' },
-];
+interface UserStats {
+  postCount?: number;
+  followerCount?: number;
+  followingCount?: number;
+  commentCount?: number;
+}
 
 export default function MyPageScreen() {
-  const { user, logout } = useAuth();
+  const { user, logout, token } = useAuth();
   const router = useRouter();
+  const [stats, setStats] = useState<UserStats>({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (user && token) {
+      fetchUserStats();
+    } else {
+      setIsLoading(false);
+    }
+  }, [user, token]);
+
+  const fetchUserStats = useCallback(async () => {
+    if (!token || !user?._id) return;
+    try {
+      setIsLoading(true);
+      const [profileRes, commentsRes] = await Promise.all([
+        apiFetch<{ success: boolean; user?: any }>('/api/users/me', { token }),
+        apiFetch<{ success: boolean; comments?: any[] }>(`/api/users/${user._id}/comments`, {
+          token,
+        }),
+      ]);
+
+      if (profileRes.data.success && profileRes.data.user) {
+        const commentCount = commentsRes.data.success ? commentsRes.data.comments?.length || 0 : 0;
+        setStats({
+          postCount: profileRes.data.user.postCount || 0,
+          followerCount: profileRes.data.user.followerCount || 0,
+          followingCount: profileRes.data.user.followingCount || 0,
+          commentCount,
+        });
+      }
+    } catch (error) {
+      console.error('사용자 통계 로드 오류:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [token, user?._id]);
 
   const handleLogout = async () => {
     Alert.alert('로그아웃', '정말 로그아웃하시겠어요?', [
@@ -51,31 +98,55 @@ export default function MyPageScreen() {
         </View>
 
         <View style={styles.statsRow}>
-          <View style={styles.statCard}>
-            <Text style={styles.statValue}>{user ? '12' : '-'}</Text>
+          <TouchableOpacity
+            style={styles.statCard}
+            onPress={() => user && router.push(`/(stack)/mypage/posts?userId=${user._id}`)}>
+            <Text style={styles.statValue}>
+              {isLoading ? '-' : stats.postCount?.toLocaleString() || 0}
+            </Text>
             <Text style={styles.statLabel}>게시글</Text>
-          </View>
-          <View style={styles.statCard}>
-            <Text style={styles.statValue}>{user ? '34' : '-'}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.statCard}
+            onPress={() => Alert.alert('준비 중', '팔로워 목록은 추후 제공될 예정입니다.')}>
+            <Text style={styles.statValue}>
+              {isLoading ? '-' : stats.followerCount?.toLocaleString() || 0}
+            </Text>
             <Text style={styles.statLabel}>팔로워</Text>
-          </View>
-          <View style={styles.statCard}>
-            <Text style={styles.statValue}>{user ? '18' : '-'}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.statCard}
+            onPress={() => Alert.alert('준비 중', '팔로잉 목록은 추후 제공될 예정입니다.')}>
+            <Text style={styles.statValue}>
+              {isLoading ? '-' : stats.followingCount?.toLocaleString() || 0}
+            </Text>
             <Text style={styles.statLabel}>팔로잉</Text>
-          </View>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>빠른 액션</Text>
-          {shortcuts.map(item => (
-            <TouchableOpacity key={item.id} style={styles.shortcutCard}>
-              <View style={styles.shortcutIcon}>
-                <Ionicons name={item.icon as any} size={20} color={Palette.primary} />
-              </View>
-              <Text style={styles.shortcutLabel}>{item.label}</Text>
-              <Ionicons name="chevron-forward" size={20} color={Palette.muted} />
-            </TouchableOpacity>
-          ))}
+          <Text style={styles.sectionTitle}>내 활동</Text>
+          <TouchableOpacity
+            style={styles.shortcutCard}
+            onPress={() => user && router.push(`/(stack)/mypage/posts?userId=${user._id}`)}>
+            <View style={styles.shortcutIcon}>
+              <Ionicons name="document-text-outline" size={20} color={Palette.primary} />
+            </View>
+            <Text style={styles.shortcutLabel}>내가 쓴 글</Text>
+            <Ionicons name="chevron-forward" size={20} color={Palette.muted} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.shortcutCard}
+            onPress={() => user && router.push(`/(stack)/mypage/comments?userId=${user._id}`)}>
+            <View style={styles.shortcutIcon}>
+              <Ionicons name="chatbubble-outline" size={20} color={Palette.primary} />
+            </View>
+            <Text style={styles.shortcutLabel}>내가 쓴 댓글</Text>
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>{stats.commentCount || 0}</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={20} color={Palette.muted} />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.alertCard}>
@@ -167,6 +238,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: Palette.border,
+  },
+  badge: {
+    backgroundColor: Palette.primary,
+    borderRadius: 10,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    minWidth: 24,
+    alignItems: 'center',
+    marginRight: 8,
+  },
+  badgeText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: '700',
   },
   statValue: {
     fontSize: 20,
