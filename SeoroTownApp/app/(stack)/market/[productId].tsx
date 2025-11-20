@@ -210,7 +210,11 @@ export default function MarketDetailScreen() {
         {product.imageUrl && (
           <View style={styles.imageContainer}>
             <Image
-              source={{ uri: `${config.apiBaseUrl}/${product.imageUrl}` }}
+              source={{
+                uri: product.imageUrl.startsWith('http')
+                  ? product.imageUrl
+                  : `${config.apiBaseUrl}/${product.imageUrl}`,
+              }}
               style={styles.productImage}
               resizeMode="cover"
             />

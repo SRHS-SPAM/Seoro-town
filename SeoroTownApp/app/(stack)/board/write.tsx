@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Image,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
@@ -13,10 +14,12 @@ import {
   View,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import * as ImagePicker from 'expo-image-picker';
 import { Ionicons } from '@expo/vector-icons';
 import { Palette } from '@/constants/theme';
-import { apiFetch } from '@/lib/api';
+import { apiFetch, apiUploadImage, apiUpdateWithImage } from '@/lib/api';
 import { useAuth } from '@/contexts/AuthContext';
+import { config } from '@/constants/config';
 
 const CATEGORIES = ['재학생', '졸업생'] as const;
 type Category = (typeof CATEGORIES)[number];
@@ -43,6 +46,7 @@ export default function BoardWriteScreen() {
   const [category, setCategory] = useState<Category | MarketCategory>(
     isMarket ? '교과서' : '재학생'
   );
+  const [imageUri, setImageUri] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoadingPost, setIsLoadingPost] = useState(isEdit);
 
@@ -64,6 +68,9 @@ export default function BoardWriteScreen() {
               setContent(data.product.content ?? '');
               setPrice(String(data.product.price ?? ''));
               setCategory((data.product.category as MarketCategory) || '교과서');
+              if (data.product.imageUrl) {
+                setImageUri(`${config.apiBaseUrl}/${data.product.imageUrl}`);
+              }
             }
           } else {
             const { data } = await apiFetch<{ success: boolean; post?: any }>(
@@ -90,6 +97,29 @@ export default function BoardWriteScreen() {
       fetchData();
     }
   }, [isEdit, editId, isMarket, token, router]);
+
+  const pickImage = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert('권한 필요', '이미지를 선택하려면 사진 라이브러리 접근 권한이 필요합니다.');
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 0.8,
+    });
+
+    if (!result.canceled && result.assets[0]) {
+      setImageUri(result.assets[0].uri);
+    }
+  };
+
+  const removeImage = () => {
+    setImageUri(null);
+  };
 
   const handleSubmit = async () => {
     if (!title.trim()) {
@@ -119,19 +149,17 @@ export default function BoardWriteScreen() {
     try {
       if (isMarket) {
         if (isEdit && editId) {
-          // 중고장터 상품 수정
-          const { data } = await apiFetch<{ success: boolean; message?: string }>(
+          // 중고장터 상품 수정 (이미지 포함)
+          const { data } = await apiUpdateWithImage<{ success: boolean; message?: string }>(
             `/api/market/${editId}`,
+            imageUri,
             {
-              method: 'PUT',
-              token,
-              body: {
-                title: title.trim(),
-                content: content.trim(),
-                category,
-                price: Number(price.trim()),
-              },
-            }
+              title: title.trim(),
+              content: content.trim(),
+              category,
+              price: price.trim(),
+            },
+            token
           );
 
           if (!data.success) {
@@ -145,19 +173,39 @@ export default function BoardWriteScreen() {
             },
           ]);
         } else {
-          const { data } = await apiFetch<{ success: boolean; message?: string }>('/api/market', {
-            method: 'POST',
-            token,
-            body: {
-              title: title.trim(),
-              content: content.trim(),
-              category,
-              price: Number(price.trim()),
-            },
-          });
+          // 중고장터 상품 등록 (이미지 포함)
+          if (imageUri) {
+            const { data } = await apiUploadImage<{ success: boolean; message?: string }>(
+              '/api/market',
+              imageUri,
+              {
+                title: title.trim(),
+                content: content.trim(),
+                category,
+                price: price.trim(),
+              },
+              token
+            );
 
-          if (!data.success) {
-            throw new Error(data.message ?? '상품 등록에 실패했습니다.');
+            if (!data.success) {
+              throw new Error(data.message ?? '상품 등록에 실패했습니다.');
+            }
+          } else {
+            // 이미지 없이 등록 (기존 방식)
+            const { data } = await apiFetch<{ success: boolean; message?: string }>('/api/market', {
+              method: 'POST',
+              token,
+              body: {
+                title: title.trim(),
+                content: content.trim(),
+                category,
+                price: Number(price.trim()),
+              },
+            });
+
+            if (!data.success) {
+              throw new Error(data.message ?? '상품 등록에 실패했습니다.');
+            }
           }
 
           Alert.alert('등록 완료', '상품이 성공적으로 등록되었습니다.', [
@@ -310,17 +358,36 @@ export default function BoardWriteScreen() {
           </View>
 
           {isMarket && (
-            <View style={styles.inputSection}>
-              <TextInput
-                style={styles.priceInput}
-                placeholder="가격을 입력하세요 (원)"
-                placeholderTextColor={Palette.muted}
-                value={price}
-                onChangeText={setPrice}
-                keyboardType="numeric"
-                maxLength={10}
-              />
-            </View>
+            <>
+              <View style={styles.inputSection}>
+                <TextInput
+                  style={styles.priceInput}
+                  placeholder="가격을 입력하세요 (원)"
+                  placeholderTextColor={Palette.muted}
+                  value={price}
+                  onChangeText={setPrice}
+                  keyboardType="numeric"
+                  maxLength={10}
+                />
+              </View>
+
+              <View style={styles.inputSection}>
+                <Text style={styles.label}>이미지</Text>
+                {imageUri ? (
+                  <View style={styles.imageContainer}>
+                    <Image source={{ uri: imageUri }} style={styles.previewImage} />
+                    <TouchableOpacity style={styles.removeImageButton} onPress={removeImage}>
+                      <Ionicons name="close-circle" size={24} color={Palette.primary} />
+                    </TouchableOpacity>
+                  </View>
+                ) : (
+                  <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
+                    <Ionicons name="camera-outline" size={24} color={Palette.primary} />
+                    <Text style={styles.imagePickerText}>이미지 선택</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+            </>
           )}
 
           <View style={styles.inputSection}>
@@ -440,6 +507,46 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderBottomWidth: 1,
     borderBottomColor: Palette.border,
+  },
+  imageContainer: {
+    position: 'relative',
+    marginTop: 12,
+    borderRadius: 16,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: Palette.border,
+  },
+  previewImage: {
+    width: '100%',
+    height: 200,
+    backgroundColor: Palette.background,
+  },
+  removeImageButton: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    backgroundColor: Palette.surface,
+    borderRadius: 12,
+    padding: 4,
+  },
+  imagePickerButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    marginTop: 12,
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: Palette.border,
+    borderStyle: 'dashed',
+    backgroundColor: Palette.surface,
+  },
+  imagePickerText: {
+    color: Palette.primary,
+    fontWeight: '600',
+    fontSize: 16,
   },
   contentInput: {
     fontSize: 16,
