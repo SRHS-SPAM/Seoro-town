@@ -1,2 +1,0 @@
-식단 정보 크롤링 오류: unable to verify the first certificate
-Meal.js:25  GET https://seoro-town-backend.onrender.com/api/meal 500 (Internal Server Error)
